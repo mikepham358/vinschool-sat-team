@@ -30,5 +30,22 @@
     "total_questions": 98,
     "storageKey": "bluebook_sep2026_student_state_v1",
     "description": "Đề thi Real Test Digital SAT quốc tế tháng 09/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi."
+  },
+  {
+    "id": "erica-reading",
+    "code": "ericareading",
+    "title": "The Critical Reader: Complete Guide to SAT Reading (Erica Meltzer)",
+    "short_title": "Erica Meltzer Reading",
+    "badge": "Chuyên Đề Reading",
+    "date": "2026-Reading",
+    "dataFile": "data/erica_reading.json",
+    "pdfDriveId": "10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
+    "poster": "poster.png",
+    "total_questions": 74,
+    "time_minutes": 70,
+    "storageKey": "bluebook_erica_reading_student_state_v1",
+    "description": "Bộ câu hỏi thực hành chuyên sâu 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ]

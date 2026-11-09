@@ -40,6 +40,23 @@ const TESTS_MANIFEST_DEFAULT = [
     total_questions: 98,
     storageKey: "bluebook_sep2026_student_state_v1",
     description: "Đề thi Real Test Digital SAT quốc tế tháng 09/2026 kèm giải thích chi tiết 4 tầng Socratic."
+  },
+  {
+    id: "erica-reading",
+    code: "ericareading",
+    title: "The Critical Reader: Complete Guide to SAT Reading (Erica Meltzer)",
+    short_title: "Erica Meltzer Reading",
+    badge: "Chuyên Đề Reading",
+    date: "2026-Reading",
+    dataFile: "data/erica_reading.json",
+    pdfDriveId: "10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z",
+    pdfPreviewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/preview",
+    pdfViewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
+    poster: "poster.png",
+    total_questions: 74,
+    time_minutes: 70,
+    storageKey: "bluebook_erica_reading_student_state_v1",
+    description: "Bộ câu hỏi thực hành chuyên sâu 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ];
 
@@ -50,11 +67,13 @@ function detectInitialTestId() {
     const paramTest = urlParams.get("test");
     if (paramTest) {
       const clean = paramTest.toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (clean.includes("erica") || clean.includes("reading")) return "erica-reading";
       if (clean.includes("sep")) return "sep-2026";
       if (clean.includes("oct")) return "oct-2026";
       return paramTest;
     }
     const hash = window.location.hash || "";
+    if (hash.includes("erica") || hash.includes("reading")) return "erica-reading";
     if (hash.includes("sep")) return "sep-2026";
     if (hash.includes("oct")) return "oct-2026";
 
@@ -621,6 +640,12 @@ function updateModuleCardStats() {
     const modQuestions = App.db.questions.filter(q => q.module_code === modCode);
     const total = modQuestions.length;
     
+    if (total === 0) {
+      elem.textContent = "Không áp dụng (Chuyên đề Reading)";
+      elem.classList.remove("in-progress");
+      return;
+    }
+
     let answeredCount = 0;
     let correctCount = 0;
 
@@ -645,6 +670,13 @@ function updateModuleCardStats() {
 function startPracticeFromHome(targetModule) {
   let name = (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") || App.studentState.student_name;
   let email = (DOM.homeInputEmail ? DOM.homeInputEmail.value.trim() : "") || App.studentState.student_email;
+
+  if (App.db && App.db.questions) {
+    const qInMod = targetModule === "ALL" ? App.db.questions : App.db.questions.filter(q => q.module_code === targetModule);
+    if (qInMod.length === 0) {
+      targetModule = "RW_Module1";
+    }
+  }
 
   if (!name || !email) {
     if (DOM.homeInputName && !DOM.homeInputName.value.trim()) {
@@ -837,13 +869,47 @@ function updateActiveTestUI() {
       const endP = mM1 ? (mM1.pdf_start_page - 1) : (mRw2.pdf_start_page + 12);
       DOM.pageModRw2.textContent = `📖 Trang ${mRw2.pdf_start_page} – ${endP}`;
     }
-    if (mM1 && DOM.pageModMath1) {
-      const endP = mM2 ? (mM2.pdf_start_page - 1) : (mM1.pdf_start_page + 6);
-      DOM.pageModMath1.textContent = `📖 Trang ${mM1.pdf_start_page} – ${endP}`;
+    if (DOM.pageModMath1) {
+      if (mM1) {
+        const endP = mM2 ? (mM2.pdf_start_page - 1) : (mM1.pdf_start_page + 6);
+        DOM.pageModMath1.textContent = `📖 Trang ${mM1.pdf_start_page} – ${endP}`;
+      } else {
+        DOM.pageModMath1.textContent = `📖 Không áp dụng (Reading)`;
+      }
     }
-    if (mM2 && DOM.pageModMath2) {
-      const endP = mM2.pdf_start_page + 6;
-      DOM.pageModMath2.textContent = `📖 Trang ${mM2.pdf_start_page} – ${endP}`;
+    if (DOM.pageModMath2) {
+      if (mM2) {
+        const endP = mM2.pdf_start_page + 6;
+        DOM.pageModMath2.textContent = `📖 Trang ${mM2.pdf_start_page} – ${endP}`;
+      } else {
+        DOM.pageModMath2.textContent = `📖 Không áp dụng (Reading)`;
+      }
+    }
+
+    // Dynamic Module selector dropdown
+    if (DOM.selectModule && App.db.modules.length > 0) {
+      const prevMod = App.activeModuleCode;
+      DOM.selectModule.innerHTML = "";
+      App.db.modules.forEach(m => {
+        const opt = document.createElement("option");
+        opt.value = m.code;
+        const count = (App.db.questions || []).filter(q => q.module_code === m.code).length;
+        opt.textContent = `${m.title || m.code} (${count} Qs)`;
+        DOM.selectModule.appendChild(opt);
+      });
+      const totalCount = (App.db.questions || []).length;
+      const optAll = document.createElement("option");
+      optAll.value = "ALL";
+      optAll.textContent = `Toàn bộ đề: Tất cả ${totalCount} câu`;
+      DOM.selectModule.appendChild(optAll);
+
+      const hasPrev = Array.from(DOM.selectModule.options).some(o => o.value === prevMod);
+      if (hasPrev) {
+        DOM.selectModule.value = prevMod;
+      } else {
+        DOM.selectModule.value = App.db.modules[0].code;
+        App.activeModuleCode = DOM.selectModule.value;
+      }
     }
   }
 }
@@ -919,9 +985,9 @@ function renderExamSelectors() {
         <div class="exam-card-meta">
           <span>📅 ${test.date || "2026"}</span>
           <span>•</span>
-          <span>📝 98 Câu Hỏi (4 Modules)</span>
+          <span>📝 ${test.total_questions || 98} Câu Hỏi (${test.id.includes("reading") ? "2 Modules" : "4 Modules"})</span>
           <span>•</span>
-          <span>⏱️ 134 Phút</span>
+          <span>⏱️ ${test.time_minutes ? test.time_minutes + " Phút" : "134 Phút"}</span>
         </div>
         <div class="exam-progress-bar-wrap">
           <div class="exam-progress-label">
