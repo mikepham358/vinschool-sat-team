@@ -3807,6 +3807,22 @@ body {
   gap: 20px;
 }
 
+.modules-grid.grid-chapters {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 992px) {
+  .modules-grid.grid-chapters {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .modules-grid.grid-chapters {
+    grid-template-columns: 1fr;
+  }
+}
+
 .module-card {
   background: #ffffff;
   border: 1px solid #dadce0;

@@ -46,7 +46,7 @@ const TESTS_MANIFEST_DEFAULT = [
     code: "ericareading",
     title: "The Critical Reader: Complete Guide to SAT Reading (Erica Meltzer)",
     short_title: "Erica Meltzer Reading",
-    badge: "Chuyên Đề Reading",
+    badge: "9 Chương Chuyên Sâu",
     date: "2026-Reading",
     dataFile: "data/erica_reading.json",
     pdfDriveId: "10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z",
@@ -54,9 +54,10 @@ const TESTS_MANIFEST_DEFAULT = [
     pdfViewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
     poster: "poster.png",
     total_questions: 74,
-    time_minutes: 70,
+    time_minutes: 96,
+    modules_count: 9,
     storageKey: "bluebook_erica_reading_student_state_v1",
-    description: "Bộ câu hỏi thực hành chuyên sâu 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+    description: "Bộ câu hỏi thực hành 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ];
 
@@ -154,6 +155,10 @@ const DOM = {
   btnHeroDrivePdf: document.getElementById("btn-hero-drive-pdf"),
   examsGrid: document.getElementById("exams-grid"),
   practiceTestBadge: document.getElementById("practice-test-badge"),
+  modulesSectionTag: document.getElementById("modules-section-tag"),
+  modulesSectionTitle: document.getElementById("modules-section-title"),
+  modulesSectionDesc: document.getElementById("modules-section-desc"),
+  modulesGrid: document.getElementById("modules-grid"),
   pageModRw1: document.getElementById("page-mod-rw1"),
   pageModRw2: document.getElementById("page-mod-rw2"),
   pageModMath1: document.getElementById("page-mod-math1"),
@@ -624,47 +629,130 @@ function syncHomeProfile() {
 }
 
 function updateModuleCardStats() {
-  if (!App.db || !App.db.questions) return;
+  renderModuleCards();
+}
 
-  const moduleMapping = {
-    "RW_Module1": "stat-mod-rw1",
-    "RW_Module2": "stat-mod-rw2",
-    "Math_Module1": "stat-mod-math1",
-    "Math_Module2": "stat-mod-math2"
-  };
+function renderModuleCards() {
+  if (!DOM.modulesGrid || !App.db || !App.db.questions) return;
 
-  Object.entries(moduleMapping).forEach(([modCode, elemId]) => {
-    const elem = document.getElementById(elemId);
-    if (!elem) return;
+  const isErica = App.activeTestId === "erica-reading";
 
-    const modQuestions = App.db.questions.filter(q => q.module_code === modCode);
-    const total = modQuestions.length;
-    
-    if (total === 0) {
-      elem.textContent = "Không áp dụng (Chuyên đề Reading)";
-      elem.classList.remove("in-progress");
-      return;
-    }
+  if (isErica) {
+    if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
+    if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chương Sách The Critical Reader";
+    if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 74 câu.";
+    DOM.modulesGrid.classList.add("grid-chapters");
 
-    let answeredCount = 0;
-    let correctCount = 0;
+    DOM.modulesGrid.innerHTML = "";
+    (App.db.modules || []).forEach(m => {
+      const modQuestions = App.db.questions.filter(q => q.module_code === m.code);
+      const total = modQuestions.length;
+      let answeredCount = 0;
+      let correctCount = 0;
 
-    modQuestions.forEach(q => {
-      const att = App.studentState.attempts[q.id];
-      if (att && att.status && att.status !== "unanswered") {
-        answeredCount++;
-        if (att.status === "correct") correctCount++;
-      }
+      modQuestions.forEach(q => {
+        const att = App.studentState.attempts[q.id];
+        if (att && att.status && att.status !== "unanswered") {
+          answeredCount++;
+          if (att.status === "correct" || (typeof att.status === "string" && att.status.startsWith("mastered"))) correctCount++;
+        }
+      });
+
+      const card = document.createElement("div");
+      card.className = "module-card";
+      card.dataset.module = m.code;
+
+      const titleClean = (m.short_title || m.title || "").replace(/^Chương \d+:\s*/, "");
+      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : "Chiến thuật đọc hiểu cốt lõi";
+
+      card.innerHTML = `
+        <div class="mod-card-header">
+          <span class="mod-pill mod-rw">${m.domain || "Reading"}</span>
+          <span class="mod-time">⏱️ ${m.time_minutes || 10} Phút</span>
+        </div>
+        <h3>Chương ${m.chapter_num || ""}: ${titleClean}</h3>
+        <p>${m.sub_title ? `<strong>${m.sub_title}</strong>: ` : ""}${stratSnippet}</p>
+        <div class="mod-meta">
+          <span>📖 Trang ${m.pdf_start_page || 1}</span>
+          <span class="mod-stat ${answeredCount > 0 ? "in-progress" : ""}">
+            ${answeredCount > 0 ? `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)` : `${total} Câu`}
+          </span>
+        </div>
+        <button type="button" class="btn-module-jump" data-module="${m.code}">Luyện Tập Chương ${m.chapter_num} ➔</button>
+      `;
+
+      card.addEventListener("click", () => {
+        startPracticeFromHome(m.code);
+      });
+
+      DOM.modulesGrid.appendChild(card);
     });
+  } else {
+    // Standard 4 SAT Modules
+    if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "CẤU TRÚC ĐỀ THI (4 MODULES)";
+    if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Chọn Module Để Bắt Đầu Luyện Tập";
+    if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng phần riêng biệt hoặc làm liên tục toàn bộ 98 câu.";
+    DOM.modulesGrid.classList.remove("grid-chapters");
 
-    if (answeredCount > 0) {
-      elem.innerHTML = `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)`;
-      elem.classList.add("in-progress");
-    } else {
-      elem.textContent = `${total} Câu`;
-      elem.classList.remove("in-progress");
-    }
-  });
+    const satDefs = [
+      { code: "RW_Module1", title: "Module 1: Đọc & Viết Chuẩn", pill: "Reading & Writing", pillClass: "mod-rw", time: "⏱️ 32 Phút", desc: "27 câu hỏi trắc nghiệm kiểm tra từ vựng ngữ cảnh, cấu trúc văn bản, suy luận và ngữ pháp chuẩn.", defaultPage: "📖 Trang 3 – 14", total: 27 },
+      { code: "RW_Module2", title: "Module 2: Đọc & Viết Phân Hóa", pill: "Reading & Writing", pillClass: "mod-rw", time: "⏱️ 32 Phút", desc: "27 câu hỏi nâng cao với các đoạn văn khoa học phức tạp, biểu đồ dữ liệu và cặp văn bản đối chiếu.", defaultPage: "📖 Trang 16 – 25", total: 27 },
+      { code: "Math_Module1", title: "Module 1: Toán Chuẩn", pill: "Math", pillClass: "mod-math", time: "⏱️ 35 Phút", desc: "22 câu hỏi đại số tuyến tính, phương trình bậc hai, hình học và thống kê kèm máy tính Desmos.", defaultPage: "📖 Trang 29 – 35", total: 22 },
+      { code: "Math_Module2", title: "Module 2: Toán Nâng Cao", pill: "Math", pillClass: "mod-math", time: "⏱️ 35 Phút", desc: "22 câu hỏi phân hóa đỉnh cao với hàm phi tuyến tính, hình học không gian và các câu điền số Grid-in.", defaultPage: "📖 Trang 38 – 44", total: 22 }
+    ];
+
+    DOM.modulesGrid.innerHTML = "";
+    satDefs.forEach(def => {
+      const modQuestions = App.db.questions.filter(q => q.module_code === def.code);
+      const total = modQuestions.length || def.total;
+      let answeredCount = 0;
+      let correctCount = 0;
+
+      modQuestions.forEach(q => {
+        const att = App.studentState.attempts[q.id];
+        if (att && att.status && att.status !== "unanswered") {
+          answeredCount++;
+          if (att.status === "correct" || (typeof att.status === "string" && att.status.startsWith("mastered"))) correctCount++;
+        }
+      });
+
+      let pageText = def.defaultPage;
+      if (App.db.modules) {
+        const mObj = App.db.modules.find(m => m.code === def.code);
+        if (mObj) {
+          const mIdx = App.db.modules.indexOf(mObj);
+          const nextM = App.db.modules[mIdx + 1];
+          const endP = nextM ? (nextM.pdf_start_page - 1) : (mObj.pdf_start_page + (def.code.startsWith("RW") ? 12 : 6));
+          pageText = `📖 Trang ${mObj.pdf_start_page} – ${endP}`;
+        }
+      }
+
+      const card = document.createElement("div");
+      card.className = "module-card";
+      card.dataset.module = def.code;
+      card.innerHTML = `
+        <div class="mod-card-header">
+          <span class="mod-pill ${def.pillClass}">${def.pill}</span>
+          <span class="mod-time">${def.time}</span>
+        </div>
+        <h3>${def.title}</h3>
+        <p>${def.desc}</p>
+        <div class="mod-meta">
+          <span>${pageText}</span>
+          <span class="mod-stat ${answeredCount > 0 ? "in-progress" : ""}">
+            ${answeredCount > 0 ? `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)` : `${total} Câu`}
+          </span>
+        </div>
+        <button type="button" class="btn-module-jump" data-module="${def.code}">Vào Thi ${def.title.split(":")[0]} ➔</button>
+      `;
+
+      card.addEventListener("click", () => {
+        startPracticeFromHome(def.code);
+      });
+
+      DOM.modulesGrid.appendChild(card);
+    });
+  }
 }
 
 function startPracticeFromHome(targetModule) {
@@ -674,7 +762,7 @@ function startPracticeFromHome(targetModule) {
   if (App.db && App.db.questions) {
     const qInMod = targetModule === "ALL" ? App.db.questions : App.db.questions.filter(q => q.module_code === targetModule);
     if (qInMod.length === 0) {
-      targetModule = "RW_Module1";
+      targetModule = (App.db.modules && App.db.modules.length > 0) ? App.db.modules[0].code : "RW_Module1";
     }
   }
 
@@ -912,6 +1000,8 @@ function updateActiveTestUI() {
       }
     }
   }
+
+  renderModuleCards();
 }
 
 function renderExamSelectors() {
@@ -985,7 +1075,7 @@ function renderExamSelectors() {
         <div class="exam-card-meta">
           <span>📅 ${test.date || "2026"}</span>
           <span>•</span>
-          <span>📝 ${test.total_questions || 98} Câu Hỏi (${test.id.includes("reading") ? "2 Modules" : "4 Modules"})</span>
+          <span>📝 ${test.total_questions || 98} Câu Hỏi (${test.modules_count ? test.modules_count + " Chương / Modules" : (test.id.includes("reading") ? "9 Chương" : "4 Modules")})</span>
           <span>•</span>
           <span>⏱️ ${test.time_minutes ? test.time_minutes + " Phút" : "134 Phút"}</span>
         </div>
@@ -1035,6 +1125,15 @@ async function switchTest(targetTestId) {
   // Load new test state and database
   loadLocalState();
   await fetchDatabase(targetTestId);
+
+  // Validate activeModuleCode for newly loaded test
+  if (App.db && App.db.modules) {
+    const isValid = App.db.modules.some(m => m.code === App.activeModuleCode) || App.activeModuleCode === "ALL";
+    if (!isValid) {
+      App.activeModuleCode = App.db.modules[0].code;
+    }
+  }
+
   setupModuleQuestions();
   updateModuleCardStats();
 
@@ -1141,6 +1240,17 @@ window.syncTimerState = syncTimerState;
 function startModuleTimer() {
   clearInterval(App.timerInterval);
   
+  if (!App.studentState.timer_seconds[App.activeModuleCode]) {
+    const activeModObj = (App.db && App.db.modules) ? App.db.modules.find(m => m.code === App.activeModuleCode) : null;
+    let mins = 32;
+    if (activeModObj && activeModObj.time_minutes) {
+      mins = activeModObj.time_minutes;
+    } else if (App.activeModuleCode === "ALL") {
+      mins = (App.db && App.db.time_minutes) ? App.db.time_minutes : (App.activeTestId === "erica-reading" ? 96 : 134);
+    }
+    App.studentState.timer_seconds[App.activeModuleCode] = mins * 60;
+  }
+
   const updateDisplay = () => {
     let secs = App.studentState.timer_seconds[App.activeModuleCode] || 0;
     const mins = Math.floor(secs / 60);

@@ -36,7 +36,7 @@
     "code": "ericareading",
     "title": "The Critical Reader: Complete Guide to SAT Reading (Erica Meltzer)",
     "short_title": "Erica Meltzer Reading",
-    "badge": "Chuyên Đề Reading",
+    "badge": "9 Chương Chuyên Sâu",
     "date": "2026-Reading",
     "dataFile": "data/erica_reading.json",
     "pdfDriveId": "10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z",
@@ -44,8 +44,9 @@
     "pdfViewUrl": "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
     "poster": "poster.png",
     "total_questions": 74,
-    "time_minutes": 70,
+    "time_minutes": 96,
+    "modules_count": 9,
     "storageKey": "bluebook_erica_reading_student_state_v1",
-    "description": "Bộ câu hỏi thực hành chuyên sâu 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+    "description": "Bộ câu hỏi thực hành 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ]
