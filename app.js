@@ -53,11 +53,11 @@ const TESTS_MANIFEST_DEFAULT = [
     pdfPreviewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/preview",
     pdfViewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
     poster: "poster.png",
-    total_questions: 74,
-    time_minutes: 96,
+    total_questions: 101,
+    time_minutes: 129,
     modules_count: 9,
     storageKey: "bluebook_erica_reading_student_state_v1",
-    description: "Bộ câu hỏi thực hành 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+    description: "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ];
 
@@ -640,13 +640,15 @@ function renderModuleCards() {
   if (isErica) {
     if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
     if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chương Sách The Critical Reader";
-    if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 74 câu.";
+    if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 101 câu (27 ví dụ minh họa kèm bài giảng + 74 bài tập thực hành).";
     DOM.modulesGrid.classList.add("grid-chapters");
 
     DOM.modulesGrid.innerHTML = "";
     (App.db.modules || []).forEach(m => {
       const modQuestions = App.db.questions.filter(q => q.module_code === m.code);
       const total = modQuestions.length;
+      const exCount = modQuestions.filter(q => q.category === "example").length;
+      const prCount = modQuestions.filter(q => q.category === "practice").length;
       let answeredCount = 0;
       let correctCount = 0;
 
@@ -664,6 +666,9 @@ function renderModuleCards() {
 
       const titleClean = (m.short_title || m.title || "").replace(/^Chương \d+:\s*/, "");
       const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : "Chiến thuật đọc hiểu cốt lõi";
+      const countDetail = exCount > 0 
+        ? `${total} Câu (${exCount} ví dụ + ${prCount} thực hành)`
+        : `${total} Câu (${prCount} thực hành)`;
 
       card.innerHTML = `
         <div class="mod-card-header">
@@ -675,7 +680,7 @@ function renderModuleCards() {
         <div class="mod-meta">
           <span>📖 Trang ${m.pdf_start_page || 1}</span>
           <span class="mod-stat ${answeredCount > 0 ? "in-progress" : ""}">
-            ${answeredCount > 0 ? `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)` : `${total} Câu`}
+            ${answeredCount > 0 ? `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)` : countDetail}
           </span>
         </div>
         <button type="button" class="btn-module-jump" data-module="${m.code}">Luyện Tập Chương ${m.chapter_num} ➔</button>
@@ -981,14 +986,25 @@ function updateActiveTestUI() {
       App.db.modules.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m.code;
-        const count = (App.db.questions || []).filter(q => q.module_code === m.code).length;
-        opt.textContent = `${m.title || m.code} (${count} Qs)`;
+        const modQs = (App.db.questions || []).filter(q => q.module_code === m.code);
+        const count = modQs.length;
+        const exCount = modQs.filter(q => q.category === "example").length;
+        const prCount = modQs.filter(q => q.category === "practice").length;
+        if (exCount > 0) {
+          opt.textContent = `${m.title || m.code} (${count} câu: ${exCount} ví dụ + ${prCount} thực hành)`;
+        } else {
+          opt.textContent = `${m.title || m.code} (${count} Qs)`;
+        }
         DOM.selectModule.appendChild(opt);
       });
       const totalCount = (App.db.questions || []).length;
       const optAll = document.createElement("option");
       optAll.value = "ALL";
-      optAll.textContent = `Toàn bộ đề: Tất cả ${totalCount} câu`;
+      if (App.activeTestId === "erica-reading") {
+        optAll.textContent = `Toàn bộ 9 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 27} ví dụ + ${App.db.total_practice || 74} thực hành)`;
+      } else {
+        optAll.textContent = `Toàn bộ đề: Tất cả ${totalCount} câu`;
+      }
       DOM.selectModule.appendChild(optAll);
 
       const hasPrev = Array.from(DOM.selectModule.options).some(o => o.value === prevMod);
@@ -1301,12 +1317,29 @@ function renderCurrentQuestion() {
   if (DOM.qNumberLabel) DOM.qNumberLabel.textContent = `Question ${App.currentIndex + 1} of ${App.questions.length}`;
   if (DOM.navCurrentLabel) DOM.navCurrentLabel.textContent = App.currentIndex + 1;
   if (DOM.qTopicBadge) {
-    DOM.qTopicBadge.textContent = q.topic || "";
+    if (q.category === "example") {
+      DOM.qTopicBadge.innerHTML = `<span class="pill-badge pill-example">💡 Ví dụ minh họa</span> ${escapeHtml(q.topic || "")}`;
+    } else if (q.category === "practice") {
+      DOM.qTopicBadge.innerHTML = `<span class="pill-badge pill-practice">✍️ Luyện tập</span> ${escapeHtml(q.topic || "")}`;
+    } else {
+      DOM.qTopicBadge.textContent = q.topic || "";
+    }
     DOM.qTopicBadge.title = `Chủ đề: ${q.topic || ""}`;
   }
   if (DOM.qDomainBadge) {
     DOM.qDomainBadge.textContent = q.section || "";
     DOM.qDomainBadge.title = `Phần thi: ${q.section || ""}`;
+  }
+
+  // Response instruction label
+  if (DOM.responseInstruction) {
+    if (q.category === "example") {
+      DOM.responseInstruction.innerHTML = '<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong> — Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:';
+    } else if (q.category === "practice") {
+      DOM.responseInstruction.innerHTML = '<strong>✍️ BÀI TẬP THỰC HÀNH</strong> — Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
+    } else {
+      DOM.responseInstruction.textContent = 'Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
+    }
   }
 
   // Mark for review
@@ -1567,7 +1600,7 @@ function renderHints(q, qState) {
 
   // Tier 1: Định hướng bối cảnh & Tư duy tổng quan (Mở sau Lần 1 hoặc khi hoàn thành)
   if (attempts.length >= 1 || isFinished) {
-    DOM.hintText1.innerHTML = q.tier1_hint || q.level1_tip || "Xác định từ khóa trọng tâm và logic ngữ cảnh của câu hỏi.";
+    DOM.hintText1.innerHTML = formatMarkdownHints(q.tier1_hint || q.level1_tip || "Xác định từ khóa trọng tâm và logic ngữ cảnh của câu hỏi.");
     DOM.hintContent1.classList.remove("collapsed");
     DOM.hintCard1.classList.add("unlocked");
   } else {
@@ -1578,7 +1611,7 @@ function renderHints(q, qState) {
 
   // Tier 2: Manh mối cấu trúc & Phân tích loại trừ (Mở sau Lần 2 hoặc khi hoàn thành)
   if (attempts.length >= 2 || isFinished) {
-    DOM.hintText2.innerHTML = q.tier2_hint || q.level2_hint || "Áp dụng phương pháp loại trừ và phân tích cấu trúc đối chiếu.";
+    DOM.hintText2.innerHTML = formatMarkdownHints(q.tier2_hint || q.level2_hint || "Áp dụng phương pháp loại trừ và phân tích cấu trúc đối chiếu.");
     DOM.hintContent2.classList.remove("collapsed");
     DOM.hintCard2.classList.add("unlocked");
   } else {
@@ -1591,7 +1624,9 @@ function renderHints(q, qState) {
   if (attempts.length >= 3 || isFinished) {
     let sol = q.tier3_hint || q.level3_solution || "Chốt phương pháp: So sánh trực tiếp với giả thiết cốt lõi trong đề.";
     if (isFinished) {
-      sol = `<strong>Đáp án đúng: <span class="correct-highlight">[${q.correct_answer}]</span></strong><br>${sol}`;
+      sol = `<strong>Đáp án đúng: <span class="correct-highlight">[${q.correct_answer}]</span></strong><br><br>${formatMarkdownHints(sol)}`;
+    } else {
+      sol = formatMarkdownHints(sol);
     }
     DOM.hintText3.innerHTML = sol;
     DOM.hintContent3.classList.remove("collapsed");
@@ -2155,8 +2190,16 @@ function renderNavigatorTiles() {
 
 // ================= PDF NAVIGATION (GOOGLE DRIVE OFFICIAL) =================
 function navigatePdf(page, zoom = null) {
-  const p = Math.max(1, Math.min(44, parseInt(page) || 1));
+  const maxPage = App.activeTestId === "erica-reading" ? 175 : 44;
+  const p = Math.max(1, Math.min(maxPage, parseInt(page) || 1));
   if (DOM.pdfSyncPageNum) DOM.pdfSyncPageNum.textContent = p;
+}
+
+function formatMarkdownHints(str) {
+  if (!str) return "";
+  return str
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
 }
 
 // ================= ERROR LOG & NOTEBOOK UTILS =================

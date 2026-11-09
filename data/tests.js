@@ -47,10 +47,10 @@ window.TESTS_MANIFEST = [
     pdfPreviewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/preview",
     pdfViewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
     poster: "poster.png",
-    total_questions: 74,
-    time_minutes: 96,
+    total_questions: 101,
+    time_minutes: 129,
     modules_count: 9,
     storageKey: "bluebook_erica_reading_student_state_v1",
-    description: "Bộ câu hỏi thực hành 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+    description: "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ];
