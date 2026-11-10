@@ -58,6 +58,24 @@ const TESTS_MANIFEST_DEFAULT = [
     modules_count: 9,
     storageKey: "bluebook_erica_reading_student_state_v1",
     description: "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+  },
+  {
+    id: "panda-math",
+    code: "pandamath",
+    title: "The College Panda: SAT Math Advanced Guide & Workbook (Nielson Phu)",
+    short_title: "College Panda Math",
+    badge: "27 Chương Chuyên Sâu",
+    date: "2026-Math",
+    dataFile: "data/panda_math.json",
+    pdfDriveId: "1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb",
+    pdfPreviewUrl: "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/preview",
+    pdfViewUrl: "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/view?usp=drive_open",
+    poster: "poster.png",
+    total_questions: 330,
+    time_minutes: 360,
+    modules_count: 27,
+    storageKey: "bluebook_panda_math_student_state_v1",
+    description: "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ];
 
@@ -68,12 +86,14 @@ function detectInitialTestId() {
     const paramTest = urlParams.get("test");
     if (paramTest) {
       const clean = paramTest.toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (clean.includes("panda") || clean.includes("nielson") || clean.includes("math")) return "panda-math";
       if (clean.includes("erica") || clean.includes("reading")) return "erica-reading";
       if (clean.includes("sep")) return "sep-2026";
       if (clean.includes("oct")) return "oct-2026";
       return paramTest;
     }
     const hash = window.location.hash || "";
+    if (hash.includes("panda") || hash.includes("nielson") || hash.includes("math")) return "panda-math";
     if (hash.includes("erica") || hash.includes("reading")) return "erica-reading";
     if (hash.includes("sep")) return "sep-2026";
     if (hash.includes("oct")) return "oct-2026";
@@ -235,6 +255,8 @@ const DOM = {
 
   // Response Areas
   mcqResponseArea: document.getElementById("mcq-response-area"),
+  questionStemBox: document.getElementById("question-stem-box"),
+  questionStemText: document.getElementById("question-stem-text"),
   optionsContainer: document.getElementById("options-container"),
   gridinResponseArea: document.getElementById("gridin-response-area"),
   gridinInput: document.getElementById("gridin-input"),
@@ -636,11 +658,19 @@ function renderModuleCards() {
   if (!DOM.modulesGrid || !App.db || !App.db.questions) return;
 
   const isErica = App.activeTestId === "erica-reading";
+  const isPanda = App.activeTestId === "panda-math";
+  const isChapterBased = isErica || isPanda;
 
-  if (isErica) {
-    if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
-    if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chương Sách The Critical Reader";
-    if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 101 câu (27 ví dụ minh họa kèm bài giảng + 74 bài tập thực hành).";
+  if (isChapterBased) {
+    if (isErica) {
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chương Sách The Critical Reader";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 101 câu (27 ví dụ minh họa kèm bài giảng + 74 bài tập thực hành).";
+    } else {
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "27 CHƯƠNG CHUYÊN SÂU THE COLLEGE PANDA";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chuyên Đề SAT Math (Nielson Phu)";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Nielson Phu hoặc làm toàn bộ 330 câu hỏi SAT Math kèm máy tính Desmos, công thức chuẩn và Sổ thử sai.";
+    }
     DOM.modulesGrid.classList.add("grid-chapters");
 
     DOM.modulesGrid.innerHTML = "";
@@ -665,15 +695,18 @@ function renderModuleCards() {
       card.dataset.module = m.code;
 
       const titleClean = (m.short_title || m.title || "").replace(/^Chương \d+:\s*/, "");
-      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : "Chiến thuật đọc hiểu cốt lõi";
+      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : "Chiến thuật đọc hiểu cốt lõi");
       const countDetail = exCount > 0 
         ? `${total} Câu (${exCount} ví dụ + ${prCount} thực hành)`
-        : `${total} Câu (${prCount} thực hành)`;
+        : `${total} Câu`;
+
+      const pillClass = (m.section === "Math" || isPanda) ? "mod-math" : "mod-rw";
+      const domainLabel = m.domain || (isPanda ? "Math" : "Reading");
 
       card.innerHTML = `
         <div class="mod-card-header">
-          <span class="mod-pill mod-rw">${m.domain || "Reading"}</span>
-          <span class="mod-time">⏱️ ${m.time_minutes || 10} Phút</span>
+          <span class="mod-pill ${pillClass}">${domainLabel}</span>
+          <span class="mod-time">⏱️ ${m.time_minutes || 15} Phút</span>
         </div>
         <h3>Chương ${m.chapter_num || ""}: ${titleClean}</h3>
         <p>${m.sub_title ? `<strong>${m.sub_title}</strong>: ` : ""}${stratSnippet}</p>
@@ -1002,6 +1035,8 @@ function updateActiveTestUI() {
       optAll.value = "ALL";
       if (App.activeTestId === "erica-reading") {
         optAll.textContent = `Toàn bộ 9 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 27} ví dụ + ${App.db.total_practice || 74} thực hành)`;
+      } else if (App.activeTestId === "panda-math") {
+        optAll.textContent = `Toàn bộ 27 chương: Tất cả ${totalCount} câu hỏi SAT Math (College Panda)`;
       } else {
         optAll.textContent = `Toàn bộ đề: Tất cả ${totalCount} câu`;
       }
@@ -1327,18 +1362,35 @@ function renderCurrentQuestion() {
     DOM.qTopicBadge.title = `Chủ đề: ${q.topic || ""}`;
   }
   if (DOM.qDomainBadge) {
-    DOM.qDomainBadge.textContent = q.section || "";
-    DOM.qDomainBadge.title = `Phần thi: ${q.section || ""}`;
+    let extra = "";
+    if (q.calc_mode) {
+      extra = q.is_calculator ? " • 🧮 Calculator Allowed" : " • ✏️ No Calculator";
+    }
+    DOM.qDomainBadge.textContent = (q.domain || q.section || "") + extra;
+    DOM.qDomainBadge.title = `Phần thi: ${q.domain || q.section || ""} (${q.calc_mode || ""})`;
   }
 
   // Response instruction label
   if (DOM.responseInstruction) {
-    if (q.category === "example") {
+    if (App.activeTestId === "panda-math") {
+      DOM.responseInstruction.innerHTML = '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> — Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
+    } else if (q.category === "example") {
       DOM.responseInstruction.innerHTML = '<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong> — Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:';
     } else if (q.category === "practice") {
       DOM.responseInstruction.innerHTML = '<strong>✍️ BÀI TẬP THỰC HÀNH</strong> — Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
     } else {
       DOM.responseInstruction.textContent = 'Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
+    }
+  }
+
+  // Question Stem Box (for Math problems and questions with explicit text)
+  if (DOM.questionStemBox && DOM.questionStemText) {
+    const qStem = q.prompt || q.question || "";
+    if (App.activeTestId === "panda-math" && qStem.trim()) {
+      DOM.questionStemText.innerHTML = escapeHtml(qStem);
+      DOM.questionStemBox.classList.remove("hidden");
+    } else {
+      DOM.questionStemBox.classList.add("hidden");
     }
   }
 
@@ -1448,7 +1500,9 @@ function renderOptions(q, qState, isFinished) {
   const eliminated = qState.eliminated || [];
 
   const defaultKeys = ["A", "B", "C", "D"];
-  const opts = defaultKeys.map(k => ({ key: k, text: `Lựa chọn ${k}` }));
+  const opts = (q.options && q.options.length > 0)
+    ? q.options
+    : defaultKeys.map(k => ({ key: k, text: `Lựa chọn ${k}` }));
 
   opts.forEach(opt => {
     const row = document.createElement("div");
@@ -1472,10 +1526,14 @@ function renderOptions(q, qState, isFinished) {
     }
 
     const isEliminated = eliminated.includes(opt.key);
+    const optText = (opt.text && opt.text.trim() && opt.text !== opt.key && opt.text !== `Lựa chọn ${opt.key}`)
+      ? opt.text
+      : `Lựa chọn ${opt.key}`;
+
     row.innerHTML = `
       <div class="option-header-row">
         <div class="option-bubble">${opt.key}</div>
-        <div class="option-text-wrap font-medium">Lựa chọn ${opt.key}</div>
+        <div class="option-text-wrap font-medium">${escapeHtml(optText)}</div>
         ${!isFinished ? `<button type="button" class="btn-strike-option ${isEliminated ? 'is-eliminated' : ''}" title="${isEliminated ? 'Khôi phục phương án ' + opt.key : 'Gạch bỏ phương án ' + opt.key + ' (Eliminate)'}">⨉</button>` : ''}
       </div>
     `;
@@ -2190,7 +2248,7 @@ function renderNavigatorTiles() {
 
 // ================= PDF NAVIGATION (GOOGLE DRIVE OFFICIAL) =================
 function navigatePdf(page, zoom = null) {
-  const maxPage = App.activeTestId === "erica-reading" ? 175 : 44;
+  const maxPage = App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-reading" ? 175 : 44);
   const p = Math.max(1, Math.min(maxPage, parseInt(page) || 1));
   if (DOM.pdfSyncPageNum) DOM.pdfSyncPageNum.textContent = p;
 }

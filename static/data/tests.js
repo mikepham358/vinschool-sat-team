@@ -52,5 +52,23 @@ window.TESTS_MANIFEST = [
     modules_count: 9,
     storageKey: "bluebook_erica_reading_student_state_v1",
     description: "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+  },
+  {
+    id: "panda-math",
+    code: "pandamath",
+    title: "The College Panda: SAT Math Advanced Guide & Workbook (Nielson Phu)",
+    short_title: "College Panda Math",
+    badge: "27 Chương Chuyên Sâu",
+    date: "2026-Math",
+    dataFile: "data/panda_math.json",
+    pdfDriveId: "1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb",
+    pdfPreviewUrl: "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/preview",
+    pdfViewUrl: "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/view?usp=drive_open",
+    poster: "poster.png",
+    total_questions: 330,
+    time_minutes: 360,
+    modules_count: 27,
+    storageKey: "bluebook_panda_math_student_state_v1",
+    description: "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng."
   }
 ];
