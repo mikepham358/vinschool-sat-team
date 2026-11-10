@@ -1675,6 +1675,10 @@ body {
   font-size: 11px;
 }
 
+.nav-tile.nav-tile-example {
+  border-left: 3px solid #f59e0b;
+}
+
 /* ================= MODALS: DESMOS, REF, ERROR LOG ================= */
 .draggable-calc-modal {
   position: fixed;

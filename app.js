@@ -1349,7 +1349,15 @@ function renderCurrentQuestion() {
   };
 
   // Question Number & Navigation Labels
-  if (DOM.qNumberLabel) DOM.qNumberLabel.textContent = `Question ${App.currentIndex + 1} of ${App.questions.length}`;
+  if (DOM.qNumberLabel) {
+    if ((App.activeTestId === "erica-reading" || App.activeTestId === "ericareading" || App.activeTestId === "panda-math" || App.activeTestId === "pandamath") && q.q_label) {
+      const bookPg = q.book_page || (q.pdf_page ? q.pdf_page - 1 : null);
+      const bookStr = bookPg ? ` • Sách trang ${bookPg}` : "";
+      DOM.qNumberLabel.innerHTML = `<strong>${escapeHtml(q.q_label)}</strong> <span style="opacity:0.75; font-weight:normal; margin-left:8px;">(Mục ${App.currentIndex + 1}/${App.questions.length}${bookStr})</span>`;
+    } else {
+      DOM.qNumberLabel.textContent = `Question ${App.currentIndex + 1} of ${App.questions.length}`;
+    }
+  }
   if (DOM.navCurrentLabel) DOM.navCurrentLabel.textContent = App.currentIndex + 1;
   if (DOM.qTopicBadge) {
     if (q.category === "example") {
@@ -2227,7 +2235,13 @@ function renderNavigatorTiles() {
     const qState = App.studentState.attempts[q.id] || { status: "unanswered", attempts: [], marked: false };
     const tile = document.createElement("div");
     tile.className = "nav-tile";
+    if (q.category === "example") {
+      tile.classList.add("nav-tile-example");
+    }
     tile.textContent = idx + 1;
+    const tileBookPg = q.book_page || (q.pdf_page ? q.pdf_page - 1 : null);
+    const tileBookStr = tileBookPg ? ` • Sách trang ${tileBookPg}` : "";
+    tile.title = `${q.q_label || `Câu ${idx + 1}`}${tileBookStr}`;
 
     if (idx === App.currentIndex) tile.classList.add("current");
     if (qState.attempts && qState.attempts.length > 0) tile.classList.add("answered");

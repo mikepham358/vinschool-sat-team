@@ -493,6 +493,7 @@ GUIDED_EXAMPLES = [
     }
 ]
 
+
 def parse_options_raw(raw):
     if not raw:
         return []
@@ -500,7 +501,6 @@ def parse_options_raw(raw):
     options = []
     current_key = None
     current_text = []
-    
     for line in lines:
         m = re.match(r'^([A-D])[\.\:\)]\s*(.*)$', line)
         if m:
@@ -514,6 +514,59 @@ def parse_options_raw(raw):
     if current_key:
         options.append({'key': current_key, 'text': ' '.join(current_text).strip()})
     return options
+
+# Exact PDF pages mapped from the textbook: PDF Page = Book Page + 1
+EXERCISE_PAGES = {
+    "Ch2_Vocabulary": [
+        # Sentence Completions 1-15 (Book pp. 38-43):
+        39, 39, 40, 40, 41, 41, 42, 42, 42, 43, 43, 43, 44, 44, 44,
+        # Meaning in Context 1-6 (Book pp. 48-49):
+        49, 49, 49, 50, 50, 50
+    ],
+    "Ch3_MakingTheLeap": [
+        # Pronouns & Compression 1-11 (Book pp. 68-71):
+        69, 69, 69, 70, 70, 70, 71, 71, 71, 72, 72
+    ],
+    "Ch4_BigPicture": [
+        # The Big Picture 1-5 (Book pp. 87-89):
+        88, 88, 89, 89, 90
+    ],
+    "Ch5_LiteralComprehension": [
+        # Literal Comprehension 1-7 (Book pp. 95-98):
+        96, 96, 97, 97, 98, 98, 99
+    ],
+    "Ch6_ReadingForFunction": [
+        # Reading for Function 1-7 (Book pp. 113-116):
+        114, 114, 115, 115, 116, 116, 117
+    ],
+    "Ch7_TextCompletions": [
+        # Text Completions 1-6 (Book pp. 128-130):
+        129, 129, 130, 130, 131, 131
+    ],
+    "Ch8_SupportUndermining": [
+        # Supporting & Undermining 1-8 (Book pp. 138-142):
+        139, 139, 140, 140, 141, 141, 142, 143
+    ],
+    "Ch9_GraphsCharts": [
+        # Graphs & Charts 1-5 (Book pp. 152-156):
+        153, 154, 155, 156, 157
+    ],
+    "Ch10_PairedPassages": [
+        # Paired Passages 1-4 (Book pp. 163-166):
+        164, 165, 166, 167
+    ]
+}
+
+def sanitize_hint(text):
+    if not text:
+        return ""
+    cleaned = text
+    for letter in ["A", "B", "C", "D"]:
+        cleaned = re.sub(rf'\b(đáp án|chọn|phương án|lựa chọn)\s+(là\s+)?{letter}\b', 'phương án này', cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(rf'\bđáp án\s*:\s*{letter}\b', '', cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(rf'\bchọn\s+{letter}\b', 'chọn phương án phù hợp', cleaned, flags=re.IGNORECASE)
+    cleaned = cleaned.replace("Hải cẩu A", "cá thể hải cẩu có độ chênh lệch lớn nhất")
+    return cleaned.strip()
 
 def load_practice_questions():
     print(f"Loading practice questions from workbook: {EXCEL_PATH}")
@@ -540,7 +593,12 @@ def load_practice_questions():
         ch_traps = str(ws.cell(row=3, column=9).value or '').strip()
         q_list = []
 
+        # Skip duplicate lesson examples in Ch5 and Ch7
+        skip_rows = [5, 6, 7] if sname == "Ch5_LiteralComprehension" else ([5] if sname == "Ch7_TextCompletions" else [])
+
         for r in range(5, ws.max_row + 1):
+            if r in skip_rows:
+                continue
             raw_q_label = ws.cell(row=r, column=1).value
             topic_str = ws.cell(row=r, column=2).value
             passage = ws.cell(row=r, column=3).value
@@ -553,13 +611,9 @@ def load_practice_questions():
             if not (raw_q_label and prompt):
                 continue
 
-            # Extract correct answer from formula
             m_ans = re.search(r'=\"([ABCD])\"', formula)
             correct_ans = m_ans.group(1) if m_ans else ''
-            if not correct_ans:
-                continue
 
-            # Extract Socratic hint
             m_hint = re.search(r'Gợi ý:\s*\"?\s*&\s*\"([^\"]+)', hint_formula)
             if not m_hint:
                 m_hint = re.search(r'Gợi ý:\s*([^\"&]+)', hint_formula)
@@ -577,8 +631,103 @@ def load_practice_questions():
                 "raw_hint": raw_hint,
                 "strat_tip": strat_tip,
                 "ch_strategy": ch_strategy,
-                "ch_traps": ch_traps
+                "ch_traps": ch_traps,
+                "detailed_explanation": ""
             })
+
+        # Inject missing official exercise questions for Chapter 5 (Literal Comprehension)
+        if sname == "Ch5_LiteralComprehension":
+            # Q5: Undersea volcanoes (mantle rock)
+            q_list.append({
+                "topic_str": "Undersea Volcanoes & Mid-Ocean Ridges",
+                "passage": "Geophysicists first began to appreciate the smoldering origins of the land under the sea, known formally as ocean crust, in the early 1960s. Sonar surveys revealed that volcanoes form nearly continuous ridges that wind around the globe like seams on a baseball. Later, the same scientists strove to explain what fuels these erupting mountain ranges, called mid-ocean ridges. Basic theories suggest that because shifting tectonic plates pull the ocean floor apart along the ridges, molten rock deep within the earth's interior must rise to fill the gap. This material is produced in the second layer of the Earth's interior - the mostly solid upper mantle — and makes its way up through the crust. The collision of two plates can also result in a volcano.",
+                "prompt": "Based on the passage, why do undersea volcanoes develop?",
+                "options": [
+                    {"key": "A", "text": "Because breaks in the ocean floor allow liquid rock from the mantle to enter."},
+                    {"key": "B", "text": "Because mid-ocean ridges pull apart when the pressure beneath them increases."},
+                    {"key": "C", "text": "Because tectonic plates accumulate along the ocean floor."},
+                    {"key": "D", "text": "Because the Earth's crust collides with the mantle."}
+                ],
+                "options_raw": "A) Because breaks in the ocean floor allow liquid rock from the mantle to enter.\nB) Because mid-ocean ridges pull apart when the pressure beneath them increases.\nC) Because tectonic plates accumulate along the ocean floor.\nD) Because the Earth's crust collides with the mantle.",
+                "correct_answer": "A",
+                "raw_hint": "Khoanh vùng câu 4 và 5: các mảng kiến tạo kéo tách đáy đại dương ra (pull the ocean floor apart), tạo khoảng trống cho đá nóng chảy (molten rock) từ lớp manti (mantle) trào lên.",
+                "strat_tip": "Tìm chi tiết tương đương trực tiếp (literal paraphrase), loại bỏ phương án bịa đặt chi tiết không có trong bài.",
+                "ch_strategy": ch_strategy,
+                "ch_traps": ch_traps,
+                "detailed_explanation": "Thông tin then chốt xuất hiện ở câu 4 và 5: các dãy núi lửa phun trào hình thành khi các mảng kiến tạo kéo tách đáy biển ra (tạo vết rạn nứt) và đá nóng chảy (liquid rock) từ lớp manti trên (upper mantle) dâng lên lấp đầy khoảng trống. Điều này tương ứng hoàn hảo với phương án (A). (B) sai vì bài nói các mảng bị kéo tách do dịch chuyển kiến tạo, không phải do áp suất tăng. (C) không có căn cứ. (D) sai vì va chạm giữa hai mảng kiến tạo chứ không phải giữa vỏ và manti."
+            })
+            # Q6: Mrs. Spragg (Edith Wharton)
+            q_list.append({
+                "topic_str": "Edith Wharton / Character Description (Mrs. Spragg)",
+                "passage": "The following text is adapted from Edith Wharton's novel The Custom of the Country. Mrs. Spragg has recently arrived in New York City with her daughter.\n\nThe room showed no traces of human use, and Mrs. Spragg herself wore as complete an air of detachment as if she had been a wax figure in a show-window. Her attire was fashionable enough to justify such a post, and her pale soft-cheeked face, with puffy eye-lids and drooping mouth, suggested a partially-melted wax figure which had run to double-chin.",
+                "prompt": "According to the text, what is true about Mrs. Spragg?",
+                "options": [
+                    {"key": "A", "text": "She feels anxious in her environment."},
+                    {"key": "B", "text": "Her clothing is not suited to her position."},
+                    {"key": "C", "text": "Her features are sharp and distinctive."},
+                    {"key": "D", "text": "She appears aloof and disconnected from her surroundings."}
+                ],
+                "options_raw": "A) She feels anxious in her environment.\nB) Her clothing is not suited to her position.\nC) Her features are sharp and distinctive.\nD) She appears aloof and disconnected from her surroundings.",
+                "correct_answer": "D",
+                "raw_hint": "Đọc câu đầu tiên: 'no traces of human use' và 'as complete an air of detachment as if she had been a wax figure in a show-window' thể hiện sự xa cách và tách biệt.",
+                "strat_tip": "Nhận diện từ đồng nghĩa chính xác (detachment = aloof and disconnected), tránh suy diễn cảm xúc chủ quan ngoài bài.",
+                "ch_strategy": ch_strategy,
+                "ch_traps": ch_traps,
+                "detailed_explanation": "Toàn bộ thông tin cần thiết nằm ở câu đầu: cụm 'no traces of human use' và vẻ mặt 'as complete an air of detachment as if she had been a wax figure in a show-window' tương ứng trực tiếp với 'aloof and disconnected' trong (D). (A) sai vì bài chỉ nói bà thờ ơ tách biệt, không hề nói bà lo âu (anxious). (B) sai vì trang phục của bà rất hợp thời trang. (C) mâu thuẫn trực tiếp vì mặt bà chảy xệ như tượng sáp chảy, không hề sắc nét (sharp)."
+            })
+            # Q7: Algernon (Oscar Wilde)
+            q_list.append({
+                "topic_str": "Oscar Wilde / Character Attitude (Algernon)",
+                "passage": "The Importance of Being Earnest is an 1895 play by Oscar Wilde.\n\nALGERNON: Did you hear what I was playing, Lane?\nLANE: I didn't think it polite to listen, sir.\nALGERNON: I'm sorry for that, for your sake. I don't play accurately-any one can play accurately-but I play with wonderful expression. As far as the piano is concerned, sentiment is my forte. I keep science for Life.",
+                "prompt": "Based on the text, what is true about Algernon?",
+                "options": [
+                    {"key": "A", "text": "He is embarrassed that Lane has overheard him playing the piano."},
+                    {"key": "B", "text": "As a musician, he is more concerned with emotion than technical correctness."},
+                    {"key": "C", "text": "Science appeals to him for the same reasons that music does."},
+                    {"key": "D", "text": "He wishes that he could play the piano more accurately."}
+                ],
+                "options_raw": "A) He is embarrassed that Lane has overheard him playing the piano.\nB) As a musician, he is more concerned with emotion than technical correctness.\nC) Science appeals to him for the same reasons that music does.\nD) He wishes that he could play the piano more accurately.",
+                "correct_answer": "B",
+                "raw_hint": "Lời thoại của Algernon: 'I don't play accurately... sentiment is my forte'. Nhận diện sự đối lập giữa độ chính xác kỹ thuật và cảm xúc biểu đạt.",
+                "strat_tip": "Đối chiếu phát biểu trực tiếp của nhân vật, không suy đoán ngược với lời thoại.",
+                "ch_strategy": ch_strategy,
+                "ch_traps": ch_traps,
+                "detailed_explanation": "Trong đoạn đối thoại, Algernon khẳng định mình không quan tâm đến việc chơi chính xác kỹ thuật ('I don't play accurately - any one can play accurately') mà chú trọng vào cảm xúc ('sentiment is my forte', 'wonderful expression'), tương ứng trực tiếp với phương án (B). (A) sai vì Algernon hoàn toàn tự hào chứ không xấu hổ. (C) mâu thuẫn với câu cuối khi anh phân tách rõ ràng giữa âm nhạc và khoa học. (D) sai vì anh xem thường việc chơi đúng kỹ thuật."
+            })
+
+        # Inject missing official exercise question for Chapter 7 (Text Completions)
+        if sname == "Ch7_TextCompletions":
+            q_list.append({
+                "topic_str": "Planetary Science / Early Crust of Mars",
+                "passage": "Exactly how Mars was formed approximately 4.5 billion years ago is a mystery, although there are several theories. One idea is that the planet was created via a titanic collision of rocks in space, spawning an all-encompassing magma ocean. When it cooled, a crust with high levels of basalt was formed. Another possibility is that parts of the first crust on Mars had a different origin, one that would primarily show large concentrations of silica. Planetary geochemist Valerie Payré and her partners analyzed data for the planet's southern hemisphere, the planet's oldest region. They discovered nine locations rich in feldspar, a mineral associated with lava flows that are higher in silica than basalt. This finding led them to conclude that",
+                "prompt": "Which choice most logically completes the text?",
+                "options": [
+                    {"key": "A", "text": "portions of Mars' surface were never covered by a crust."},
+                    {"key": "B", "text": "the magma ocean formed from rocks colliding in space was not all-encompassing."},
+                    {"key": "C", "text": "the southern hemisphere of Mars contained more silica than was previously believed."},
+                    {"key": "D", "text": "the first crust on Mars did not develop until long after the planet was formed."}
+                ],
+                "options_raw": "A) portions of Mars' surface were never covered by a crust.\nB) the magma ocean formed from rocks colliding in space was not all-encompassing.\nC) the southern hemisphere of Mars contained more silica than was previously believed.\nD) the first crust on Mars did not develop until long after the planet was formed.",
+                "correct_answer": "B",
+                "raw_hint": "Suy luận logic ngược: Nếu một phần vỏ có nguồn gốc khác giàu silica, thì đại dương macma giả thuyết ban đầu không thể bao trùm toàn bộ (not all-encompassing).",
+                "strat_tip": "Đọc ngược từ phát hiện mới lên giả định ban đầu để tìm mâu thuẫn logic cần giải quyết.",
+                "ch_strategy": ch_strategy,
+                "ch_traps": ch_traps,
+                "detailed_explanation": "Suy luận theo logic ngược: Phát hiện chín vị trí giàu fenspat (chứa nhiều silica hơn bazan) chứng minh một phần lớp vỏ đầu tiên của Sao Hỏa có nguồn gốc khác với giả thuyết đại dương macma toàn cầu. Nếu một phần lớp vỏ bắt nguồn từ nơi khác, thì đại dương macma đó không thể bao trùm toàn bộ (not all-encompassing), hoàn toàn khớp với phương án (B). (A) sai vì bài chỉ bàn về nguồn gốc vỏ, không nói không có vỏ. (C) sai vì bài chỉ nói fenspat giàu silica hơn bazan, không so sánh với ước tính trước đây. (D) sai vì không có dữ liệu so sánh thời điểm hình thành vỏ với thời điểm hành tinh ra đời."
+            })
+
+        # Enforce official book answer keys for Chapter 9 (Graphs & Charts)
+        if sname == "Ch9_GraphsCharts":
+            book_keys_ch9 = ["B", "D", "C", "A", "B"]
+            for i, k in enumerate(book_keys_ch9):
+                if i < len(q_list):
+                    q_list[i]["correct_answer"] = k
+
+        # Assign exact PDF pages and book pages
+        pages = EXERCISE_PAGES.get(sname, [])
+        for i, q in enumerate(q_list):
+            q["pdf_page"] = pages[i] if i < len(pages) else 1
+            q["book_page"] = q["pdf_page"] - 1
 
         practice_by_chapter[ch_num] = q_list
 
@@ -587,7 +736,7 @@ def load_practice_questions():
 def build_full_dataset():
     practice_data = load_practice_questions()
     total_prac = sum(len(qs) for qs in practice_data.values())
-    print(f"Loaded {total_prac} practice questions from Excel.")
+    print(f"Loaded {total_prac} practice questions from Excel & textbook exercises.")
 
     chapter_configs = [
         {
@@ -597,7 +746,7 @@ def build_full_dataset():
             "short_name": "Chương 2: Vocabulary in Context",
             "sub_title": "Nghĩa Từ Trong Ngữ Cảnh",
             "domain": "Craft and Structure",
-            "pdf_start_page": 29,
+            "pdf_start_page": 30,
             "time_minutes": 30
         },
         {
@@ -607,7 +756,7 @@ def build_full_dataset():
             "short_name": "Chương 3: Making the Leap",
             "sub_title": "Đại từ & Danh từ nén",
             "domain": "Information and Ideas",
-            "pdf_start_page": 61,
+            "pdf_start_page": 62,
             "time_minutes": 15
         },
         {
@@ -617,7 +766,7 @@ def build_full_dataset():
             "short_name": "Chương 4: The Big Picture",
             "sub_title": "Ý chính & Đại ý",
             "domain": "Information and Ideas",
-            "pdf_start_page": 73,
+            "pdf_start_page": 74,
             "time_minutes": 12
         },
         {
@@ -627,7 +776,7 @@ def build_full_dataset():
             "short_name": "Chương 5: Literal Comprehension",
             "sub_title": "Đọc hiểu Trực tiếp",
             "domain": "Information and Ideas",
-            "pdf_start_page": 91,
+            "pdf_start_page": 92,
             "time_minutes": 13
         },
         {
@@ -637,7 +786,7 @@ def build_full_dataset():
             "short_name": "Chương 6: Reading for Function",
             "sub_title": "Đọc theo Chức năng Diễn ngôn",
             "domain": "Craft and Structure",
-            "pdf_start_page": 102,
+            "pdf_start_page": 103,
             "time_minutes": 16
         },
         {
@@ -647,7 +796,7 @@ def build_full_dataset():
             "short_name": "Chương 7: Text Completions",
             "sub_title": "Hoàn thành Văn bản / Suy luận",
             "domain": "Information and Ideas",
-            "pdf_start_page": 121,
+            "pdf_start_page": 122,
             "time_minutes": 10
         },
         {
@@ -657,7 +806,7 @@ def build_full_dataset():
             "short_name": "Chương 8: Supporting & Undermining",
             "sub_title": "Củng cố & Làm suy yếu",
             "domain": "Information and Ideas",
-            "pdf_start_page": 133,
+            "pdf_start_page": 134,
             "time_minutes": 15
         },
         {
@@ -667,7 +816,7 @@ def build_full_dataset():
             "short_name": "Chương 9: Graphs & Charts",
             "sub_title": "Biểu đồ & Bảng số liệu",
             "domain": "Information and Ideas",
-            "pdf_start_page": 145,
+            "pdf_start_page": 146,
             "time_minutes": 10
         },
         {
@@ -677,7 +826,7 @@ def build_full_dataset():
             "short_name": "Chương 10: Paired Passages",
             "sub_title": "Đoạn văn Kép",
             "domain": "Cross-Text Connections",
-            "pdf_start_page": 159,
+            "pdf_start_page": 160,
             "time_minutes": 8
         }
     ]
@@ -690,14 +839,11 @@ def build_full_dataset():
         ch_num = ch["num"]
         ch_examples = [ex for ex in GUIDED_EXAMPLES if ex["chapter_num"] == ch_num]
         ch_practice = practice_data.get(ch_num, [])
-        
         ch_question_ids = []
-        item_num = 0
 
-        # 1. Add Guided Examples first
+        # 1. Add Guided Examples first (Ví dụ minh họa kèm bài giảng)
         for ex_idx, ex in enumerate(ch_examples, 1):
             global_id += 1
-            item_num += 1
             ch_question_ids.append(global_id)
 
             tier1 = f"Đọc kỹ đoạn trích ví dụ và xác định ngữ cảnh trọng tâm: {ex['topic']}. Chú ý mối liên hệ logic và các từ khóa dẫn hướng."
@@ -719,10 +865,13 @@ def build_full_dataset():
                 f"    C --> D[\"Đáp án chính xác: {ex['correct_answer']}\"]"
             )
 
+            pdf_page = ex["pdf_page"]
+            book_page = pdf_page - 1
+
             q_obj = {
                 "id": global_id,
                 "master_id": f"EM_Ch{ch_num}_Ex{ex_idx}",
-                "q_number": item_num,
+                "q_number": ex_idx,
                 "q_label": f"Ch.{ch_num} - Ví dụ {ex_idx}",
                 "category": "example",
                 "category_label": "Ví dụ minh họa",
@@ -744,25 +893,38 @@ def build_full_dataset():
                 "tier3_hint": tier3,
                 "strategic_tip": ex["pedagogical_focus"],
                 "mermaid_diagram": mermaid,
-                "pdf_page": ex["pdf_page"],
+                "pdf_page": pdf_page,
+                "book_page": book_page,
                 "difficulty": "Foundation",
                 "domain": ch["domain"]
             }
             all_questions.append(q_obj)
 
-        # 2. Add Practice Questions
+        # 2. Add Practice Questions (Bài tập thực hành)
         for pr_idx, pr in enumerate(ch_practice, 1):
             global_id += 1
-            item_num += 1
             ch_question_ids.append(global_id)
+
+            # Assign sequential number and label matching book exercise
+            if ch_num == 2:
+                if pr_idx <= 15:
+                    q_num = pr_idx
+                    q_label = f"Ch.2 (Điền từ) - Câu {pr_idx}"
+                    master_id = f"EM_Ch2_SC{pr_idx}"
+                else:
+                    q_num = pr_idx - 15
+                    q_label = f"Ch.2 (Nghĩa từ) - Câu {pr_idx - 15}"
+                    master_id = f"EM_Ch2_MC{pr_idx - 15}"
+            else:
+                q_num = pr_idx
+                q_label = f"Ch.{ch_num} - Câu {pr_idx}"
+                master_id = f"EM_Ch{ch_num}_Q{pr_idx}"
 
             tier1 = f"Đọc kỹ đoạn văn và xác định ngữ cảnh trọng tâm của câu hỏi: {pr['topic_str']}. Chú ý mối liên hệ logic giữa các câu văn và từ nối chuyển ý."
             
-            clean_hint = pr["raw_hint"]
-            for letter in ["A", "B", "C", "D"]:
-                clean_hint = re.sub(rf'\b(đáp án|chọn|phương án)\s+{letter}\b', 'phương án này', clean_hint, flags=re.IGNORECASE)
-            
+            clean_hint = sanitize_hint(pr["raw_hint"])
             strat_note = pr["strat_tip"] if pr["strat_tip"] else (pr["ch_strategy"] if pr["ch_strategy"] else "Tìm dẫn chứng trực tiếp từ đoạn văn, loại trừ phương án quá cực đoan hoặc suy diễn ngoài bài.")
+            
             if clean_hint:
                 tier2 = f"{clean_hint} Áp dụng quy tắc vàng Erica Meltzer: {strat_note}"
             else:
@@ -770,13 +932,19 @@ def build_full_dataset():
 
             target_opt = next((o for o in pr["options"] if o['key'] == pr["correct_answer"]), None)
             target_text = target_opt['text'] if target_opt else ''
-            tier3 = (
-                f"Đáp án chính xác là **{pr['correct_answer']}** ({target_text}).\n\n"
-                f"**Phân tích chi tiết:**\n"
-                f"• Văn bản cung cấp manh mối: {pr['raw_hint'] if pr['raw_hint'] else pr['prompt']}\n"
-                f"• Chiến thuật trọng tâm ({ch['short_name']}): {pr['strat_tip'] if pr['strat_tip'] else pr['ch_strategy']}\n"
-                f"• Phương án **{pr['correct_answer']}** khớp hoàn hảo với logic và nội dung trong bài, không mắc các bẫy cực đoan hay suy diễn quá đà."
-            )
+            
+            detail_exp = pr.get("detailed_explanation", "")
+            if detail_exp:
+                exp_body = f"**Bài giảng chi tiết của Erica Meltzer:**\n{detail_exp}\n\n• **Chiến thuật trọng tâm:** {strat_note}"
+            else:
+                exp_body = (
+                    f"**Phân tích chi tiết:**\n"
+                    f"• Văn bản cung cấp manh mối: {clean_hint if clean_hint else pr['prompt']}\n"
+                    f"• Chiến thuật trọng tâm ({ch['short_name']}): {strat_note}\n"
+                    f"• Phương án **{pr['correct_answer']}** khớp hoàn hảo với logic và nội dung trong bài, không mắc các bẫy cực đoan hay suy diễn quá đà."
+                )
+
+            tier3 = f"Đáp án chính xác là **{pr['correct_answer']}** ({target_text}).\n\n{exp_body}"
 
             mermaid = (
                 f"flowchart TD\n"
@@ -785,13 +953,16 @@ def build_full_dataset():
                 f"    C --> D[\"Đáp án tối ưu: Phương án {pr['correct_answer']}\"]"
             )
 
+            pdf_page = pr["pdf_page"]
+            book_page = pr["book_page"]
+
             q_obj = {
                 "id": global_id,
-                "master_id": f"EM_Ch{ch_num}_Q{pr_idx}",
-                "q_number": item_num,
-                "q_label": f"Ch.{ch_num} - Câu {pr_idx}",
+                "master_id": master_id,
+                "q_number": q_num,
+                "q_label": q_label,
                 "category": "practice",
-                "category_label": "Thực hành",
+                "category_label": "Bài tập thực hành",
                 "module_code": ch["code"],
                 "module_title": ch["name"],
                 "section": "Reading and Writing",
@@ -810,7 +981,8 @@ def build_full_dataset():
                 "tier3_hint": tier3,
                 "strategic_tip": pr["strat_tip"],
                 "mermaid_diagram": mermaid,
-                "pdf_page": ch["pdf_start_page"],
+                "pdf_page": pdf_page,
+                "book_page": book_page,
                 "difficulty": "Medium" if ch_num <= 5 else "Hard",
                 "domain": ch["domain"]
             }
@@ -830,6 +1002,7 @@ def build_full_dataset():
             "example_count": len(ch_examples),
             "practice_count": len(ch_practice),
             "pdf_start_page": ch["pdf_start_page"],
+            "book_start_page": ch["pdf_start_page"] - 1,
             "strategy": ch_practice[0]["ch_strategy"] if ch_practice else "",
             "traps": ch_practice[0]["ch_traps"] if ch_practice else "",
             "question_ids": ch_question_ids
@@ -841,12 +1014,12 @@ def build_full_dataset():
     leaks = 0
     for q in all_questions:
         for letter in ["A", "B", "C", "D"]:
-            pattern = rf"(đáp án|chọn|phương án)\s+(là\s+)?{letter}\b"
+            pattern = rf"(đáp án|chọn|phương án|lựa chọn)\s+(là\s+)?{letter}\b"
             if re.search(pattern, q["tier1_hint"], re.IGNORECASE):
-                print(f"[LEAK] Q{q['id']} Tier 1: {q['tier1_hint']}")
+                print(f"[LEAK] Q{q['id']} ({q['q_label']}) Tier 1: {q['tier1_hint']}")
                 leaks += 1
             if re.search(pattern, q["tier2_hint"], re.IGNORECASE):
-                print(f"[LEAK] Q{q['id']} Tier 2: {q['tier2_hint']}")
+                print(f"[LEAK] Q{q['id']} ({q['q_label']}) Tier 2: {q['tier2_hint']}")
                 leaks += 1
 
     if leaks == 0:
@@ -874,11 +1047,21 @@ def build_full_dataset():
         "questions": all_questions
     }
 
-    out_file = os.path.join(os.path.dirname(__file__), OUTPUT_JSON)
-    with open(out_file, "w", encoding="utf-8") as f:
-        json.dump(db_data, f, ensure_ascii=False, indent=2)
+    output_files = [
+        'data/erica_reading.json',
+        'data/ericareading.json',
+        'static/data/erica_reading.json',
+        'static/data/ericareading.json'
+    ]
 
-    print(f"✅ Successfully exported {len(all_questions)} questions to {out_file} ({os.path.getsize(out_file)} bytes)")
+    base_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in globals() else 'vinschool-sat-team'
 
-if __name__ == "__main__":
+    for rel_path in output_files:
+        full_path = os.path.join(base_dir, rel_path)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        with open(full_path, 'w', encoding='utf-8') as f:
+            json.dump(db_data, f, ensure_ascii=False, indent=2)
+        print(f"✅ Exported {len(all_questions)} questions to {rel_path} ({os.path.getsize(full_path):,} bytes)")
+
+if __name__ == '__main__':
     build_full_dataset()

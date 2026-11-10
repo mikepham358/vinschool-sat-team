@@ -33,3 +33,5 @@ submissions/*
 .system_generated/
 book_ocr_pages.json
 ocr_exercise_pages.swift
+erica_ocr_pages.json
+ocr_erica_pages.swift
