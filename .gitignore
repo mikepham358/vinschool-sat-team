@@ -31,3 +31,5 @@ submissions/*
 # Server logs and temporary files
 *.log
 .system_generated/
+book_ocr_pages.json
+ocr_exercise_pages.swift
