@@ -6063,11 +6063,6 @@ function refreshAARPerformanceUI(updateFormFields = false) {
         DOM.aarInputEvidence.value = `Đã hoàn thành buổi học trên ${s.activeTestShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
       }
     }
-    if (DOM.aarSelectMastery) {
-      if (s.accuracyPct >= 90) DOM.aarSelectMastery.value = "Xuất sắc (≥ 90%)";
-      else if (s.accuracyPct >= 75) DOM.aarSelectMastery.value = "Đạt yêu cầu (75% - 89%)";
-      else DOM.aarSelectMastery.value = "Cần rèn thêm (< 75%)";
-    }
   }
 }
 
@@ -6154,14 +6149,6 @@ function openAARModal() {
   syncAarAnticipationUI();
 
   refreshAARPerformanceUI(true);
-  const s = App.currentAarSummary;
-
-  if (DOM.aarInputTools) {
-    DOM.aarInputTools.value = `Vinschool Bluebook App (${s.testShort}), Socratic 3-tầng${s.hasMath ? ", Máy tính Desmos" : ""}, Sổ thử sai`;
-  }
-  if (DOM.aarInputGap && !DOM.aarInputGap.value.trim() && s.scopedErrors && s.scopedErrors.length > 0) {
-    pullErrorsIntoAARGap();
-  }
 
   switchAARTab("form");
   if (DOM.modalAarReport) DOM.modalAarReport.classList.remove("hidden");
@@ -6235,18 +6222,28 @@ function collectAARFormEntry(requireCompleteFields = true) {
     iste_standard: (DOM.aarSelectIste && DOM.aarSelectIste.value) || "Empowered Learner \n(Học sinh Chủ động)",
     goal: fullGoal,
     challenge: (DOM.aarInputChallenge && DOM.aarInputChallenge.value.trim()) || "",
-    tools: (DOM.aarInputTools && DOM.aarInputTools.value.trim()) || `Vinschool Bluebook App (${s.testShort})`,
+    tools: (DOM.aarInputTools && DOM.aarInputTools.value.trim()) || "",
     evidence: (DOM.aarInputEvidence && DOM.aarInputEvidence.value.trim()) || `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%)`,
-    mastery: (DOM.aarSelectMastery && DOM.aarSelectMastery.value) || "Đạt yêu cầu (75% - 89%)",
+    mastery: (DOM.aarSelectMastery && DOM.aarSelectMastery.value) || "",
     gap: (DOM.aarInputGap && DOM.aarInputGap.value.trim()) || "",
     feedforward: (DOM.aarInputFeedforward && DOM.aarInputFeedforward.value.trim()) || "",
-    emotion: (DOM.aarSelectEmotion && DOM.aarSelectEmotion.value) || "⚡ Tự tin, ổn định",
-    status: (DOM.aarSelectStatus && DOM.aarSelectStatus.value) || "Hoàn thành"
+    emotion: (DOM.aarSelectEmotion && DOM.aarSelectEmotion.value) || "",
+    status: (DOM.aarSelectStatus && DOM.aarSelectStatus.value) || ""
   };
 
   if (requireCompleteFields) {
-    if (!entry.goal || !entry.challenge || !entry.gap || !entry.feedforward) {
-      alert("Vui lòng điền đầy đủ Mục tiêu, Thách thức dự kiến, Khoảng cách (Gap) và Bài học chuyển hóa (Feed-forward) để hoàn thiện chu trình AAR nhé!");
+    const requiredChecks = [
+      { val: entry.goal, el: DOM.aarInputGoal, label: "Mục tiêu bài học & Điểm kỳ vọng" },
+      { val: entry.challenge, el: DOM.aarInputChallenge, label: "Thách thức dự kiến" },
+      { val: entry.tools, el: DOM.aarInputTools, label: "Công cụ & Kỹ thuật áp dụng" },
+      { val: entry.mastery, el: DOM.aarSelectMastery, label: "Mức độ làm chủ" },
+      { val: entry.gap, el: DOM.aarInputGap, label: "Khoảng cách (Gap) & Nguyên nhân thử sai" },
+      { val: entry.feedforward, el: DOM.aarInputFeedforward, label: "Bài học chuyển hóa cho buổi sau (Feed-forward)" }
+    ];
+    const missing = requiredChecks.find(c => !c.val);
+    if (missing) {
+      alert(`Vui lòng điền/chọn đầy đủ mục "${missing.label}" để hoàn thiện chu trình AAR nhé!`);
+      if (missing.el) missing.el.focus();
       return null;
     }
   }
@@ -6306,7 +6303,7 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
         ws[`K${r}`] = { t: "s", v: String(entry.gap || "") };
         ws[`L${r}`] = { t: "s", v: String(entry.feedforward || "") };
         ws[`M${r}`] = { t: "s", v: String(entry.emotion || "") };
-        ws[`N${r}`] = { t: "s", v: String(entry.status || "Hoàn thành") };
+        ws[`N${r}`] = { t: "s", v: String(entry.status || "") };
       });
 
       const totalSessions = rows.length;
@@ -6373,14 +6370,14 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 - Thách thức dự kiến: ${entry.challenge}
 
 [2. HÀNH ĐỘNG (ACTION)]
-- Công cụ & Kỹ thuật: ${entry.tools}
+- Công cụ & Kỹ thuật: ${entry.tools || "(Chưa nhập)"}
 - Kết quả Thực tế & Minh chứng: ${entry.evidence}
-- Mức độ làm chủ: ${entry.mastery}
+- Mức độ làm chủ: ${entry.mastery || "(Chưa chọn)"}
 
 [3. PHẢN TƯ (REFLECTION) & ĐÁNH GIÁ]
 - Khoảng cách (Gap) & Nguyên nhân thử sai: ${entry.gap}
 - Bài học chuyển hóa (Feed-forward): ${entry.feedforward}
-- Cảm xúc & Tập trung: ${entry.emotion} | Trạng thái AAR: ${entry.status}
+- Cảm xúc & Tập trung: ${entry.emotion || "(Chưa chọn)"} | Trạng thái AAR: ${entry.status || "(Chưa chọn)"}
 
 (File Excel AAR Tracker: ${filename} đã được tải về thiết bị để đính kèm cùng email này).
 
@@ -6461,8 +6458,11 @@ async function submitAARReport() {
     if (DOM.aarInputGoal) DOM.aarInputGoal.value = "";
     if (DOM.aarInputChallenge) DOM.aarInputChallenge.value = "";
     if (DOM.aarInputTools) DOM.aarInputTools.value = "";
+    if (DOM.aarSelectMastery) DOM.aarSelectMastery.value = "";
     if (DOM.aarInputGap) DOM.aarInputGap.value = "";
     if (DOM.aarInputFeedforward) DOM.aarInputFeedforward.value = "";
+    if (DOM.aarSelectEmotion) DOM.aarSelectEmotion.value = "";
+    if (DOM.aarSelectStatus) DOM.aarSelectStatus.value = "";
     syncAarAnticipationUI();
 
     closeAARModal();
@@ -6539,7 +6539,7 @@ function renderAARHistoryList() {
         <div>
           <strong>${escapeHtmlSafe(item.session_label)}</strong> • ${escapeHtmlSafe(item.date_display)} • <span style="color:#1e3a8a;font-weight:700;">${escapeHtmlSafe(item.sat_module)}</span>
         </div>
-        <span class="aar-history-badge">${escapeHtmlSafe(item.status)} • Đúng ${item.correct_count}/${item.practiced_count} (${item.accuracy_pct}%)</span>
+        <span class="aar-history-badge">${escapeHtmlSafe(item.status || "Chưa chọn trạng thái")} • Đúng ${item.correct_count}/${item.practiced_count} (${item.accuracy_pct}%)</span>
       </div>
       <div class="aar-history-meta">
         <div><strong>Minh chứng:</strong> ${escapeHtmlSafe(item.evidence)}</div>
