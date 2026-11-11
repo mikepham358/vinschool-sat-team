@@ -127,6 +127,7 @@ CUSTOM_L1_CLEANUPS = {
     19: 'Công thức tính tỷ lệ phần trăm: Tỷ lệ = (Giá trị thành phần / Tổng số) * 100%.',
     28: 'Công thức biến thiên phần trăm liên tiếp: Giá trị mới = Giá trị ban đầu * (1 - r1) * (1 + r2).',
     46: 'Mối liên hệ giữa tỷ số thể tích và tỷ số bán kính khối cầu: Tỷ số bán kính bằng căn bậc ba của tỷ số thể tích.',
+    47: 'Diện tích hình học tỷ lệ với bình phương cạnh tương ứng: Area_ratio = (s_new / s_old)^2. Hãy tính tỷ số cạnh s_new / s_old rồi suy ra phần trăm giảm.',
     49: 'Mối quan hệ giữa khoảng cách và độ sáng: Tỷ lệ khoảng cách d bằng căn bậc hai của tỷ lệ độ sáng.',
     78: 'Nhận xét biểu thức đại số: Đề bài đã cho trực tiếp giá trị của (a + b), hãy thay trực tiếp vào lũy thừa bậc ba.',
     79: 'Khai triển hai vế theo hằng đẳng thức bậc hai (n - 4)^2 và (n + 4)^2, sau đó triệt tiêu các hạng tử giống nhau để giải tìm n.',
@@ -145,7 +146,9 @@ CUSTOM_L1_CLEANUPS = {
     104: 'Cộng hoặc trừ vế với vế của hai phương trình để tạo ra biểu thức chứa x - y hoặc y - x mà không cần giải riêng x, y.',
     105: 'Quan sát hệ số của hai phương trình: trừ trực tiếp phương trình thứ hai cho phương trình thứ nhất để xuất hiện x + y.',
     106: 'Giải hệ phương trình bằng phương pháp thế hoặc cộng đại số để tìm cặp nghiệm (x, y), sau đó tính tích xy.',
-    121: 'Độ lệch tuyệt đối giữa n và m không vượt quá 10: |n - m| <= 10, tương đương với bất phương trình kép m - 10 <= n <= m + 10.',
+    109: 'So sánh tỷ số các cặp hệ số a1/a2 và b1/b2 trong hệ hai phương trình bậc nhất ax + by = c để xác định xem hai đường thẳng cắt nhau, song song hay trùng nhau.',
+    118: 'Chuyển các hạng tử chứa x sang một vế và hằng số sang vế còn lại. Lưu ý: khi chia cả hai vế của bất đẳng thức cho một số âm, phải ĐỔI CHIỀU bất đẳng thức.',
+    121: 'Độ lệch tuyệt đối giữa n và m không vượt quá 10 được biểu diễn bằng |n - m| <= 10. Hãy khai triển -d <= n - m <= d để đưa về dạng bất phương trình kép.',
     122: 'Lập bất phương trình M >= N tương ứng: 12P + 100 >= -3P + 970, chuyển vế để tìm chặn dưới của P.',
     123: 'Khai triển 3(n - 2) > -4(n - 9), chuyển các số hạng chứa n sang một vế để tìm giá trị nguyên nhỏ nhất của n.',
     124: 'Quan sát vùng giới hạn theo trục tung y: miền bị chặn giữa hai đường nằm ngang y = -3 và y = 3.',
@@ -187,23 +190,28 @@ CUSTOM_L1_CLEANUPS = {
     210: 'Định lý số dư: Số dư khi chia đa thức g(x) cho (x + 3) chính là giá trị của g(-3).',
     211: 'Vì (z - 1) là nhân tử của đa thức nên giá trị của đa thức tại z = 1 phải bằng 0.',
     213: 'Thực hiện phép chia đa thức (3x^2 - 8x - 4) cho (3x - 2) để tìm biểu thức thương A(x).',
+    214: 'Sử dụng phép chia đa thức hoặc đồng nhất hệ số hai vế của 2x^2 - 4x - 3 = A(x)(x + 1) + B để tìm biểu thức thương A(x).',
     218: 'Đa thức có nghiệm x = 1 và x = -1 nên P(1) = 0 và P(-1) = 0, giải hệ phương trình để tìm hệ số.',
     222: 'Lũy thừa của đơn vị ảo i có tính chu kỳ 4: i^1 = i, i^2 = -1, i^3 = -i, i^4 = 1.',
     223: 'Nhân hai số phức bằng quy tắc phân phối và thay i^2 = -1, sau đó gom phần thực riêng và phần ảo riêng.',
     225: 'Phân phối i vào trong ngoặc và sử dụng đẳng thức i^2 = -1 để viết số phức dưới dạng chuẩn a + bi.',
     229: 'Quy tắc trục căn thức số phức: nhân cả tử và mẫu với liên hợp của mẫu (hoặc nhân với i).',
+    238: 'Định nghĩa hàm giá trị tuyệt đối y = |f(x)|: với những phần có f(x) >= 0 thì giữ nguyên giá trị tung độ y = f(x); với những phần có f(x) < 0 thì y = -f(x) (đổi dấu tung độ sang giá trị dương).',
+    241: 'Mô hình hóa khoảng dung sai (Tolerance Interval): Giá trị x nằm trong khoảng (a; b) được biểu diễn bằng |x - Midpoint| < Tolerance, với Midpoint = (a + b) / 2 và Tolerance = (b - a) / 2.',
     242: 'Xét các trường hợp giá trị của x và y để tìm tích xy có giá trị nhỏ nhất.',
     245: 'Sử dụng tính chất hai góc đồng vị hoặc so le trong bằng nhau khi có các đường thẳng song song.',
     248: 'Định lý góc ngoài của tam giác: Góc ngoài tại một đỉnh bằng tổng hai góc trong không kề với nó.',
     260: 'Trong tam giác vuông 30-60-90, cạnh đối diện góc 30 độ bằng một nửa cạnh huyền.',
     264: 'Bất đẳng thức tam giác và tính chất tam giác cân: xác định cạnh nào là cạnh đáy để chu vi đạt giá trị lớn nhất.',
     266: 'Kẻ đường cao từ đỉnh của tam giác cân xuống đáy để chia đáy thành hai đoạn bằng nhau, dùng Pythagore tính chiều cao.',
+    267: 'Tìm độ dài cạnh hình vuông từ diện tích đã cho, rồi kẻ đường cao tam giác đều để tạo hai tam giác vuông 30°-60°-90° và tính diện tích tam giác theo công thức (1/2) * đáy * chiều cao.',
     269: 'Bất đẳng thức tam giác: cạnh lớn nhất z phải nhỏ hơn nửa chu vi của tam giác.',
     273: 'Bất đẳng thức tam giác: độ dài cạnh thứ ba p nằm trong khoảng (hiệu hai cạnh; tổng hai cạnh).',
     274: 'Sử dụng tính chất tam giác đồng dạng để thiết lập tỷ số đồng dạng giữa các cặp cạnh tương ứng.',
     276: 'Diện tích hình tròn tỷ lệ thuận với bình phương bán kính: nếu bán kính tăng k lần thì diện tích tăng k^2 lần.',
     279: 'Số đo góc ở tâm gấp đôi số đo góc nội tiếp cùng chắn một cung; diện tích hình quạt tỷ lệ với số đo góc ở tâm.',
     280: 'Tam giác đều nội tiếp đường tròn chia đường tròn thành 3 cung bằng nhau có số đo mỗi cung là 120 độ.',
+    282: 'Góc nội tiếp chắn nửa đường tròn (đường kính AC) là góc vuông (góc B = 90°). Dùng tỉ số lượng giác cos(BAC) = cạnh kề / cạnh huyền trong tam giác vuông ABC để suy ra số đo góc đặc biệt.',
     284: 'Sử dụng hệ thức lượng trong tam giác vuông: cos = cạnh kề / cạnh huyền; định lý Pythagore giữa các cạnh.',
     286: 'Định nghĩa cosin trong tam giác vuông: cos(A) = cạnh kề / cạnh huyền, từ đó suy ra độ dài cạnh cần tìm.',
     287: 'Biểu diễn các hàm lượng giác bằng tam giác vuông: đặt cạnh đối là m, cạnh kề là 1, tính cạnh huyền theo Pythagore rồi lập tỷ số sin = đối / huyền.',
@@ -232,7 +240,18 @@ CUSTOM_L1_CLEANUPS = {
 
 # Bespoke Socratic Tier 2 Setups for complex / edge-case questions
 CUSTOM_L2_SETUPS = {
+    31: 'Dây lưng chiếm phần trăm còn lại sau khi trừ khăn (20%) và cà vạt (60%), suy ra 20% tổng hàng hóa ứng với 40 sản phẩm. Hãy tính tổng số sản phẩm, số lượng mỗi loại ban đầu, rồi cộng thêm một nửa số cà vạt khi chuyển sang khăn.',
+    39: 'Mỗi tháng Albert bớt 2 cuốn và thêm 1 cuốn nên tổng số sách giảm đều một lượng không đổi theo từng tháng => Hãy xác định mô hình biến thiên tuyến tính tương ứng (tăng hay giảm).',
+    66: 'Tìm ước chung lớn nhất của hai hạng tử 6x^2 y và 6x y^2 (gồm hệ số chung và lũy thừa thấp nhất của x, y) rồi đặt nhân tử chung đó ra ngoài dấu ngoặc.',
+    67: 'Chọn mẫu thức chung là 4a: nhân tử và mẫu của phân thức 1/a với 4, phân thức 3/4 với a, sau đó cộng hai tử số để rút gọn.',
     72: 'Tử số: x(y - x) = -x(x - y). Mẫu số: y(x - y). Hãy triệt tiêu thừa số chung (x - y) để tìm phân thức rút gọn.',
+    73: 'Trước hết quy đồng và rút gọn biểu thức ở mẫu số: (x - 1)/2 + (x + 5)/3 với mẫu chung là 6, sau đó lấy nghịch đảo của phân thức thu được.',
+    74: 'Nhân cả tử thức và mẫu thức của phân thức lớn với x (mẫu thức chung nhỏ nhất của các phân số con) rồi thu gọn hai hạng tử ở tử và mẫu.',
+    115: 'Chia hai vế phương trình thứ nhất cho 3 và phương trình thứ hai cho -2 để đưa cả hai về dạng tối giản rồi so sánh xem hai đường thẳng cắt nhau, song song hay trùng nhau.',
+    118: 'Chuyển hạng tử: -x - 4 > 4x - 14 => -5x > -10. Chia cả hai vế cho -5 và nhớ ĐỔI CHIỀU bất đẳng thức để tìm miền nghiệm của x, rồi đối chiếu các lựa chọn.',
+    125: 'Thời gian đi xe buýt là 8/x và thời gian đi tàu là 16/y. Cụm "at most 1 hour" có nghĩa tổng thời gian nhỏ hơn hoặc bằng 1 giờ — hãy chọn bất đẳng thức phù hợp.',
+    127: 'Xác định đường biên thứ nhất y = (3/2)x + 2 (dốc lên, cắt trục tung tại +2) và đường biên thứ hai y = -2x - 5 (dốc xuống, cắt trục tung tại -5). Cặp bất đẳng thức y >= ... (phần phía trên đường 1) và y <= ... (phần phía dưới đường 2) xác định miền tô bóng giao nhau trong 4 đồ thị A, B, C, D trang 89.',
+    129: 'Tổng số giờ làm việc là (1/3)m + (1/2)p (tối đa 30 giờ) và tổng thu nhập là 25m + 40p (tối thiểu $900). Hãy chọn đúng cặp chiều bất đẳng thức <= và >= tương ứng.',
     130: (
         'Phân tích bất đẳng thức kép k <= x <= 3k + 12 theo từng mệnh đề:\n'
         '• Xét mệnh đề I: Từ x <= 3k + 12, hãy trừ 12 cả hai vế để so sánh x - 12 với 3k.\n'
@@ -240,13 +259,33 @@ CUSTOM_L2_SETUPS = {
         '• Xét mệnh đề III: Từ k <= x, hãy chuyển k sang vế trái để suy ra dấu của x - k.\n'
         'Hãy đối chiếu tính đúng đắn của từng mệnh đề I, II, III để xác định kết luận chung.'
     ),
+    131: 'Trừ 4 ở cả ba vế của -20/3 < -2x + 4 < -9/2, rồi chia cho -2 và ĐỔI CHIỀU bất đẳng thức để tìm khoảng của x. Từ đó suy ra khoảng giá trị của (x - 2) để chọn đáp án nằm trong khoảng này.',
+    134: 'Biểu diễn riêng hai cụm đại số: "square of the sum of x and y" (bình phương của tổng hai số) và "product of x and y" (tích hai số), rồi thực hiện phép trừ ("decreased by").',
+    138: 'Tính tổng chi phí cố định và tiền lương nhân viên trong 1 tháng, sau đó nhân toàn bộ biểu thức chi phí hàng tháng với 12 tháng để thu được công thức tổng chi phí cả năm c.',
     170: 'Biến đổi phân thức về dạng hàm bậc nhất: t = (2/5)x + 9/5. Đại lượng đi kèm với biến số x chính là tốc độ tải mỗi ảnh.',
+    190: 'Thay lần lượt x = 18 và x = 11 vào f(x) = sqrt(x - 2) để tính hiệu f(18) - f(11), sau đó thay các giá trị trong đáp án vào f(x) để kiểm tra biểu thức nào cho cùng kết quả.',
+    191: 'Một điểm (x, y) KHÔNG thuộc đồ thị hàm phân thức khi hoành độ x làm mẫu số bằng 0 (khiến hàm số không xác định) hoặc cặp tọa độ (x, y) không thỏa mãn phương trình.',
+    202: 'Giải bất phương trình P = m^2 - 100m - 120,000 >= 0 bằng cách phân tích tam thức bậc hai thành tích hai nhị thức bậc nhất, rồi chọn nghiệm dương phù hợp với điều kiện số sản phẩm m > 0.',
+    208: 'Tách tử số 6x^2 + 5x + 2 theo bội của (2x + 1) hoặc thực hiện phép chia đa thức (6x^2 + 5x + 2) cho (2x + 1) để xác định phần thương nguyên Q.',
+    213: 'Thực hiện phép chia đa thức 3x^2 - 8x - 4 cho (3x - 2) bằng cách đặt tính chia hoặc biến đổi tử số thành bội của (3x - 2) cộng phần dư -8, phần thương chính là biểu thức A.',
+    214: 'Thực hiện phép chia đa thức 2x^2 - 4x - 3 cho (x + 1) để xác định phần thương bậc nhất A(x) sao cho số dư B là một hằng số.',
+    215: 'Theo Định lý nhân tử (Factor Theorem): nếu p(c) = 0 thì đa thức p(x) chắc chắn chia hết cho (x - c), tức là (x - c) là một nhân tử của p(x). Áp dụng với nghiệm được cho.',
+    219: 'Xác định nghiệm hữu tỉ x = p/q làm đa thức triệt tiêu từ dữ kiện bài toán; khi đó nhị thức (qx - p) tương ứng sẽ là một nhân tử của đa thức.',
+    233: 'Nhớ rằng |u| >= 0 với mọi số thực u. Hãy thay từng biểu thức lần lượt bằng -5 rồi chuyển vế để kiểm tra phương trình nào cho |...| bằng một số âm (vô nghiệm) hay số không âm.',
+    235: 'Từ |x - 3| > 10, tách thành hai trường hợp: x - 3 > 10 hoặc x - 3 < -10. Giải hai bất phương trình để tìm hai khoảng nghiệm của x rồi kiểm tra các đáp án.',
+    238: 'Quan sát đồ thị gốc f(x) ở trang 160 trong PDF: với các điểm có tung độ y < 0 (nằm dưới trục hoành Ox), phép lấy trị tuyệt đối y = |f(x)| sẽ lật đối xứng qua trục Ox lên phía trên; các phần ở trên trục Ox giữ nguyên.',
+    240: 'Tính điểm chính giữa (trung điểm) của hai đầu mút 6 1/4 và 6 3/4, đồng thời tính khoảng sai số tối đa từ trung điểm đến mỗi đầu mút để lập dạng |h - Trung điểm| < Sai số.',
     241: (
         'Bài toán khoảng dung sai (Tolerance Interval):\n'
         '• Tìm giá trị trung tâm (Midpoint) của khoảng [400; 410]: Midpoint = (400 + 410) / 2.\n'
         '• Tìm độ lệch tối đa (Tolerance) từ điểm trung tâm đến hai đầu mút: Tolerance = (410 - 400) / 2.\n'
         '• Công thức khoảng giá trị tuyệt đối chuẩn: |x - Midpoint| < Tolerance. Hãy thay số để đối chiếu dạng biểu thức.'
-    )
+    ),
+    243: 'Từ |a| < 1 suy ra -1 < a < 1. Hãy kiểm tra lần lượt ba mệnh đề I, II, III bằng cách thử các giá trị tiêu biểu thuộc khoảng (-1; 1), đặc biệt thử một phân số âm (ví dụ a = -0.5) để loại mệnh đề sai.',
+    267: 'Từ diện tích hình vuông bằng 4 suy ra cạnh tam giác đều s = 2. Kẻ đường cao chia tam giác đều thành hai tam giác vuông 30°-60°-90° để tìm chiều cao theo căn bậc hai rồi tính diện tích (1/2) * đáy * cao.',
+    291: 'Với mỗi ngày A, B, C, D, hãy cộng hai khoảng thời gian đi và về (commute to + commute from) hoặc đọc tổng chiều dài trên biểu đồ để tìm ngày có tổng thời gian lớn nhất.',
+    297: 'Quan sát điểm dữ liệu nằm thấp nhất theo trục tung (số giờ ngủ ít nhất) trên biểu đồ phân tán ở trang 211 trong PDF, rồi gióng thẳng xuống trục hoành để đọc độ tuổi tương ứng.',
+    309: 'Với 20 người biên tập được sắp xếp theo thứ tự, trung vị là trung bình cộng của giá trị thứ 10 và thứ 11. Vì cả hai phần tử này đều rơi vào nhóm 10–15 cuốn sách nên giá trị trung vị phải nằm trong khoảng đó.'
 }
 
 def clean_topic_str(topic):
@@ -332,16 +371,16 @@ def sanitize_l2(q_id, raw_l2, correct_ans, opt_text):
         text = re.sub(rf'\s*(?:=>|=|là)\s*{esc}\b.*$', '', text, flags=re.I)
         text = re.sub(rf'\s*=\s*{esc}(?:\s+[a-zA-Z]+)?\s*$', '', text, flags=re.I)
 
-    # Strip final '= [number]' or '=> [var] = [number]'
-    text = re.sub(r'\s*=>\s*[a-zA-Z]\s*=\s*[\-0-9\/\.,]+\s*$', '', text)
-    text = re.sub(r'\s*=>\s*[\-0-9\/\.,]+\s*$', '', text)
-    text = re.sub(r'\s*=\s*[\-0-9\/\.,]+\s*(?:số|hộp|lít|gam|km|đô la|tuần|mét|đơn vị|giây|phút|giờ|độ)?\s*$', '', text)
+    # Strip final '= [number]' or '=> [var] = [number]' (never strip inside <=, >=, !=, or <=>)
+    text = re.sub(r'\s*(?<![<>])=>\s*[a-zA-Z]\s*(?<![<>!])=\s*[\-0-9\/\.,]+\s*$', '', text)
+    text = re.sub(r'\s*(?<![<>])=>\s*[\-0-9\/\.,]+\s*$', '', text)
+    text = re.sub(r'\s*(?<![<>!])=\s*[\-0-9\/\.,]+\s*(?:số|hộp|lít|gam|km|đô la|tuần|mét|đơn vị|giây|phút|giờ|độ)?\s*$', '', text)
 
-    # If steps are joined by =>, drop final evaluation step
-    parts = [p.strip() for p in text.split('=>') if p.strip()]
+    # If steps are joined by => (never split inside <=>), drop final evaluation step
+    parts = [p.strip() for p in re.split(r'(?<![<>])=>', text) if p.strip()]
     if len(parts) >= 2:
         last = parts[-1]
-        if re.search(r'=\s*[\-0-9\/\.,]+', last) or len(last.split()) <= 4:
+        if re.search(r'(?<![<>!])=\s*[\-0-9\/\.,]+', last) or len(last.split()) <= 4:
             text = ' => '.join(parts[:-1])
 
     # Remove answer letter leaks
@@ -553,25 +592,48 @@ def main():
             strat.get("core_theory", ""), strat.get("traps", "")
         )
 
-        # Audit Tier 1 and Tier 2 for leaks
-        for tier_name, tier_text in [("Tier 1", t1), ("Tier 2", t2)]:
+        # Audit Tier 1 and Tier 2 for leaks, truncations, and spoiler options
+        prompt_lower = item["question"].lower()
+        t2_body = "\n".join(
+            l for l in t2.split("\n")
+            if not l.startswith("Manh mối bước giải") and not l.startswith("• Hãy tiếp tục")
+        ).strip()
+        t1_formula = t1.split("Quy tắc / Công thức then chốt:", 1)[-1].strip() if "Quy tắc / Công thức then chốt:" in t1 else t1
+
+        for tier_name, check_text in [("Tier 1", t1_formula), ("Tier 2", t2_body)]:
             # 1. Letter leaks
             letter_patterns = [
                 rf"\b[đĐ]áp án\s*(?:là|chính xác)?\s*\[?{corr_ans}\]?",
                 rf"\b[cC]họn\s*\[?{corr_ans}\]?",
                 rf"\b[pP]hương án\s*\[?{corr_ans}\]?",
-                rf"=\s*\[?{corr_ans}\]?(?:\s|$|\.)",
-                rf"=>\s*\[?{corr_ans}\]?(?:\s|$|\.)"
+                rf"\b[vV]ậy\s+{corr_ans}\s*\.?$",
+                rf"\b{corr_ans}\s+(?:lớn nhất|nhỏ nhất)\b",
+                rf"(?<![<>!])=\s*\[?{corr_ans}\]?(?:\s|$|\.)",
+                rf"(?<![<>])=>\s*\[?{corr_ans}\]?(?:\s|$|\.)"
             ]
             for pat in letter_patterns:
-                if re.search(pat, tier_text):
+                if re.search(pat, check_text):
                     leak_failures.append((qid, tier_name, f"Letter leak '{corr_ans}': {pat}"))
 
-            # 2. Option text / calculated result leaks
+            # 2. Option text / calculated result leaks (when not quoted verbatim from the prompt)
             if opt_text and len(opt_text) >= 2 and opt_text not in {'x', 'y', 'a', 'b', 'c', 'd', '1', '0', '-1', '2'}:
-                esc_opt = re.escape(opt_text)
-                if re.search(rf"(?:~|=|\bđược\b|\blà\b|\bsuy ra\b|\bkết quả\s*(?:là)?\s*)\s*{esc_opt}", tier_text, re.I):
-                    leak_failures.append((qid, tier_name, f"Option text result leak '{opt_text}'"))
+                if opt_text.lower() not in prompt_lower:
+                    esc_opt = re.escape(opt_text)
+                    if re.search(rf"(?<![A-Za-z0-9%]){esc_opt}(?![A-Za-z0-9%])", check_text, re.I):
+                        leak_failures.append((qid, tier_name, f"Exact option leak '{opt_text}'"))
+                    elif any(c in opt_text for c in ['%', '^', '/', '+', '=', '<', '>']) and opt_text in check_text:
+                        leak_failures.append((qid, tier_name, f"Expr option leak '{opt_text}'"))
+
+            # 3. Truncated hint operators at end of hint
+            if tier_name == "Tier 2" and re.search(r'(?:<=|>=|<|>|=|:|,)\s*\.$', check_text):
+                leak_failures.append((qid, tier_name, f"Truncated Tier 2 ending: {check_text!r}"))
+
+        # 4. Visual / Asymmetric Spoiler Option check
+        if len(options) == 4 and opt_text:
+            other_lens = [len(o["text"].strip()) for o in options if o["key"] != corr_ans]
+            avg_other = sum(other_lens) / 3.0 if other_lens else 0
+            if any(w in prompt_lower for w in ["which graph", "scatterplot"]) and avg_other > 0 and len(opt_text) >= 2.0 * avg_other:
+                leak_failures.append((qid, "Options", f"Visual option spoiler '{opt_text}'"))
 
         mermaid_code = generate_mermaid(qid, cnum, clean_topic_str(item["topic"]), corr_ans)
         code_name = f"Ch{cnum}_{c_info['name'].replace(' ', '_').replace('&', 'and').replace('.', '').replace('-', '_')}"
