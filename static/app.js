@@ -7,6 +7,7 @@
 
 const GLOBAL_PROFILE_KEY = "bluebook_global_student_profile_v1";
 const GLOBAL_AAR_STORAGE_KEY = "bluebook_global_aar_tracker_v1";
+const GLOBAL_AAR_DRAFT_KEY = "bluebook_global_aar_draft_v1";
 const GLOBAL_SESSION_TRACKER_KEY = "bluebook_global_session_tracker_v1";
 const LEGACY_STORAGE_KEY = "bluebook_oct2026_student_state_v1";
 const AAR_TEACHER_RECIPIENTS = "v.sonpbh1@vinschool.edu.vn,mikepham@baoan.ai.vn";
@@ -157,6 +158,17 @@ const App = {
   aarScope: "session",
   aarLogs: [],
   lastAarReportAt: null,
+  aarDraft: {
+    session_label: "",
+    sat_module: "",
+    sat_module_custom: "",
+    sat_module_user_set: false,
+    iste_standard: "",
+    iste_user_set: false,
+    goal: "",
+    challenge: "",
+    updated_at: null
+  },
 
   // Student Personal State (Loaded from localStorage)
   studentState: {
@@ -221,6 +233,15 @@ const DOM = {
   homeInputName: document.getElementById("home-input-name"),
   homeInputEmail: document.getElementById("home-input-email"),
   targetChipsContainer: document.getElementById("target-chips-container"),
+  homeAarSyncBadge: document.getElementById("home-aar-sync-badge"),
+  homeAarSession: document.getElementById("home-aar-session"),
+  homeAarSatModule: document.getElementById("home-aar-sat-module"),
+  homeAarSatModuleCustom: document.getElementById("home-aar-sat-module-custom"),
+  homeAarIste: document.getElementById("home-aar-iste"),
+  homeAarIsteHint: document.getElementById("home-aar-iste-hint"),
+  homeGoalTargetPill: document.getElementById("home-goal-target-pill"),
+  homeAarGoal: document.getElementById("home-aar-goal"),
+  homeAarChallenge: document.getElementById("home-aar-challenge"),
   btnHomeStartPractice: document.getElementById("btn-home-start-practice"),
   btnHomeViewGuide: document.getElementById("btn-home-view-guide"),
 
@@ -464,6 +485,7 @@ const DOM = {
   aarIsteHint: document.getElementById("aar-iste-hint"),
   aarInputGoal: document.getElementById("aar-input-goal"),
   aarInputChallenge: document.getElementById("aar-input-challenge"),
+  aarTargetScorePill: document.getElementById("aar-target-score-pill"),
   aarInputTools: document.getElementById("aar-input-tools"),
   aarSelectMastery: document.getElementById("aar-select-mastery"),
   aarInputEvidence: document.getElementById("aar-input-evidence"),
@@ -714,6 +736,10 @@ function syncHomeProfile() {
       }
     });
   }
+
+  if (typeof syncAarAnticipationUI === "function") {
+    syncAarAnticipationUI();
+  }
 }
 
 function updateModuleCardStats() {
@@ -867,6 +893,21 @@ function renderModuleCards() {
   }
 }
 
+function flagHomeFieldError(el, message) {
+  if (el) {
+    el.focus();
+    const wrap = el.parentElement;
+    if (wrap) {
+      wrap.classList.add("input-error");
+      setTimeout(() => wrap.classList.remove("input-error"), 2000);
+    }
+    if (typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+  alert(message);
+}
+
 function startPracticeFromHome(targetModule) {
   let name = (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") || App.studentState.student_name;
   let email = (DOM.homeInputEmail ? DOM.homeInputEmail.value.trim() : "") || App.studentState.student_email;
@@ -879,17 +920,30 @@ function startPracticeFromHome(targetModule) {
   }
 
   if (!name || !email) {
-    if (DOM.homeInputName && !DOM.homeInputName.value.trim()) {
-      DOM.homeInputName.focus();
-      DOM.homeInputName.parentElement.classList.add("input-error");
-      setTimeout(() => DOM.homeInputName.parentElement.classList.remove("input-error"), 2000);
-    } else if (DOM.homeInputEmail && !DOM.homeInputEmail.value.trim()) {
-      DOM.homeInputEmail.focus();
-      DOM.homeInputEmail.parentElement.classList.add("input-error");
-      setTimeout(() => DOM.homeInputEmail.parentElement.classList.remove("input-error"), 2000);
-    }
-    alert("Vui lòng điền đầy đủ Họ và tên cùng Địa chỉ email của em để bắt đầu bài làm!");
+    const missingEl = (!DOM.homeInputName || !DOM.homeInputName.value.trim()) ? DOM.homeInputName : DOM.homeInputEmail;
+    flagHomeFieldError(missingEl, "Vui lòng điền đầy đủ Họ và tên cùng Địa chỉ email của em để bắt đầu bài làm!");
     return;
+  }
+
+  // Validate & auto-save Stage 1 Anticipation (ARR) before entering practice
+  if (DOM.homeAarGoal && DOM.homeAarChallenge) {
+    const draftGoal = DOM.homeAarGoal.value.trim();
+    const draftChallenge = DOM.homeAarChallenge.value.trim();
+    const draftMod = DOM.homeAarSatModule ? DOM.homeAarSatModule.value : "";
+    const draftModCustom = DOM.homeAarSatModuleCustom ? DOM.homeAarSatModuleCustom.value.trim() : "";
+
+    if (draftMod === "Khác (Tự nhập...)" && !draftModCustom) {
+      flagHomeFieldError(DOM.homeAarSatModuleCustom, "Vui lòng nhập tên Mô-đun SAT / chủ đề em dự kiến luyện tập!");
+      return;
+    }
+    if (!draftGoal) {
+      flagHomeFieldError(DOM.homeAarGoal, "Vui lòng điền Mục tiêu bài học & Điểm kỳ vọng (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
+      return;
+    }
+    if (!draftChallenge) {
+      flagHomeFieldError(DOM.homeAarChallenge, "Vui lòng điền Thách thức dự kiến (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
+      return;
+    }
   }
 
   App.studentState.student_name = name;
@@ -914,6 +968,10 @@ function startPracticeFromHome(targetModule) {
     if (DOM.selectModule) DOM.selectModule.value = targetModule;
     setupModuleQuestions();
     startModuleTimer();
+  }
+
+  if (typeof captureHomeAarDraftFromInputs === "function") {
+    captureHomeAarDraftFromInputs();
   }
 
   showView("practice");
@@ -947,6 +1005,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initTabletSupport();
   initZenMode();
   initOnboarding();
+  initHomeAarSelects();
   setupEventListeners();
 
   await fetchDatabase();
@@ -1263,6 +1322,9 @@ async function switchTest(targetTestId) {
 
   setupModuleQuestions();
   updateModuleCardStats();
+  if (typeof syncAarAnticipationUI === "function") {
+    syncAarAnticipationUI();
+  }
 
   // If in practice view, re-render question immediately
   if (document.body.classList.contains("in-practice")) {
@@ -5014,17 +5076,48 @@ function setupEventListeners() {
     });
   }
   if (DOM.aarSelectSatModule) {
-    DOM.aarSelectSatModule.addEventListener("change", toggleAarCustomModuleInput);
+    DOM.aarSelectSatModule.addEventListener("change", () => {
+      toggleAarCustomModuleInput(true);
+      captureModalAarDraftFromInputs({ markModuleUserSet: true });
+    });
+  }
+  if (DOM.aarInputSatModuleCustom) {
+    DOM.aarInputSatModuleCustom.addEventListener("input", () => captureModalAarDraftFromInputs({ markModuleUserSet: true }));
+  }
+  if (DOM.aarInputSessionLabel) {
+    DOM.aarInputSessionLabel.addEventListener("input", () => captureModalAarDraftFromInputs());
   }
   if (DOM.aarSelectIste) {
-    DOM.aarSelectIste.addEventListener("change", updateAARIsteHint);
+    DOM.aarSelectIste.addEventListener("change", () => {
+      updateAARIsteHint();
+      captureModalAarDraftFromInputs({ markIsteUserSet: true });
+    });
+  }
+  if (DOM.aarInputGoal) {
+    DOM.aarInputGoal.addEventListener("input", () => captureModalAarDraftFromInputs());
+  }
+  if (DOM.aarInputChallenge) {
+    DOM.aarInputChallenge.addEventListener("input", () => captureModalAarDraftFromInputs());
+  }
+  if (DOM.aarInputStudentName) {
+    DOM.aarInputStudentName.addEventListener("input", () => {
+      const val = DOM.aarInputStudentName.value.trim();
+      App.studentState.student_name = val;
+      if (DOM.homeInputName) DOM.homeInputName.value = val;
+      if (DOM.homeStudentNameChip) DOM.homeStudentNameChip.textContent = val || "Chưa đăng ký";
+      if (DOM.headerStudentName) DOM.headerStudentName.textContent = val || "Học sinh";
+      saveLocalState();
+    });
   }
   if (DOM.aarInputStudentEmail) {
     DOM.aarInputStudentEmail.addEventListener("input", () => {
       const val = DOM.aarInputStudentEmail.value.trim();
+      App.studentState.student_email = val;
+      if (DOM.homeInputEmail) DOM.homeInputEmail.value = val;
       if (DOM.aarPreviewCcEmail) {
         DOM.aarPreviewCcEmail.textContent = val || "Chưa nhập email học sinh";
       }
+      saveLocalState();
     });
   }
   if (DOM.btnAarPullErrors) {
@@ -5133,6 +5226,7 @@ function setupEventListeners() {
       chip.classList.add("active");
       App.studentState.student_target = chip.getAttribute("data-val");
       saveLocalState();
+      syncAarTargetPills();
     });
   }
 
@@ -5147,14 +5241,46 @@ function setupEventListeners() {
       if (DOM.headerStudentName) {
         DOM.headerStudentName.textContent = val || "Học sinh";
       }
+      if (DOM.aarInputStudentName) {
+        DOM.aarInputStudentName.value = val;
+      }
       saveLocalState();
     });
   }
   if (DOM.homeInputEmail) {
     DOM.homeInputEmail.addEventListener("input", (e) => {
-      App.studentState.student_email = e.target.value.trim();
+      const val = e.target.value.trim();
+      App.studentState.student_email = val;
+      if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.value = val;
+      if (DOM.aarPreviewCcEmail) DOM.aarPreviewCcEmail.textContent = val || "Chưa nhập email học sinh";
       saveLocalState();
     });
+  }
+
+  // Integrated Home Anticipation (Stage 1 AAR) real-time two-way sync
+  if (DOM.homeAarSession) {
+    DOM.homeAarSession.addEventListener("input", () => captureHomeAarDraftFromInputs());
+  }
+  if (DOM.homeAarSatModule) {
+    DOM.homeAarSatModule.addEventListener("change", () => {
+      toggleCustomModuleField(DOM.homeAarSatModule, DOM.homeAarSatModuleCustom, true);
+      captureHomeAarDraftFromInputs({ markModuleUserSet: true });
+    });
+  }
+  if (DOM.homeAarSatModuleCustom) {
+    DOM.homeAarSatModuleCustom.addEventListener("input", () => captureHomeAarDraftFromInputs({ markModuleUserSet: true }));
+  }
+  if (DOM.homeAarIste) {
+    DOM.homeAarIste.addEventListener("change", () => {
+      updateIsteHintFor(DOM.homeAarIste, DOM.homeAarIsteHint);
+      captureHomeAarDraftFromInputs({ markIsteUserSet: true });
+    });
+  }
+  if (DOM.homeAarGoal) {
+    DOM.homeAarGoal.addEventListener("input", () => captureHomeAarDraftFromInputs());
+  }
+  if (DOM.homeAarChallenge) {
+    DOM.homeAarChallenge.addEventListener("input", () => captureHomeAarDraftFromInputs());
   }
 
   // View Guide button
@@ -5326,6 +5452,68 @@ const ISTE_STANDARDS_LOOKUP = {
   }
 };
 
+function createEmptyAarDraft() {
+  return {
+    session_label: "",
+    sat_module: "",
+    sat_module_custom: "",
+    sat_module_user_set: false,
+    iste_standard: "",
+    iste_user_set: false,
+    goal: "",
+    challenge: "",
+    updated_at: null
+  };
+}
+
+function formatTargetScoreLabel(targetVal) {
+  const val = String(targetVal || "1400+").trim();
+  if (val === "1300+") return "🎯 1300+";
+  if (val === "1500+") return "🎯 1500+ Ivy League";
+  if (val === "1400+") return "🎯 1400+ Top 50";
+  return `🎯 ${val}`;
+}
+
+function getDefaultIsteForModule(modChoice) {
+  if (!DOM.aarSelectIste) return "";
+  const opts = Array.from(DOM.aarSelectIste.options);
+  const low = String(modChoice || "").trim().toLowerCase();
+  if (/^(math|toán)\b|\b(math|desmos|algebra|geometry|trig)\b/.test(low)) {
+    const m = opts.find(o => o.value.includes("Computational Thinker"));
+    if (m) return m.value;
+  } else if (/^(reading|writing)\b|\b(reading|writing|grammar|vocab|rhetoric)\b/.test(low)) {
+    const rw = opts.find(o => o.value.includes("Knowledge Constructor"));
+    if (rw) return rw.value;
+  }
+  return opts[0] ? opts[0].value : "";
+}
+
+function populateMirroredSelect(sourceSel, targetSel) {
+  if (!sourceSel || !targetSel) return;
+  targetSel.innerHTML = "";
+  Array.from(sourceSel.options).forEach(opt => {
+    const clone = document.createElement("option");
+    clone.value = opt.value;
+    clone.textContent = opt.textContent;
+    targetSel.appendChild(clone);
+  });
+}
+
+function initHomeAarSelects() {
+  populateMirroredSelect(DOM.aarSelectSatModule, DOM.homeAarSatModule);
+  populateMirroredSelect(DOM.aarSelectIste, DOM.homeAarIste);
+  syncAarAnticipationUI();
+}
+
+function toggleCustomModuleField(selectEl, customEl, shouldFocus = false) {
+  if (!selectEl || !customEl) return;
+  const isCustom = selectEl.value === "Khác (Tự nhập...)";
+  customEl.classList.toggle("hidden", !isCustom);
+  if (isCustom && shouldFocus) {
+    customEl.focus();
+  }
+}
+
 function loadGlobalAARState() {
   try {
     const raw = localStorage.getItem(GLOBAL_AAR_STORAGE_KEY);
@@ -5341,6 +5529,19 @@ function loadGlobalAARState() {
     App.aarLogs = [];
     App.lastAarReportAt = null;
   }
+
+  try {
+    const rawDraft = localStorage.getItem(GLOBAL_AAR_DRAFT_KEY);
+    if (rawDraft) {
+      const parsedDraft = JSON.parse(rawDraft);
+      App.aarDraft = Object.assign(createEmptyAarDraft(), parsedDraft || {});
+    } else {
+      App.aarDraft = createEmptyAarDraft();
+    }
+  } catch (e) {
+    App.aarDraft = createEmptyAarDraft();
+  }
+
   updateAARHistoryBadge();
 }
 
@@ -5355,6 +5556,154 @@ function saveGlobalAARState() {
     console.warn("Could not save global AAR state:", e);
   }
   updateAARHistoryBadge();
+}
+
+function saveGlobalAARDraft() {
+  try {
+    App.aarDraft = Object.assign(createEmptyAarDraft(), App.aarDraft || {}, {
+      updated_at: new Date().toISOString()
+    });
+    localStorage.setItem(GLOBAL_AAR_DRAFT_KEY, JSON.stringify(App.aarDraft));
+  } catch (e) {
+    console.warn("Could not save global AAR draft:", e);
+  }
+  updateHomeAarSyncBadge();
+}
+
+function syncAarTargetPills() {
+  const label = formatTargetScoreLabel((App.studentState && App.studentState.student_target) || "1400+");
+  if (DOM.homeGoalTargetPill) DOM.homeGoalTargetPill.textContent = label;
+  if (DOM.aarTargetScorePill) DOM.aarTargetScorePill.textContent = `Mục tiêu SAT: ${label}`;
+}
+
+function updateHomeAarSyncBadge() {
+  if (!DOM.homeAarSyncBadge) return;
+  const d = App.aarDraft || {};
+  const isReady = Boolean(String(d.goal || "").trim() && String(d.challenge || "").trim());
+  DOM.homeAarSyncBadge.classList.toggle("ready", isReady);
+  DOM.homeAarSyncBadge.textContent = isReady ? "✓ Đã đồng bộ sẵn vào ARR" : "💾 Tự lưu vào Báo cáo ARR";
+}
+
+function getEffectiveModuleForIste(satModule, customModule) {
+  if (satModule === "Khác (Tự nhập...)") {
+    const customTrim = String(customModule || "").trim();
+    return customTrim || detectDefaultAarModule();
+  }
+  return satModule;
+}
+
+function resolveAnticipationState() {
+  const d = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
+  const nextIdx = (App.aarLogs ? App.aarLogs.length : 0) + 1;
+  const sessionLabel = d.session_label && d.session_label.trim() ? d.session_label : `Buổi ${nextIdx}`;
+  const satModule = (d.sat_module_user_set && d.sat_module) ? d.sat_module : detectDefaultAarModule();
+  const effectiveModForIste = getEffectiveModuleForIste(satModule, d.sat_module_custom);
+  const isteStandard = (d.iste_user_set && d.iste_standard)
+    ? d.iste_standard
+    : (getDefaultIsteForModule(effectiveModForIste) || d.iste_standard);
+  return {
+    session_label: sessionLabel,
+    sat_module: satModule,
+    sat_module_custom: d.sat_module_custom || "",
+    iste_standard: isteStandard,
+    goal: d.goal || "",
+    challenge: d.challenge || ""
+  };
+}
+
+function applyAnticipationFieldsToElements(resolved, targets) {
+  targets.forEach(({ sessionEl, modEl, modCustomEl, isteEl, hintEl, goalEl, challengeEl }) => {
+    if (sessionEl && document.activeElement !== sessionEl) sessionEl.value = resolved.session_label;
+    if (modEl && modEl.options.length > 0 && document.activeElement !== modEl) {
+      modEl.value = resolved.sat_module;
+    }
+    if (modCustomEl) {
+      if (document.activeElement !== modCustomEl) modCustomEl.value = resolved.sat_module_custom;
+      toggleCustomModuleField(modEl, modCustomEl, false);
+    }
+    if (isteEl && isteEl.options.length > 0 && resolved.iste_standard && document.activeElement !== isteEl) {
+      isteEl.value = resolved.iste_standard;
+    }
+    updateIsteHintFor(isteEl, hintEl);
+    if (goalEl && document.activeElement !== goalEl) goalEl.value = resolved.goal;
+    if (challengeEl && document.activeElement !== challengeEl) challengeEl.value = resolved.challenge;
+  });
+}
+
+function syncAarAnticipationUI() {
+  const resolved = resolveAnticipationState();
+  applyAnticipationFieldsToElements(resolved, [
+    {
+      sessionEl: DOM.homeAarSession,
+      modEl: DOM.homeAarSatModule,
+      modCustomEl: DOM.homeAarSatModuleCustom,
+      isteEl: DOM.homeAarIste,
+      hintEl: DOM.homeAarIsteHint,
+      goalEl: DOM.homeAarGoal,
+      challengeEl: DOM.homeAarChallenge
+    },
+    {
+      sessionEl: DOM.aarInputSessionLabel,
+      modEl: DOM.aarSelectSatModule,
+      modCustomEl: DOM.aarInputSatModuleCustom,
+      isteEl: DOM.aarSelectIste,
+      hintEl: DOM.aarIsteHint,
+      goalEl: DOM.aarInputGoal,
+      challengeEl: DOM.aarInputChallenge
+    }
+  ]);
+  syncAarTargetPills();
+  updateHomeAarSyncBadge();
+}
+
+function captureDraftFromSource(source, { markModuleUserSet = false, markIsteUserSet = false } = {}) {
+  const prev = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
+  const modVal = source.modEl ? source.modEl.value : prev.sat_module;
+  const userSetMod = markModuleUserSet || prev.sat_module_user_set;
+  const userSetIste = markIsteUserSet || prev.iste_user_set;
+
+  App.aarDraft = {
+    session_label: source.sessionEl ? source.sessionEl.value.trim() : prev.session_label,
+    sat_module: modVal,
+    sat_module_custom: source.modCustomEl ? source.modCustomEl.value.trim() : prev.sat_module_custom,
+    sat_module_user_set: userSetMod,
+    iste_standard: source.isteEl ? source.isteEl.value : prev.iste_standard,
+    iste_user_set: userSetIste,
+    goal: source.goalEl ? source.goalEl.value : prev.goal,
+    challenge: source.challengeEl ? source.challengeEl.value : prev.challenge
+  };
+
+  if (markModuleUserSet && !userSetIste && source.isteEl) {
+    const autoIste = getDefaultIsteForModule(
+      getEffectiveModuleForIste(modVal, App.aarDraft.sat_module_custom)
+    );
+    if (autoIste) App.aarDraft.iste_standard = autoIste;
+  }
+
+  saveGlobalAARDraft();
+  syncAarAnticipationUI();
+}
+
+function captureHomeAarDraftFromInputs(opts = {}) {
+  captureDraftFromSource({
+    sessionEl: DOM.homeAarSession,
+    modEl: DOM.homeAarSatModule,
+    modCustomEl: DOM.homeAarSatModuleCustom,
+    isteEl: DOM.homeAarIste,
+    goalEl: DOM.homeAarGoal,
+    challengeEl: DOM.homeAarChallenge
+  }, opts);
+}
+
+function captureModalAarDraftFromInputs(opts = {}) {
+  captureDraftFromSource({
+    sessionEl: DOM.aarInputSessionLabel,
+    modEl: DOM.aarSelectSatModule,
+    modCustomEl: DOM.aarInputSatModuleCustom,
+    isteEl: DOM.aarSelectIste,
+    goalEl: DOM.aarInputGoal,
+    challengeEl: DOM.aarInputChallenge
+  }, opts);
 }
 
 // ================= CROSS-TEST SESSION TRACKER & COUNTER =================
@@ -5470,13 +5819,8 @@ function getAllSessionErrorLogs(practicedMapByTest) {
   return collected;
 }
 
-function toggleAarCustomModuleInput() {
-  if (!DOM.aarSelectSatModule || !DOM.aarInputSatModuleCustom) return;
-  const isCustom = DOM.aarSelectSatModule.value === "Khác (Tự nhập...)";
-  DOM.aarInputSatModuleCustom.classList.toggle("hidden", !isCustom);
-  if (isCustom) {
-    DOM.aarInputSatModuleCustom.focus();
-  }
+function toggleAarCustomModuleInput(shouldFocus = true) {
+  toggleCustomModuleField(DOM.aarSelectSatModule, DOM.aarInputSatModuleCustom, shouldFocus);
 }
 
 function updateAARHistoryBadge() {
@@ -5659,16 +6003,20 @@ function calculateAARSessionSummary(scope = "session") {
   };
 }
 
-function updateAARIsteHint() {
-  if (!DOM.aarSelectIste || !DOM.aarIsteHint) return;
-  const raw = DOM.aarSelectIste.value || "";
+function updateIsteHintFor(selectEl, hintEl) {
+  if (!selectEl || !hintEl) return;
+  const raw = selectEl.value || "";
   const shortKey = raw.split("(")[0].trim();
   const info = ISTE_STANDARDS_LOOKUP[shortKey];
   if (info) {
-    DOM.aarIsteHint.innerHTML = `<strong>Khái niệm:</strong> ${escapeHtmlSafe(info.concept)}<br><strong>Ứng dụng SAT:</strong> ${escapeHtmlSafe(info.satApp)}`;
+    hintEl.innerHTML = `<strong>Khái niệm:</strong> ${escapeHtmlSafe(info.concept)}<br><strong>Ứng dụng SAT:</strong> ${escapeHtmlSafe(info.satApp)}`;
   } else {
-    DOM.aarIsteHint.textContent = "";
+    hintEl.textContent = "";
   }
+}
+
+function updateAARIsteHint() {
+  updateIsteHintFor(DOM.aarSelectIste, DOM.aarIsteHint);
 }
 
 function escapeHtmlSafe(str) {
@@ -5800,28 +6148,10 @@ function openAARModal() {
   }
   App.aarScope = initialScope;
 
-  const nextIdx = (App.aarLogs ? App.aarLogs.length : 0) + 1;
-  if (DOM.aarInputSessionLabel) DOM.aarInputSessionLabel.value = `Buổi ${nextIdx}`;
   if (DOM.aarInputDate) DOM.aarInputDate.value = getTodayIsoLocal();
-  if (DOM.aarSelectSatModule) DOM.aarSelectSatModule.value = detectDefaultAarModule();
-  if (DOM.aarInputSatModuleCustom) {
-    DOM.aarInputSatModuleCustom.value = "";
-    toggleAarCustomModuleInput();
-  }
 
-  const modChoice = DOM.aarSelectSatModule ? DOM.aarSelectSatModule.value : "";
-  if (DOM.aarSelectIste) {
-    if (modChoice.startsWith("Math")) {
-      const mathOpt = Array.from(DOM.aarSelectIste.options).find(o => o.value.includes("Computational Thinker"));
-      if (mathOpt) DOM.aarSelectIste.value = mathOpt.value;
-    } else if (modChoice.startsWith("Reading") || modChoice.startsWith("Writing")) {
-      const rwOpt = Array.from(DOM.aarSelectIste.options).find(o => o.value.includes("Knowledge Constructor"));
-      if (rwOpt) DOM.aarSelectIste.value = rwOpt.value;
-    } else {
-      DOM.aarSelectIste.selectedIndex = 0;
-    }
-  }
-  updateAARIsteHint();
+  // Restore saved pre-session Anticipation values (Session #, Module, ISTE, Goal, Challenge) & SAT Target
+  syncAarAnticipationUI();
 
   refreshAARPerformanceUI(true);
   const s = App.currentAarSummary;
@@ -5873,11 +6203,19 @@ function collectAARFormEntry(requireCompleteFields = true) {
   const s = calculateAARSessionSummary(App.aarScope || "session");
   const dateIso = (DOM.aarInputDate && DOM.aarInputDate.value) ? DOM.aarInputDate.value : getTodayIsoLocal();
 
+  const rawGoal = (DOM.aarInputGoal && DOM.aarInputGoal.value.trim()) || "";
+  const targetLabel = formatTargetScoreLabel((App.studentState && App.studentState.student_target) || "1400+");
+  const hasTargetHint = /1[345]00\+|Mục tiêu SAT/i.test(rawGoal);
+  const fullGoal = rawGoal
+    ? (hasTargetHint ? rawGoal : `${rawGoal} (Mục tiêu SAT: ${targetLabel.replace(/^🎯\s*/, "")})`)
+    : "";
+
   const entry = {
     id: `AAR-${Date.now()}`,
     created_at: new Date().toISOString(),
     student_name: studentName || "Hoc_Sinh",
     student_email: studentEmail,
+    student_target: targetLabel,
     test_id: s.isMixedSources ? "mix" : App.activeTestId,
     test_title: s.testShort,
     scope: s.scope,
@@ -5895,7 +6233,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
     date_display: formatDateViFromIso(dateIso),
     sat_module: satModuleVal,
     iste_standard: (DOM.aarSelectIste && DOM.aarSelectIste.value) || "Empowered Learner \n(Học sinh Chủ động)",
-    goal: (DOM.aarInputGoal && DOM.aarInputGoal.value.trim()) || "",
+    goal: fullGoal,
     challenge: (DOM.aarInputChallenge && DOM.aarInputChallenge.value.trim()) || "",
     tools: (DOM.aarInputTools && DOM.aarInputTools.value.trim()) || `Vinschool Bluebook App (${s.testShort})`,
     evidence: (DOM.aarInputEvidence && DOM.aarInputEvidence.value.trim()) || `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%)`,
@@ -6029,6 +6367,7 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 - Chi tiết: Đúng Lần 1: ${entry.l1_correct} | Lần 2: ${entry.l2_correct} | Lần 3: ${entry.l3_correct} | Chưa đúng: ${entry.missed_count} | Sổ thử sai: ${entry.error_log_count}
 
 [1. DỰ ĐOÁN (ANTICIPATION)]
+- Mục tiêu điểm số SAT: ${entry.student_target || formatTargetScoreLabel((App.studentState && App.studentState.student_target) || "1400+")}
 - Tiêu chuẩn ISTE: ${String(entry.iste_standard || "").replace(/\s*\n\s*/g, " ")}
 - Mục tiêu & Điểm kỳ vọng: ${entry.goal}
 - Thách thức dự kiến: ${entry.challenge}
@@ -6117,11 +6456,14 @@ async function submitAARReport() {
     }, 550);
 
     // 5. Reset session inputs for the next AAR cycle & switch to Success Modal
+    App.aarDraft = createEmptyAarDraft();
+    saveGlobalAARDraft();
     if (DOM.aarInputGoal) DOM.aarInputGoal.value = "";
     if (DOM.aarInputChallenge) DOM.aarInputChallenge.value = "";
     if (DOM.aarInputTools) DOM.aarInputTools.value = "";
     if (DOM.aarInputGap) DOM.aarInputGap.value = "";
     if (DOM.aarInputFeedforward) DOM.aarInputFeedforward.value = "";
+    syncAarAnticipationUI();
 
     closeAARModal();
     if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Tạo Báo Cáo ARR & Mở Email!";

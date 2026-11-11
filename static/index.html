@@ -111,6 +111,46 @@
                   </div>
                 </div>
 
+                <!-- Integrated ARR / AAR Stage 1: Anticipation (Pre-Session Self-Regulation) -->
+                <div class="home-anticipation-box" id="home-anticipation-box">
+                  <div class="home-anticipation-header">
+                    <span class="home-anticipation-title">1️⃣ Dự Đoán Trước Buổi Học (Anticipation — Chu Trình AAR)</span>
+                    <span class="home-aar-sync-badge" id="home-aar-sync-badge">💾 Tự lưu vào Báo cáo ARR</span>
+                  </div>
+
+                  <div class="form-row home-anticipation-meta-row">
+                    <div class="m3-input-field">
+                      <label for="home-aar-session">Buổi # <span class="req">*</span></label>
+                      <input type="text" id="home-aar-session" placeholder="Ví dụ: Buổi 1" autocomplete="off">
+                    </div>
+                    <div class="m3-input-field">
+                      <label for="home-aar-sat-module">Mô-đun SAT dự kiến <span class="req">*</span></label>
+                      <select id="home-aar-sat-module"></select>
+                      <input type="text" id="home-aar-sat-module-custom" class="hidden" style="margin-top: 6px;" placeholder="Nhập tên mô-đun / chủ đề / sách sẽ luyện...">
+                    </div>
+                  </div>
+
+                  <div class="m3-input-field home-anticipation-iste-wrap">
+                    <label for="home-aar-iste">Tiêu chuẩn ISTE áp dụng <span class="req">*</span></label>
+                    <select id="home-aar-iste"></select>
+                    <div class="aar-iste-hint home-aar-iste-hint" id="home-aar-iste-hint"></div>
+                  </div>
+
+                  <div class="form-row home-anticipation-grid">
+                    <div class="m3-input-field">
+                      <label for="home-aar-goal">
+                        Mục tiêu bài học &amp; Điểm kỳ vọng <span class="req">*</span>
+                        <span class="home-goal-target-pill" id="home-goal-target-pill">🎯 1400+ Top 50</span>
+                      </label>
+                      <textarea id="home-aar-goal" rows="2" placeholder="Ví dụ: Đạt ≥ 85% câu đúng; nắm chắc phương pháp bẫy từ khóa &amp; loại đáp án sai." required></textarea>
+                    </div>
+                    <div class="m3-input-field">
+                      <label for="home-aar-challenge">Thách thức dự kiến <span class="req">*</span></label>
+                      <textarea id="home-aar-challenge" rows="2" placeholder="Ví dụ: Câu suy luận dài, áp lực thời gian hoặc thao tác đồ thị Desmos." required></textarea>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="hero-actions">
                   <button type="button" class="btn-google-primary btn-large" id="btn-home-start-practice">
                     <span>Bắt Đầu Làm Bài Ngay 🚀</span>
@@ -1151,7 +1191,10 @@
 
           <!-- Stage 1: Anticipation -->
           <div class="aar-section-box aar-stage-1">
-            <div class="aar-section-title">1️⃣ GIAI ĐOẠN 1: DỰ ĐOÁN (ANTICIPATION — TRƯỚC BUỔI HỌC)</div>
+            <div class="aar-section-title">
+              <span>1️⃣ GIAI ĐOẠN 1: DỰ ĐOÁN (ANTICIPATION — TRƯỚC BUỔI HỌC)</span>
+              <span class="aar-target-score-pill" id="aar-target-score-pill">Mục tiêu SAT: 🎯 1400+ Top 50</span>
+            </div>
             <div class="aar-field">
               <label for="aar-select-iste">Tiêu chuẩn ISTE áp dụng <span class="req">*</span></label>
               <select id="aar-select-iste">
