@@ -725,48 +725,347 @@
   </div>
 
   <!-- ================= MODAL: SAT MATH REFERENCE SHEET ================= -->
-  <div class="modal-overlay hidden" id="modal-reference">
+  <div class="modal-overlay hidden" id="modal-reference" role="dialog" aria-modal="true" aria-labelledby="ref-modal-title">
     <div class="modal-card ref-modal-card">
-      <div class="modal-card-header">
-        <h3>📐 College Board Digital SAT Math Reference Sheet</h3>
-        <button class="btn-close-modal" id="btn-close-reference">✕</button>
-      </div>
-      <div class="modal-card-body ref-content">
-        <div class="ref-grid">
-          <div class="ref-box">
-            <h4>Circle</h4>
-            <p>Area: \( A = \pi r^2 \)</p>
-            <p>Circumference: \( C = 2\pi r \)</p>
-          </div>
-          <div class="ref-box">
-            <h4>Rectangle & Triangle</h4>
-            <p>Rectangle Area: \( A = lw \)</p>
-            <p>Triangle Area: \( A = \frac{1}{2}bh \)</p>
-          </div>
-          <div class="ref-box">
-            <h4>Pythagorean Theorem</h4>
-            <p>\( c^2 = a^2 + b^2 \)</p>
-          </div>
-          <div class="ref-box">
-            <h4>Special Right Triangles</h4>
-            <p>\( 45^\circ - 45^\circ - 90^\circ \): \( x : x : x\sqrt{2} \)</p>
-            <p>\( 30^\circ - 60^\circ - 90^\circ \): \( x : x\sqrt{3} : 2x \)</p>
-          </div>
-          <div class="ref-box">
-            <h4>Volume Formulas</h4>
-            <p>Rectangular Prism: \( V = lwh \)</p>
-            <p>Cylinder: \( V = \pi r^2 h \)</p>
-            <p>Sphere: \( V = \frac{4}{3}\pi r^3 \)</p>
-            <p>Cone: \( V = \frac{1}{3}\pi r^2 h \)</p>
-            <p>Pyramid: \( V = \frac{1}{3}lwh \)</p>
-          </div>
-          <div class="ref-box">
-            <h4>Key Facts</h4>
-            <p>• The number of degrees of arc in a circle is 360.</p>
-            <p>• The number of radians of arc in a circle is \( 2\pi \).</p>
-            <p>• The sum of the measures in degrees of the angles of a triangle is 180.</p>
+      <div class="g-ux-modal-header ref-modal-header">
+        <div class="header-title-group">
+          <div class="header-main-title">
+            <span class="ref-title-icon" aria-hidden="true">📐</span>
+            <div>
+              <h3 id="ref-modal-title">College Board Digital SAT Math Reference Sheet</h3>
+              <p class="header-sub-desc">Công thức Hình học phẳng, Tam giác vuông đặc biệt &amp; Thể tích khối 3D chuẩn Bluebook</p>
+            </div>
           </div>
         </div>
+        <button type="button" class="btn-close-modal" id="btn-close-reference" title="Đóng (Esc)">✕</button>
+      </div>
+
+      <div class="ref-filter-bar" id="ref-filter-chips" role="tablist" aria-label="Lọc nhóm công thức">
+        <button type="button" class="ref-filter-chip active" data-ref-cat="all">Tất cả</button>
+        <button type="button" class="ref-filter-chip" data-ref-cat="plane">2D &amp; Pythagore</button>
+        <button type="button" class="ref-filter-chip" data-ref-cat="special">Tam giác đặc biệt</button>
+        <button type="button" class="ref-filter-chip" data-ref-cat="volume">Thể tích 3D</button>
+        <button type="button" class="ref-filter-chip" data-ref-cat="facts">Quy tắc góc</button>
+      </div>
+
+      <div class="modal-card-body ref-content" id="ref-sections-wrap">
+        <!-- Section 1: 2D Plane Geometry -->
+        <section class="ref-section" data-ref-section="plane">
+          <div class="ref-section-head">
+            <span class="ref-section-eyebrow">HÌNH HỌC PHẲNG &amp; ĐỊNH LÝ PYTHAGORE</span>
+            <span class="ref-section-badge">4 công thức cơ bản</span>
+          </div>
+          <div class="ref-grid-4">
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Circle</h4>
+                <span class="ref-vi-sub">Hình tròn</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 120 84" aria-hidden="true">
+                  <circle cx="60" cy="42" r="30" class="geo-shape"/>
+                  <line x1="60" y1="42" x2="90" y2="42" class="geo-accent"/>
+                  <circle cx="60" cy="42" r="2.4" class="geo-dot"/>
+                  <text x="75" y="37" class="geo-label">r</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row">
+                  <span class="ref-f-label">Diện tích</span>
+                  <span class="ref-tex" data-tex="A = \pi r^2"><em>A</em> = &pi;<em>r</em><sup>2</sup></span>
+                </div>
+                <div class="ref-formula-row">
+                  <span class="ref-f-label">Chu vi</span>
+                  <span class="ref-tex" data-tex="C = 2\pi r"><em>C</em> = 2&pi;<em>r</em></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Rectangle</h4>
+                <span class="ref-vi-sub">Hình chữ nhật</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 120 84" aria-hidden="true">
+                  <rect x="20" y="18" width="76" height="44" class="geo-shape"/>
+                  <path d="M20 55 H27 V62" class="geo-right-angle"/>
+                  <text x="58" y="76" class="geo-label">l</text>
+                  <text x="104" y="44" class="geo-label">w</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row">
+                  <span class="ref-f-label">Diện tích</span>
+                  <span class="ref-tex" data-tex="A = lw"><em>A</em> = <em>lw</em></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Triangle</h4>
+                <span class="ref-vi-sub">Tam giác</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 120 84" aria-hidden="true">
+                  <polygon points="18,64 102,64 46,16" class="geo-shape"/>
+                  <line x1="46" y1="16" x2="46" y2="64" class="geo-dashed-accent"/>
+                  <path d="M46 57 H53 V64" class="geo-right-angle"/>
+                  <text x="52" y="44" class="geo-label">h</text>
+                  <text x="60" y="78" class="geo-label">b</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row">
+                  <span class="ref-f-label">Diện tích</span>
+                  <span class="ref-tex" data-tex="A = \frac{1}{2}bh"><em>A</em> = <span class="mf-frac"><span>1</span><span>2</span></span><em>bh</em></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Pythagorean</h4>
+                <span class="ref-vi-sub">Tam giác vuông</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 120 84" aria-hidden="true">
+                  <polygon points="26,64 94,64 26,18" class="geo-shape"/>
+                  <path d="M26 56 H34 V64" class="geo-right-angle"/>
+                  <text x="15" y="45" class="geo-label">a</text>
+                  <text x="60" y="78" class="geo-label">b</text>
+                  <text x="65" y="36" class="geo-label">c</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row">
+                  <span class="ref-f-label">Hệ thức</span>
+                  <span class="ref-tex" data-tex="c^2 = a^2 + b^2"><em>c</em><sup>2</sup> = <em>a</em><sup>2</sup> + <em>b</em><sup>2</sup></span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Section 2: Special Right Triangles -->
+        <section class="ref-section" data-ref-section="special">
+          <div class="ref-section-head">
+            <span class="ref-section-eyebrow">TAM GIÁC VUÔNG ĐẶC BIỆT (SPECIAL RIGHT TRIANGLES)</span>
+            <span class="ref-section-badge">Chuẩn College Board</span>
+          </div>
+          <div class="ref-grid-2">
+            <article class="ref-card ref-card-featured">
+              <div class="ref-featured-body">
+                <div class="ref-diagram ref-diagram-lg">
+                  <svg viewBox="0 0 132 94" aria-hidden="true">
+                    <polygon points="28,74 90,74 28,12" class="geo-shape"/>
+                    <path d="M28 65 H37 V74" class="geo-right-angle"/>
+                    <line x1="24" y1="43" x2="32" y2="43" class="geo-tick"/>
+                    <line x1="59" y1="70" x2="59" y2="78" class="geo-tick"/>
+                    <text x="34" y="36" class="geo-angle">45°</text>
+                    <text x="65" y="69" class="geo-angle">45°</text>
+                    <text x="14" y="47" class="geo-label">x</text>
+                    <text x="59" y="89" class="geo-label">x</text>
+                    <text x="74" y="36" class="geo-label">x√2</text>
+                  </svg>
+                </div>
+                <div class="ref-featured-info">
+                  <div class="ref-angle-heading">
+                    <span class="ref-tex" data-tex="45^\circ\text{–}45^\circ\text{–}90^\circ">45°–45°–90°</span>
+                  </div>
+                  <div class="ref-ratio-pill">
+                    <span class="ref-tex" data-tex="x : x : x\sqrt{2}"><em>x</em> : <em>x</em> : <em>x</em><span class="mf-sqrt">2</span></span>
+                  </div>
+                  <p class="ref-note">Hai cạnh góc vuông bằng nhau (<span class="ref-tex" data-tex="x"><em>x</em></span>); cạnh huyền dài gấp <span class="ref-tex" data-tex="\sqrt{2}"><span class="mf-sqrt">2</span></span> lần cạnh góc vuông.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card ref-card-featured">
+              <div class="ref-featured-body">
+                <div class="ref-diagram ref-diagram-lg">
+                  <svg viewBox="0 0 144 94" aria-hidden="true">
+                    <polygon points="24,74 110,74 24,24" class="geo-shape"/>
+                    <path d="M24 65 H33 V74" class="geo-right-angle"/>
+                    <text x="30" y="45" class="geo-angle">60°</text>
+                    <text x="80" y="69" class="geo-angle">30°</text>
+                    <text x="12" y="53" class="geo-label">x</text>
+                    <text x="67" y="89" class="geo-label">x√3</text>
+                    <text x="72" y="44" class="geo-label">2x</text>
+                  </svg>
+                </div>
+                <div class="ref-featured-info">
+                  <div class="ref-angle-heading">
+                    <span class="ref-tex" data-tex="30^\circ\text{–}60^\circ\text{–}90^\circ">30°–60°–90°</span>
+                  </div>
+                  <div class="ref-ratio-pill">
+                    <span class="ref-tex" data-tex="x : x\sqrt{3} : 2x"><em>x</em> : <em>x</em><span class="mf-sqrt">3</span> : 2<em>x</em></span>
+                  </div>
+                  <p class="ref-note">Đối diện <span class="ref-tex" data-tex="30^\circ">30°</span> là <span class="ref-tex" data-tex="x"><em>x</em></span>; đối diện <span class="ref-tex" data-tex="60^\circ">60°</span> là <span class="ref-tex" data-tex="x\sqrt{3}"><em>x</em><span class="mf-sqrt">3</span></span>; cạnh huyền bằng <span class="ref-tex" data-tex="2x">2<em>x</em></span>.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Section 3: 3D Volume Formulas -->
+        <section class="ref-section" data-ref-section="volume">
+          <div class="ref-section-head">
+            <span class="ref-section-eyebrow">THỂ TÍCH HÌNH KHỐI KHÔNG GIAN (VOLUME)</span>
+            <span class="ref-section-badge">5 hình khối 3D</span>
+          </div>
+          <div class="ref-grid-5">
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Rectangular Prism</h4>
+                <span class="ref-vi-sub">Hình hộp chữ nhật</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 126 86" aria-hidden="true">
+                  <polygon points="20,30 82,30 82,70 20,70" class="geo-shape"/>
+                  <polygon points="20,30 42,16 104,16 82,30" class="geo-shape"/>
+                  <polygon points="82,30 104,16 104,56 82,70" class="geo-shape"/>
+                  <line x1="42" y1="16" x2="42" y2="56" class="geo-dashed"/>
+                  <line x1="20" y1="70" x2="42" y2="56" class="geo-dashed"/>
+                  <line x1="42" y1="56" x2="104" y2="56" class="geo-dashed"/>
+                  <text x="51" y="83" class="geo-label">l</text>
+                  <text x="98" y="69" class="geo-label">w</text>
+                  <text x="10" y="54" class="geo-label">h</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row ref-formula-center">
+                  <span class="ref-tex" data-tex="V = lwh"><em>V</em> = <em>lwh</em></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Cylinder</h4>
+                <span class="ref-vi-sub">Hình trụ tròn</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 120 86" aria-hidden="true">
+                  <path d="M30,22 V66 A30,9 0 0,0 90,66 V22 Z" class="geo-shape"/>
+                  <ellipse cx="60" cy="22" rx="30" ry="9" class="geo-shape"/>
+                  <path d="M30,66 A30,9 0 0,1 90,66" class="geo-dashed"/>
+                  <line x1="60" y1="22" x2="90" y2="22" class="geo-accent"/>
+                  <circle cx="60" cy="22" r="2.2" class="geo-dot"/>
+                  <text x="75" y="18" class="geo-label">r</text>
+                  <text x="97" y="48" class="geo-label">h</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row ref-formula-center">
+                  <span class="ref-tex" data-tex="V = \pi r^2 h"><em>V</em> = &pi;<em>r</em><sup>2</sup><em>h</em></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Sphere</h4>
+                <span class="ref-vi-sub">Hình cầu</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 120 86" aria-hidden="true">
+                  <circle cx="60" cy="43" r="30" class="geo-shape"/>
+                  <path d="M30,43 A30,9 0 0,0 90,43" class="geo-outline"/>
+                  <path d="M30,43 A30,9 0 0,1 90,43" class="geo-dashed"/>
+                  <line x1="60" y1="43" x2="90" y2="43" class="geo-accent"/>
+                  <circle cx="60" cy="43" r="2.2" class="geo-dot"/>
+                  <text x="75" y="38" class="geo-label">r</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row ref-formula-center">
+                  <span class="ref-tex" data-tex="V = \frac{4}{3}\pi r^3"><em>V</em> = <span class="mf-frac"><span>4</span><span>3</span></span>&pi;<em>r</em><sup>3</sup></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Cone</h4>
+                <span class="ref-vi-sub">Hình nón</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 120 86" aria-hidden="true">
+                  <path d="M60,12 L30,68 A30,9 0 0,0 90,68 Z" class="geo-shape"/>
+                  <path d="M30,68 A30,9 0 0,1 90,68" class="geo-dashed"/>
+                  <line x1="60" y1="12" x2="60" y2="68" class="geo-dashed-accent"/>
+                  <line x1="60" y1="68" x2="90" y2="68" class="geo-accent"/>
+                  <path d="M60 62 H66 V68" class="geo-right-angle"/>
+                  <text x="50" y="45" class="geo-label">h</text>
+                  <text x="75" y="64" class="geo-label">r</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row ref-formula-center">
+                  <span class="ref-tex" data-tex="V = \frac{1}{3}\pi r^2 h"><em>V</em> = <span class="mf-frac"><span>1</span><span>3</span></span>&pi;<em>r</em><sup>2</sup><em>h</em></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="ref-card">
+              <div class="ref-card-top">
+                <h4>Pyramid</h4>
+                <span class="ref-vi-sub">Hình chóp tứ giác</span>
+              </div>
+              <div class="ref-diagram">
+                <svg viewBox="0 0 126 86" aria-hidden="true">
+                  <polygon points="62,12 20,68 82,68" class="geo-shape"/>
+                  <polygon points="62,12 82,68 106,52" class="geo-shape"/>
+                  <line x1="20" y1="68" x2="44" y2="52" class="geo-dashed"/>
+                  <line x1="44" y1="52" x2="106" y2="52" class="geo-dashed"/>
+                  <line x1="62" y1="12" x2="44" y2="52" class="geo-dashed"/>
+                  <line x1="62" y1="12" x2="62" y2="60" class="geo-dashed-accent"/>
+                  <path d="M62 54 H68 V60" class="geo-right-angle"/>
+                  <text x="54" y="45" class="geo-label">h</text>
+                  <text x="51" y="81" class="geo-label">l</text>
+                  <text x="100" y="66" class="geo-label">w</text>
+                </svg>
+              </div>
+              <div class="ref-formula-stack">
+                <div class="ref-formula-row ref-formula-center">
+                  <span class="ref-tex" data-tex="V = \frac{1}{3}lwh"><em>V</em> = <span class="mf-frac"><span>1</span><span>3</span></span><em>lwh</em></span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Section 4: Key Circle & Triangle Angle Facts -->
+        <section class="ref-section" data-ref-section="facts">
+          <div class="ref-section-head">
+            <span class="ref-section-eyebrow">QUY TẮC GÓC &amp; ĐƯỜNG TRÒN CỐT LÕI (KEY FACTS)</span>
+          </div>
+          <div class="ref-facts-grid">
+            <div class="ref-fact-card">
+              <span class="ref-fact-pill"><span class="ref-tex" data-tex="360^\circ">360°</span></span>
+              <div class="ref-fact-text">
+                <strong>Cung tròn (Độ)</strong>
+                <span>Tổng số đo cung tròn của một đường tròn là <span class="ref-tex" data-tex="360^\circ">360°</span>.</span>
+              </div>
+            </div>
+            <div class="ref-fact-card">
+              <span class="ref-fact-pill"><span class="ref-tex" data-tex="2\pi\text{ rad}">2π rad</span></span>
+              <div class="ref-fact-text">
+                <strong>Cung tròn (Radian)</strong>
+                <span>Số radian của đường tròn là <span class="ref-tex" data-tex="2\pi">2π</span> (<span class="ref-tex" data-tex="\pi\text{ rad} = 180^\circ">π rad = 180°</span>).</span>
+              </div>
+            </div>
+            <div class="ref-fact-card">
+              <span class="ref-fact-pill"><span class="ref-tex" data-tex="180^\circ">180°</span></span>
+              <div class="ref-fact-text">
+                <strong>Tổng góc tam giác</strong>
+                <span>Tổng số đo 3 góc trong một tam giác luôn bằng <span class="ref-tex" data-tex="180^\circ">180°</span>.</span>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </div>

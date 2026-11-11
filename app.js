@@ -382,6 +382,8 @@ const DOM = {
   btnCloseCalculator: document.getElementById("btn-close-calculator"),
   modalReference: document.getElementById("modal-reference"),
   btnCloseReference: document.getElementById("btn-close-reference"),
+  refFilterChips: document.getElementById("ref-filter-chips"),
+  refSectionsWrap: document.getElementById("ref-sections-wrap"),
   modalAceSATVocab: document.getElementById("modal-acesat-vocab"),
   btnCloseAceSATVocab: document.getElementById("btn-close-acesat-vocab"),
 
@@ -1007,6 +1009,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   initOnboarding();
   initHomeAarSelects();
   setupEventListeners();
+  renderReferenceSheetMath();
+  window.addEventListener("load", renderReferenceSheetMath, { once: true });
 
   await fetchDatabase();
   setupModuleQuestions();
@@ -4878,14 +4882,20 @@ function setupEventListeners() {
     syncTimerState();
   });
 
-  DOM.btnOpenRef.addEventListener("click", () => {
-    pauseTimer();
-    DOM.modalReference.classList.remove("hidden");
-  });
-  DOM.btnCloseReference.addEventListener("click", () => {
-    DOM.modalReference.classList.add("hidden");
-    syncTimerState();
-  });
+  if (DOM.btnOpenRef) DOM.btnOpenRef.addEventListener("click", openReferenceModal);
+  if (DOM.btnCloseReference) DOM.btnCloseReference.addEventListener("click", closeReferenceModal);
+  if (DOM.modalReference) {
+    DOM.modalReference.addEventListener("click", (e) => {
+      if (e.target === DOM.modalReference) closeReferenceModal();
+    });
+  }
+  if (DOM.refFilterChips) {
+    DOM.refFilterChips.addEventListener("click", (e) => {
+      const chip = e.target.closest(".ref-filter-chip");
+      if (!chip) return;
+      filterReferenceSheet(chip.getAttribute("data-ref-cat") || "all");
+    });
+  }
 
   DOM.btnOpenErrorLog.addEventListener("click", () => {
     pauseTimer();
@@ -5309,6 +5319,11 @@ function setupEventListeners() {
 
   // Keyboard Shortcuts
   window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && DOM.modalReference && !DOM.modalReference.classList.contains("hidden")) {
+      closeReferenceModal();
+      e.preventDefault();
+      return;
+    }
     if (DOM.modalMermaid && !DOM.modalMermaid.classList.contains("hidden")) {
       if (e.key === "Escape") {
         closeMermaidModal();
@@ -5418,6 +5433,49 @@ function setupEventListeners() {
     });
   }
   MermaidPanZoom.init();
+}
+
+// ================= GOOGLE MATERIAL 3 MATH REFERENCE SHEET CONTROLLER =================
+function renderReferenceSheetMath() {
+  if (!DOM.modalReference || !window.katex) return;
+  DOM.modalReference.querySelectorAll(".ref-tex[data-tex]").forEach(el => {
+    if (el.dataset.katexDone === "true") return;
+    const tex = el.getAttribute("data-tex") || "";
+    if (!tex) return;
+    try {
+      window.katex.render(tex, el, {
+        displayMode: el.dataset.display === "true",
+        throwOnError: false
+      });
+      el.dataset.katexDone = "true";
+    } catch (e) {}
+  });
+}
+
+function filterReferenceSheet(category = "all") {
+  if (DOM.refFilterChips) {
+    DOM.refFilterChips.querySelectorAll(".ref-filter-chip").forEach(btn => {
+      btn.classList.toggle("active", (btn.getAttribute("data-ref-cat") || "all") === category);
+    });
+  }
+  if (DOM.refSectionsWrap) {
+    DOM.refSectionsWrap.querySelectorAll("[data-ref-section]").forEach(sec => {
+      const secCat = sec.getAttribute("data-ref-section");
+      sec.classList.toggle("hidden", category !== "all" && secCat !== category);
+    });
+  }
+}
+
+function openReferenceModal() {
+  pauseTimer();
+  renderReferenceSheetMath();
+  filterReferenceSheet("all");
+  if (DOM.modalReference) DOM.modalReference.classList.remove("hidden");
+}
+
+function closeReferenceModal() {
+  if (DOM.modalReference) DOM.modalReference.classList.add("hidden");
+  syncTimerState();
 }
 
 // ================= ARR / AAR CYCLE REPORT SYSTEM =================
