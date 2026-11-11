@@ -50,6 +50,7 @@ body {
   background-color: var(--bb-bg-body);
   color: var(--bb-text-main);
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -58,7 +59,9 @@ body {
 
 /* ================= LUXURY MINIMALIST BLUEBOOK HEADER ================= */
 .bluebook-header {
+  min-height: 60px;
   height: 60px;
+  max-width: 100%;
   background: #090d16;
   color: #fff;
   display: flex;
@@ -69,12 +72,21 @@ body {
   z-index: 30;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.bluebook-header::-webkit-scrollbar {
+  display: none;
 }
 
 .header-section-info {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+  flex: 0 1 auto;
 }
 
 .btn-home {
@@ -130,7 +142,15 @@ body {
   letter-spacing: 0.8px;
 }
 
+.module-selector-wrap {
+  min-width: 0;
+  max-width: clamp(120px, 24vw, 310px);
+}
+
 .module-selector-wrap select {
+  width: 100%;
+  max-width: 100%;
+  text-overflow: ellipsis;
   background: rgba(255, 255, 255, 0.06);
   color: #f8fafc;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -442,8 +462,9 @@ body {
 /* ================= SPLIT CONTAINER ================= */
 .split-container {
   display: flex;
-  flex: 1;
-  height: calc(100vh - 60px - 56px);
+  flex: 1 1 0%;
+  min-height: 0;
+  height: auto;
   overflow: hidden;
   position: relative;
 }
@@ -543,10 +564,11 @@ body {
   font-size: 11.5px;
   font-weight: 600;
   border-radius: 20px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 5px;
   white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: 0 1px 2px rgba(30, 64, 175, 0.05);
 }
 
@@ -703,7 +725,9 @@ body {
   padding: 5px 12px;
   border-radius: 20px;
   white-space: nowrap;
-  max-width: 440px;
+  max-width: clamp(120px, 16vw, 280px);
+  min-width: 0;
+  flex: 0 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-flex;
@@ -748,6 +772,11 @@ body {
   border-radius: 20px;
   white-space: nowrap;
   display: inline-block;
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+  min-width: 0;
   box-shadow: 0 1px 2px rgba(21, 128, 61, 0.05);
   transition: all 0.2s ease;
 }
@@ -1448,24 +1477,28 @@ body {
 /* ================= LUXURY MINIMALIST FOOTER DOCK ================= */
 .bluebook-footer {
   position: relative;
-  height: 64px;
+  min-height: 64px;
+  height: auto;
+  width: 100%;
+  box-sizing: border-box;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(10px);
   border-top: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  gap: 12px;
+  padding: 8px 20px calc(8px + env(safe-area-inset-bottom, 0px));
   flex-shrink: 0;
-  z-index: 20;
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.03);
+  z-index: 25;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .footer-left {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex: 1;
+  flex: 0 1 auto;
   min-width: 0;
 }
 
@@ -1475,8 +1508,9 @@ body {
   gap: 8px;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: 20px;
+  min-width: 0;
 }
 
 .student-profile-badge input {
@@ -1486,7 +1520,8 @@ body {
   font-weight: 600;
   color: #0f172a;
   outline: none;
-  width: 150px;
+  width: clamp(80px, 9vw, 140px);
+  min-width: 0;
 }
 
 .storage-indicator {
@@ -1508,12 +1543,14 @@ body {
 
 /* Question Navigator & Context Center Dock */
 .footer-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;
+  transform: none;
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 10px;
   white-space: nowrap;
 }
 
@@ -1521,20 +1558,25 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
 }
 
 .btn-question-navigator {
   background: #0f172a;
   color: #ffffff;
   border: none;
-  padding: 9px 24px;
+  padding: 8px 20px;
   border-radius: 24px;
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1553,7 +1595,8 @@ body {
 .footer-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .btn-dock-nav {
@@ -3434,14 +3477,19 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
 
 .view-practice {
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -4898,7 +4946,9 @@ body.zen-mode .bluebook-header {
 }
 
 body.zen-mode .split-container {
-  height: calc(100vh - 56px) !important;
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+  height: auto !important;
 }
 
 body.zen-mode .footer-left .student-profile-badge,
@@ -5108,14 +5158,14 @@ body.zen-mode .footer-left:hover .storage-indicator {
 @media (max-width: 900px), (max-width: 1024px) and (orientation: portrait) {
   .tablet-pane-toggle {
     display: flex;
+    flex-shrink: 0;
   }
 
-  .split-container {
-    height: calc(100vh - 60px - 56px - 49px);
-  }
-
+  .split-container,
   body.zen-mode .split-container {
-    height: calc(100vh - 56px - 49px) !important;
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    height: auto !important;
   }
 
   .split-divider {
@@ -5275,12 +5325,16 @@ body.zen-mode .footer-left:hover .storage-indicator {
     display: none !important;
   }
   .student-profile-badge input {
-    width: 85px;
+    width: 78px;
   }
 }
 
 /* Responsive adjustments for footer center metadata & badges */
 @media (max-width: 1200px) {
+  .bluebook-footer {
+    padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+  }
   .footer-center {
     gap: 8px;
   }
@@ -5290,6 +5344,7 @@ body.zen-mode .footer-left:hover .storage-indicator {
   }
   .footer-q-meta .q-domain-badge {
     font-size: 11.5px;
+    max-width: 145px;
   }
 }
 
@@ -5298,7 +5353,7 @@ body.zen-mode .footer-left:hover .storage-indicator {
     display: none !important;
   }
   .footer-q-meta .q-topic-badge {
-    max-width: 140px;
+    max-width: 135px;
     font-size: 11px;
     padding: 4px 8px;
   }
@@ -5307,8 +5362,44 @@ body.zen-mode .footer-left:hover .storage-indicator {
     font-size: 11px;
   }
   .btn-question-navigator {
-    padding: 8px 18px;
+    padding: 8px 16px;
     font-size: 12.5px;
+  }
+}
+
+@media (max-width: 960px) {
+  .bluebook-footer .footer-q-meta {
+    display: none !important;
+  }
+}
+
+/* Compact Tablet & Mobile: guarantee page badge + Question navigator + Back/Next NEVER overlap or clip */
+@media (max-width: 720px) {
+  .bluebook-footer {
+    padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+  }
+  .bluebook-footer .footer-left {
+    display: none !important;
+  }
+  .bluebook-footer .footer-center {
+    justify-content: flex-start;
+    gap: 6px;
+  }
+  .bluebook-footer .pdf-page-badge {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+  .bluebook-footer .btn-question-navigator {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .bluebook-footer .btn-dock-nav {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+  .bluebook-footer .btn-dock-next {
+    padding: 6px 16px;
   }
 }
 
@@ -5341,6 +5432,92 @@ body.resizing-split iframe {
   min-height: 42px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Portrait phones (<= 540px): clean 2-row compact dock keeping 📖 Câu này ở Trang ..., Question ..., Back, Next 100% visible */
+@media (max-width: 540px) {
+  .bluebook-footer {
+    min-height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 6px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+    gap: 6px;
+  }
+  .bluebook-footer .footer-center {
+    width: 100%;
+    flex: 1 0 100%;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+  .bluebook-footer .pdf-page-badge {
+    padding: 4px 10px;
+    font-size: 11px;
+    min-height: 32px;
+  }
+  .bluebook-footer .btn-question-navigator {
+    padding: 5px 12px;
+    font-size: 12px;
+    min-height: 34px;
+    gap: 6px;
+  }
+  .bluebook-footer .footer-right {
+    width: 100%;
+    flex: 1 0 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .bluebook-footer .btn-dock-nav {
+    flex: 1;
+    min-height: 36px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  body.in-practice .btn-floating-feedback {
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    right: 10px;
+    padding: 7px 11px;
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .bluebook-footer {
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px));
+  }
+  .bluebook-footer .pdf-page-badge {
+    padding: 4px 7px;
+    font-size: 10.5px;
+  }
+  .bluebook-footer .btn-question-navigator {
+    padding: 5px 9px;
+    font-size: 11.5px;
+    gap: 4px;
+  }
+}
+
+/* Short landscape phones / compact heights */
+@media (max-height: 480px) and (max-width: 920px) {
+  .bluebook-header {
+    min-height: 48px;
+    height: 48px;
+  }
+  .tablet-pane-toggle {
+    padding: 5px 12px;
+  }
+  .bluebook-footer {
+    min-height: 48px;
+    padding: 4px 12px calc(4px + env(safe-area-inset-bottom, 0px));
+  }
+  .bluebook-footer .btn-question-navigator,
+  .bluebook-footer .btn-dock-nav {
+    min-height: 34px;
+    padding: 5px 12px;
+    font-size: 12px;
+  }
 }
 
 /* ================= MERMAID INTERACTIVE VISUAL THINKING DIAGRAM & POP-UP ================= */
