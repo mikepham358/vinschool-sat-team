@@ -372,11 +372,22 @@
         </div>
       </div>
 
-    <!-- Center Timer with Hide/Show Toggle (Digital SAT Standard) -->
-    <div class="header-timer">
-      <div class="timer-display" id="timer-display">32:00</div>
-      <button class="btn-timer-action" id="btn-timer-toggle-view" title="Ẩn / Hiện đồng hồ">Hide</button>
-      <button class="btn-timer-action" id="btn-timer-pause" title="Tạm dừng / Tiếp tục">⏸️</button>
+    <!-- Center Timer + Cross-Test Session Counter + Reset Controls -->
+    <div class="header-timer-cluster">
+      <div class="header-timer">
+        <div class="timer-display" id="timer-display">32:00</div>
+        <button class="btn-timer-action" id="btn-timer-toggle-view" title="Ẩn / Hiện đồng hồ">Hide</button>
+        <button class="btn-timer-action" id="btn-timer-pause" title="Tạm dừng / Tiếp tục">⏸️</button>
+      </div>
+      <button type="button" class="header-session-counter" id="header-session-counter" title="Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) — Bấm để mở báo cáo ARR">
+        <span class="sc-icon">📊</span>
+        <span class="sc-val" id="header-session-count-val">0</span>
+        <span class="sc-lbl">câu</span>
+      </button>
+      <button class="tool-btn btn-reset-test header-cluster-reset" id="btn-reset-test" title="Làm lại bài thi / Đặt lại bộ đếm từ đầu">
+        <span class="tool-icon">🔄</span>
+        <span class="tool-text">Làm lại</span>
+      </button>
     </div>
 
     <!-- Right Utility Tools (Smart Icon Bar) -->
@@ -410,17 +421,9 @@
         <span class="tool-icon">📥</span>
         <span class="tool-text">Xuất Excel</span>
       </button>
-      <button class="tool-btn btn-reset-test" id="btn-reset-test" title="Đặt lại và làm lại bài thi từ đầu">
-        <span class="tool-icon">🔄</span>
-        <span class="tool-text">Làm lại</span>
-      </button>
       <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (ARR / AAR Cycle) & Gửi Email">
         <span class="tool-icon">📝</span>
         <span class="aar-pill-label">ARR</span>
-      </button>
-      <button class="tool-btn btn-finish-test" id="btn-finish-test" title="Hoàn thành bài thi và gửi báo cáo về email">
-        <span class="tool-icon">🏁</span>
-        <span class="tool-text">Hoàn thành</span>
       </button>
       <div class="header-student-badge" id="header-student-badge" title="Thông tin học sinh (Bấm để chỉnh sửa)">
         <span class="badge-icon tool-icon">👤</span>
@@ -1000,10 +1003,10 @@
           </div>
 
           <div class="guide-item">
-            <div class="guide-icon">🏁</div>
+            <div class="guide-icon">📊</div>
             <div class="guide-text">
-              <h4>Hoàn thành & Báo cáo kết quả</h4>
-              <p>Khi làm xong, bấm nút <strong>🏁 Hoàn thành</strong> để nộp bài. Hệ thống kích hoạt ứng dụng Mail trên máy để gửi kết quả về email của em và Thầy <a href="https://edudirectory.withgoogle.com/profiles/5087615831769088" target="_blank" rel="noopener noreferrer" style="color: #1a73e8; font-weight: 600; text-decoration: none;">Mike Pham Bá Hong Son (Google for Education Innovator) ↗</a>!</p>
+              <h4>Theo dõi phiên học &amp; Báo cáo ARR</h4>
+              <p>Bộ đếm cạnh đồng hồ tự động cộng dồn số câu em đã làm xuyên suốt cả khi đổi đề/sách. Sau buổi học, bấm nút <strong>📝 ARR</strong> để tổng kết hiệu suất và gửi báo cáo chu trình AAR kèm file Excel qua Email!</p>
             </div>
           </div>
         </div>
@@ -1019,87 +1022,19 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: FINISH TEST & SUBMISSION ================= -->
-  <div class="modal-overlay hidden" id="modal-finish-test">
-    <div class="modal-card finish-modal-card">
-      <div class="modal-card-header">
-        <h3>🏁 Hoàn Thành & Nộp Bài Thi Digital SAT</h3>
-        <button class="btn-close-modal" id="btn-close-finish">✕</button>
-      </div>
-      <div class="modal-card-body">
-        
-        <div class="finish-student-info">
-          <div>Học sinh: <strong id="finish-student-name">Nguyen Van A</strong></div>
-          <div>Email: <strong id="finish-student-email">email@test.com</strong></div>
-        </div>
-
-        <!-- Score & Answered Summary Cards -->
-        <div class="finish-stats-grid">
-          <div class="stat-card">
-            <span class="stat-lbl">Số câu đã làm</span>
-            <span class="stat-val" id="stat-answered">0 / 98</span>
-          </div>
-          <div class="stat-card stat-eff">
-            <span class="stat-lbl">Hiệu suất điểm</span>
-            <span class="stat-val" id="stat-score-pct">0%</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-lbl">Đúng Lần 1 (100%)</span>
-            <span class="stat-val stat-green" id="stat-l1-correct">0</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-lbl">Đúng Lần 2 (66.7%)</span>
-            <span class="stat-val stat-yellow" id="stat-l2-correct">0</span>
-          </div>
-        </div>
-
-        <!-- Unanswered Alert (if any) -->
-        <div class="unanswered-alert hidden" id="unanswered-alert">
-          ⚠️ Em còn <strong id="unanswered-count">0</strong> câu chưa trả lời. Em có thể nộp ngay hoặc quay lại kiểm tra trước khi hoàn thành.
-        </div>
-
-        <!-- Target Email Notice -->
-        <div class="finish-email-notice">
-          <div class="notice-icon">✉️</div>
-          <div class="notice-body">
-            <strong>Báo cáo kết quả và File Excel chi tiết sẽ được gửi về:</strong>
-            <ul>
-              <li>👨‍🏫 Thầy <a href="https://edudirectory.withgoogle.com/profiles/5087615831769088" target="_blank" rel="noopener noreferrer" style="color: #1a73e8; font-weight: 600; text-decoration: none;">Mike Pham Bá Hong Son (Google for Education Innovator) ↗</a>: <code>mikepham358@gmail.com</code> (Mặc định)</li>
-              <li>🎓 Học sinh: <code id="notice-student-email">email@test.com</code></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Submission Actions -->
-        <div class="finish-actions">
-          <button class="btn-submit-test-final" id="btn-submit-test-confirm">
-            <span id="btn-submit-text">📤 Xác Nhận Hoàn Thành & Gửi Báo Cáo Email</span>
-            <span class="spinner hidden" id="submit-spinner"></span>
-          </button>
-          <div class="secondary-actions">
-            <button class="btn-action-sub" id="btn-finish-to-aar">📝 Gửi Báo Cáo Buổi Học (ARR)</button>
-            <button class="btn-action-sub" id="btn-download-excel-direct">📥 Tải File Excel Về Máy</button>
-            <button class="btn-action-sub" id="btn-cancel-finish">Quay Lại Làm Tiếp</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
   <!-- ================= MODAL: SUBMISSION SUCCESS & EMAIL LAUNCH ================= -->
   <div class="modal-overlay hidden" id="modal-submit-success">
     <div class="modal-card success-modal-card">
       <div class="success-icon">✉️</div>
       <h2 id="success-modal-title">Ứng Dụng Email Đã Được Mở!</h2>
       <p class="success-message" id="success-status-text">
-        Nội dung báo cáo điểm đã được tự động điền sẵn trong ứng dụng Email trên thiết bị của em.
+        Nội dung báo cáo chu trình AAR và hiệu suất buổi học đã được tự động điền sẵn trong ứng dụng Email trên thiết bị của em.
       </p>
 
       <div class="email-instruction-steps">
         <div class="step-card">
           <span class="step-num">1</span>
-          <span class="step-text">File Excel chi tiết (<strong><span id="success-filename">October_2026_SAT...xlsx</span></strong>) đã được tải về mục <em>Downloads</em>.</span>
+          <span class="step-text">File Excel chi tiết (<strong><span id="success-filename">AAR_Cycle_Tracker...xlsx</span></strong>) đã được tải về mục <em>Downloads</em>.</span>
         </div>
         <div class="step-card">
           <span class="step-num">2</span>
@@ -1107,7 +1042,7 @@
         </div>
         <div class="step-card">
           <span class="step-num">3</span>
-          <span class="step-text" id="success-recipient-text">Bấm <strong>Gửi (Send)</strong> tới Thầy Mike Pham Bá Hong Son (<code>mikepham358@gmail.com</code>) để hoàn tất!</span>
+          <span class="step-text" id="success-recipient-text">Bấm <strong>Gửi (Send)</strong> tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> để hoàn tất!</span>
         </div>
       </div>
 
@@ -1122,7 +1057,7 @@
           📥 Tải Lại File Excel
         </a>
         <button class="btn-sub-ob" id="btn-close-success">
-          Đóng & Xem Lại Bài Thi
+          Đóng & Tiếp Tục Luyện Tập
         </button>
       </div>
     </div>
@@ -1206,7 +1141,10 @@
                   <option value="Math: Problem-Solving">Math: Problem-Solving</option>
                   <option value="Math: Geometry &amp; Trig">Math: Geometry &amp; Trig</option>
                   <option value="Digital SAT Full-test">Digital SAT Full-test</option>
+                  <option value="Mix (Nhiều mô-đun / Tài liệu kết hợp)">Mix (Nhiều mô-đun / Tài liệu kết hợp)</option>
+                  <option value="Khác (Tự nhập...)">Khác (Tự nhập...)</option>
                 </select>
+                <input type="text" id="aar-input-sat-module-custom" class="hidden" style="margin-top: 6px;" placeholder="Nhập tên mô-đun / chủ đề / sách đã luyện...">
               </div>
             </div>
           </div>
@@ -1343,7 +1281,11 @@
       <div class="reset-options-box">
         <label class="reset-chk-label">
           <input type="checkbox" id="chk-reset-answers" checked disabled>
-          <span>Đặt lại đáp án & điểm số tất cả 98 câu hỏi</span>
+          <span>Đặt lại đáp án & điểm số đề thi/sách hiện tại</span>
+        </label>
+        <label class="reset-chk-label">
+          <input type="checkbox" id="chk-reset-session-counter" checked>
+          <span>Đặt lại bộ đếm câu đã làm xuyên suốt buổi học về 0 (Session &amp; ARR Counter)</span>
         </label>
         <label class="reset-chk-label">
           <input type="checkbox" id="chk-reset-timer" checked>

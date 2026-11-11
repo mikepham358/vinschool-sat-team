@@ -7,6 +7,7 @@
 
 const GLOBAL_PROFILE_KEY = "bluebook_global_student_profile_v1";
 const GLOBAL_AAR_STORAGE_KEY = "bluebook_global_aar_tracker_v1";
+const GLOBAL_SESSION_TRACKER_KEY = "bluebook_global_session_tracker_v1";
 const LEGACY_STORAGE_KEY = "bluebook_oct2026_student_state_v1";
 const AAR_TEACHER_RECIPIENTS = "v.sonpbh1@vinschool.edu.vn,mikepham@baoan.ai.vn";
 
@@ -132,6 +133,7 @@ const App = {
   lastReportText: "",
   sessionStartedAt: new Date().toISOString(),
   sessionPracticedIds: new Set(),
+  globalSessionItems: {},
   aarScope: "session",
   aarLogs: [],
   lastAarReportAt: null,
@@ -216,11 +218,11 @@ const DOM = {
   btnOpenVocab: document.getElementById("btn-open-vocab"),
   btnOpenStrategies: document.getElementById("btn-open-strategies"),
   btnExportExcel: document.getElementById("btn-export-excel"),
+  headerSessionCounter: document.getElementById("header-session-counter"),
+  headerSessionCountVal: document.getElementById("header-session-count-val"),
   btnResetTest: document.getElementById("btn-reset-test"),
   btnOpenAar: document.getElementById("btn-open-aar"),
   btnHomeOpenAar: document.getElementById("btn-home-open-aar"),
-  btnFinishToAar: document.getElementById("btn-finish-to-aar"),
-  btnFinishTest: document.getElementById("btn-finish-test"),
   headerStudentBadge: document.getElementById("header-student-badge"),
   headerStudentName: document.getElementById("header-student-name"),
   btnEditStudent: document.getElementById("btn-edit-student"),
@@ -390,24 +392,6 @@ const DOM = {
   obPreviewEmail: document.getElementById("ob-preview-email"),
   btnObStart: document.getElementById("btn-ob-start"),
 
-  // Finish Modal
-  modalFinishTest: document.getElementById("modal-finish-test"),
-  btnCloseFinish: document.getElementById("btn-close-finish"),
-  finishStudentName: document.getElementById("finish-student-name"),
-  finishStudentEmail: document.getElementById("finish-student-email"),
-  noticeStudentEmail: document.getElementById("notice-student-email"),
-  statAnswered: document.getElementById("stat-answered"),
-  statScorePct: document.getElementById("stat-score-pct"),
-  statL1Correct: document.getElementById("stat-l1-correct"),
-  statL2Correct: document.getElementById("stat-l2-correct"),
-  unansweredAlert: document.getElementById("unanswered-alert"),
-  unansweredCount: document.getElementById("unanswered-count"),
-  btnSubmitTestConfirm: document.getElementById("btn-submit-test-confirm"),
-  btnSubmitText: document.getElementById("btn-submit-text"),
-  submitSpinner: document.getElementById("submit-spinner"),
-  btnDownloadExcelDirect: document.getElementById("btn-download-excel-direct"),
-  btnCancelFinish: document.getElementById("btn-cancel-finish"),
-
   // Mandatory Reflection Modal
   modalMandatoryReflection: document.getElementById("modal-mandatory-reflection"),
   reflQLabel: document.getElementById("refl-q-label"),
@@ -455,6 +439,7 @@ const DOM = {
   aarInputSessionLabel: document.getElementById("aar-input-session-label"),
   aarInputDate: document.getElementById("aar-input-date"),
   aarSelectSatModule: document.getElementById("aar-select-sat-module"),
+  aarInputSatModuleCustom: document.getElementById("aar-input-sat-module-custom"),
   aarSelectIste: document.getElementById("aar-select-iste"),
   aarIsteHint: document.getElementById("aar-iste-hint"),
   aarInputGoal: document.getElementById("aar-input-goal"),
@@ -480,6 +465,7 @@ const DOM = {
   // Reset Confirmation Modal
   modalResetConfirm: document.getElementById("modal-reset-confirm"),
   chkResetAnswers: document.getElementById("chk-reset-answers"),
+  chkResetSessionCounter: document.getElementById("chk-reset-session-counter"),
   chkResetTimer: document.getElementById("chk-reset-timer"),
   chkResetErrors: document.getElementById("chk-reset-errors"),
   btnConfirmDoReset: document.getElementById("btn-confirm-do-reset"),
@@ -602,6 +588,7 @@ function loadLocalState() {
   }
 
   loadGlobalAARState();
+  loadGlobalSessionTracker();
 }
 
 function saveLocalState() {
@@ -1314,7 +1301,7 @@ function shouldTimerRun() {
   if (DOM.modalCalculator && !DOM.modalCalculator.classList.contains("hidden")) return false;
   if (DOM.modalReference && !DOM.modalReference.classList.contains("hidden")) return false;
   if (DOM.modalStrategies && !DOM.modalStrategies.classList.contains("hidden")) return false;
-  if (DOM.modalFinishTest && !DOM.modalFinishTest.classList.contains("hidden")) return false;
+  if (DOM.modalAarReport && !DOM.modalAarReport.classList.contains("hidden")) return false;
   if (DOM.modalSubmitSuccess && !DOM.modalSubmitSuccess.classList.contains("hidden")) return false;
   if (DOM.modalFeedback && !DOM.modalFeedback.classList.contains("hidden")) return false;
   if (DOM.modalAceSATVocab && !DOM.modalAceSATVocab.classList.contains("hidden")) return false;
@@ -2257,9 +2244,10 @@ function checkAnswer() {
     }
   }
 
-  // Save to Student's LocalStorage
+  // Save to Student's LocalStorage & Cross-Test Session Tracker
   App.studentState.attempts[q.id] = qState;
   saveLocalState();
+  recordQuestionInGlobalSession(q, qState);
 
   // Pause timer so student can review explanations, hints, or record reflection without penalty
   pauseTimer();
@@ -2697,11 +2685,24 @@ function handleResetConfirm() {
     App.studentState.error_logs = [];
   }
 
-  // 4. Reset navigation to Question 1 of Module 1
-  App.activeModuleCode = "RW_Module1";
-  DOM.selectModule.value = "RW_Module1";
+  // 3b. Reset cross-test session counter if checked
+  if (DOM.chkResetSessionCounter && DOM.chkResetSessionCounter.checked) {
+    App.globalSessionItems = {};
+    if (App.sessionPracticedIds) App.sessionPracticedIds.clear();
+  } else if (App.globalSessionItems) {
+    const prefix = `${App.activeTestId}::`;
+    Object.keys(App.globalSessionItems).forEach(k => {
+      if (k.startsWith(prefix)) delete App.globalSessionItems[k];
+    });
+  }
+  saveGlobalSessionTracker();
+
+  // 4. Reset navigation to Question 1 of active first module
+  const firstModCode = (App.db && Array.isArray(App.db.modules) && App.db.modules[0]) ? App.db.modules[0].code : "RW_Module1";
+  App.activeModuleCode = firstModCode;
+  if (DOM.selectModule) DOM.selectModule.value = firstModCode;
   App.currentIndex = 0;
-  App.studentState.active_module = "RW_Module1";
+  App.studentState.active_module = firstModCode;
   App.studentState.active_q_index = 0;
 
   // 5. Persist and Re-render
@@ -2715,7 +2716,7 @@ function handleResetConfirm() {
   alert("✨ Đã đặt lại bài thi thành công! Chúc em luyện tập thật tốt!");
 }
 
-// ================= TEST COMPLETION & SUBMISSION =================
+// ================= TEST SUMMARY CALCULATION =================
 function calculateTestSummary() {
   const allQs = (App.db && App.db.questions) ? App.db.questions : [];
   const total = allQs.length || 98;
@@ -2752,33 +2753,6 @@ function calculateTestSummary() {
     scorePct,
     timeSpent: "Hoàn tất các Module"
   };
-}
-
-function openFinishModal() {
-  if (!App.studentState.student_name || !App.studentState.student_email) {
-    alert("Vui lòng nhập họ tên và email trước khi nộp bài!");
-    initOnboarding();
-    return;
-  }
-
-  const s = calculateTestSummary();
-  DOM.finishStudentName.textContent = App.studentState.student_name;
-  DOM.finishStudentEmail.textContent = App.studentState.student_email;
-  DOM.noticeStudentEmail.textContent = App.studentState.student_email;
-
-  DOM.statAnswered.textContent = `${s.answered} / ${s.total}`;
-  DOM.statScorePct.textContent = `${s.scorePct}%`;
-  DOM.statL1Correct.textContent = s.l1Correct;
-  DOM.statL2Correct.textContent = s.l2Correct;
-
-  if (s.unanswered > 0) {
-    DOM.unansweredAlert.classList.remove("hidden");
-    DOM.unansweredCount.textContent = s.unanswered;
-  } else {
-    DOM.unansweredAlert.classList.add("hidden");
-  }
-
-  DOM.modalFinishTest.classList.remove("hidden");
 }
 
 // ================= MANDATORY ERROR REFLECTION =================
@@ -3088,126 +3062,6 @@ async function generateClientExcelBlob(studentName, summary) {
     console.error("Client Excel generation failed:", e);
     return null;
   }
-}
-
-async function submitTestFinal() {
-  const s = calculateTestSummary();
-  DOM.btnSubmitTestConfirm.disabled = true;
-  DOM.submitSpinner.classList.remove("hidden");
-  DOM.btnSubmitText.textContent = "Đang chuẩn bị báo cáo...";
-
-  const studentEmail = App.studentState.student_email || "";
-  const studentName = App.studentState.student_name || "Hoc_Sinh";
-  const teacherEmail = "mikepham358@gmail.com";
-  const errCount = (App.studentState.error_logs || []).length;
-
-  const payload = {
-    student_name: studentName,
-    student_email: studentEmail,
-    summary: {
-      answered: s.answered,
-      total: s.total,
-      l1_correct: s.l1Correct,
-      l2_correct: s.l2Correct,
-      l3_correct: s.l3Correct,
-      score_pct: s.scorePct,
-      time_spent: s.timeSpent
-    },
-    attempts: App.studentState.attempts,
-    error_logs: App.studentState.error_logs || []
-  };
-
-  let serverData = null;
-  try {
-    const res = await fetch("/api/submit-test", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-    if (res.ok) {
-      serverData = await res.json();
-    }
-  } catch (err) {
-    // Expected on static hosting (GitHub Pages)
-  }
-
-  // Determine file & download URL
-  const defaultFilename = `October_2026_SAT_${studentName.replace(/\s+/g, '_')}_${Date.now()}.xlsx`;
-  const filename = (serverData && serverData.filename) ? serverData.filename : defaultFilename;
-  let fileBlobUrl = null;
-
-  if (serverData && serverData.download_url) {
-    fileBlobUrl = serverData.download_url;
-  } else {
-    const clientBlob = await generateClientExcelBlob(studentName, s);
-    if (clientBlob) {
-      fileBlobUrl = window.URL.createObjectURL(clientBlob);
-    }
-  }
-
-  // Close finish modal
-  DOM.modalFinishTest.classList.add("hidden");
-
-  // Construct Mailto URL
-  const testTitle = (App.activeTest && App.activeTest.title) || (App.db && App.db.test_title) || "Digital SAT Real Test";
-  const testShort = (App.activeTest && App.activeTest.short_title) || "Real Test";
-  const subject = `[Digital SAT ${testShort}] Báo cáo kết quả bài làm: ${studentName} - Điểm: ${s.scorePct}%`;
-  const bodyText = `Kính gửi Thầy Mike Pham Bá Hong Son (Google for Education Innovator),
-
-Em xin gửi kết quả bài làm đề thi ${testTitle}:
-
-- Họ và tên học sinh: ${studentName}
-- Email học sinh: ${studentEmail}
-- Thời gian nộp bài: ${new Date().toLocaleString("vi-VN")}
-- Tổng số câu đã làm: ${s.answered} / ${s.total}
-- Hiệu suất điểm toàn bài: ${s.scorePct}%
-- Điểm ước tính: ${s.estimatedScore || Math.round(400 + (s.scorePct / 100) * 1200)} / 1600
-- Số câu đúng ngay Lần 1 (100%): ${s.l1Correct} câu
-- Số câu đúng Lần 2 (66.7%): ${s.l2Correct} câu
-- Số câu đúng Lần 3 (33.3%): ${s.l3Correct} câu
-- Số lần thử sai đã ghi chép vào sổ thử sai: ${errCount} câu
-
-(File Excel bài làm chi tiết: ${filename} đã được tải về thiết bị của em và đính kèm cùng email này).
-
-Em cảm ơn Thầy!`;
-
-  const mailtoUrl = `mailto:${teacherEmail}?cc=${encodeURIComponent(studentEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-  App.lastMailtoUrl = mailtoUrl;
-  App.lastReportText = bodyText;
-
-  // 1. Download file automatically
-  if (fileBlobUrl) {
-    const a = document.createElement("a");
-    a.href = fileBlobUrl;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-
-  // 2. Launch Mail client on student's personal device
-  setTimeout(() => {
-    window.location.href = mailtoUrl;
-  }, 600);
-
-  // 3. Populate and show instructional Success Modal
-  if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Ứng Dụng Email Đã Được Mở!";
-  if (DOM.successStatusText) {
-    DOM.successStatusText.textContent = "Nội dung báo cáo điểm đã được tự động điền sẵn trong ứng dụng Email trên thiết bị của em.";
-  }
-  if (DOM.successRecipientText) {
-    DOM.successRecipientText.innerHTML = `Bấm <strong>Gửi (Send)</strong> tới Thầy Mike Pham Bá Hong Son (<code>${teacherEmail}</code>) để hoàn tất!`;
-  }
-  DOM.successFilename.textContent = filename;
-  if (fileBlobUrl) {
-    DOM.btnDownloadSubmittedFile.href = fileBlobUrl;
-    DOM.btnDownloadSubmittedFile.setAttribute("download", filename);
-  }
-  DOM.modalSubmitSuccess.classList.remove("hidden");
-
-  DOM.btnSubmitTestConfirm.disabled = false;
-  DOM.submitSpinner.classList.add("hidden");
-  DOM.btnSubmitText.textContent = "📤 Xác Nhận Hoàn Thành & Gửi Báo Cáo Email";
 }
 
 // ================= EXPORT EXCEL (SENDS STUDENT'S LOCALSTORAGE) =================
@@ -4490,19 +4344,13 @@ function setupEventListeners() {
   }
 
   // Export Excel
-  DOM.btnExportExcel.addEventListener("click", exportExcelPersonalized);
+  if (DOM.btnExportExcel) {
+    DOM.btnExportExcel.addEventListener("click", exportExcelPersonalized);
+  }
 
-  // Finish Test Controls
-  DOM.btnFinishTest.addEventListener("click", openFinishModal);
-  DOM.btnCloseFinish.addEventListener("click", () => DOM.modalFinishTest.classList.add("hidden"));
-  DOM.btnCancelFinish.addEventListener("click", () => DOM.modalFinishTest.classList.add("hidden"));
-  DOM.btnSubmitTestConfirm.addEventListener("click", submitTestFinal);
-  DOM.btnDownloadExcelDirect.addEventListener("click", exportExcelPersonalized);
-  if (DOM.btnFinishToAar) {
-    DOM.btnFinishToAar.addEventListener("click", () => {
-      DOM.modalFinishTest.classList.add("hidden");
-      openAARModal();
-    });
+  // Session Counter -> Open ARR Report
+  if (DOM.headerSessionCounter) {
+    DOM.headerSessionCounter.addEventListener("click", openAARModal);
   }
 
   // ARR / AAR Report Controls
@@ -4524,6 +4372,9 @@ function setupEventListeners() {
         refreshAARPerformanceUI(true);
       });
     });
+  }
+  if (DOM.aarSelectSatModule) {
+    DOM.aarSelectSatModule.addEventListener("change", toggleAarCustomModuleInput);
   }
   if (DOM.aarSelectIste) {
     DOM.aarSelectIste.addEventListener("change", updateAARIsteHint);
@@ -4866,6 +4717,128 @@ function saveGlobalAARState() {
   updateAARHistoryBadge();
 }
 
+// ================= CROSS-TEST SESSION TRACKER & COUNTER =================
+function loadGlobalSessionTracker() {
+  try {
+    const raw = localStorage.getItem(GLOBAL_SESSION_TRACKER_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      App.globalSessionItems = (parsed && parsed.items && typeof parsed.items === "object") ? parsed.items : {};
+    } else {
+      App.globalSessionItems = {};
+    }
+  } catch (e) {
+    App.globalSessionItems = {};
+  }
+  updateGlobalSessionCounterUI();
+}
+
+function saveGlobalSessionTracker() {
+  try {
+    const payload = {
+      updated_at: new Date().toISOString(),
+      items: App.globalSessionItems || {}
+    };
+    localStorage.setItem(GLOBAL_SESSION_TRACKER_KEY, JSON.stringify(payload));
+  } catch (e) {
+    console.warn("Could not save cross-test session tracker:", e);
+  }
+  updateGlobalSessionCounterUI();
+}
+
+function recordQuestionInGlobalSession(q, qState) {
+  if (!q || !qState) return;
+  if (!App.globalSessionItems || typeof App.globalSessionItems !== "object") {
+    App.globalSessionItems = {};
+  }
+  const testId = App.activeTestId || "oct-2026";
+  const testShort = (App.activeTest && App.activeTest.short_title) || (App.db && App.db.test_title) || testId;
+  const eff = parseFloat(qState.efficiency) || 0;
+  const isCorrect = (qState.status === "mastered_l1" || qState.status === "mastered_l2" || qState.status === "mastered_l3" || eff > 0);
+  const modCode = String(q.module_code || App.activeModuleCode || "");
+  const modTitle = String(q.module_title || "");
+  const isMath = modCode.toLowerCase().includes("math") || modTitle.toLowerCase().includes("math") || testId.toLowerCase().includes("math");
+  const key = `${testId}::${q.id}`;
+
+  App.globalSessionItems[key] = {
+    key,
+    test_id: testId,
+    test_short: testShort,
+    qid: q.id,
+    q_label: q.q_label || `Q${q.id}`,
+    module_code: modCode,
+    module_title: modTitle,
+    is_math: isMath,
+    is_correct: isCorrect,
+    l1_correct: eff >= 0.99 || qState.status === "mastered_l1",
+    l2_correct: (eff >= 0.6 && eff < 0.99) || qState.status === "mastered_l2",
+    l3_correct: (eff >= 0.3 && eff < 0.6) || qState.status === "mastered_l3",
+    efficiency: eff,
+    status: qState.status || "unanswered",
+    practiced_at: qState.last_practiced_at || new Date().toISOString()
+  };
+
+  saveGlobalSessionTracker();
+}
+
+function updateGlobalSessionCounterUI() {
+  const items = Object.values(App.globalSessionItems || {});
+  const total = items.length;
+  const correct = items.filter(it => it && it.is_correct).length;
+  if (DOM.headerSessionCountVal) {
+    DOM.headerSessionCountVal.textContent = String(total);
+  }
+  if (DOM.headerSessionCounter) {
+    const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+    DOM.headerSessionCounter.title = total > 0
+      ? `Đã thực hành ${total} câu xuyên suốt buổi học (Đúng: ${correct}/${total} - ${pct}%) • Bấm để mở ARR Report`
+      : "Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) — Bấm để mở ARR Report";
+  }
+}
+
+function getAllSessionErrorLogs(practicedMapByTest) {
+  const collected = [];
+  const seen = new Set();
+  const testIds = Object.keys(practicedMapByTest || {});
+  testIds.forEach(tId => {
+    const qSet = practicedMapByTest[tId];
+    let logs = [];
+    if (tId === App.activeTestId) {
+      logs = App.studentState.error_logs || [];
+    } else {
+      try {
+        const raw = localStorage.getItem(getStorageKeyForTest(tId));
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          logs = Array.isArray(parsed.error_logs) ? parsed.error_logs : [];
+        }
+      } catch (e) {}
+    }
+    const meta = (App.testsManifest || []).find(t => t.id === tId || t.code === tId);
+    const tShort = meta ? meta.short_title : tId;
+    logs.forEach(err => {
+      const qidStr = String(err.question_id || "");
+      if (qSet.has(qidStr)) {
+        const uniq = `${tId}::${err.id || qidStr}`;
+        if (!seen.has(uniq)) {
+          seen.add(uniq);
+          collected.push(Object.assign({}, err, { _test_short: tShort }));
+        }
+      }
+    });
+  });
+  return collected;
+}
+
+function toggleAarCustomModuleInput() {
+  if (!DOM.aarSelectSatModule || !DOM.aarInputSatModuleCustom) return;
+  const isCustom = DOM.aarSelectSatModule.value === "Khác (Tự nhập...)";
+  DOM.aarInputSatModuleCustom.classList.toggle("hidden", !isCustom);
+  if (isCustom) {
+    DOM.aarInputSatModuleCustom.focus();
+  }
+}
+
 function updateAARHistoryBadge() {
   if (DOM.aarHistoryCount) {
     DOM.aarHistoryCount.textContent = String((App.aarLogs || []).length);
@@ -4873,6 +4846,16 @@ function updateAARHistoryBadge() {
 }
 
 function detectDefaultAarModule() {
+  const sessionItems = Object.values(App.globalSessionItems || {});
+  if (sessionItems.length > 0) {
+    const distinctTests = new Set(sessionItems.map(it => it.test_id).filter(Boolean));
+    const hasMathItem = sessionItems.some(it => it.is_math);
+    const hasRwItem = sessionItems.some(it => !it.is_math);
+    if (distinctTests.size >= 2 || (hasMathItem && hasRwItem)) {
+      return "Mix (Nhiều mô-đun / Tài liệu kết hợp)";
+    }
+  }
+
   const testId = (App.activeTestId || "").toLowerCase();
   const modCode = (App.activeModuleCode || "").toLowerCase();
   const activeModMeta = (App.db && Array.isArray(App.db.modules))
@@ -4910,26 +4893,7 @@ function calculateAARSessionSummary(scope = "session") {
   const allQs = (App.db && Array.isArray(App.db.questions)) ? App.db.questions : [];
   const attempts = App.studentState.attempts || {};
   const lastAarAt = App.lastAarReportAt;
-  const isMathModule = (q) => String(q.module_code || "").toLowerCase().includes("math") || (App.activeTestId || "").includes("math");
-
-  let targetQs = [];
-  if (scope === "module") {
-    targetQs = (App.questions && App.questions.length) ? App.questions : allQs;
-  } else if (scope === "all") {
-    targetQs = allQs;
-  } else {
-    targetQs = allQs.filter(q => {
-      const st = attempts[q.id];
-      if (!st || !Array.isArray(st.attempts) || st.attempts.length === 0) return false;
-      if (App.sessionPracticedIds && App.sessionPracticedIds.has(`${App.activeTestId}::${q.id}`)) {
-        return true;
-      }
-      if (st.last_practiced_at) {
-        return !lastAarAt || st.last_practiced_at > lastAarAt;
-      }
-      return false;
-    });
-  }
+  const activeTestShort = (App.activeTest && App.activeTest.short_title) || (App.db && App.db.test_title) || "Digital SAT";
 
   let practicedCount = 0;
   let correctCount = 0;
@@ -4938,32 +4902,96 @@ function calculateAARSessionSummary(scope = "session") {
   let l3Correct = 0;
   let earnedWeight = 0;
   let hasMath = false;
-  const practicedIds = new Set();
+  let scopedErrors = [];
+  let sourceSummary = activeTestShort;
+  let isMixedSources = false;
 
-  targetQs.forEach(q => {
-    const st = attempts[q.id];
-    if (st && Array.isArray(st.attempts) && st.attempts.length > 0) {
-      practicedCount++;
-      practicedIds.add(String(q.id));
-      if (isMathModule(q)) hasMath = true;
-      const eff = parseFloat(st.efficiency) || 0;
-      const isMastered = (st.status === "mastered_l1" || st.status === "mastered_l2" || st.status === "mastered_l3" || eff > 0);
-      if (isMastered) {
-        correctCount++;
+  if (scope === "session") {
+    // Merge persistent cross-test globalSessionItems with any active-test items practiced since last AAR report
+    const combinedMap = Object.assign({}, App.globalSessionItems || {});
+    allQs.forEach(q => {
+      const st = attempts[q.id];
+      if (!st || !Array.isArray(st.attempts) || st.attempts.length === 0) return;
+      const key = `${App.activeTestId}::${q.id}`;
+      const inCurrentMem = App.sessionPracticedIds && App.sessionPracticedIds.has(key);
+      const isFreshTime = st.last_practiced_at && (!lastAarAt || st.last_practiced_at > lastAarAt);
+      if ((inCurrentMem || isFreshTime) && !combinedMap[key]) {
+        const eff = parseFloat(st.efficiency) || 0;
+        const modCode = String(q.module_code || "");
+        combinedMap[key] = {
+          key,
+          test_id: App.activeTestId,
+          test_short: activeTestShort,
+          qid: q.id,
+          q_label: q.q_label || `Q${q.id}`,
+          module_code: modCode,
+          is_math: modCode.toLowerCase().includes("math") || (App.activeTestId || "").includes("math"),
+          is_correct: (st.status === "mastered_l1" || st.status === "mastered_l2" || st.status === "mastered_l3" || eff > 0),
+          l1_correct: eff >= 0.99 || st.status === "mastered_l1",
+          l2_correct: (eff >= 0.6 && eff < 0.99) || st.status === "mastered_l2",
+          l3_correct: (eff >= 0.3 && eff < 0.6) || st.status === "mastered_l3",
+          efficiency: eff
+        };
       }
-      earnedWeight += eff;
-      if (eff >= 0.99 || st.status === "mastered_l1") l1Correct++;
-      else if (eff >= 0.6 || st.status === "mastered_l2") l2Correct++;
-      else if (eff >= 0.3 || st.status === "mastered_l3") l3Correct++;
+    });
+
+    const items = Object.values(combinedMap);
+    const bySource = {};
+    const practicedMapByTest = {};
+
+    items.forEach(it => {
+      practicedCount++;
+      if (it.is_correct) correctCount++;
+      if (it.l1_correct) l1Correct++;
+      else if (it.l2_correct) l2Correct++;
+      else if (it.l3_correct) l3Correct++;
+      earnedWeight += parseFloat(it.efficiency) || 0;
+      if (it.is_math) hasMath = true;
+
+      const sName = it.test_short || it.test_id || activeTestShort;
+      if (!bySource[sName]) bySource[sName] = { total: 0, correct: 0 };
+      bySource[sName].total++;
+      if (it.is_correct) bySource[sName].correct++;
+
+      const tId = it.test_id || App.activeTestId;
+      if (!practicedMapByTest[tId]) practicedMapByTest[tId] = new Set();
+      practicedMapByTest[tId].add(String(it.qid));
+    });
+
+    const sourceNames = Object.keys(bySource);
+    isMixedSources = sourceNames.length > 1;
+    if (sourceNames.length > 0) {
+      sourceSummary = sourceNames.map(n => `${n} (${bySource[n].correct}/${bySource[n].total})`).join(" + ");
     }
-  });
+    scopedErrors = getAllSessionErrorLogs(practicedMapByTest);
+  } else {
+    const isMathModule = (q) => String(q.module_code || "").toLowerCase().includes("math") || (App.activeTestId || "").includes("math");
+    const targetQs = (scope === "module")
+      ? ((App.questions && App.questions.length) ? App.questions : allQs)
+      : allQs;
+    const practicedIds = new Set();
+
+    targetQs.forEach(q => {
+      const st = attempts[q.id];
+      if (st && Array.isArray(st.attempts) && st.attempts.length > 0) {
+        practicedCount++;
+        practicedIds.add(String(q.id));
+        if (isMathModule(q)) hasMath = true;
+        const eff = parseFloat(st.efficiency) || 0;
+        const isMastered = (st.status === "mastered_l1" || st.status === "mastered_l2" || st.status === "mastered_l3" || eff > 0);
+        if (isMastered) correctCount++;
+        earnedWeight += eff;
+        if (eff >= 0.99 || st.status === "mastered_l1") l1Correct++;
+        else if (eff >= 0.6 || st.status === "mastered_l2") l2Correct++;
+        else if (eff >= 0.3 || st.status === "mastered_l3") l3Correct++;
+      }
+    });
+    scopedErrors = (App.studentState.error_logs || []).filter(e => practicedIds.has(String(e.question_id || "")));
+  }
 
   const missedOrRetry = Math.max(0, practicedCount - correctCount);
   const accuracyPct = practicedCount > 0 ? Math.round((correctCount / practicedCount) * 100) : 0;
   const weightedPct = practicedCount > 0 ? Math.round((earnedWeight / practicedCount) * 100) : 0;
-
-  const scopedErrors = (App.studentState.error_logs || []).filter(e => practicedIds.has(String(e.question_id || "")));
-  const testShort = (App.activeTest && App.activeTest.short_title) || (App.db && App.db.test_title) || "Digital SAT";
 
   return {
     scope,
@@ -4978,7 +5006,9 @@ function calculateAARSessionSummary(scope = "session") {
     weightedPct,
     hasMath,
     scopedErrors,
-    testShort,
+    testShort: sourceSummary,
+    activeTestShort,
+    isMixedSources,
     totalInTest: allQs.length
   };
 }
@@ -5014,9 +5044,9 @@ function refreshAARPerformanceUI(updateFormFields = false) {
   }
 
   const scopeDescMap = {
-    session: "Phiên thực hành hiện tại",
+    session: s.isMixedSources ? "Xuyên suốt nhiều đề/sách trong buổi học" : "Phiên thực hành hiện tại",
     module: `Module/Chương: ${DOM.selectModule ? (DOM.selectModule.options[DOM.selectModule.selectedIndex]?.text || App.activeModuleCode) : App.activeModuleCode}`,
-    all: `Toàn bộ câu đã làm trong ${s.testShort}`
+    all: `Toàn bộ câu đã làm trong ${s.activeTestShort}`
   };
 
   if (DOM.aarPerfHeadline) {
@@ -5036,7 +5066,7 @@ function refreshAARPerformanceUI(updateFormFields = false) {
       if (s.practicedCount > 0) {
         DOM.aarInputEvidence.value = `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%) — Đúng Lần 1: ${s.l1Correct}, Lần 2: ${s.l2Correct}, Lần 3: ${s.l3Correct}, Chưa đúng/Đang thử: ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
       } else {
-        DOM.aarInputEvidence.value = `Đã hoàn thành buổi học trên ${s.testShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
+        DOM.aarInputEvidence.value = `Đã hoàn thành buổi học trên ${s.activeTestShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
       }
     }
     if (DOM.aarSelectMastery) {
@@ -5059,10 +5089,11 @@ function pullErrorsIntoAARGap() {
   }
 
   const lines = allErrors.slice(0, 6).map(e => {
+    const src = e._test_short ? `[${e._test_short}] ` : "";
     const qLbl = e.q_label || `Q${e.question_id || ""}`;
     const cause = e.root_cause || "Bẫy SAT";
     const detail = e.trap_detail ? `: ${e.trap_detail}` : "";
-    return `• ${qLbl} [${cause}]${detail}`;
+    return `• ${src}${qLbl} [${cause}]${detail}`;
   });
   if (DOM.aarInputGap) {
     DOM.aarInputGap.value = lines.join("\n");
@@ -5095,11 +5126,13 @@ function switchAARTab(tabName) {
 
 function closeAARModal() {
   if (DOM.modalAarReport) DOM.modalAarReport.classList.add("hidden");
+  syncTimerState();
 }
 
 function openAARModal() {
   pauseTimer();
   loadGlobalAARState();
+  loadGlobalSessionTracker();
 
   const name = App.studentState.student_name || (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") || "";
   const email = App.studentState.student_email || (DOM.homeInputEmail ? DOM.homeInputEmail.value.trim() : "") || "";
@@ -5107,7 +5140,7 @@ function openAARModal() {
   if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.value = email;
   if (DOM.aarPreviewCcEmail) DOM.aarPreviewCcEmail.textContent = email || "Chưa nhập email học sinh";
 
-  // Choose initial scope smartly: prefer current session; if 0 practiced in session, fall back to module or all
+  // Prefer persistent cross-test session; only fall back to active module/all if 0 practiced in session
   let initialScope = "session";
   const sessionStats = calculateAARSessionSummary("session");
   if (sessionStats.practicedCount === 0) {
@@ -5121,13 +5154,15 @@ function openAARModal() {
   }
   App.aarScope = initialScope;
 
-  // Populate Session Metadata
   const nextIdx = (App.aarLogs ? App.aarLogs.length : 0) + 1;
   if (DOM.aarInputSessionLabel) DOM.aarInputSessionLabel.value = `Buổi ${nextIdx}`;
   if (DOM.aarInputDate) DOM.aarInputDate.value = getTodayIsoLocal();
   if (DOM.aarSelectSatModule) DOM.aarSelectSatModule.value = detectDefaultAarModule();
+  if (DOM.aarInputSatModuleCustom) {
+    DOM.aarInputSatModuleCustom.value = "";
+    toggleAarCustomModuleInput();
+  }
 
-  // Default ISTE recommendation based on Math vs Reading
   const modChoice = DOM.aarSelectSatModule ? DOM.aarSelectSatModule.value : "";
   if (DOM.aarSelectIste) {
     if (modChoice.startsWith("Math")) {
@@ -5145,7 +5180,7 @@ function openAARModal() {
   refreshAARPerformanceUI(true);
   const s = App.currentAarSummary;
 
-  if (DOM.aarInputTools && !DOM.aarInputTools.value.trim()) {
+  if (DOM.aarInputTools) {
     DOM.aarInputTools.value = `Vinschool Bluebook App (${s.testShort}), Socratic 3-tầng${s.hasMath ? ", Máy tính Desmos" : ""}, Sổ thử sai`;
   }
   if (DOM.aarInputGap && !DOM.aarInputGap.value.trim() && s.scopedErrors && s.scopedErrors.length > 0) {
@@ -5172,12 +5207,22 @@ function collectAARFormEntry(requireCompleteFields = true) {
     }
   }
 
-  // Sync identity back to student profile
   if (studentName) App.studentState.student_name = studentName;
   if (studentEmail) App.studentState.student_email = studentEmail;
   saveLocalState();
   syncHomeProfile();
   if (DOM.headerStudentName && studentName) DOM.headerStudentName.textContent = studentName;
+
+  let satModuleVal = (DOM.aarSelectSatModule && DOM.aarSelectSatModule.value) || "Digital SAT Full-test";
+  if (satModuleVal === "Khác (Tự nhập...)") {
+    const customMod = DOM.aarInputSatModuleCustom ? DOM.aarInputSatModuleCustom.value.trim() : "";
+    if (requireCompleteFields && !customMod) {
+      alert("Vui lòng nhập tên Mô-đun SAT / chủ đề em đã học ở ô Khác!");
+      if (DOM.aarInputSatModuleCustom) DOM.aarInputSatModuleCustom.focus();
+      return null;
+    }
+    satModuleVal = customMod || "Khác";
+  }
 
   const s = calculateAARSessionSummary(App.aarScope || "session");
   const dateIso = (DOM.aarInputDate && DOM.aarInputDate.value) ? DOM.aarInputDate.value : getTodayIsoLocal();
@@ -5187,7 +5232,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
     created_at: new Date().toISOString(),
     student_name: studentName || "Hoc_Sinh",
     student_email: studentEmail,
-    test_id: App.activeTestId,
+    test_id: s.isMixedSources ? "mix" : App.activeTestId,
     test_title: s.testShort,
     scope: s.scope,
     correct_count: s.correctCount,
@@ -5202,7 +5247,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
     session_label: (DOM.aarInputSessionLabel && DOM.aarInputSessionLabel.value.trim()) || `Buổi ${(App.aarLogs || []).length + 1}`,
     date_iso: dateIso,
     date_display: formatDateViFromIso(dateIso),
-    sat_module: (DOM.aarSelectSatModule && DOM.aarSelectSatModule.value) || "Digital SAT Full-test",
+    sat_module: satModuleVal,
     iste_standard: (DOM.aarSelectIste && DOM.aarSelectIste.value) || "Empowered Learner \n(Học sinh Chủ động)",
     goal: (DOM.aarInputGoal && DOM.aarInputGoal.value.trim()) || "",
     challenge: (DOM.aarInputChallenge && DOM.aarInputChallenge.value.trim()) || "",
@@ -5246,7 +5291,6 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
     if (wb && wb.Sheets && wb.Sheets["AAR Journal"]) {
       const ws = wb.Sheets["AAR Journal"];
 
-      // Personalize banner & Row 6 summary without touching formulas
       ws["B1"] = Object.assign({}, ws["B1"] || {}, {
         t: "s",
         v: `HỆ THỐNG THU THẬP & PHẢN TƯ SAU MỖI BUỔI HỌC - CHU TRÌNH AAR (${safeStudent}${studentEmail ? " - " + studentEmail : ""})`
@@ -5258,7 +5302,6 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
         };
       }
 
-      // Clear rows 10..100 (Columns B..N) cleanly before writing cumulative logs
       const cols = ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
       for (let r = 10; r <= 100; r++) {
         cols.forEach(col => { delete ws[`${col}${r}`]; });
@@ -5282,7 +5325,6 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
         ws[`N${r}`] = { t: "s", v: String(entry.status || "Hoàn thành") };
       });
 
-      // Keep template dashboard formulas intact and update cached preview values
       const totalSessions = rows.length;
       const completedCount = rows.filter(x => x.status === "Hoàn thành").length;
       const rate = totalSessions > 0 ? completedCount / totalSessions : 0;
@@ -5300,7 +5342,6 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
       return new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
     }
 
-    // Fallback workbook if aar_template.xlsx cannot be fetched
     const fbWb = XLSX.utils.book_new();
     const headerRow = [
       "Buổi #", "Ngày học", "Mô-đun SAT", "Tiêu chuẩn ISTE áp dụng",
@@ -5330,7 +5371,7 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
 function buildAAREmailPayload(entry, filename) {
   const perfStr = `Đúng ${entry.correct_count} / ${entry.practiced_count} câu thực hành (${entry.accuracy_pct}%)`;
   const subject = `[SAT ARR Report] ${entry.student_name} - ${entry.session_label} (${entry.sat_module}) - ${entry.correct_count}/${entry.practiced_count} câu đúng (${entry.accuracy_pct}%)`;
-  const bodyText = `Kính gửi Thầy Sơn (v.sonpbh1@vinschool.edu.vn) và Thầy Mike Phạm (mikepham@baoan.ai.vn),
+  const bodyText = `Kính gửi thầy Mike Phạm,
 
 Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learning Compass 2030):
 
@@ -5358,7 +5399,8 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 
 (File Excel AAR Tracker: ${filename} đã được tải về thiết bị để đính kèm cùng email này).
 
-Trân trọng cảm ơn Quý Thầy!`;
+Trân trọng,
+${entry.student_name}`;
 
   return { subject, bodyText };
 }
@@ -5382,11 +5424,13 @@ async function submitAARReport() {
   if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "Đang tạo Excel AAR & mở Email...";
 
   try {
-    // 1. Persist entry & advance session watermark
+    // 1. Persist entry & reset cross-test session tracker for the next study session
     App.aarLogs = [...(App.aarLogs || []), entry];
     App.lastAarReportAt = entry.created_at;
     if (App.sessionPracticedIds) App.sessionPracticedIds.clear();
+    App.globalSessionItems = {};
     saveGlobalAARState();
+    saveGlobalSessionTracker();
 
     const safeName = entry.student_name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_\-À-ỹ]/g, "") || "Hoc_Sinh";
     const defaultFilename = `AAR_Cycle_Tracker_${safeName}_${entry.date_iso}.xlsx`;
