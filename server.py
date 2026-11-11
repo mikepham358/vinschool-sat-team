@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import re
+import html
 import urllib.parse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import datetime
@@ -406,6 +407,144 @@ def send_submission_email(student_name, student_email, summary, excel_bytes, exc
     except Exception as e:
         return False, f"Lỗi gửi email qua SMTP: {str(e)}", recipients
 
+AAR_TEMPLATE_FILE = os.path.join(APP_DIR, "aar_template.xlsx")
+AAR_TEACHER_RECIPIENTS = ["v.sonpbh1@vinschool.edu.vn", "mikepham@baoan.ai.vn"]
+
+def generate_aar_excel(payload):
+    import openpyxl
+    import io
+
+    student_name = str(payload.get("student_name") or "Student").strip() or "Hoc_Sinh"
+    student_email = str(payload.get("student_email") or "").strip()
+    logs = payload.get("logs") or []
+    entry = payload.get("entry")
+    if not logs and entry:
+        logs = [entry]
+
+    if os.path.exists(AAR_TEMPLATE_FILE):
+        wb = openpyxl.load_workbook(AAR_TEMPLATE_FILE)
+    else:
+        wb = openpyxl.Workbook()
+        ws_new = wb.active
+        ws_new.title = "AAR Journal"
+
+    ws = wb["AAR Journal"] if "AAR Journal" in wb.sheetnames else wb.active
+    ws["B1"] = f"HỆ THỐNG THU THẬP & PHẢN TƯ SAU MỖI BUỔI HỌC - CHU TRÌNH AAR ({student_name} - {student_email or 'N/A'})"
+    if logs:
+        latest = logs[-1]
+        ws["B6"] = f"Học sinh: {student_name} ({student_email or 'N/A'}) | Hiệu suất buổi gần nhất: Đúng {latest.get('correct_count', 0)}/{latest.get('practiced_count', 0)} câu thực hành ({latest.get('accuracy_pct', 0)}%)"
+
+    for r in range(10, 101):
+        for c in range(2, 15):
+            cell = ws.cell(r, c)
+            cell.value = None
+            if cell.hyperlink is not None:
+                cell.hyperlink = None
+
+    for idx, item in enumerate(logs[:90]):
+        r = 10 + idx
+        ws.cell(r, 2, str(item.get("session_label") or f"Buổi {idx + 1}"))
+        ws.cell(r, 3, str(item.get("date_display") or ""))
+        ws.cell(r, 4, str(item.get("sat_module") or ""))
+        ws.cell(r, 5, str(item.get("iste_standard") or ""))
+        ws.cell(r, 6, str(item.get("goal") or ""))
+        ws.cell(r, 7, str(item.get("challenge") or ""))
+        ws.cell(r, 8, str(item.get("tools") or ""))
+        ws.cell(r, 9, str(item.get("evidence") or ""))
+        ws.cell(r, 10, str(item.get("mastery") or ""))
+        ws.cell(r, 11, str(item.get("gap") or ""))
+        ws.cell(r, 12, str(item.get("feedforward") or ""))
+        ws.cell(r, 13, str(item.get("emotion") or ""))
+        ws.cell(r, 14, str(item.get("status") or "Hoàn thành"))
+
+    safe_name = re.sub(r'[^a-zA-Z0-9_\-]', '_', student_name) or "Student"
+    date_tag = datetime.datetime.now().strftime("%Y-%m-%d")
+    export_filename = f"AAR_Cycle_Tracker_{safe_name}_{date_tag}.xlsx"
+
+    buf = io.BytesIO()
+    wb.save(buf)
+    return buf.getvalue(), export_filename, safe_name
+
+def send_aar_email(student_name, student_email, entry, excel_bytes, excel_filename):
+    config = load_email_config()
+    smtp_pass = config.get("smtp_pass", "").strip()
+    smtp_host = config.get("smtp_host", "smtp.gmail.com")
+    smtp_port = int(config.get("smtp_port", 465))
+    smtp_user = config.get("smtp_user", "mikepham358@gmail.com").strip()
+
+    to_list = list(AAR_TEACHER_RECIPIENTS)
+    cc_list = [student_email] if (student_email and "@" in student_email and student_email not in to_list) else []
+    all_recipients = to_list + cc_list
+
+    if not smtp_pass:
+        return False, "Chưa cấu hình smtp_pass trên server; client sẽ mở ứng dụng Email mặc định.", all_recipients
+
+    msg = MIMEMultipart()
+    msg['From'] = f"Digital SAT Bluebook <{smtp_user}>"
+    msg['To'] = ", ".join(to_list)
+    if cc_list:
+        msg['Cc'] = ", ".join(cc_list)
+
+    correct_c = int(entry.get("correct_count", 0))
+    practiced_c = int(entry.get("practiced_count", 0))
+    acc_pct = int(entry.get("accuracy_pct", 0))
+    sess_lbl = entry.get("session_label", "Buổi học")
+    sat_mod = entry.get("sat_module", "")
+    msg['Subject'] = f"[SAT ARR Report] {student_name} - {sess_lbl} ({sat_mod}) - {correct_c}/{practiced_c} câu đúng ({acc_pct}%)"
+
+    e_name = html.escape(str(student_name))
+    e_email = html.escape(str(student_email or "Chưa cung cấp"))
+    e_mod = html.escape(str(sat_mod))
+    e_iste = html.escape(str(entry.get("iste_standard") or "").replace("\n", " "))
+    e_goal = html.escape(str(entry.get("goal") or ""))
+    e_chal = html.escape(str(entry.get("challenge") or ""))
+    e_tools = html.escape(str(entry.get("tools") or ""))
+    e_evid = html.escape(str(entry.get("evidence") or ""))
+    e_mast = html.escape(str(entry.get("mastery") or ""))
+    e_gap = html.escape(str(entry.get("gap") or ""))
+    e_feed = html.escape(str(entry.get("feedforward") or ""))
+    e_emo = html.escape(str(entry.get("emotion") or ""))
+    e_stat = html.escape(str(entry.get("status") or ""))
+
+    html_content = f"""
+    <html>
+    <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.6; color: #0f172a; max-width: 680px; margin: 0 auto; padding: 20px;">
+      <div style="background: #1e3a8a; color: #fff; padding: 18px 22px; border-radius: 10px 10px 0 0;">
+        <h2 style="margin: 0; font-size: 18px;">📝 BÁO CÁO PHẢN TƯ SAU BUỔI HỌC (AAR / ARR CYCLE)</h2>
+        <p style="margin: 4px 0 0; font-size: 13px; color: #cbd5e1;">Học sinh: {e_name} ({e_email})</p>
+      </div>
+      <div style="border: 1px solid #cbd5e1; border-top: none; padding: 20px 22px; border-radius: 0 0 10px 10px; background: #fff;">
+        <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;">
+          <strong>📊 Hiệu suất thực hành trong buổi học:</strong> Đúng <strong>{correct_c} / {practiced_c}</strong> câu ({acc_pct}%)<br>
+          <span style="font-size: 13px; color: #334155;">Lần 1: {entry.get('l1_correct', 0)} • Lần 2: {entry.get('l2_correct', 0)} • Lần 3: {entry.get('l3_correct', 0)} • Chưa đúng: {entry.get('missed_count', 0)}</span>
+        </div>
+        <p><strong>Buổi:</strong> {html.escape(str(sess_lbl))} • <strong>Ngày:</strong> {html.escape(str(entry.get('date_display', '')))} • <strong>Mô-đun:</strong> {e_mod}</p>
+        <p><strong>1. Dự đoán (Anticipation):</strong> ISTE: {e_iste}<br>Mục tiêu: {e_goal}<br>Thách thức: {e_chal}</p>
+        <p><strong>2. Hành động (Action):</strong> Công cụ: {e_tools}<br>Minh chứng: {e_evid}<br>Mức độ làm chủ: {e_mast}</p>
+        <p><strong>3. Phản tư (Reflection):</strong> Gap: {e_gap}<br>Feed-forward: {e_feed}<br>Cảm xúc: {e_emo} • Trạng thái: {e_stat}</p>
+      </div>
+    </body>
+    </html>
+    """
+    msg.attach(MIMEText(html_content, 'html', 'utf-8'))
+    part = MIMEApplication(excel_bytes, Name=excel_filename)
+    part['Content-Disposition'] = f'attachment; filename="{excel_filename}"'
+    msg.attach(part)
+
+    try:
+        if smtp_port == 465:
+            with smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=15) as server:
+                server.login(smtp_user, smtp_pass)
+                server.sendmail(smtp_user, all_recipients, msg.as_string())
+        else:
+            with smtplib.SMTP(smtp_host, smtp_port, timeout=15) as server:
+                server.starttls()
+                server.login(smtp_user, smtp_pass)
+                server.sendmail(smtp_user, all_recipients, msg.as_string())
+        return True, "Đã gửi email báo cáo ARR thành công!", all_recipients
+    except Exception as e:
+        return False, f"Lỗi gửi email ARR qua SMTP: {str(e)}", all_recipients
+
 def send_feedback_email_notification(fb_item):
     config = load_email_config()
     teacher_email = config.get("teacher_email", "mikepham358@gmail.com")
@@ -592,6 +731,10 @@ class BluebookAppHandler(BaseHTTPRequestHandler):
             self.handle_submit_test(payload)
             return
 
+        if path == "/api/submit-aar":
+            self.handle_submit_aar(payload)
+            return
+
         if path == "/api/feedback":
             self.handle_add_feedback(payload)
             return
@@ -723,6 +866,29 @@ class BluebookAppHandler(BaseHTTPRequestHandler):
             })
         except Exception as e:
             self.send_json({"success": False, "error": f"Failed to submit test: {str(e)}"}, 500)
+
+    def handle_submit_aar(self, payload):
+        try:
+            student_name = str(payload.get("student_name") or "Student").strip() or "Hoc_Sinh"
+            student_email = str(payload.get("student_email") or "").strip()
+            entry = payload.get("entry") or {}
+
+            content, export_filename, safe_name = generate_aar_excel(payload)
+            save_path = os.path.join(SUBMISSIONS_DIR, export_filename)
+            with open(save_path, "wb") as f:
+                f.write(content)
+
+            sent, msg, recipients = send_aar_email(student_name, student_email, entry, content, export_filename)
+            self.send_json({
+                "success": True,
+                "email_sent": sent,
+                "message": msg,
+                "recipients": recipients,
+                "filename": export_filename,
+                "download_url": f"/api/download-submission?file={urllib.parse.quote(export_filename)}"
+            })
+        except Exception as e:
+            self.send_json({"success": False, "error": f"Failed to submit ARR report: {str(e)}"}, 500)
 
     # --- UTILS ---
 

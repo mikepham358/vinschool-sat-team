@@ -42,6 +42,10 @@
           </div>
         </div>
         <div class="home-nav-actions">
+          <button type="button" class="btn-home-aar" id="btn-home-open-aar" title="Gửi Báo Cáo Phản Tư Sau Buổi Học (ARR / AAR Cycle)">
+            <span>📝</span>
+            <span>ARR Report</span>
+          </button>
           <button type="button" class="btn-home-vocab" id="btn-home-open-vocab" title="Kho 1,000 Từ Vựng SAT (AceSAT Hub)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
             <span>📚</span>
             <span>AceSAT: 1,000 Từ Vựng</span>
@@ -409,6 +413,10 @@
       <button class="tool-btn btn-reset-test" id="btn-reset-test" title="Đặt lại và làm lại bài thi từ đầu">
         <span class="tool-icon">🔄</span>
         <span class="tool-text">Làm lại</span>
+      </button>
+      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (ARR / AAR Cycle) & Gửi Email">
+        <span class="tool-icon">📝</span>
+        <span class="aar-pill-label">ARR</span>
       </button>
       <button class="tool-btn btn-finish-test" id="btn-finish-test" title="Hoàn thành bài thi và gửi báo cáo về email">
         <span class="tool-icon">🏁</span>
@@ -1069,6 +1077,7 @@
             <span class="spinner hidden" id="submit-spinner"></span>
           </button>
           <div class="secondary-actions">
+            <button class="btn-action-sub" id="btn-finish-to-aar">📝 Gửi Báo Cáo Buổi Học (ARR)</button>
             <button class="btn-action-sub" id="btn-download-excel-direct">📥 Tải File Excel Về Máy</button>
             <button class="btn-action-sub" id="btn-cancel-finish">Quay Lại Làm Tiếp</button>
           </div>
@@ -1082,7 +1091,7 @@
   <div class="modal-overlay hidden" id="modal-submit-success">
     <div class="modal-card success-modal-card">
       <div class="success-icon">✉️</div>
-      <h2>Ứng Dụng Email Đã Được Mở!</h2>
+      <h2 id="success-modal-title">Ứng Dụng Email Đã Được Mở!</h2>
       <p class="success-message" id="success-status-text">
         Nội dung báo cáo điểm đã được tự động điền sẵn trong ứng dụng Email trên thiết bị của em.
       </p>
@@ -1090,7 +1099,7 @@
       <div class="email-instruction-steps">
         <div class="step-card">
           <span class="step-num">1</span>
-          <span class="step-text">File Excel bài làm chi tiết (<strong><span id="success-filename">October_2026_SAT...xlsx</span></strong>) đã được tải về mục <em>Downloads</em>.</span>
+          <span class="step-text">File Excel chi tiết (<strong><span id="success-filename">October_2026_SAT...xlsx</span></strong>) đã được tải về mục <em>Downloads</em>.</span>
         </div>
         <div class="step-card">
           <span class="step-num">2</span>
@@ -1098,7 +1107,7 @@
         </div>
         <div class="step-card">
           <span class="step-num">3</span>
-          <span class="step-text">Bấm <strong>Gửi (Send)</strong> tới Thầy Mike Pham Bá Hong Son (<code>mikepham358@gmail.com</code>) để hoàn tất!</span>
+          <span class="step-text" id="success-recipient-text">Bấm <strong>Gửi (Send)</strong> tới Thầy Mike Pham Bá Hong Son (<code>mikepham358@gmail.com</code>) để hoàn tất!</span>
         </div>
       </div>
 
@@ -1106,12 +1115,220 @@
         <button class="btn-primary-ob" id="btn-relaunch-mail">
           ✉️ Mở Lại Ứng Dụng Email
         </button>
+        <button class="btn-sub-ob" id="btn-copy-mail-body">
+          📋 Copy Nội Dung Báo Cáo
+        </button>
         <a class="btn-sub-ob" id="btn-download-submitted-file" href="#" download>
           📥 Tải Lại File Excel
         </a>
         <button class="btn-sub-ob" id="btn-close-success">
           Đóng & Xem Lại Bài Thi
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: AFTER ACTION REVIEW (ARR / AAR CYCLE) ================= -->
+  <div class="modal-overlay hidden" id="modal-aar-report">
+    <div class="modal-card aar-modal-card">
+      <div class="modal-card-header aar-modal-header">
+        <div>
+          <h3>📝 Báo Cáo Phản Tư Sau Buổi Học — Chu Trình AAR (ARR)</h3>
+          <p class="aar-subtitle">Chuẩn OECD Learning Compass 2030 &amp; ISTE Standards • Đồng bộ hiệu suất thực hành</p>
+        </div>
+        <button type="button" class="btn-close-modal" id="btn-close-aar">✕</button>
+      </div>
+
+      <div class="aar-tabs-bar">
+        <button type="button" class="aar-tab-btn active" id="tab-btn-aar-form">✍️ Báo Cáo Buổi Học Mới</button>
+        <button type="button" class="aar-tab-btn" id="tab-btn-aar-history">📚 Nhật Ký AAR Đã Lưu (<span id="aar-history-count">0</span>)</button>
+      </div>
+
+      <div class="modal-card-body aar-modal-body">
+        <!-- TAB 1: NEW AAR REPORT FORM -->
+        <div id="aar-tab-panel-form">
+          <!-- Student Identity Inline Row -->
+          <div class="aar-student-row">
+            <div class="aar-field">
+              <label for="aar-input-student-name">Họ và tên học sinh <span class="req">*</span></label>
+              <input type="text" id="aar-input-student-name" placeholder="Ví dụ: Nguyễn Văn An">
+            </div>
+            <div class="aar-field">
+              <label for="aar-input-student-email">Email học sinh (nhận bản CC) <span class="req">*</span></label>
+              <input type="email" id="aar-input-student-email" placeholder="Ví dụ: an.nguyen@vinschool.edu.vn">
+            </div>
+          </div>
+
+          <!-- Auto-Calculated Session Performance Box -->
+          <div class="aar-perf-card">
+            <div class="aar-perf-top">
+              <div>
+                <span class="aar-perf-badge">📊 HIỆU SUẤT BUỔI HỌC TỰ ĐỘNG</span>
+                <div class="aar-perf-headline" id="aar-perf-headline">Đúng 0 / 0 câu thực hành (0%)</div>
+                <div class="aar-perf-sub" id="aar-perf-sub">Nguồn: Đang tải...</div>
+              </div>
+              <div class="aar-scope-pills" id="aar-scope-pills">
+                <button type="button" class="aar-scope-btn active" data-scope="session">Buổi học này</button>
+                <button type="button" class="aar-scope-btn" data-scope="module">Module đang mở</button>
+                <button type="button" class="aar-scope-btn" data-scope="all">Toàn đề đã làm</button>
+              </div>
+            </div>
+            <div class="aar-perf-metrics">
+              <div class="aar-metric-pill aar-m-correct"><span>✅ Trả lời đúng</span><strong id="aar-stat-correct">0 / 0</strong></div>
+              <div class="aar-metric-pill aar-m-pct"><span>🎯 Tỷ lệ đúng</span><strong id="aar-stat-pct">0%</strong></div>
+              <div class="aar-metric-pill"><span>⚡ Đúng Lần 1</span><strong id="aar-stat-l1">0</strong></div>
+              <div class="aar-metric-pill"><span>💡 Đúng Lần 2 / 3</span><strong id="aar-stat-l23">0</strong></div>
+              <div class="aar-metric-pill"><span>⚠️ Chưa đúng / Thử sai</span><strong id="aar-stat-missed">0</strong></div>
+            </div>
+          </div>
+
+          <!-- Section 0: Session Metadata -->
+          <div class="aar-section-box">
+            <div class="aar-section-title">0️⃣ THÔNG TIN BUỔI HỌC</div>
+            <div class="aar-grid-3">
+              <div class="aar-field">
+                <label for="aar-input-session-label">Buổi # <span class="req">*</span></label>
+                <input type="text" id="aar-input-session-label" placeholder="Ví dụ: Buổi 1">
+              </div>
+              <div class="aar-field">
+                <label for="aar-input-date">Ngày học <span class="req">*</span></label>
+                <input type="date" id="aar-input-date">
+              </div>
+              <div class="aar-field">
+                <label for="aar-select-sat-module">Mô-đun SAT <span class="req">*</span></label>
+                <select id="aar-select-sat-module">
+                  <option value="Reading: Craft &amp; Structure">Reading: Craft &amp; Structure</option>
+                  <option value="Reading: Information &amp; Ideas">Reading: Information &amp; Ideas</option>
+                  <option value="Writing: Standard English">Writing: Standard English</option>
+                  <option value="Writing: Expression of Ideas">Writing: Expression of Ideas</option>
+                  <option value="Math: Advanced Math">Math: Advanced Math</option>
+                  <option value="Math: Algebra">Math: Algebra</option>
+                  <option value="Math: Problem-Solving">Math: Problem-Solving</option>
+                  <option value="Math: Geometry &amp; Trig">Math: Geometry &amp; Trig</option>
+                  <option value="Digital SAT Full-test">Digital SAT Full-test</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 1: Anticipation -->
+          <div class="aar-section-box aar-stage-1">
+            <div class="aar-section-title">1️⃣ GIAI ĐOẠN 1: DỰ ĐOÁN (ANTICIPATION — TRƯỚC BUỔI HỌC)</div>
+            <div class="aar-field">
+              <label for="aar-select-iste">Tiêu chuẩn ISTE áp dụng <span class="req">*</span></label>
+              <select id="aar-select-iste">
+                <option value="Empowered Learner &#10;(Học sinh Chủ động)">1. Empowered Learner (Học sinh Chủ động)</option>
+                <option value="Digital Citizen &#10;(Công dân Số)">2. Digital Citizen (Công dân Số)</option>
+                <option value="Knowledge Constructor &#10;(Nhà xây dựng Kiến thức)">3. Knowledge Constructor (Nhà xây dựng Kiến thức)</option>
+                <option value="Innovative Designer &#10;(Nhà thiết kế Sáng tạo)">4. Innovative Designer (Nhà thiết kế Sáng tạo)</option>
+                <option value="Computational Thinker &#10;(Nhà tư duy Máy tính)">5. Computational Thinker (Nhà tư duy Máy tính)</option>
+                <option value="Creative Communicator &#10;(Nhà truyền thông Sáng tạo)">6. Creative Communicator (Nhà truyền thông Sáng tạo)</option>
+                <option value="Global Collaborator &#10;(Nhà hợp tác Toàn cầu)">7. Global Collaborator (Nhà hợp tác Toàn cầu)</option>
+              </select>
+              <div class="aar-iste-hint" id="aar-iste-hint"></div>
+            </div>
+            <div class="aar-grid-2">
+              <div class="aar-field">
+                <label for="aar-input-goal">Mục tiêu bài học &amp; Điểm kỳ vọng <span class="req">*</span></label>
+                <textarea id="aar-input-goal" rows="2" placeholder="Ví dụ: Đạt ≥ 85% câu đúng; nắm chắc phương pháp bẫy từ khóa &amp; loại đáp án sai."></textarea>
+              </div>
+              <div class="aar-field">
+                <label for="aar-input-challenge">Thách thức dự kiến <span class="req">*</span></label>
+                <textarea id="aar-input-challenge" rows="2" placeholder="Ví dụ: Câu suy luận dài, áp lực thời gian hoặc thao tác đồ thị Desmos."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 2: Action -->
+          <div class="aar-section-box aar-stage-2">
+            <div class="aar-section-title">2️⃣ GIAI ĐOẠN 2: HÀNH ĐỘNG (ACTION — TRONG BUỔI HỌC)</div>
+            <div class="aar-grid-2">
+              <div class="aar-field">
+                <label for="aar-input-tools">Công cụ &amp; Kỹ thuật áp dụng <span class="req">*</span></label>
+                <textarea id="aar-input-tools" rows="2" placeholder="Ví dụ: Bluebook Web App, Socratic 3-tầng, Máy tính Desmos, Sổ thử sai."></textarea>
+              </div>
+              <div class="aar-field">
+                <label for="aar-select-mastery">Mức độ làm chủ <span class="req">*</span></label>
+                <select id="aar-select-mastery">
+                  <option value="Xuất sắc (≥ 90%)">Xuất sắc (≥ 90%)</option>
+                  <option value="Đạt yêu cầu (75% - 89%)">Đạt yêu cầu (75% - 89%)</option>
+                  <option value="Cần rèn thêm (&lt; 75%)">Cần rèn thêm (&lt; 75%)</option>
+                </select>
+              </div>
+            </div>
+            <div class="aar-field">
+              <label for="aar-input-evidence">Kết quả Thực tế &amp; Minh chứng (bao gồm số câu đúng / tổng số câu thực hành) <span class="req">*</span></label>
+              <textarea id="aar-input-evidence" rows="2"></textarea>
+            </div>
+          </div>
+
+          <!-- Stage 3: Reflection -->
+          <div class="aar-section-box aar-stage-3">
+            <div class="aar-section-title">
+              <span>3️⃣ GIAI ĐOẠN 3: PHẢN TƯ (REFLECTION — SAU BUỔI HỌC) &amp; ĐÁNH GIÁ</span>
+              <button type="button" class="btn-aar-pull-errors" id="btn-aar-pull-errors" title="Tự động điền các lỗi sai đã ghi trong Sổ thử sai">📋 Lấy từ Sổ thử sai</button>
+            </div>
+            <div class="aar-grid-2">
+              <div class="aar-field">
+                <label for="aar-input-gap">Khoảng cách (Gap) &amp; Nguyên nhân thử sai <span class="req">*</span></label>
+                <textarea id="aar-input-gap" rows="2" placeholder="Ví dụ: Còn nhầm bẫy từ quá cực đoan / chưa kiểm tra lại điều kiện nghiệm."></textarea>
+              </div>
+              <div class="aar-field">
+                <label for="aar-input-feedforward">Bài học chuyển hóa cho buổi sau (Feed-forward) <span class="req">*</span></label>
+                <textarea id="aar-input-feedforward" rows="2" placeholder="Ví dụ: Đọc kỹ câu hỏi trước khi xem lựa chọn; lập checklist kiểm tra bước cuối."></textarea>
+              </div>
+            </div>
+            <div class="aar-grid-2">
+              <div class="aar-field">
+                <label for="aar-select-emotion">Cảm xúc &amp; Mức độ tập trung</label>
+                <select id="aar-select-emotion">
+                  <option value="🔥 Tập trung cao độ">🔥 Tập trung cao độ</option>
+                  <option value="⚡ Tự tin, ổn định" selected>⚡ Tự tin, ổn định</option>
+                  <option value="⚠️ Cần khắc phục xao nhãng">⚠️ Cần khắc phục xao nhãng</option>
+                </select>
+              </div>
+              <div class="aar-field">
+                <label for="aar-select-status">Trạng thái AAR</label>
+                <select id="aar-select-status">
+                  <option value="Hoàn thành" selected>Hoàn thành</option>
+                  <option value="Đang phản tư">Đang phản tư</option>
+                  <option value="Chưa bắt đầu">Chưa bắt đầu</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recipient Info -->
+          <div class="aar-recipient-box">
+            <div class="aar-recipient-icon">✉️</div>
+            <div class="aar-recipient-body">
+              <strong>Báo cáo ARR &amp; File Excel AAR Tracker sẽ được gửi về:</strong>
+              <div class="aar-recipient-lines">
+                <span><strong>To:</strong> <code>v.sonpbh1@vinschool.edu.vn</code>, <code>mikepham@baoan.ai.vn</code></span>
+                <span><strong>CC:</strong> <code id="aar-preview-cc-email">Chưa nhập email học sinh</code></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Actions -->
+          <div class="aar-actions-row">
+            <button type="button" class="btn-aar-submit" id="btn-aar-submit-send">
+              <span id="aar-submit-btn-text">📤 Lưu AAR, Tải Excel &amp; Gửi Email ARR</span>
+              <span class="spinner hidden" id="aar-submit-spinner"></span>
+            </button>
+            <button type="button" class="btn-action-sub" id="btn-aar-download-only">📥 Chỉ Tải Excel AAR</button>
+            <button type="button" class="btn-action-sub" id="btn-aar-cancel">Đóng</button>
+          </div>
+        </div>
+
+        <!-- TAB 2: AAR HISTORY -->
+        <div id="aar-tab-panel-history" class="hidden">
+          <div class="aar-history-toolbar">
+            <span class="aar-history-summary" id="aar-history-summary">Chưa có buổi học AAR nào được lưu trên thiết bị này.</span>
+            <button type="button" class="btn-action-sub" id="btn-aar-export-all-history">📥 Xuất File AAR Tracker Tổng Hợp (.xlsx)</button>
+          </div>
+          <div class="aar-history-list" id="aar-history-list"></div>
+        </div>
       </div>
     </div>
   </div>

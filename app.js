@@ -6,7 +6,9 @@
  */
 
 const GLOBAL_PROFILE_KEY = "bluebook_global_student_profile_v1";
+const GLOBAL_AAR_STORAGE_KEY = "bluebook_global_aar_tracker_v1";
 const LEGACY_STORAGE_KEY = "bluebook_oct2026_student_state_v1";
+const AAR_TEACHER_RECIPIENTS = "v.sonpbh1@vinschool.edu.vn,mikepham@baoan.ai.vn";
 
 const TESTS_MANIFEST_DEFAULT = [
   {
@@ -127,6 +129,12 @@ const App = {
   feedbacks: [],
   currentFeedbackContext: null,
   lastMailtoUrl: null,
+  lastReportText: "",
+  sessionStartedAt: new Date().toISOString(),
+  sessionPracticedIds: new Set(),
+  aarScope: "session",
+  aarLogs: [],
+  lastAarReportAt: null,
 
   // Student Personal State (Loaded from localStorage)
   studentState: {
@@ -209,6 +217,9 @@ const DOM = {
   btnOpenStrategies: document.getElementById("btn-open-strategies"),
   btnExportExcel: document.getElementById("btn-export-excel"),
   btnResetTest: document.getElementById("btn-reset-test"),
+  btnOpenAar: document.getElementById("btn-open-aar"),
+  btnHomeOpenAar: document.getElementById("btn-home-open-aar"),
+  btnFinishToAar: document.getElementById("btn-finish-to-aar"),
   btnFinishTest: document.getElementById("btn-finish-test"),
   headerStudentBadge: document.getElementById("header-student-badge"),
   headerStudentName: document.getElementById("header-student-name"),
@@ -414,11 +425,57 @@ const DOM = {
 
   // Success Modal
   modalSubmitSuccess: document.getElementById("modal-submit-success"),
+  successModalTitle: document.getElementById("success-modal-title"),
   successStatusText: document.getElementById("success-status-text"),
   successFilename: document.getElementById("success-filename"),
+  successRecipientText: document.getElementById("success-recipient-text"),
   btnRelaunchMail: document.getElementById("btn-relaunch-mail"),
+  btnCopyMailBody: document.getElementById("btn-copy-mail-body"),
   btnDownloadSubmittedFile: document.getElementById("btn-download-submitted-file"),
   btnCloseSuccess: document.getElementById("btn-close-success"),
+
+  // AAR / ARR Cycle Modal
+  modalAarReport: document.getElementById("modal-aar-report"),
+  btnCloseAar: document.getElementById("btn-close-aar"),
+  tabBtnAarForm: document.getElementById("tab-btn-aar-form"),
+  tabBtnAarHistory: document.getElementById("tab-btn-aar-history"),
+  aarHistoryCount: document.getElementById("aar-history-count"),
+  aarTabPanelForm: document.getElementById("aar-tab-panel-form"),
+  aarTabPanelHistory: document.getElementById("aar-tab-panel-history"),
+  aarInputStudentName: document.getElementById("aar-input-student-name"),
+  aarInputStudentEmail: document.getElementById("aar-input-student-email"),
+  aarPerfHeadline: document.getElementById("aar-perf-headline"),
+  aarPerfSub: document.getElementById("aar-perf-sub"),
+  aarScopePills: document.getElementById("aar-scope-pills"),
+  aarStatCorrect: document.getElementById("aar-stat-correct"),
+  aarStatPct: document.getElementById("aar-stat-pct"),
+  aarStatL1: document.getElementById("aar-stat-l1"),
+  aarStatL23: document.getElementById("aar-stat-l23"),
+  aarStatMissed: document.getElementById("aar-stat-missed"),
+  aarInputSessionLabel: document.getElementById("aar-input-session-label"),
+  aarInputDate: document.getElementById("aar-input-date"),
+  aarSelectSatModule: document.getElementById("aar-select-sat-module"),
+  aarSelectIste: document.getElementById("aar-select-iste"),
+  aarIsteHint: document.getElementById("aar-iste-hint"),
+  aarInputGoal: document.getElementById("aar-input-goal"),
+  aarInputChallenge: document.getElementById("aar-input-challenge"),
+  aarInputTools: document.getElementById("aar-input-tools"),
+  aarSelectMastery: document.getElementById("aar-select-mastery"),
+  aarInputEvidence: document.getElementById("aar-input-evidence"),
+  btnAarPullErrors: document.getElementById("btn-aar-pull-errors"),
+  aarInputGap: document.getElementById("aar-input-gap"),
+  aarInputFeedforward: document.getElementById("aar-input-feedforward"),
+  aarSelectEmotion: document.getElementById("aar-select-emotion"),
+  aarSelectStatus: document.getElementById("aar-select-status"),
+  aarPreviewCcEmail: document.getElementById("aar-preview-cc-email"),
+  btnAarSubmitSend: document.getElementById("btn-aar-submit-send"),
+  aarSubmitBtnText: document.getElementById("aar-submit-btn-text"),
+  aarSubmitSpinner: document.getElementById("aar-submit-spinner"),
+  btnAarDownloadOnly: document.getElementById("btn-aar-download-only"),
+  btnAarCancel: document.getElementById("btn-aar-cancel"),
+  aarHistorySummary: document.getElementById("aar-history-summary"),
+  btnAarExportAllHistory: document.getElementById("btn-aar-export-all-history"),
+  aarHistoryList: document.getElementById("aar-history-list"),
 
   // Reset Confirmation Modal
   modalResetConfirm: document.getElementById("modal-reset-confirm"),
@@ -543,6 +600,8 @@ function loadLocalState() {
   if (App.studentState.student_email && DOM.homeInputEmail) {
     DOM.homeInputEmail.value = App.studentState.student_email;
   }
+
+  loadGlobalAARState();
 }
 
 function saveLocalState() {
@@ -2141,6 +2200,9 @@ function checkAnswer() {
 
   qState.attempts = qState.attempts || [];
   qState.attempts.push(choice);
+  qState.last_practiced_at = new Date().toISOString();
+  if (!App.sessionPracticedIds) App.sessionPracticedIds = new Set();
+  App.sessionPracticedIds.add(`${App.activeTestId}::${q.id}`);
   const attemptCount = qState.attempts.length;
 
   // Evaluation: match string or float for grid-in
@@ -3111,6 +3173,7 @@ Em cảm ơn Thầy!`;
 
   const mailtoUrl = `mailto:${teacherEmail}?cc=${encodeURIComponent(studentEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
   App.lastMailtoUrl = mailtoUrl;
+  App.lastReportText = bodyText;
 
   // 1. Download file automatically
   if (fileBlobUrl) {
@@ -3128,6 +3191,13 @@ Em cảm ơn Thầy!`;
   }, 600);
 
   // 3. Populate and show instructional Success Modal
+  if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Ứng Dụng Email Đã Được Mở!";
+  if (DOM.successStatusText) {
+    DOM.successStatusText.textContent = "Nội dung báo cáo điểm đã được tự động điền sẵn trong ứng dụng Email trên thiết bị của em.";
+  }
+  if (DOM.successRecipientText) {
+    DOM.successRecipientText.innerHTML = `Bấm <strong>Gửi (Send)</strong> tới Thầy Mike Pham Bá Hong Son (<code>${teacherEmail}</code>) để hoàn tất!`;
+  }
   DOM.successFilename.textContent = filename;
   if (fileBlobUrl) {
     DOM.btnDownloadSubmittedFile.href = fileBlobUrl;
@@ -4428,12 +4498,81 @@ function setupEventListeners() {
   DOM.btnCancelFinish.addEventListener("click", () => DOM.modalFinishTest.classList.add("hidden"));
   DOM.btnSubmitTestConfirm.addEventListener("click", submitTestFinal);
   DOM.btnDownloadExcelDirect.addEventListener("click", exportExcelPersonalized);
+  if (DOM.btnFinishToAar) {
+    DOM.btnFinishToAar.addEventListener("click", () => {
+      DOM.modalFinishTest.classList.add("hidden");
+      openAARModal();
+    });
+  }
+
+  // ARR / AAR Report Controls
+  if (DOM.btnOpenAar) DOM.btnOpenAar.addEventListener("click", openAARModal);
+  if (DOM.btnHomeOpenAar) DOM.btnHomeOpenAar.addEventListener("click", openAARModal);
+  if (DOM.btnCloseAar) DOM.btnCloseAar.addEventListener("click", closeAARModal);
+  if (DOM.btnAarCancel) DOM.btnAarCancel.addEventListener("click", closeAARModal);
+  if (DOM.modalAarReport) {
+    DOM.modalAarReport.addEventListener("click", (e) => {
+      if (e.target === DOM.modalAarReport) closeAARModal();
+    });
+  }
+  if (DOM.tabBtnAarForm) DOM.tabBtnAarForm.addEventListener("click", () => switchAARTab("form"));
+  if (DOM.tabBtnAarHistory) DOM.tabBtnAarHistory.addEventListener("click", () => switchAARTab("history"));
+  if (DOM.aarScopePills) {
+    DOM.aarScopePills.querySelectorAll(".aar-scope-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        App.aarScope = btn.getAttribute("data-scope") || "session";
+        refreshAARPerformanceUI(true);
+      });
+    });
+  }
+  if (DOM.aarSelectIste) {
+    DOM.aarSelectIste.addEventListener("change", updateAARIsteHint);
+  }
+  if (DOM.aarInputStudentEmail) {
+    DOM.aarInputStudentEmail.addEventListener("input", () => {
+      const val = DOM.aarInputStudentEmail.value.trim();
+      if (DOM.aarPreviewCcEmail) {
+        DOM.aarPreviewCcEmail.textContent = val || "Chưa nhập email học sinh";
+      }
+    });
+  }
+  if (DOM.btnAarPullErrors) {
+    DOM.btnAarPullErrors.addEventListener("click", pullErrorsIntoAARGap);
+  }
+  if (DOM.btnAarSubmitSend) {
+    DOM.btnAarSubmitSend.addEventListener("click", submitAARReport);
+  }
+  if (DOM.btnAarDownloadOnly) {
+    DOM.btnAarDownloadOnly.addEventListener("click", downloadAARExcelOnly);
+  }
+  if (DOM.btnAarExportAllHistory) {
+    DOM.btnAarExportAllHistory.addEventListener("click", exportAllAARHistoryExcel);
+  }
 
   // Success Modal Controls
   DOM.btnCloseSuccess.addEventListener("click", () => DOM.modalSubmitSuccess.classList.add("hidden"));
   if (DOM.btnRelaunchMail) {
     DOM.btnRelaunchMail.addEventListener("click", () => {
       if (App.lastMailtoUrl) window.location.href = App.lastMailtoUrl;
+    });
+  }
+  if (DOM.btnCopyMailBody) {
+    DOM.btnCopyMailBody.addEventListener("click", async () => {
+      const textToCopy = App.lastReportText || "";
+      if (!textToCopy) return;
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        const orig = DOM.btnCopyMailBody.textContent;
+        DOM.btnCopyMailBody.textContent = "✅ Đã Copy Nội Dung!";
+        setTimeout(() => { DOM.btnCopyMailBody.textContent = orig; }, 2000);
+      } catch (err) {
+        const ta = document.createElement("textarea");
+        ta.value = textToCopy;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
     });
   }
 
@@ -4662,4 +4801,719 @@ function setupEventListeners() {
     });
   }
   MermaidPanZoom.init();
+}
+
+// ================= ARR / AAR CYCLE REPORT SYSTEM =================
+const ISTE_STANDARDS_LOOKUP = {
+  "Empowered Learner": {
+    concept: "Đặt mục tiêu cá nhân, sử dụng công nghệ để đạt mục tiêu và tự đánh giá quá trình học.",
+    satApp: "Tự theo dõi tiến độ điểm số SAT, chủ động luyện đề Bluebook/Khan Academy và phân bổ thời gian theo điểm yếu."
+  },
+  "Digital Citizen": {
+    concept: "Sử dụng công nghệ an toàn, hợp pháp, có trách nhiệm và giữ kỷ luật tập trung số.",
+    satApp: "Quản lý thời gian dùng thiết bị, tránh xao nhãng khi làm test online và tôn trọng bản quyền tài liệu SAT."
+  },
+  "Knowledge Constructor": {
+    concept: "Thu thập, phân tích và tổng hợp thông tin từ nhiều nguồn để tạo ra tri thức có ý nghĩa.",
+    satApp: "Tổng hợp quy tắc Writing, phân tích cấu trúc bài Reading và xây dựng kho từ vựng SAT (Vocabulary Bank) theo ngữ cảnh."
+  },
+  "Innovative Designer": {
+    concept: "Sử dụng quy trình thiết kế để giải quyết vấn đề và tinh chỉnh giải pháp cá nhân.",
+    satApp: "Thử nghiệm chiến thuật làm bài và tự thiết kế hệ thống phân loại lỗi sai (Sổ thử sai / Error Log) hiệu quả."
+  },
+  "Computational Thinker": {
+    concept: "Phân tích bài toán, nhận diện mẫu hình và sử dụng thuật toán/công cụ để giải quyết vấn đề.",
+    satApp: "Sử dụng thành thạo Desmos giải nhanh SAT Math, nhận diện bẫy lặp lại và bóc tách bài toán nhiều bước."
+  },
+  "Creative Communicator": {
+    concept: "Bày tỏ tư tưởng, lập luận rõ ràng qua nhiều phương tiện kỹ thuật số.",
+    satApp: "Diễn giải lại cách giải câu SAT Math khó hoặc lập luận chứng cứ (Evidence-Based) khi phân tích bài Reading."
+  },
+  "Global Collaborator": {
+    concept: "Kết nối với cộng đồng người học rộng lớn để trao đổi chiến thuật và học hỏi lẫn nhau.",
+    satApp: "Thảo luận câu hỏi khó trong nhóm học SAT và chia sẻ kinh nghiệm luyện đề với thầy cô & bạn học."
+  }
+};
+
+function loadGlobalAARState() {
+  try {
+    const raw = localStorage.getItem(GLOBAL_AAR_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      App.aarLogs = Array.isArray(parsed.logs) ? parsed.logs : [];
+      App.lastAarReportAt = parsed.last_report_at || null;
+    } else {
+      App.aarLogs = [];
+      App.lastAarReportAt = null;
+    }
+  } catch (e) {
+    App.aarLogs = [];
+    App.lastAarReportAt = null;
+  }
+  updateAARHistoryBadge();
+}
+
+function saveGlobalAARState() {
+  try {
+    const data = {
+      logs: App.aarLogs || [],
+      last_report_at: App.lastAarReportAt || null
+    };
+    localStorage.setItem(GLOBAL_AAR_STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.warn("Could not save global AAR state:", e);
+  }
+  updateAARHistoryBadge();
+}
+
+function updateAARHistoryBadge() {
+  if (DOM.aarHistoryCount) {
+    DOM.aarHistoryCount.textContent = String((App.aarLogs || []).length);
+  }
+}
+
+function detectDefaultAarModule() {
+  const testId = (App.activeTestId || "").toLowerCase();
+  const modCode = (App.activeModuleCode || "").toLowerCase();
+  const activeModMeta = (App.db && Array.isArray(App.db.modules))
+    ? App.db.modules.find(m => m.code === App.activeModuleCode)
+    : null;
+  const modTitle = activeModMeta ? String(activeModMeta.title || "").toLowerCase() : "";
+
+  if (testId.includes("panda") || testId.includes("math") || modCode.includes("math") || modTitle.includes("math")) {
+    if (modTitle.includes("geometry") || modTitle.includes("trig") || modTitle.includes("triangle") || modTitle.includes("circle")) {
+      return "Math: Geometry & Trig";
+    }
+    if (modTitle.includes("probability") || modTitle.includes("stat") || modTitle.includes("percent") || modTitle.includes("ratio") || modTitle.includes("rate")) {
+      return "Math: Problem-Solving";
+    }
+    if (modTitle.includes("quadratic") || modTitle.includes("exponent") || modTitle.includes("function") || modTitle.includes("polynomial") || modTitle.includes("complex")) {
+      return "Math: Advanced Math";
+    }
+    return "Math: Algebra";
+  }
+
+  if (testId.includes("erica") || modCode.startsWith("rw_") || modTitle.includes("reading")) {
+    if (modTitle.includes("vocabulary") || modTitle.includes("words in context") || modTitle.includes("purpose") || modTitle.includes("structure") || modTitle.includes("rhetoric") || modTitle.includes("tone")) {
+      return "Reading: Craft & Structure";
+    }
+    return "Reading: Information & Ideas";
+  }
+
+  if (modCode === "all") {
+    return "Digital SAT Full-test";
+  }
+  return "Digital SAT Full-test";
+}
+
+function calculateAARSessionSummary(scope = "session") {
+  const allQs = (App.db && Array.isArray(App.db.questions)) ? App.db.questions : [];
+  const attempts = App.studentState.attempts || {};
+  const lastAarAt = App.lastAarReportAt;
+  const isMathModule = (q) => String(q.module_code || "").toLowerCase().includes("math") || (App.activeTestId || "").includes("math");
+
+  let targetQs = [];
+  if (scope === "module") {
+    targetQs = (App.questions && App.questions.length) ? App.questions : allQs;
+  } else if (scope === "all") {
+    targetQs = allQs;
+  } else {
+    targetQs = allQs.filter(q => {
+      const st = attempts[q.id];
+      if (!st || !Array.isArray(st.attempts) || st.attempts.length === 0) return false;
+      if (App.sessionPracticedIds && App.sessionPracticedIds.has(`${App.activeTestId}::${q.id}`)) {
+        return true;
+      }
+      if (st.last_practiced_at) {
+        return !lastAarAt || st.last_practiced_at > lastAarAt;
+      }
+      return false;
+    });
+  }
+
+  let practicedCount = 0;
+  let correctCount = 0;
+  let l1Correct = 0;
+  let l2Correct = 0;
+  let l3Correct = 0;
+  let earnedWeight = 0;
+  let hasMath = false;
+  const practicedIds = new Set();
+
+  targetQs.forEach(q => {
+    const st = attempts[q.id];
+    if (st && Array.isArray(st.attempts) && st.attempts.length > 0) {
+      practicedCount++;
+      practicedIds.add(String(q.id));
+      if (isMathModule(q)) hasMath = true;
+      const eff = parseFloat(st.efficiency) || 0;
+      const isMastered = (st.status === "mastered_l1" || st.status === "mastered_l2" || st.status === "mastered_l3" || eff > 0);
+      if (isMastered) {
+        correctCount++;
+      }
+      earnedWeight += eff;
+      if (eff >= 0.99 || st.status === "mastered_l1") l1Correct++;
+      else if (eff >= 0.6 || st.status === "mastered_l2") l2Correct++;
+      else if (eff >= 0.3 || st.status === "mastered_l3") l3Correct++;
+    }
+  });
+
+  const missedOrRetry = Math.max(0, practicedCount - correctCount);
+  const accuracyPct = practicedCount > 0 ? Math.round((correctCount / practicedCount) * 100) : 0;
+  const weightedPct = practicedCount > 0 ? Math.round((earnedWeight / practicedCount) * 100) : 0;
+
+  const scopedErrors = (App.studentState.error_logs || []).filter(e => practicedIds.has(String(e.question_id || "")));
+  const testShort = (App.activeTest && App.activeTest.short_title) || (App.db && App.db.test_title) || "Digital SAT";
+
+  return {
+    scope,
+    practicedCount,
+    correctCount,
+    l1Correct,
+    l2Correct,
+    l3Correct,
+    l23Correct: l2Correct + l3Correct,
+    missedOrRetry,
+    accuracyPct,
+    weightedPct,
+    hasMath,
+    scopedErrors,
+    testShort,
+    totalInTest: allQs.length
+  };
+}
+
+function updateAARIsteHint() {
+  if (!DOM.aarSelectIste || !DOM.aarIsteHint) return;
+  const raw = DOM.aarSelectIste.value || "";
+  const shortKey = raw.split("(")[0].trim();
+  const info = ISTE_STANDARDS_LOOKUP[shortKey];
+  if (info) {
+    DOM.aarIsteHint.innerHTML = `<strong>Khái niệm:</strong> ${escapeHtmlSafe(info.concept)}<br><strong>Ứng dụng SAT:</strong> ${escapeHtmlSafe(info.satApp)}`;
+  } else {
+    DOM.aarIsteHint.textContent = "";
+  }
+}
+
+function escapeHtmlSafe(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function refreshAARPerformanceUI(updateFormFields = false) {
+  const s = calculateAARSessionSummary(App.aarScope || "session");
+  App.currentAarSummary = s;
+
+  if (DOM.aarScopePills) {
+    DOM.aarScopePills.querySelectorAll(".aar-scope-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-scope") === s.scope);
+    });
+  }
+
+  const scopeDescMap = {
+    session: "Phiên thực hành hiện tại",
+    module: `Module/Chương: ${DOM.selectModule ? (DOM.selectModule.options[DOM.selectModule.selectedIndex]?.text || App.activeModuleCode) : App.activeModuleCode}`,
+    all: `Toàn bộ câu đã làm trong ${s.testShort}`
+  };
+
+  if (DOM.aarPerfHeadline) {
+    DOM.aarPerfHeadline.textContent = `Đúng ${s.correctCount} / ${s.practicedCount} câu thực hành (${s.accuracyPct}%)`;
+  }
+  if (DOM.aarPerfSub) {
+    DOM.aarPerfSub.textContent = `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Hiệu suất trọng số Socratic: ${s.weightedPct}%`;
+  }
+  if (DOM.aarStatCorrect) DOM.aarStatCorrect.textContent = `${s.correctCount} / ${s.practicedCount}`;
+  if (DOM.aarStatPct) DOM.aarStatPct.textContent = `${s.accuracyPct}%`;
+  if (DOM.aarStatL1) DOM.aarStatL1.textContent = String(s.l1Correct);
+  if (DOM.aarStatL23) DOM.aarStatL23.textContent = String(s.l23Correct);
+  if (DOM.aarStatMissed) DOM.aarStatMissed.textContent = String(s.missedOrRetry);
+
+  if (updateFormFields) {
+    if (DOM.aarInputEvidence) {
+      if (s.practicedCount > 0) {
+        DOM.aarInputEvidence.value = `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%) — Đúng Lần 1: ${s.l1Correct}, Lần 2: ${s.l2Correct}, Lần 3: ${s.l3Correct}, Chưa đúng/Đang thử: ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
+      } else {
+        DOM.aarInputEvidence.value = `Đã hoàn thành buổi học trên ${s.testShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
+      }
+    }
+    if (DOM.aarSelectMastery) {
+      if (s.accuracyPct >= 90) DOM.aarSelectMastery.value = "Xuất sắc (≥ 90%)";
+      else if (s.accuracyPct >= 75) DOM.aarSelectMastery.value = "Đạt yêu cầu (75% - 89%)";
+      else DOM.aarSelectMastery.value = "Cần rèn thêm (< 75%)";
+    }
+  }
+}
+
+function pullErrorsIntoAARGap() {
+  const s = App.currentAarSummary || calculateAARSessionSummary(App.aarScope || "session");
+  const allErrors = (s.scopedErrors && s.scopedErrors.length > 0)
+    ? s.scopedErrors
+    : (App.studentState.error_logs || []);
+
+  if (!allErrors || allErrors.length === 0) {
+    alert("Chưa có lỗi sai nào được ghi trong Sổ thử sai. Em có thể tự nhập nhận xét khoảng cách học tập ở ô này.");
+    return;
+  }
+
+  const lines = allErrors.slice(0, 6).map(e => {
+    const qLbl = e.q_label || `Q${e.question_id || ""}`;
+    const cause = e.root_cause || "Bẫy SAT";
+    const detail = e.trap_detail ? `: ${e.trap_detail}` : "";
+    return `• ${qLbl} [${cause}]${detail}`;
+  });
+  if (DOM.aarInputGap) {
+    DOM.aarInputGap.value = lines.join("\n");
+  }
+}
+
+function getTodayIsoLocal() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function formatDateViFromIso(isoDate) {
+  if (!isoDate || !isoDate.includes("-")) return new Date().toLocaleDateString("vi-VN");
+  const parts = isoDate.split("-");
+  if (parts.length !== 3) return isoDate;
+  return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function switchAARTab(tabName) {
+  const isHistory = tabName === "history";
+  if (DOM.tabBtnAarForm) DOM.tabBtnAarForm.classList.toggle("active", !isHistory);
+  if (DOM.tabBtnAarHistory) DOM.tabBtnAarHistory.classList.toggle("active", isHistory);
+  if (DOM.aarTabPanelForm) DOM.aarTabPanelForm.classList.toggle("hidden", isHistory);
+  if (DOM.aarTabPanelHistory) DOM.aarTabPanelHistory.classList.toggle("hidden", !isHistory);
+  if (isHistory) renderAARHistoryList();
+}
+
+function closeAARModal() {
+  if (DOM.modalAarReport) DOM.modalAarReport.classList.add("hidden");
+}
+
+function openAARModal() {
+  pauseTimer();
+  loadGlobalAARState();
+
+  const name = App.studentState.student_name || (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") || "";
+  const email = App.studentState.student_email || (DOM.homeInputEmail ? DOM.homeInputEmail.value.trim() : "") || "";
+  if (DOM.aarInputStudentName) DOM.aarInputStudentName.value = name;
+  if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.value = email;
+  if (DOM.aarPreviewCcEmail) DOM.aarPreviewCcEmail.textContent = email || "Chưa nhập email học sinh";
+
+  // Choose initial scope smartly: prefer current session; if 0 practiced in session, fall back to module or all
+  let initialScope = "session";
+  const sessionStats = calculateAARSessionSummary("session");
+  if (sessionStats.practicedCount === 0) {
+    const modStats = calculateAARSessionSummary("module");
+    if (modStats.practicedCount > 0) {
+      initialScope = "module";
+    } else {
+      const allStats = calculateAARSessionSummary("all");
+      if (allStats.practicedCount > 0) initialScope = "all";
+    }
+  }
+  App.aarScope = initialScope;
+
+  // Populate Session Metadata
+  const nextIdx = (App.aarLogs ? App.aarLogs.length : 0) + 1;
+  if (DOM.aarInputSessionLabel) DOM.aarInputSessionLabel.value = `Buổi ${nextIdx}`;
+  if (DOM.aarInputDate) DOM.aarInputDate.value = getTodayIsoLocal();
+  if (DOM.aarSelectSatModule) DOM.aarSelectSatModule.value = detectDefaultAarModule();
+
+  // Default ISTE recommendation based on Math vs Reading
+  const modChoice = DOM.aarSelectSatModule ? DOM.aarSelectSatModule.value : "";
+  if (DOM.aarSelectIste) {
+    if (modChoice.startsWith("Math")) {
+      const mathOpt = Array.from(DOM.aarSelectIste.options).find(o => o.value.includes("Computational Thinker"));
+      if (mathOpt) DOM.aarSelectIste.value = mathOpt.value;
+    } else if (modChoice.startsWith("Reading") || modChoice.startsWith("Writing")) {
+      const rwOpt = Array.from(DOM.aarSelectIste.options).find(o => o.value.includes("Knowledge Constructor"));
+      if (rwOpt) DOM.aarSelectIste.value = rwOpt.value;
+    } else {
+      DOM.aarSelectIste.selectedIndex = 0;
+    }
+  }
+  updateAARIsteHint();
+
+  refreshAARPerformanceUI(true);
+  const s = App.currentAarSummary;
+
+  if (DOM.aarInputTools && !DOM.aarInputTools.value.trim()) {
+    DOM.aarInputTools.value = `Vinschool Bluebook App (${s.testShort}), Socratic 3-tầng${s.hasMath ? ", Máy tính Desmos" : ""}, Sổ thử sai`;
+  }
+  if (DOM.aarInputGap && !DOM.aarInputGap.value.trim() && s.scopedErrors && s.scopedErrors.length > 0) {
+    pullErrorsIntoAARGap();
+  }
+
+  switchAARTab("form");
+  if (DOM.modalAarReport) DOM.modalAarReport.classList.remove("hidden");
+}
+
+function collectAARFormEntry(requireCompleteFields = true) {
+  const studentName = DOM.aarInputStudentName ? DOM.aarInputStudentName.value.trim() : "";
+  const studentEmail = DOM.aarInputStudentEmail ? DOM.aarInputStudentEmail.value.trim() : "";
+  if (requireCompleteFields) {
+    if (!studentName) {
+      alert("Vui lòng nhập Họ và tên học sinh trước khi gửi báo cáo ARR!");
+      if (DOM.aarInputStudentName) DOM.aarInputStudentName.focus();
+      return null;
+    }
+    if (!studentEmail || !studentEmail.includes("@")) {
+      alert("Vui lòng nhập Email học sinh hợp lệ để hệ thống CC bản sao cho em!");
+      if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.focus();
+      return null;
+    }
+  }
+
+  // Sync identity back to student profile
+  if (studentName) App.studentState.student_name = studentName;
+  if (studentEmail) App.studentState.student_email = studentEmail;
+  saveLocalState();
+  syncHomeProfile();
+  if (DOM.headerStudentName && studentName) DOM.headerStudentName.textContent = studentName;
+
+  const s = calculateAARSessionSummary(App.aarScope || "session");
+  const dateIso = (DOM.aarInputDate && DOM.aarInputDate.value) ? DOM.aarInputDate.value : getTodayIsoLocal();
+
+  const entry = {
+    id: `AAR-${Date.now()}`,
+    created_at: new Date().toISOString(),
+    student_name: studentName || "Hoc_Sinh",
+    student_email: studentEmail,
+    test_id: App.activeTestId,
+    test_title: s.testShort,
+    scope: s.scope,
+    correct_count: s.correctCount,
+    practiced_count: s.practicedCount,
+    accuracy_pct: s.accuracyPct,
+    weighted_pct: s.weightedPct,
+    l1_correct: s.l1Correct,
+    l2_correct: s.l2Correct,
+    l3_correct: s.l3Correct,
+    missed_count: s.missedOrRetry,
+    error_log_count: (s.scopedErrors || []).length,
+    session_label: (DOM.aarInputSessionLabel && DOM.aarInputSessionLabel.value.trim()) || `Buổi ${(App.aarLogs || []).length + 1}`,
+    date_iso: dateIso,
+    date_display: formatDateViFromIso(dateIso),
+    sat_module: (DOM.aarSelectSatModule && DOM.aarSelectSatModule.value) || "Digital SAT Full-test",
+    iste_standard: (DOM.aarSelectIste && DOM.aarSelectIste.value) || "Empowered Learner \n(Học sinh Chủ động)",
+    goal: (DOM.aarInputGoal && DOM.aarInputGoal.value.trim()) || "",
+    challenge: (DOM.aarInputChallenge && DOM.aarInputChallenge.value.trim()) || "",
+    tools: (DOM.aarInputTools && DOM.aarInputTools.value.trim()) || `Vinschool Bluebook App (${s.testShort})`,
+    evidence: (DOM.aarInputEvidence && DOM.aarInputEvidence.value.trim()) || `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%)`,
+    mastery: (DOM.aarSelectMastery && DOM.aarSelectMastery.value) || "Đạt yêu cầu (75% - 89%)",
+    gap: (DOM.aarInputGap && DOM.aarInputGap.value.trim()) || "",
+    feedforward: (DOM.aarInputFeedforward && DOM.aarInputFeedforward.value.trim()) || "",
+    emotion: (DOM.aarSelectEmotion && DOM.aarSelectEmotion.value) || "⚡ Tự tin, ổn định",
+    status: (DOM.aarSelectStatus && DOM.aarSelectStatus.value) || "Hoàn thành"
+  };
+
+  if (requireCompleteFields) {
+    if (!entry.goal || !entry.challenge || !entry.gap || !entry.feedforward) {
+      alert("Vui lòng điền đầy đủ Mục tiêu, Thách thức dự kiến, Khoảng cách (Gap) và Bài học chuyển hóa (Feed-forward) để hoàn thiện chu trình AAR nhé!");
+      return null;
+    }
+  }
+
+  return entry;
+}
+
+async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
+  if (typeof XLSX === "undefined") return null;
+  const rows = Array.isArray(logsArray) ? logsArray : [];
+  const safeStudent = studentName || "Học sinh";
+  const latest = rows[rows.length - 1] || null;
+
+  try {
+    let wb = null;
+    try {
+      const res = await fetch("aar_template.xlsx");
+      if (res.ok) {
+        const ab = await res.arrayBuffer();
+        wb = XLSX.read(ab, { type: "array", cellStyles: true });
+      }
+    } catch (e) {
+      console.warn("Could not fetch aar_template.xlsx:", e);
+    }
+
+    if (wb && wb.Sheets && wb.Sheets["AAR Journal"]) {
+      const ws = wb.Sheets["AAR Journal"];
+
+      // Personalize banner & Row 6 summary without touching formulas
+      ws["B1"] = Object.assign({}, ws["B1"] || {}, {
+        t: "s",
+        v: `HỆ THỐNG THU THẬP & PHẢN TƯ SAU MỖI BUỔI HỌC - CHU TRÌNH AAR (${safeStudent}${studentEmail ? " - " + studentEmail : ""})`
+      });
+      if (latest) {
+        ws["B6"] = {
+          t: "s",
+          v: `Học sinh: ${safeStudent} (${studentEmail || "N/A"}) | Hiệu suất buổi gần nhất (${latest.session_label}): Đúng ${latest.correct_count}/${latest.practiced_count} câu thực hành (${latest.accuracy_pct}%)`
+        };
+      }
+
+      // Clear rows 10..100 (Columns B..N) cleanly before writing cumulative logs
+      const cols = ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
+      for (let r = 10; r <= 100; r++) {
+        cols.forEach(col => { delete ws[`${col}${r}`]; });
+      }
+
+      rows.forEach((entry, idx) => {
+        const r = 10 + idx;
+        if (r > 100) return;
+        ws[`B${r}`] = { t: "s", v: String(entry.session_label || `Buổi ${idx + 1}`) };
+        ws[`C${r}`] = { t: "s", v: String(entry.date_display || "") };
+        ws[`D${r}`] = { t: "s", v: String(entry.sat_module || "") };
+        ws[`E${r}`] = { t: "s", v: String(entry.iste_standard || "") };
+        ws[`F${r}`] = { t: "s", v: String(entry.goal || "") };
+        ws[`G${r}`] = { t: "s", v: String(entry.challenge || "") };
+        ws[`H${r}`] = { t: "s", v: String(entry.tools || "") };
+        ws[`I${r}`] = { t: "s", v: String(entry.evidence || "") };
+        ws[`J${r}`] = { t: "s", v: String(entry.mastery || "") };
+        ws[`K${r}`] = { t: "s", v: String(entry.gap || "") };
+        ws[`L${r}`] = { t: "s", v: String(entry.feedforward || "") };
+        ws[`M${r}`] = { t: "s", v: String(entry.emotion || "") };
+        ws[`N${r}`] = { t: "s", v: String(entry.status || "Hoàn thành") };
+      });
+
+      // Keep template dashboard formulas intact and update cached preview values
+      const totalSessions = rows.length;
+      const completedCount = rows.filter(x => x.status === "Hoàn thành").length;
+      const rate = totalSessions > 0 ? completedCount / totalSessions : 0;
+      const rating = rate >= 0.8
+        ? "Xuất sắc (Kỷ luật cao)"
+        : (rate >= 0.5 ? "Đang duy trì tốt" : (rate > 0 ? "Cần tăng cường phản tư" : "Chưa bắt đầu"));
+
+      ws["B3"] = Object.assign({}, ws["B3"] || {}, { t: "n", v: totalSessions, f: (ws["B3"] && ws["B3"].f) || "COUNTA(B10:B100)" });
+      ws["E3"] = Object.assign({}, ws["E3"] || {}, { t: "n", v: completedCount, f: (ws["E3"] && ws["E3"].f) || 'COUNTIF(N10:N100, "Hoàn thành")' });
+      ws["H3"] = Object.assign({}, ws["H3"] || {}, { t: "n", v: rate, f: (ws["H3"] && ws["H3"].f) || "IFERROR(E3/B3, 0)" });
+      ws["K3"] = Object.assign({}, ws["K3"] || {}, { t: "s", v: rating, f: (ws["K3"] && ws["K3"].f) || 'IF(H3>=80%, "Xuất sắc (Kỷ luật cao)", IF(H3>=50%, "Đang duy trì tốt", IF(H3>0, "Cần tăng cường phản tư", "Chưa bắt đầu")))' });
+      ws["M4"] = Object.assign({}, ws["M4"] || {}, { t: "s", v: `${Math.round(rate * 100)}% Hoàn tất`, f: (ws["M4"] && ws["M4"].f) || 'TEXT(H3, "0%") & " Hoàn tất"' });
+
+      const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+      return new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    }
+
+    // Fallback workbook if aar_template.xlsx cannot be fetched
+    const fbWb = XLSX.utils.book_new();
+    const headerRow = [
+      "Buổi #", "Ngày học", "Mô-đun SAT", "Tiêu chuẩn ISTE áp dụng",
+      "Mục tiêu bài học & Điểm kỳ vọng", "Thách thức dự kiến", "Công cụ & Kỹ thuật áp dụng",
+      "Kết quả Thực tế & Minh chứng", "Mức độ làm chủ",
+      "Khoảng cách (Gap) & Nguyên nhân thử sai", "Bài học chuyển hóa cho buổi sau (Feed-forward)",
+      "Cảm xúc & Mức độ tập trung", "Trạng thái AAR"
+    ];
+    const aoa = [
+      [`BÁO CÁO CHU TRÌNH AAR - HỌC SINH: ${safeStudent} (${studentEmail || "N/A"})`],
+      headerRow,
+      ...rows.map(entry => [
+        entry.session_label, entry.date_display, entry.sat_module, entry.iste_standard,
+        entry.goal, entry.challenge, entry.tools, entry.evidence, entry.mastery,
+        entry.gap, entry.feedforward, entry.emotion, entry.status
+      ])
+    ];
+    XLSX.utils.book_append_sheet(fbWb, XLSX.utils.aoa_to_sheet(aoa), "AAR Journal");
+    const wbout = XLSX.write(fbWb, { bookType: "xlsx", type: "array" });
+    return new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+  } catch (err) {
+    console.error("Failed generating AAR Excel:", err);
+    return null;
+  }
+}
+
+function buildAAREmailPayload(entry, filename) {
+  const perfStr = `Đúng ${entry.correct_count} / ${entry.practiced_count} câu thực hành (${entry.accuracy_pct}%)`;
+  const subject = `[SAT ARR Report] ${entry.student_name} - ${entry.session_label} (${entry.sat_module}) - ${entry.correct_count}/${entry.practiced_count} câu đúng (${entry.accuracy_pct}%)`;
+  const bodyText = `Kính gửi Thầy Sơn (v.sonpbh1@vinschool.edu.vn) và Thầy Mike Phạm (mikepham@baoan.ai.vn),
+
+Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learning Compass 2030):
+
+[THÔNG TIN BUỔI HỌC & HIỆU SUẤT THỰC HÀNH]
+- Học sinh: ${entry.student_name} (${entry.student_email})
+- ${entry.session_label} | Ngày học: ${entry.date_display} | Nguồn: ${entry.test_title}
+- Mô-đun SAT: ${entry.sat_module}
+- HIỆU SUẤT TRONG BUỔI HỌC: ${perfStr}
+- Chi tiết: Đúng Lần 1: ${entry.l1_correct} | Lần 2: ${entry.l2_correct} | Lần 3: ${entry.l3_correct} | Chưa đúng: ${entry.missed_count} | Sổ thử sai: ${entry.error_log_count}
+
+[1. DỰ ĐOÁN (ANTICIPATION)]
+- Tiêu chuẩn ISTE: ${String(entry.iste_standard || "").replace(/\s*\n\s*/g, " ")}
+- Mục tiêu & Điểm kỳ vọng: ${entry.goal}
+- Thách thức dự kiến: ${entry.challenge}
+
+[2. HÀNH ĐỘNG (ACTION)]
+- Công cụ & Kỹ thuật: ${entry.tools}
+- Kết quả Thực tế & Minh chứng: ${entry.evidence}
+- Mức độ làm chủ: ${entry.mastery}
+
+[3. PHẢN TƯ (REFLECTION) & ĐÁNH GIÁ]
+- Khoảng cách (Gap) & Nguyên nhân thử sai: ${entry.gap}
+- Bài học chuyển hóa (Feed-forward): ${entry.feedforward}
+- Cảm xúc & Tập trung: ${entry.emotion} | Trạng thái AAR: ${entry.status}
+
+(File Excel AAR Tracker: ${filename} đã được tải về thiết bị để đính kèm cùng email này).
+
+Trân trọng cảm ơn Quý Thầy!`;
+
+  return { subject, bodyText };
+}
+
+function triggerBlobDownload(blobUrl, filename) {
+  if (!blobUrl) return;
+  const a = document.createElement("a");
+  a.href = blobUrl;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+async function submitAARReport() {
+  const entry = collectAARFormEntry(true);
+  if (!entry) return;
+
+  if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = true;
+  if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.remove("hidden");
+  if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "Đang tạo Excel AAR & mở Email...";
+
+  try {
+    // 1. Persist entry & advance session watermark
+    App.aarLogs = [...(App.aarLogs || []), entry];
+    App.lastAarReportAt = entry.created_at;
+    if (App.sessionPracticedIds) App.sessionPracticedIds.clear();
+    saveGlobalAARState();
+
+    const safeName = entry.student_name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_\-À-ỹ]/g, "") || "Hoc_Sinh";
+    const defaultFilename = `AAR_Cycle_Tracker_${safeName}_${entry.date_iso}.xlsx`;
+
+    // 2. Optional local server dispatch (if running server.py)
+    let serverData = null;
+    try {
+      const res = await fetch("/api/submit-aar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          student_name: entry.student_name,
+          student_email: entry.student_email,
+          entry,
+          logs: App.aarLogs
+        })
+      });
+      if (res.ok) serverData = await res.json();
+    } catch (err) {}
+
+    const filename = (serverData && serverData.filename) ? serverData.filename : defaultFilename;
+    let fileBlobUrl = (serverData && serverData.download_url) ? serverData.download_url : null;
+    if (!fileBlobUrl) {
+      const clientBlob = await generateAARExcelBlob(App.aarLogs, entry.student_name, entry.student_email);
+      if (clientBlob) fileBlobUrl = window.URL.createObjectURL(clientBlob);
+    }
+
+    // 3. Build Mailto link (To both teacher emails, CC student)
+    const { subject, bodyText } = buildAAREmailPayload(entry, filename);
+    const mailtoUrl = `mailto:${AAR_TEACHER_RECIPIENTS}?cc=${encodeURIComponent(entry.student_email)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+    App.lastMailtoUrl = mailtoUrl;
+    App.lastReportText = bodyText;
+
+    // 4. Download Excel & launch Mail client
+    if (fileBlobUrl) triggerBlobDownload(fileBlobUrl, filename);
+    setTimeout(() => {
+      window.location.href = mailtoUrl;
+    }, 550);
+
+    // 5. Reset session inputs for the next AAR cycle & switch to Success Modal
+    if (DOM.aarInputGoal) DOM.aarInputGoal.value = "";
+    if (DOM.aarInputChallenge) DOM.aarInputChallenge.value = "";
+    if (DOM.aarInputTools) DOM.aarInputTools.value = "";
+    if (DOM.aarInputGap) DOM.aarInputGap.value = "";
+    if (DOM.aarInputFeedforward) DOM.aarInputFeedforward.value = "";
+
+    closeAARModal();
+    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Tạo Báo Cáo ARR & Mở Email!";
+    if (DOM.successStatusText) {
+      DOM.successStatusText.textContent = `Hiệu suất buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.accuracy_pct}%) và nội dung chu trình AAR đã được điền sẵn trong Email.`;
+    }
+    if (DOM.successRecipientText) {
+      DOM.successRecipientText.innerHTML = `Bấm <strong>Gửi (Send)</strong> tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>) để hoàn tất!`;
+    }
+    if (DOM.successFilename) DOM.successFilename.textContent = filename;
+    if (fileBlobUrl && DOM.btnDownloadSubmittedFile) {
+      DOM.btnDownloadSubmittedFile.href = fileBlobUrl;
+      DOM.btnDownloadSubmittedFile.setAttribute("download", filename);
+    }
+    if (DOM.modalSubmitSuccess) DOM.modalSubmitSuccess.classList.remove("hidden");
+  } finally {
+    if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = false;
+    if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.add("hidden");
+    if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "📤 Lưu AAR, Tải Excel & Gửi Email ARR";
+  }
+}
+
+async function downloadAARExcelOnly() {
+  const entry = collectAARFormEntry(false);
+  if (!entry) return;
+  const exportRows = [...(App.aarLogs || []), entry];
+  const safeName = entry.student_name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_\-À-ỹ]/g, "") || "Hoc_Sinh";
+  const filename = `AAR_Cycle_Tracker_${safeName}_${entry.date_iso}.xlsx`;
+  const blob = await generateAARExcelBlob(exportRows, entry.student_name, entry.student_email);
+  if (blob) {
+    const url = window.URL.createObjectURL(blob);
+    triggerBlobDownload(url, filename);
+  }
+}
+
+async function exportAllAARHistoryExcel() {
+  const logs = App.aarLogs || [];
+  if (logs.length === 0) {
+    alert("Chưa có nhật ký AAR nào được lưu trên thiết bị.");
+    return;
+  }
+  const latest = logs[logs.length - 1];
+  const name = App.studentState.student_name || latest.student_name || "Hoc_Sinh";
+  const email = App.studentState.student_email || latest.student_email || "";
+  const safeName = name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_\-À-ỹ]/g, "") || "Hoc_Sinh";
+  const blob = await generateAARExcelBlob(logs, name, email);
+  if (blob) {
+    const url = window.URL.createObjectURL(blob);
+    triggerBlobDownload(url, `AAR_Cycle_Tracker_${safeName}_TongHop.xlsx`);
+  }
+}
+
+function renderAARHistoryList() {
+  const logs = App.aarLogs || [];
+  if (DOM.aarHistorySummary) {
+    if (logs.length === 0) {
+      DOM.aarHistorySummary.textContent = "Chưa có buổi học AAR nào được lưu trên thiết bị này.";
+    } else {
+      const done = logs.filter(x => x.status === "Hoàn thành").length;
+      const pct = Math.round((done / logs.length) * 100);
+      DOM.aarHistorySummary.textContent = `Đã ghi nhận ${logs.length} buổi học • Hoàn thành chu trình AAR: ${done}/${logs.length} (${pct}%)`;
+    }
+  }
+  if (!DOM.aarHistoryList) return;
+  if (logs.length === 0) {
+    DOM.aarHistoryList.innerHTML = `<div style="text-align:center;padding:24px;color:#64748b;font-size:13px;">Hãy hoàn thiện báo cáo ARR đầu tiên ở tab <strong>Báo Cáo Buổi Học Mới</strong> nhé!</div>`;
+    return;
+  }
+
+  DOM.aarHistoryList.innerHTML = [...logs].reverse().map(item => `
+    <div class="aar-history-card">
+      <div class="aar-history-card-top">
+        <div>
+          <strong>${escapeHtmlSafe(item.session_label)}</strong> • ${escapeHtmlSafe(item.date_display)} • <span style="color:#1e3a8a;font-weight:700;">${escapeHtmlSafe(item.sat_module)}</span>
+        </div>
+        <span class="aar-history-badge">${escapeHtmlSafe(item.status)} • Đúng ${item.correct_count}/${item.practiced_count} (${item.accuracy_pct}%)</span>
+      </div>
+      <div class="aar-history-meta">
+        <div><strong>Minh chứng:</strong> ${escapeHtmlSafe(item.evidence)}</div>
+        <div><strong>Gap:</strong> ${escapeHtmlSafe(item.gap)}</div>
+        <div><strong>Feed-forward:</strong> ${escapeHtmlSafe(item.feedforward)}</div>
+      </div>
+    </div>
+  `).join("");
 }
