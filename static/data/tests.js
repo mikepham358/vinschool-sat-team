@@ -70,5 +70,23 @@ window.TESTS_MANIFEST = [
     modules_count: 27,
     storageKey: "bluebook_panda_math_student_state_v1",
     description: "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng."
+  },
+  {
+    id: "erica-writing",
+    code: "ericawriting",
+    title: "The Ultimate Guide to SAT Grammar (Erica Meltzer - 6th Edition)",
+    short_title: "Erica Meltzer Writing",
+    badge: "17 Chuyên Đề Grammar",
+    date: "2026-Writing",
+    dataFile: "data/erica_writing.json",
+    pdfDriveId: "1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s",
+    pdfPreviewUrl: "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/preview",
+    pdfViewUrl: "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/view",
+    poster: "poster.png",
+    total_questions: 334,
+    time_minutes: 352,
+    modules_count: 17,
+    storageKey: "bluebook_erica_writing_student_state_v1",
+    description: "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc."
   }
 ];

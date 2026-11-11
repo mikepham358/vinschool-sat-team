@@ -79,6 +79,24 @@ const TESTS_MANIFEST_DEFAULT = [
     modules_count: 27,
     storageKey: "bluebook_panda_math_student_state_v1",
     description: "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng."
+  },
+  {
+    id: "erica-writing",
+    code: "ericawriting",
+    title: "The Ultimate Guide to SAT Grammar (Erica Meltzer - 6th Edition)",
+    short_title: "Erica Meltzer Writing",
+    badge: "17 Chuyên Đề Grammar",
+    date: "2026-Writing",
+    dataFile: "data/erica_writing.json",
+    pdfDriveId: "1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s",
+    pdfPreviewUrl: "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/preview",
+    pdfViewUrl: "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/view",
+    poster: "poster.png",
+    total_questions: 334,
+    time_minutes: 352,
+    modules_count: 17,
+    storageKey: "bluebook_erica_writing_student_state_v1",
+    description: "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc."
   }
 ];
 
@@ -90,6 +108,7 @@ function detectInitialTestId() {
     if (paramTest) {
       const clean = paramTest.toLowerCase().replace(/[^a-z0-9]/g, "");
       if (clean.includes("panda") || clean.includes("nielson") || clean.includes("math")) return "panda-math";
+      if (clean.includes("writing") || clean.includes("grammar")) return "erica-writing";
       if (clean.includes("erica") || clean.includes("reading")) return "erica-reading";
       if (clean.includes("sep")) return "sep-2026";
       if (clean.includes("oct")) return "oct-2026";
@@ -97,6 +116,7 @@ function detectInitialTestId() {
     }
     const hash = window.location.hash || "";
     if (hash.includes("panda") || hash.includes("nielson") || hash.includes("math")) return "panda-math";
+    if (hash.includes("writing") || hash.includes("grammar")) return "erica-writing";
     if (hash.includes("erica") || hash.includes("reading")) return "erica-reading";
     if (hash.includes("sep")) return "sep-2026";
     if (hash.includes("oct")) return "oct-2026";
@@ -704,14 +724,19 @@ function renderModuleCards() {
   if (!DOM.modulesGrid || !App.db || !App.db.questions) return;
 
   const isErica = App.activeTestId === "erica-reading";
+  const isEricaWriting = App.activeTestId === "erica-writing";
   const isPanda = App.activeTestId === "panda-math";
-  const isChapterBased = isErica || isPanda;
+  const isChapterBased = isErica || isEricaWriting || isPanda;
 
   if (isChapterBased) {
     if (isErica) {
       if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
       if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chương Sách The Critical Reader";
       if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 101 câu (27 ví dụ minh họa kèm bài giảng + 74 bài tập thực hành).";
+    } else if (isEricaWriting) {
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "17 CHUYÊN ĐỀ GRAMMAR ERICA MELTZER (6TH ED.)";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Toàn Diện SAT Grammar & Writing";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn từng chuyên đề từ Chương 1–12, Parts of Speech, Cumulative Reviews hay 5 Practice Sets (tổng 334 câu: 62 ví dụ minh họa + 272 câu thực hành) kèm Answer Key chuẩn sách gốc.";
     } else {
       if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "27 CHƯƠNG CHUYÊN SÂU THE COLLEGE PANDA";
       if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chuyên Đề SAT Math (Nielson Phu)";
@@ -741,28 +766,31 @@ function renderModuleCards() {
       card.dataset.module = m.code;
 
       const titleClean = (m.short_title || m.title || "").replace(/^Chương \d+:\s*/, "");
-      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : "Chiến thuật đọc hiểu cốt lõi");
+      const headingText = m.card_heading || (m.chapter_num ? `Chương ${m.chapter_num}: ${titleClean}` : titleClean);
+      const btnText = m.btn_label || (m.chapter_num ? `Luyện Tập Chương ${m.chapter_num} ➔` : `Luyện Tập ${titleClean} ➔`);
+      const pageLabel = isEricaWriting && m.book_start_page ? m.book_start_page : (m.pdf_start_page || 1);
+      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : (isEricaWriting ? "Quy tắc ngữ pháp và dấu câu SAT trọng tâm" : "Chiến thuật đọc hiểu cốt lõi"));
       const countDetail = exCount > 0 
         ? `${total} Câu (${exCount} ví dụ + ${prCount} thực hành)`
         : `${total} Câu`;
 
       const pillClass = (m.section === "Math" || isPanda) ? "mod-math" : "mod-rw";
-      const domainLabel = m.domain || (isPanda ? "Math" : "Reading");
+      const domainLabel = m.domain || (isPanda ? "Math" : (isEricaWriting ? "Writing & Grammar" : "Reading"));
 
       card.innerHTML = `
         <div class="mod-card-header">
           <span class="mod-pill ${pillClass}">${domainLabel}</span>
           <span class="mod-time">⏱️ ${m.time_minutes || 15} Phút</span>
         </div>
-        <h3>Chương ${m.chapter_num || ""}: ${titleClean}</h3>
+        <h3>${headingText}</h3>
         <p>${m.sub_title ? `<strong>${m.sub_title}</strong>: ` : ""}${stratSnippet}</p>
         <div class="mod-meta">
-          <span>📖 Trang ${m.pdf_start_page || 1}</span>
+          <span>📖 Trang ${pageLabel}</span>
           <span class="mod-stat ${answeredCount > 0 ? "in-progress" : ""}">
             ${answeredCount > 0 ? `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)` : countDetail}
           </span>
         </div>
-        <button type="button" class="btn-module-jump" data-module="${m.code}">Luyện Tập Chương ${m.chapter_num} ➔</button>
+        <button type="button" class="btn-module-jump" data-module="${m.code}">${btnText}</button>
       `;
 
       card.addEventListener("click", () => {
@@ -1081,6 +1109,8 @@ function updateActiveTestUI() {
       optAll.value = "ALL";
       if (App.activeTestId === "erica-reading") {
         optAll.textContent = `Toàn bộ 9 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 27} ví dụ + ${App.db.total_practice || 74} thực hành)`;
+      } else if (App.activeTestId === "erica-writing") {
+        optAll.textContent = `Toàn bộ 17 chuyên đề: Tất cả ${totalCount} câu (${App.db.total_examples || 62} ví dụ + ${App.db.total_practice || 272} thực hành)`;
       } else if (App.activeTestId === "panda-math") {
         optAll.textContent = `Toàn bộ 27 chương: Tất cả ${totalCount} câu hỏi SAT Math (College Panda)`;
       } else {
@@ -1343,7 +1373,7 @@ function startModuleTimer() {
     if (activeModObj && activeModObj.time_minutes) {
       mins = activeModObj.time_minutes;
     } else if (App.activeModuleCode === "ALL") {
-      mins = (App.db && App.db.time_minutes) ? App.db.time_minutes : (App.activeTestId === "erica-reading" ? 96 : 134);
+      mins = (App.db && App.db.time_minutes) ? App.db.time_minutes : (App.activeTestId === "erica-writing" ? 352 : (App.activeTestId === "erica-reading" ? 96 : 134));
     }
     App.studentState.timer_seconds[App.activeModuleCode] = mins * 60;
   }
@@ -1396,7 +1426,7 @@ function renderCurrentQuestion() {
 
   // Question Number & Navigation Labels
   if (DOM.qNumberLabel) {
-    if ((App.activeTestId === "erica-reading" || App.activeTestId === "ericareading" || App.activeTestId === "panda-math" || App.activeTestId === "pandamath") && q.q_label) {
+    if ((App.activeTestId === "erica-reading" || App.activeTestId === "ericareading" || App.activeTestId === "erica-writing" || App.activeTestId === "ericawriting" || App.activeTestId === "panda-math" || App.activeTestId === "pandamath") && q.q_label) {
       const bookPg = q.book_page || (q.pdf_page ? q.pdf_page - 1 : null);
       const bookStr = bookPg ? ` • Sách trang ${bookPg}` : "";
       DOM.qNumberLabel.innerHTML = `<strong>${escapeHtml(q.q_label)}</strong> <span style="opacity:0.75; font-weight:normal; margin-left:8px;">(Mục ${App.currentIndex + 1}/${App.questions.length}${bookStr})</span>`;
@@ -1426,12 +1456,17 @@ function renderCurrentQuestion() {
 
   // Response instruction label
   if (DOM.responseInstruction) {
+    const isEricaWriting = (App.activeTestId === "erica-writing" || App.activeTestId === "ericawriting");
+    const bookPg = q.book_page || (q.pdf_page ? q.pdf_page - 2 : null);
+    const labelMeta = isEricaWriting && q.q_label
+      ? ` — <span style="color:#1e40af; font-weight:700;">${escapeHtml(q.q_label)}</span>${bookPg ? ` <span style="opacity:0.78;">(Sách tr. ${bookPg})</span>` : ""}`
+      : "";
     if (App.activeTestId === "panda-math") {
       DOM.responseInstruction.innerHTML = '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> — Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
     } else if (q.category === "example") {
-      DOM.responseInstruction.innerHTML = '<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong> — Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:';
+      DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong>${labelMeta} — Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:`;
     } else if (q.category === "practice") {
-      DOM.responseInstruction.innerHTML = '<strong>✍️ BÀI TẬP THỰC HÀNH</strong> — Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
+      DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH</strong>${labelMeta} — Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:`;
     } else {
       DOM.responseInstruction.textContent = 'Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
     }
@@ -2312,7 +2347,7 @@ function renderNavigatorTiles() {
 
 // ================= PDF NAVIGATION (GOOGLE DRIVE OFFICIAL) =================
 function navigatePdf(page, zoom = null) {
-  const maxPage = App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-reading" ? 175 : 44);
+  const maxPage = App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-writing" ? 218 : (App.activeTestId === "erica-reading" ? 175 : 44));
   const p = Math.max(1, Math.min(maxPage, parseInt(page) || 1));
   if (DOM.pdfSyncPageNum) DOM.pdfSyncPageNum.textContent = p;
 }
@@ -5481,6 +5516,12 @@ function detectDefaultAarModule() {
     return "Math: Algebra";
   }
 
+  if (testId.includes("writing") || testId.includes("grammar")) {
+    if (modTitle.includes("transition") || modTitle.includes("student notes") || modCode.startsWith("ch1") || modCode.startsWith("ch2")) {
+      return "Writing: Expression of Ideas";
+    }
+    return "Writing: Standard English";
+  }
   if (testId.includes("erica") || modCode.startsWith("rw_") || modTitle.includes("reading")) {
     if (modTitle.includes("vocabulary") || modTitle.includes("words in context") || modTitle.includes("purpose") || modTitle.includes("structure") || modTitle.includes("rhetoric") || modTitle.includes("tone")) {
       return "Reading: Craft & Structure";
