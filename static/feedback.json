@@ -107,5 +107,29 @@
     "content": "Hi, It's good",
     "status": "✅ Đã tiếp nhận & Cập nhật",
     "github_issue_url": "https://github.com/mikepham358/vinschool-sat-team/issues/3"
+  },
+  {
+    "id": "FB-20261111-312",
+    "student_name": "Đỗ Trung Kiên",
+    "student_email": "kien099240@stu.vinschool.edu.vn",
+    "category": "🎯 Báo lỗi câu hỏi / Đáp án",
+    "priority": "🟡 Cần xem lại",
+    "context_label": "Chương 18: Absolute Value • Câu 5 (Mã #236) • Trang 159",
+    "date_str": "13:41:28 11/11/2026",
+    "content": "wrong answering format",
+    "status": "✅ Đã tiếp nhận & Cập nhật",
+    "github_issue_url": "https://github.com/mikepham358/vinschool-sat-team/issues/5"
+  },
+  {
+    "id": "FB-20261111-012",
+    "student_name": "Đỗ Trung Kiên",
+    "student_email": "kien099240@stu.vinschool.edu.vn",
+    "category": "🎯 Báo lỗi câu hỏi / Đáp án",
+    "priority": "🟡 Cần xem lại",
+    "context_label": "Chương 18: Absolute Value • Câu 7 (Mã #238) • Trang 160",
+    "date_str": "13:40:38 11/11/2026",
+    "content": "the option reveal the correct answer",
+    "status": "✅ Đã tiếp nhận & Cập nhật",
+    "github_issue_url": "https://github.com/mikepham358/vinschool-sat-team/issues/4"
   }
 ]

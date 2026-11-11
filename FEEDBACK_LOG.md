@@ -3,7 +3,7 @@
 > **Dự án:** Digital SAT Bluebook Practice App • Vinschool SAT Team  
 > **Giáo viên phụ trách:** Mike Pham Bá Hong Son (Google for Education Innovator) — [mikepham358@gmail.com](mailto:mikepham358@gmail.com)  
 > **Trạng thái đồng bộ:** 🟢 Tự động cập nhật trực tiếp qua GitHub Repository & App Engine  
-> **Cập nhật lần cuối:** 11/11/2026 14:00:17
+> **Cập nhật lần cuối:** 11/11/2026 16:16:01
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Chỉ Số Đánh Giá | Giá Trị Hiện Tại | Ghi Chú |
 | :--- | :---: | :--- |
-| **Tổng số phản hồi nhận được** | **9** | Gồm đóng góp câu hỏi, kỹ thuật & tính năng |
-| **Số phản hồi đã giải quyết triệt để** | **7** | Đã sửa code, dataset hoặc triển khai |
-| **Tỷ lệ xử lý thành công** | **77.8%** | Cam kết hỗ trợ học sinh tối đa |
-| **Phân loại phản hồi** | **🎯 Báo lỗi câu hỏi / Đáp án:** 3 • **💡 Đề xuất tính năng mới:** 2 • **⚡ Lỗi giao diện / Kỹ thuật:** 1 • **📝 Góp ý chung & Đánh giá:** 3 | Tự động phân nhóm |
+| **Tổng số phản hồi nhận được** | **11** | Gồm đóng góp câu hỏi, kỹ thuật & tính năng |
+| **Số phản hồi đã giải quyết triệt để** | **9** | Đã sửa code, dataset hoặc triển khai |
+| **Tỷ lệ xử lý thành công** | **81.8%** | Cam kết hỗ trợ học sinh tối đa |
+| **Phân loại phản hồi** | **🎯 Báo lỗi câu hỏi / Đáp án:** 5 • **💡 Đề xuất tính năng mới:** 2 • **⚡ Lỗi giao diện / Kỹ thuật:** 1 • **📝 Góp ý chung & Đánh giá:** 3 | Tự động phân nhóm |
 
 ---
 
@@ -31,6 +31,8 @@
 | 7 | `FB-20261028-393` | 10:01:16 28/10/2026 | **Mai**<br><code>pbhs92@gmail.com</code> | 📝 Góp ý chung & Đánh giá | 🟢 Bình thường | Math: Module 1 • Câu 17 (Mã #71) • Trang 33 | Thanks teacher. | ✅ Đã tiếp nhận & Cập nhật |
 | 8 | `FB-20261027-035` | 15:16:42 27/10/2026 | **Mike**<br><code>pbhs92@gmail.com</code> | 📝 Góp ý chung & Đánh giá | 🟢 Bình thường | Toàn bộ đề thi / Hệ thống chung | It's improving! | ✅ Đã tiếp nhận & Cập nhật |
 | 9 | `FB-20261028-408` | 11:35:43 28/10/2026 | **Theo**<br><code>theo92@gmail.com</code> | 📝 Góp ý chung & Đánh giá | 🟢 Bình thường | Trang chủ / Hệ thống chung | Hi, It's good | ✅ Đã tiếp nhận & Cập nhật |
+| 10 | `FB-20261111-312` | 13:41:28 11/11/2026 | **Đỗ Trung Kiên**<br><code>kien099240@stu.vinschool.edu.vn</code> | 🎯 Báo lỗi câu hỏi / Đáp án | 🟡 Cần xem lại | Chương 18: Absolute Value • Câu 5 (Mã #236) • Trang 159 | wrong answering format | ✅ Đã tiếp nhận & Cập nhật |
+| 11 | `FB-20261111-012` | 13:40:38 11/11/2026 | **Đỗ Trung Kiên**<br><code>kien099240@stu.vinschool.edu.vn</code> | 🎯 Báo lỗi câu hỏi / Đáp án | 🟡 Cần xem lại | Chương 18: Absolute Value • Câu 7 (Mã #238) • Trang 160 | the option reveal the correct answer | ✅ Đã tiếp nhận & Cập nhật |
 
 ---
 
