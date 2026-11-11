@@ -152,145 +152,750 @@ def sync_feedback_to_github_async(fb_item):
     t = threading.Thread(target=_worker, daemon=True)
     t.start()
 
-def generate_student_excel(payload):
-    import openpyxl
-    local_template = os.path.join(APP_DIR, "template.xlsx")
-    excel_path = local_template if os.path.exists(local_template) else DB.get("excel_path", "")
-    if not os.path.exists(excel_path):
-        excel_path = "/Users/mike/Library/CloudStorage/GoogleDrive-mikepham358@gmail.com/My Drive/A Vinschool by Mike Pham/26-27 Grand Plan /Study Plan/Module /Template - October 2026.xlsx"
+def _clean_text_for_excel(raw, max_len=30000):
+    if raw is None:
+        return ""
+    s = str(raw)
+    s = re.sub(r"<\s*br\s*/?>", "\n", s, flags=re.IGNORECASE)
+    s = re.sub(r"</\s*(p|div|li|h[1-6]|tr)\s*>", "\n", s, flags=re.IGNORECASE)
+    s = re.sub(r"<li[^>]*>", "• ", s, flags=re.IGNORECASE)
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = html.unescape(s)
+    s = re.sub(r"\*\*([^*]+)\*\*", r"\1", s)
+    s = re.sub(r"[ \t]+\n", "\n", s)
+    s = re.sub(r"\n[ \t]+", "\n", s)
+    s = re.sub(r"[ \t]{2,}", " ", s)
+    s = re.sub(r"\n{3,}", "\n\n", s).strip()
+    if len(s) > max_len:
+        s = s[: max_len - 3] + "..."
+    return s
 
-    wb = openpyxl.load_workbook(excel_path, data_only=False)
 
-    student_name = payload.get("student_name", "Student").strip() or "Hoc_Sinh"
-    student_email = payload.get("student_email", "").strip() or "Chưa cung cấp"
-    student_target = payload.get("student_target", "1400+")
-    now_str = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    summary = payload.get("summary", {})
-    user_attempts = payload.get("attempts", {})  # { "1": { attempts: ["B"], status: "..." } }
-    error_logs = payload.get("error_logs", [])
+def _parse_socratic_vocab_entries(vocab_text):
+    if not vocab_text:
+        return []
+    lines = [ln.strip() for ln in re.split(r"[\n;]+", str(vocab_text)) if ln.strip()]
+    parsed = []
+    for ln in lines:
+        m = re.match(r"^(.*?)\s*(?:[:=–—]|\s+-\s+)\s*(.+)$", ln)
+        if m and m.group(1).strip() and m.group(2).strip():
+            parsed.append({"term": m.group(1).strip(), "meaning": m.group(2).strip()})
+        else:
+            parsed.append({"term": ln, "meaning": ""})
+    return parsed
 
-    # 1. Populate Overview_Strategies with Tong_Quan structure
-    if "Overview_Strategies" in wb.sheetnames:
-        ws_ov = wb["Overview_Strategies"]
-        ws_ov.cell(2, 2, DB.get("test_title", "Digital SAT Practice Test — October 2026 (INT-B)"))
-        ws_ov.cell(3, 2, student_name)
-        ws_ov.cell(4, 2, student_email)
-        ws_ov.cell(5, 2, student_target)
-        ws_ov.cell(6, 2, now_str)
-        ws_ov.cell(7, 2, "Mike Pham Bá Hong Son (Google for Education Innovator: https://edudirectory.withgoogle.com/profiles/5087615831769088) - mikepham358@gmail.com")
-        ws_ov.cell(8, 2, "Tham khảo từ hocsat.com")
 
-        if summary:
-            if "total" in summary: ws_ov.cell(11, 2, summary["total"])
-            if "answered" in summary: ws_ov.cell(12, 2, summary["answered"])
-            if "l1_correct" in summary: ws_ov.cell(13, 2, summary["l1_correct"])
-            if "l2_correct" in summary: ws_ov.cell(14, 2, summary["l2_correct"])
-            if "l3_correct" in summary: ws_ov.cell(15, 2, summary["l3_correct"])
-            if "score_pct" in summary: ws_ov.cell(16, 2, f"{summary['score_pct']}%")
-            est = summary.get("estimatedScore") or round(400 + (summary.get("score_pct", 0) / 100) * 1200)
-            ws_ov.cell(17, 2, f"{est} / 1600")
-            ws_ov.cell(18, 2, len(error_logs))
+def _build_question_tier_feedbacks(q):
+    if not q:
+        return {"tier1": "", "tier2": "", "tier3": "", "tier4": ""}
+    tier1 = _clean_text_for_excel(q.get("tier1_hint") or q.get("level1_tip") or "")
+    tier2 = _clean_text_for_excel(q.get("tier2_hint") or q.get("level2_hint") or "")
 
-    # Personalize Performance_Summary header
-    if "Performance_Summary" in wb.sheetnames:
-        ws_perf = wb["Performance_Summary"]
-        ws_perf.cell(1, 1, f"BẢNG TỔNG HỢP KẾT QUẢ: {student_name.upper()} (OCTOBER 2026 TEST)")
-        ws_perf.cell(3, 1, f"Học sinh: {student_name} | Thời gian làm bài: {now_str}")
+    t3_parts = []
+    base_t3 = _clean_text_for_excel(q.get("tier3_hint") or q.get("level3_solution") or "")
+    if base_t3:
+        t3_parts.append(base_t3)
+    for key, label in [
+        ("solution_steps", "Các bước giải"),
+        ("pooe_breakdown", "Phân tích loại trừ (POOE)"),
+        ("grid_in_explanation", "Hướng dẫn điền số (Grid-In)"),
+    ]:
+        val = _clean_text_for_excel(q.get(key) or "")
+        if val and (not base_t3 or val[:40] not in base_t3):
+            t3_parts.append(f"{label}:\n{val}")
+    tier3 = _clean_text_for_excel("\n\n".join(t3_parts))
 
-    # Build question lookup by ID
-    q_map = {q["id"]: q for q in DB["questions"]}
+    t4_parts = []
+    if q.get("princeton_strategy"):
+        t4_parts.append(f"Chiến thuật Princeton Review: {_clean_text_for_excel(q.get('princeton_strategy'))}")
+    if q.get("target_clue"):
+        t4_parts.append(f"Phân tích manh mối & Target: {_clean_text_for_excel(q.get('target_clue'))}")
+    if q.get("pro_tip"):
+        t4_parts.append(f"Mẹo độc quyền Pro-Tip: {_clean_text_for_excel(q.get('pro_tip'))}")
+    strat_tip = _clean_text_for_excel(q.get("strategic_tip") or "")
+    if strat_tip:
+        t4_parts.append(f"Chiến thuật / Công thức cốt lõi: {strat_tip}" if t4_parts else strat_tip)
+    tier4 = _clean_text_for_excel("\n\n".join(t4_parts))
 
-    # Clear existing attempt inputs first to ensure clean state
-    for mod in ["RW_Module1", "RW_Module2", "Math_Module1", "Math_Module2"]:
-        if mod in wb.sheetnames:
-            ws = wb[mod]
-            for r in range(5, ws.max_row + 1):
-                ws.cell(r, 6, None)
-                ws.cell(r, 8, None)
-                ws.cell(r, 10, None)
+    return {"tier1": tier1, "tier2": tier2, "tier3": tier3, "tier4": tier4}
 
-    if "Master_All_98_Questions" in wb.sheetnames:
-        ws_m = wb["Master_All_98_Questions"]
-        for r in range(5, ws_m.max_row + 1):
-            ws_m.cell(r, 7, None)
-            ws_m.cell(r, 9, None)
-            ws_m.cell(r, 11, None)
 
-    # Populate student attempts
-    for qid_str, q_state in user_attempts.items():
+def _format_question_prompt_for_excel(q):
+    if not q:
+        return ""
+    parts = []
+    passage = _clean_text_for_excel(q.get("passage") or "", 12000)
+    prompt = _clean_text_for_excel(q.get("prompt") or "", 4000)
+    if passage:
+        parts.append(f"[Ngữ liệu]: {passage}")
+    if prompt:
+        parts.append(f"[Câu hỏi]: {prompt}")
+    if q.get("is_grid_in"):
+        parts.append("[Hình thức]: Tự luận điền đáp án (Grid-in)")
+    elif isinstance(q.get("options"), list) and q.get("options"):
+        opts = " | ".join(f"{o.get('key', '')}) {_clean_text_for_excel(o.get('text', ''), 1000)}" for o in q["options"])
+        if opts:
+            parts.append(f"[Phương án]: {opts}")
+    elif q.get("options_raw"):
+        parts.append(f"[Phương án]: {_clean_text_for_excel(q.get('options_raw'), 4000)}")
+    return _clean_text_for_excel("\n".join(parts), 20000)
+
+
+def _build_export_data_from_legacy_payload(payload):
+    student_name = (payload.get("student_name") or "Hoc_Sinh").strip() or "Hoc_Sinh"
+    student_email = (payload.get("student_email") or "").strip() or "Chưa cung cấp"
+    student_target = payload.get("student_target") or "1400+"
+    user_attempts = payload.get("attempts") or {}
+    raw_errors = [e for e in (payload.get("error_logs") or []) if isinstance(e, dict) and not str(e.get("id", "")).startswith("err_oct_")]
+
+    questions = DB.get("questions", []) if isinstance(DB, dict) else []
+    q_by_id = {str(q.get("id")): q for q in questions}
+    test_short = (DB.get("test_title") if isinstance(DB, dict) else "") or "Digital SAT"
+
+    err_by_qid = {}
+    for err in raw_errors:
+        err_by_qid.setdefault(str(err.get("question_id") or ""), []).append(err)
+
+    practiced_rows = []
+    by_module = {}
+    total_practiced = total_correct = total_l1 = total_l2 = total_l3 = 0
+    total_weight = 0.0
+
+    for q in questions:
+        qid_str = str(q.get("id"))
+        st = user_attempts.get(qid_str) or user_attempts.get(q.get("id"))
+        if not isinstance(st, dict):
+            continue
+        atts = st.get("attempts") or []
+        if not isinstance(atts, list) or len(atts) == 0:
+            continue
+
+        status = str(st.get("status") or "")
         try:
-            qid = int(qid_str)
-        except ValueError:
-            continue
-        q_info = q_map.get(qid)
-        if not q_info:
-            continue
+            eff = float(st.get("efficiency") or 0)
+        except (TypeError, ValueError):
+            eff = 0.0
+        is_l1 = eff >= 0.99 or status == "mastered_l1"
+        is_l2 = (not is_l1) and (eff >= 0.6 or status == "mastered_l2")
+        is_l3 = (not is_l1) and (not is_l2) and (eff >= 0.3 or status == "mastered_l3")
+        is_corr = is_l1 or is_l2 or is_l3
 
-        attempts = q_state.get("attempts", [])
-        if isinstance(attempts, (int, float, str)):
-            attempts = [str(attempts)]
-        elif not isinstance(attempts, list):
-            attempts = []
+        status_label = "Đang thử lại (Chưa hoàn thành)"
+        if is_l1:
+            status_label = "Đúng Lần 1 (L1 - 100%)"
+        elif is_l2:
+            status_label = "Đúng Lần 2 (L2 - 66.7%)"
+        elif is_l3:
+            status_label = "Đúng Lần 3 (L3 - 33.3%)"
+        elif status == "missed" or len(atts) >= 3:
+            status_label = "Sai cả 3 lần (0%)"
 
-        # 1. Populate Module Sheet
-        mod_code = q_info["module_code"]
-        if mod_code in wb.sheetnames:
-            ws = wb[mod_code]
-            q_label = str(q_info["q_label"]).strip()
-            for r in range(5, ws.max_row + 1):
-                val = str(ws.cell(r, 1).value or "").strip()
-                if val == q_label:
-                    if len(attempts) >= 1 and attempts[0]:
-                        ws.cell(r, 6, str(attempts[0]).strip().upper())
-                    if len(attempts) >= 2 and attempts[1]:
-                        ws.cell(r, 8, str(attempts[1]).strip().upper())
-                    if len(attempts) >= 3 and attempts[2]:
-                        ws.cell(r, 10, str(attempts[2]).strip().upper())
-                    break
+        total_practiced += 1
+        if is_corr:
+            total_correct += 1
+        if is_l1:
+            total_l1 += 1
+        elif is_l2:
+            total_l2 += 1
+        elif is_l3:
+            total_l3 += 1
+        total_weight += eff
 
-        # 2. Populate Master_All_98_Questions Sheet
-        if "Master_All_98_Questions" in wb.sheetnames:
-            ws_m = wb["Master_All_98_Questions"]
-            master_id = f"M{qid}"
-            for r in range(5, ws_m.max_row + 1):
-                val = str(ws_m.cell(r, 1).value or "").strip()
-                if val == master_id or r == (qid + 4):
-                    if len(attempts) >= 1 and attempts[0]:
-                        ws_m.cell(r, 7, str(attempts[0]).strip().upper())
-                    if len(attempts) >= 2 and attempts[1]:
-                        ws_m.cell(r, 9, str(attempts[1]).strip().upper())
-                    if len(attempts) >= 3 and attempts[2]:
-                        ws_m.cell(r, 11, str(attempts[2]).strip().upper())
-                    break
+        mod_title = q.get("module_title") or q.get("module_code") or "SAT"
+        m_stat = by_module.setdefault(
+            mod_title,
+            {"test_short": test_short, "module_title": mod_title, "practiced": 0, "correct": 0, "l1": 0, "l2": 0, "l3": 0, "weight": 0.0},
+        )
+        m_stat["practiced"] += 1
+        if is_corr:
+            m_stat["correct"] += 1
+        if is_l1:
+            m_stat["l1"] += 1
+        elif is_l2:
+            m_stat["l2"] += 1
+        elif is_l3:
+            m_stat["l3"] += 1
+        m_stat["weight"] += eff
 
-    # 3. Populate SAT_Error_Log_Tracker Sheet (So_Tay_Loi_Sai_Tu_Vung structure)
-    if "SAT_Error_Log_Tracker" in wb.sheetnames:
-        ws_err = wb["SAT_Error_Log_Tracker"]
-        # Clear old rows from row 2 to 200
-        for r in range(2, max(50, ws_err.max_row + 1)):
-            for c in range(1, 11):
-                ws_err.cell(r, c, None)
+        tiers = _build_question_tier_feedbacks(q)
+        err_summary = "\n".join(
+            f"[{e.get('root_cause') or 'Sổ thử sai'}] {_clean_text_for_excel(e.get('trap_detail') or '')}"
+            + (f" | Ghi chú: {_clean_text_for_excel(e.get('student_notes'))}" if e.get("student_notes") else "")
+            for e in err_by_qid.get(qid_str, [])
+        )
+        practiced_rows.append({
+            "stt": len(practiced_rows) + 1,
+            "test_short": test_short,
+            "module_title": mod_title,
+            "q_label": q.get("q_label") or f"Q{qid_str}",
+            "topic": q.get("topic") or "",
+            "page_label": f"PDF tr.{q['pdf_page']}" if q.get("pdf_page") else "",
+            "difficulty": q.get("difficulty") or "",
+            "question_content": _format_question_prompt_for_excel(q),
+            "attempt_1": str(atts[0]) if len(atts) >= 1 else "",
+            "attempt_2": str(atts[1]) if len(atts) >= 2 else "",
+            "attempt_3": str(atts[2]) if len(atts) >= 3 else "",
+            "correct_answer": str(q.get("correct_answer") or ""),
+            "status_label": status_label,
+            "efficiency_pct": round(eff * 100),
+            "tier1_feedback": tiers["tier1"],
+            "tier2_feedback": tiers["tier2"],
+            "tier3_feedback": tiers["tier3"],
+            "tier4_feedback": tiers["tier4"],
+            "error_note_summary": err_summary,
+            "practiced_at": str(st.get("last_practiced_at") or ""),
+        })
 
-        # Write student error logs with exact columns:
-        # STT, Mã câu, Module, Chủ đề / Kỹ năng, Nhóm bẫy SAT, Phân tích nguyên nhân & Bài học, Ghi chú tư duy, Từ mới / Thuật ngữ, Tình trạng, Thời gian
-        for idx, e in enumerate(error_logs):
-            r = 2 + idx
-            ws_err.cell(r, 1, idx + 1)
-            ws_err.cell(r, 2, str(e.get("q_label") or f"Q{e.get('question_id', '')}"))
-            ws_err.cell(r, 3, str(e.get("module") or ""))
-            ws_err.cell(r, 4, str(e.get("skill") or ""))
-            ws_err.cell(r, 5, str(e.get("root_cause") or "Bẫy SAT"))
-            ws_err.cell(r, 6, str(e.get("trap_detail") or ""))
-            ws_err.cell(r, 7, str(e.get("student_notes") or ""))
-            ws_err.cell(r, 8, str(e.get("vocabulary") or ""))
-            ws_err.cell(r, 9, str(e.get("status") or "Đang theo dõi"))
-            ws_err.cell(r, 10, str(e.get("date") or datetime.datetime.now().strftime("%d/%m/%Y")))
+    error_logs_out = []
+    vocab_out = []
+    for err in raw_errors:
+        q = q_by_id.get(str(err.get("question_id") or ""))
+        wrongs = err.get("wrong_attempts")
+        wrongs_text = ", ".join(str(w) for w in wrongs) if isinstance(wrongs, list) else str(wrongs or "")
+        vocab_raw = _clean_text_for_excel(err.get("vocabulary") or "")
+        row = {
+            "stt": len(error_logs_out) + 1,
+            "test_short": test_short,
+            "q_label": str(err.get("q_label") or (q.get("q_label") if q else "") or f"Q{err.get('question_id', '')}"),
+            "module": _clean_text_for_excel(err.get("module") or (q.get("module_title") if q else "") or "SAT"),
+            "skill": _clean_text_for_excel(err.get("skill") or (q.get("topic") if q else "") or ""),
+            "wrong_attempts": wrongs_text,
+            "correct_answer": str(err.get("correct_answer") or (q.get("correct_answer") if q else "") or ""),
+            "root_cause": _clean_text_for_excel(err.get("root_cause") or "Bẫy SAT"),
+            "trap_detail": _clean_text_for_excel(err.get("trap_detail") or ""),
+            "student_notes": _clean_text_for_excel(err.get("student_notes") or ""),
+            "vocabulary": vocab_raw,
+            "socratic_analysis": _clean_text_for_excel(err.get("socratic_analysis") or (q.get("tier1_hint") or q.get("level1_tip") if q else "") or ""),
+            "status": _clean_text_for_excel(err.get("status") or "Đang theo dõi"),
+            "date": str(err.get("date") or datetime.datetime.now().strftime("%d/%m/%Y")),
+        }
+        error_logs_out.append(row)
+        if vocab_raw:
+            for vt in _parse_socratic_vocab_entries(vocab_raw):
+                vocab_out.append({
+                    "stt": len(vocab_out) + 1,
+                    "test_short": test_short,
+                    "q_label": row["q_label"],
+                    "module_skill": " • ".join(p for p in [row["module"], row["skill"]] if p),
+                    "term": vt["term"],
+                    "meaning": vt["meaning"],
+                    "context_note": " | ".join(p for p in [row["root_cause"], row["student_notes"]] if p),
+                    "date": row["date"],
+                })
 
-    safe_name = re.sub(r'[^a-zA-Z0-9_\-]', '_', student_name) or "Student"
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    export_filename = f"October_2026_SAT_{safe_name}_{timestamp}.xlsx"
+    acc_pct = round((total_correct / total_practiced) * 100) if total_practiced > 0 else 0
+    w_pct = round((total_weight / total_practiced) * 100) if total_practiced > 0 else 0
+    by_test = [{
+        "test_short": test_short,
+        "practiced": total_practiced,
+        "correct": total_correct,
+        "unfinished_or_missed": max(0, total_practiced - total_correct),
+        "l1": total_l1,
+        "l2": total_l2,
+        "l3": total_l3,
+        "accuracy_pct": acc_pct,
+        "weighted_pct": w_pct,
+    }] if total_practiced > 0 else []
 
+    by_mod_list = []
+    for m in by_module.values():
+        p = m["practiced"]
+        by_mod_list.append({
+            "test_short": m["test_short"],
+            "module_title": m["module_title"],
+            "practiced": p,
+            "correct": m["correct"],
+            "unfinished_or_missed": max(0, p - m["correct"]),
+            "l1": m["l1"],
+            "l2": m["l2"],
+            "l3": m["l3"],
+            "accuracy_pct": round((m["correct"] / p) * 100) if p > 0 else 0,
+            "weighted_pct": round((m["weight"] / p) * 100) if p > 0 else 0,
+        })
+
+    return {
+        "generated_at": datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "student": {
+            "name": student_name,
+            "email": student_email,
+            "target": student_target,
+            "sources_summary": f"{test_short} ({total_correct}/{total_practiced})" if total_practiced else test_short,
+        },
+        "overall": {
+            "total_practiced": total_practiced,
+            "total_correct": total_correct,
+            "total_unfinished_or_missed": max(0, total_practiced - total_correct),
+            "l1_correct": total_l1,
+            "l2_correct": total_l2,
+            "l3_correct": total_l3,
+            "accuracy_pct": acc_pct,
+            "weighted_pct": w_pct,
+            "error_logs_count": len(error_logs_out),
+            "vocab_notes_count": sum(1 for e in error_logs_out if e["vocabulary"]),
+            "vocab_terms_count": len(vocab_out),
+            "session_practiced": total_practiced,
+            "session_correct": total_correct,
+            "session_accuracy_pct": acc_pct,
+        },
+        "by_test": by_test,
+        "by_module": by_mod_list,
+        "practiced_questions": practiced_rows,
+        "error_logs": error_logs_out,
+        "vocab_entries": vocab_out,
+    }
+
+
+def generate_student_excel(payload):
     import io
+    import openpyxl
+    from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+    from openpyxl.utils import get_column_letter
+
+    export_data = payload.get("export_data")
+    if not isinstance(export_data, dict) or "practiced_questions" not in export_data:
+        export_data = _build_export_data_from_legacy_payload(payload)
+
+    st_info = export_data.get("student") or {}
+    ov = export_data.get("overall") or {}
+
+    student_name = str(st_info.get("name") or payload.get("student_name") or "Hoc_Sinh").strip() or "Hoc_Sinh"
+    student_email = str(st_info.get("email") or payload.get("student_email") or "Chưa cung cấp").strip() or "Chưa cung cấp"
+    student_target = str(st_info.get("target") or payload.get("student_target") or "1400+")
+    now_str = str(export_data.get("generated_at") or datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+
+    wb = openpyxl.Workbook()
+    ws_perf = wb.active
+    ws_perf.title = "Hieu_Suat_Lam_Bai"
+
+    # Shared styles
+    title_fill = PatternFill(start_color="1A73E8", end_color="1A73E8", fill_type="solid")
+    sub_fill = PatternFill(start_color="E8F0FE", end_color="E8F0FE", fill_type="solid")
+    sec_fill = PatternFill(start_color="1E293B", end_color="1E293B", fill_type="solid")
+    th_fill = PatternFill(start_color="1D4ED8", end_color="1D4ED8", fill_type="solid")
+    zebra_fill = PatternFill(start_color="F8FAFC", end_color="F8FAFC", fill_type="solid")
+    total_fill = PatternFill(start_color="EFF6FF", end_color="EFF6FF", fill_type="solid")
+    green_fill = PatternFill(start_color="E6F4EA", end_color="E6F4EA", fill_type="solid")
+    amber_fill = PatternFill(start_color="FEF7E0", end_color="FEF7E0", fill_type="solid")
+    red_fill = PatternFill(start_color="FCE8E6", end_color="FCE8E6", fill_type="solid")
+
+    font_title = Font(name="Calibri", size=14, bold=True, color="FFFFFF")
+    font_sub = Font(name="Calibri", size=10, italic=True, color="1E3A8A")
+    font_sec = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
+    font_th = Font(name="Calibri", size=10, bold=True, color="FFFFFF")
+    font_bold = Font(name="Calibri", size=10, bold=True, color="0F172A")
+    font_body = Font(name="Calibri", size=10, color="1E293B")
+
+    thin_side = Side(style="thin", color="CBD5E1")
+    border_thin = Border(left=thin_side, right=thin_side, top=thin_side, bottom=thin_side)
+    align_left = Alignment(horizontal="left", vertical="top", wrap_text=True)
+    align_center = Alignment(horizontal="center", vertical="top", wrap_text=True)
+    align_banner = Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+    # ---- Sheet 1: Hieu_Suat_Lam_Bai ----
+    ws_perf.merge_cells("A1:I1")
+    ws_perf["A1"] = "BÁO CÁO TỔNG HỢP THỰC HÀNH DIGITAL SAT BLUEBOOK (SOCRATIC)"
+    ws_perf["A1"].font = font_title
+    ws_perf["A1"].fill = title_fill
+    ws_perf["A1"].alignment = align_banner
+    ws_perf.row_dimensions[1].height = 30
+
+    ws_perf.merge_cells("A2:I2")
+    ws_perf["A2"] = "Thông tin học sinh & Hiệu suất làm bài • Phản hồi đa tầng • Sổ tay Thử sai & Từ vựng Socratic"
+    ws_perf["A2"].font = font_sub
+    ws_perf["A2"].fill = sub_fill
+    ws_perf["A2"].alignment = align_banner
+    ws_perf.row_dimensions[2].height = 20
+
+    def _add_perf_section_bar(row_idx, text):
+        ws_perf.merge_cells(start_row=row_idx, start_column=1, end_row=row_idx, end_column=9)
+        c = ws_perf.cell(row_idx, 1, text)
+        c.font = font_sec
+        c.fill = sec_fill
+        c.alignment = Alignment(horizontal="left", vertical="center")
+        ws_perf.row_dimensions[row_idx].height = 22
+
+    _add_perf_section_bar(4, "1. THÔNG TIN HỌC SINH & PHIÊN XUẤT BÁO CÁO")
+    meta_rows = [
+        ("Họ và tên học sinh", student_name),
+        ("Email học sinh", student_email),
+        ("Mục tiêu điểm SAT", student_target),
+        ("Nguồn tài liệu / Bộ đề đã thực hành", st_info.get("sources_summary") or "Chưa có dữ liệu"),
+        ("Thời gian xuất báo cáo", now_str),
+        ("Giáo viên hướng dẫn", "Mike Pham Bá Hong Son • mikepham358@gmail.com"),
+    ]
+    r_cur = 5
+    for label, val in meta_rows:
+        c1 = ws_perf.cell(r_cur, 1, label)
+        c1.font = font_bold
+        c1.fill = zebra_fill
+        c1.border = border_thin
+        c1.alignment = align_left
+        ws_perf.merge_cells(start_row=r_cur, start_column=2, end_row=r_cur, end_column=9)
+        for col_i in range(2, 10):
+            cell_m = ws_perf.cell(r_cur, col_i)
+            cell_m.border = border_thin
+        c2 = ws_perf.cell(r_cur, 2, val)
+        c2.font = font_body
+        c2.alignment = align_left
+        ws_perf.row_dimensions[r_cur].height = 20
+        r_cur += 1
+
+    r_cur += 1
+    _add_perf_section_bar(r_cur, "2. HIỆU SUẤT LÀM BÀI TỔNG HỢP")
+    r_cur += 1
+    for c_i, h_text in enumerate(["Chỉ số hiệu suất", "Giá trị", "Diễn giải / Ghi chú"], start=1):
+        c = ws_perf.cell(r_cur, c_i, h_text)
+        c.font = font_th
+        c.fill = th_fill
+        c.border = border_thin
+        c.alignment = align_center
+    ws_perf.merge_cells(start_row=r_cur, start_column=3, end_row=r_cur, end_column=9)
+    for col_i in range(3, 10):
+        ws_perf.cell(r_cur, col_i).fill = th_fill
+        ws_perf.cell(r_cur, col_i).border = border_thin
+    ws_perf.row_dimensions[r_cur].height = 22
+    r_cur += 1
+
+    kpi_rows = [
+        ("Tổng số câu đã thực hành", ov.get("total_practiced", 0), "Tổng số câu đã có ít nhất 1 lần chọn đáp án xuyên suốt các bộ đề"),
+        ("Số câu hoàn thành đúng", ov.get("total_correct", 0), "Trả lời chính xác ở Lần 1, Lần 2 hoặc Lần 3"),
+        ("Chưa hoàn thành / Sai cả 3 lần", ov.get("total_unfinished_or_missed", 0), "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử sai"),
+        ("Tỷ lệ chính xác (Đúng / Đã làm)", f"{ov.get('accuracy_pct', 0)}%", "Tỷ lệ số câu hoàn thành đúng trên tổng số câu đã thực hành"),
+        ("Hiệu suất Socratic (Có trọng số)", f"{ov.get('weighted_pct', 0)}%", "Trọng số Socratic: Đúng Lần 1 = 100%, Lần 2 = 66.7%, Lần 3 = 33.3%"),
+        ("Đúng ngay Lần 1 (L1 - 100%)", ov.get("l1_correct", 0), "Làm đúng độc lập không cần mở gợi ý"),
+        ("Đúng ở Lần 2 (L2 - 66.7%)", ov.get("l2_correct", 0), "Điều chỉnh đúng sau Phản hồi Tầng 1"),
+        ("Đúng ở Lần 3 (L3 - 33.3%)", ov.get("l3_correct", 0), "Hoàn thành sau Phản hồi Tầng 2"),
+        ("Tổng ghi chép Sổ tay Thử sai Socratic", ov.get("error_logs_count", 0), "Số thẻ phân tích bẫy SAT & bài học đã lưu"),
+        ("Số mục Từ vựng Socratic đã ghi", ov.get("vocab_terms_count", 0), f"{ov.get('vocab_notes_count', 0)} thẻ ghi chép có từ mới / thuật ngữ"),
+        ("Phiên học hiện tại (Bộ đếm ARR)", f"{ov.get('session_correct', 0)}/{ov.get('session_practiced', 0)} câu ({ov.get('session_accuracy_pct', 0)}%)", "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"),
+    ]
+    for idx_k, (lbl, val, desc) in enumerate(kpi_rows):
+        fill_use = zebra_fill if idx_k % 2 == 1 else PatternFill(fill_type=None)
+        c1 = ws_perf.cell(r_cur, 1, lbl)
+        c1.font = font_bold
+        c1.alignment = align_left
+        c1.border = border_thin
+        if fill_use.fill_type:
+            c1.fill = fill_use
+
+        c2 = ws_perf.cell(r_cur, 2, val)
+        c2.font = font_bold
+        c2.alignment = align_center
+        c2.border = border_thin
+        if fill_use.fill_type:
+            c2.fill = fill_use
+
+        ws_perf.merge_cells(start_row=r_cur, start_column=3, end_row=r_cur, end_column=9)
+        c3 = ws_perf.cell(r_cur, 3, desc)
+        c3.font = font_body
+        c3.alignment = align_left
+        for col_i in range(3, 10):
+            cell_d = ws_perf.cell(r_cur, col_i)
+            cell_d.border = border_thin
+            if fill_use.fill_type:
+                cell_d.fill = fill_use
+        ws_perf.row_dimensions[r_cur].height = 20
+        r_cur += 1
+
+    r_cur += 1
+    _add_perf_section_bar(r_cur, "3. HIỆU SUẤT THEO TỪNG NGUỒN TÀI LIỆU / BỘ ĐỀ")
+    r_cur += 1
+    by_test_headers = [
+        "Nguồn tài liệu / Bộ đề", "Đã thực hành", "Số câu đúng", "Chưa đúng / Chờ xử lý",
+        "L1 (100%)", "L2 (66.7%)", "L3 (33.3%)", "Tỷ lệ đúng (%)", "Hiệu suất Socratic (%)"
+    ]
+    for col_i, h_text in enumerate(by_test_headers, start=1):
+        c = ws_perf.cell(r_cur, col_i, h_text)
+        c.font = font_th
+        c.fill = th_fill
+        c.border = border_thin
+        c.alignment = align_center
+    ws_perf.row_dimensions[r_cur].height = 22
+    r_cur += 1
+
+    by_test = export_data.get("by_test") or []
+    if not by_test:
+        row_vals = ["Chưa có câu hỏi nào được thực hành", 0, 0, 0, 0, 0, 0, "0%", "0%"]
+        for col_i, v in enumerate(row_vals, start=1):
+            c = ws_perf.cell(r_cur, col_i, v)
+            c.font = font_body
+            c.border = border_thin
+            c.alignment = align_left if col_i == 1 else align_center
+        r_cur += 1
+    else:
+        for t in by_test:
+            row_vals = [
+                t.get("test_short", ""),
+                t.get("practiced", 0),
+                t.get("correct", 0),
+                t.get("unfinished_or_missed", 0),
+                t.get("l1", 0),
+                t.get("l2", 0),
+                t.get("l3", 0),
+                f"{t.get('accuracy_pct', 0)}%",
+                f"{t.get('weighted_pct', 0)}%",
+            ]
+            for col_i, v in enumerate(row_vals, start=1):
+                c = ws_perf.cell(r_cur, col_i, v)
+                c.font = font_bold if col_i == 1 else font_body
+                c.border = border_thin
+                c.alignment = align_left if col_i == 1 else align_center
+            ws_perf.row_dimensions[r_cur].height = 20
+            r_cur += 1
+        tot_vals = [
+            "TỔNG CỘNG TẤT CẢ BỘ ĐỀ",
+            ov.get("total_practiced", 0),
+            ov.get("total_correct", 0),
+            ov.get("total_unfinished_or_missed", 0),
+            ov.get("l1_correct", 0),
+            ov.get("l2_correct", 0),
+            ov.get("l3_correct", 0),
+            f"{ov.get('accuracy_pct', 0)}%",
+            f"{ov.get('weighted_pct', 0)}%",
+        ]
+        for col_i, v in enumerate(tot_vals, start=1):
+            c = ws_perf.cell(r_cur, col_i, v)
+            c.font = font_bold
+            c.fill = total_fill
+            c.border = border_thin
+            c.alignment = align_left if col_i == 1 else align_center
+        ws_perf.row_dimensions[r_cur].height = 22
+        r_cur += 1
+
+    r_cur += 1
+    _add_perf_section_bar(r_cur, "4. CHI TIẾT HIỆU SUẤT THEO MODULE / CHƯƠNG / CHUYÊN ĐỀ")
+    r_cur += 1
+    by_mod_headers = [
+        "Nguồn tài liệu", "Module / Chương / Chuyên đề", "Đã thực hành", "Số câu đúng",
+        "Chưa đúng", "L1", "L2", "L3", "Tỷ lệ đúng (%)"
+    ]
+    for col_i, h_text in enumerate(by_mod_headers, start=1):
+        c = ws_perf.cell(r_cur, col_i, h_text)
+        c.font = font_th
+        c.fill = th_fill
+        c.border = border_thin
+        c.alignment = align_center
+    ws_perf.row_dimensions[r_cur].height = 22
+    r_cur += 1
+
+    by_mod = export_data.get("by_module") or []
+    if not by_mod:
+        row_vals = ["Chưa có dữ liệu module / chương", "", 0, 0, 0, 0, 0, 0, "0%"]
+        for col_i, v in enumerate(row_vals, start=1):
+            c = ws_perf.cell(r_cur, col_i, v)
+            c.font = font_body
+            c.border = border_thin
+            c.alignment = align_left if col_i <= 2 else align_center
+        r_cur += 1
+    else:
+        for idx_m, m in enumerate(by_mod):
+            row_vals = [
+                m.get("test_short", ""),
+                m.get("module_title", ""),
+                m.get("practiced", 0),
+                m.get("correct", 0),
+                m.get("unfinished_or_missed", 0),
+                m.get("l1", 0),
+                m.get("l2", 0),
+                m.get("l3", 0),
+                f"{m.get('accuracy_pct', 0)}%",
+            ]
+            for col_i, v in enumerate(row_vals, start=1):
+                c = ws_perf.cell(r_cur, col_i, v)
+                c.font = font_body
+                c.border = border_thin
+                if idx_m % 2 == 1:
+                    c.fill = zebra_fill
+                c.alignment = align_left if col_i <= 2 else align_center
+            ws_perf.row_dimensions[r_cur].height = 20
+            r_cur += 1
+
+    for col_i, w in enumerate([36, 34, 16, 18, 12, 12, 12, 16, 20], start=1):
+        ws_perf.column_dimensions[get_column_letter(col_i)].width = w
+
+    def _populate_table_sheet(ws, banner_title, headers, rows_matrix, widths, center_cols=None, status_col=None):
+        center_set = set(center_cols or [])
+        num_cols = len(headers)
+        ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=num_cols)
+        b_cell = ws.cell(1, 1, banner_title)
+        b_cell.font = font_title
+        b_cell.fill = title_fill
+        b_cell.alignment = align_banner
+        ws.row_dimensions[1].height = 28
+
+        for c_i, h_text in enumerate(headers, start=1):
+            hc = ws.cell(2, c_i, h_text)
+            hc.font = font_th
+            hc.fill = th_fill
+            hc.border = border_thin
+            hc.alignment = align_center
+            ws.column_dimensions[get_column_letter(c_i)].width = widths[c_i - 1]
+        ws.row_dimensions[2].height = 28
+        ws.freeze_panes = "A3"
+
+        for r_idx, row_vals in enumerate(rows_matrix, start=3):
+            is_zebra = (r_idx % 2 == 0)
+            for c_i, val in enumerate(row_vals, start=1):
+                cell = ws.cell(r_idx, c_i, val)
+                cell.font = font_body
+                cell.border = border_thin
+                cell.alignment = align_center if c_i in center_set else align_left
+                if status_col and c_i == status_col:
+                    s_val = str(val or "")
+                    if "Lần 1" in s_val or "Đã triệt tiêu" in s_val:
+                        cell.fill = green_fill
+                        cell.font = font_bold
+                    elif "Lần 2" in s_val or "Lần 3" in s_val or "Đang theo dõi" in s_val:
+                        cell.fill = amber_fill
+                    elif "Sai" in s_val or "Chưa xử lý" in s_val:
+                        cell.fill = red_fill
+                elif is_zebra:
+                    cell.fill = zebra_fill
+
+    # ---- Sheet 2: Cau_Hoi_Da_Thuc_Hanh ----
+    ws_q = wb.create_sheet("Cau_Hoi_Da_Thuc_Hanh")
+    q_headers = [
+        "STT", "Nguồn tài liệu / Bộ đề", "Module / Chương", "Mã câu",
+        "Chủ đề / Kỹ năng", "Trang (PDF / Sách)", "Độ khó",
+        "Nội dung câu hỏi & Phương án", "Lần thử 1", "Lần thử 2",
+        "Lần thử 3", "Đáp án đúng", "Kết quả & Mức đạt", "Hiệu suất (%)",
+        "Phản hồi Tầng 1 (Định hướng tư duy)",
+        "Phản hồi Tầng 2 (Manh mối cấu trúc & Loại trừ)",
+        "Phản hồi Tầng 3 (Chốt phương pháp & Lời giải chi tiết)",
+        "Phản hồi Tầng 4 (Chiến thuật & Công thức cốt lõi)",
+        "Ghi chú Sổ thử sai Socratic (nếu có)", "Thời gian thực hành",
+    ]
+    p_rows = export_data.get("practiced_questions") or []
+    if not p_rows:
+        q_matrix = [[
+            1, "", "", "", "", "", "",
+            "Chưa có câu hỏi nào được thực hành. Hãy chọn đáp án trong bài luyện tập để hệ thống lưu lại câu hỏi và phản hồi đa tầng.",
+            "", "", "", "", "", "", "", "", "", "", "", "",
+        ]]
+    else:
+        q_matrix = [
+            [
+                q.get("stt", idx + 1),
+                q.get("test_short", ""),
+                q.get("module_title", ""),
+                q.get("q_label", ""),
+                q.get("topic", ""),
+                q.get("page_label", ""),
+                q.get("difficulty", ""),
+                q.get("question_content", ""),
+                q.get("attempt_1", ""),
+                q.get("attempt_2", ""),
+                q.get("attempt_3", ""),
+                q.get("correct_answer", ""),
+                q.get("status_label", ""),
+                f"{q.get('efficiency_pct', 0)}%",
+                q.get("tier1_feedback", ""),
+                q.get("tier2_feedback", ""),
+                q.get("tier3_feedback", ""),
+                q.get("tier4_feedback", ""),
+                q.get("error_note_summary", ""),
+                q.get("practiced_at", ""),
+            ]
+            for idx, q in enumerate(p_rows)
+        ]
+    _populate_table_sheet(
+        ws_q,
+        f"DANH SÁCH CÂU HỎI ĐÃ THỰC HÀNH & PHẢN HỒI ĐA TẦNG — {student_name.upper()}",
+        q_headers,
+        q_matrix,
+        [6, 24, 30, 14, 28, 18, 12, 52, 10, 10, 10, 12, 22, 13, 44, 46, 54, 48, 40, 20],
+        center_cols=[1, 4, 7, 9, 10, 11, 12, 14],
+        status_col=13,
+    )
+
+    # ---- Sheet 3: So_Tay_Thu_Sai_Socratic ----
+    ws_err = wb.create_sheet("So_Tay_Thu_Sai_Socratic")
+    err_headers = [
+        "STT", "Nguồn tài liệu / Bộ đề", "Mã câu", "Module / Chương",
+        "Chủ đề / Kỹ năng", "Các lần chọn sai", "Đáp án đúng",
+        "Nhóm bẫy SAT / Nguyên nhân gốc",
+        "Phân tích nguyên nhân thử sai & Bài học rút ra",
+        "Ghi chú tư duy cá nhân", "Từ mới & Thuật ngữ Socratic đã ghi",
+        "Gợi ý Socratic tham chiếu (Tầng 1)", "Tình trạng xử lý", "Ngày ghi chép",
+    ]
+    e_rows = export_data.get("error_logs") or []
+    if not e_rows:
+        err_matrix = [[
+            1, "", "", "", "", "", "", "",
+            "Chưa có ghi chép nào trong Sổ tay Thử sai Socratic.",
+            "", "", "", "", "",
+        ]]
+    else:
+        err_matrix = [
+            [
+                e.get("stt", idx + 1),
+                e.get("test_short", ""),
+                e.get("q_label", ""),
+                e.get("module", ""),
+                e.get("skill", ""),
+                e.get("wrong_attempts", ""),
+                e.get("correct_answer", ""),
+                e.get("root_cause", ""),
+                e.get("trap_detail", ""),
+                e.get("student_notes", ""),
+                e.get("vocabulary", ""),
+                e.get("socratic_analysis", ""),
+                e.get("status", ""),
+                e.get("date", ""),
+            ]
+            for idx, e in enumerate(e_rows)
+        ]
+    _populate_table_sheet(
+        ws_err,
+        f"SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ — {student_name.upper()}",
+        err_headers,
+        err_matrix,
+        [6, 24, 14, 28, 26, 16, 12, 32, 46, 36, 36, 40, 18, 14],
+        center_cols=[1, 3, 6, 7, 14],
+        status_col=13,
+    )
+
+    # ---- Sheet 4: Tu_Vung_Socratic ----
+    ws_vocab = wb.create_sheet("Tu_Vung_Socratic")
+    vocab_headers = [
+        "STT", "Nguồn tài liệu / Bộ đề", "Mã câu liên quan", "Module / Chủ đề",
+        "Từ mới / Thuật ngữ Socratic", "Nghĩa / Giải thích học sinh đã ghi",
+        "Ngữ cảnh bẫy SAT & Ghi chú liên quan", "Ngày ghi chép",
+    ]
+    v_rows = export_data.get("vocab_entries") or []
+    if not v_rows:
+        vocab_matrix = [[
+            1, "", "", "",
+            "Chưa có từ vựng / thuật ngữ nào được ghi chép trong Sổ tay Socratic.",
+            "", "", "",
+        ]]
+    else:
+        vocab_matrix = [
+            [
+                v.get("stt", idx + 1),
+                v.get("test_short", ""),
+                v.get("q_label", ""),
+                v.get("module_skill", ""),
+                v.get("term", ""),
+                v.get("meaning", ""),
+                v.get("context_note", ""),
+                v.get("date", ""),
+            ]
+            for idx, v in enumerate(v_rows)
+        ]
+    _populate_table_sheet(
+        ws_vocab,
+        f"TỪ VỰNG & THUẬT NGỮ SOCRATIC ĐÃ GHI CHÉP — {student_name.upper()}",
+        vocab_headers,
+        vocab_matrix,
+        [6, 24, 16, 30, 28, 44, 42, 14],
+        center_cols=[1, 3, 8],
+    )
+
+    safe_name = re.sub(r"[^a-zA-Z0-9_\-]", "_", student_name) or "Student"
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    export_filename = f"SAT_Tong_Hop_Thuc_Hanh_{safe_name}_{timestamp}.xlsx"
+
     buf = io.BytesIO()
     wb.save(buf)
     content = buf.getvalue()

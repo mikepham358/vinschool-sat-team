@@ -2882,181 +2882,757 @@ function saveMandatoryReflection(advanceToNext = true) {
   }
 }
 
-// ================= CLIENT-SIDE EXCEL GENERATOR (MATCHES MASTER TEMPLATE - OCTOBER 2026) =================
-async function generateClientExcelBlob(studentName, summary) {
+// ================= CONSOLIDATED PRACTICE EXCEL EXPORT (MULTI-SOURCE + MULTI-TIER + NOTEBOOK) =================
+function cleanTextForExcel(raw, maxLen = 30000) {
+  if (raw === null || raw === undefined) return "";
+  let s = String(raw);
+  s = s
+    .replace(/<\s*br\s*\/?>/gi, "\n")
+    .replace(/<\/\s*(p|div|li|h[1-6]|tr)\s*>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "• ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#0?39;/gi, "'")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  if (s.length > maxLen) {
+    s = s.slice(0, maxLen - 3) + "...";
+  }
+  return s;
+}
+
+function formatExcelDateTime(val) {
+  if (!val) return "";
+  try {
+    const d = new Date(val);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleString("vi-VN");
+    }
+  } catch (e) {}
+  return String(val);
+}
+
+function buildQuestionTierFeedbacks(q) {
+  if (!q) return { tier1: "", tier2: "", tier3: "", tier4: "" };
+  const tier1 = cleanTextForExcel(q.tier1_hint || q.level1_tip || "");
+  const tier2 = cleanTextForExcel(q.tier2_hint || q.level2_hint || "");
+
+  const t3Parts = [];
+  const baseT3 = cleanTextForExcel(q.tier3_hint || q.level3_solution || "");
+  if (baseT3) t3Parts.push(baseT3);
+  const solSteps = cleanTextForExcel(q.solution_steps || "");
+  if (solSteps && (!baseT3 || !baseT3.includes(solSteps.slice(0, 40)))) {
+    t3Parts.push(`Các bước giải:\n${solSteps}`);
+  }
+  const pooe = cleanTextForExcel(q.pooe_breakdown || "");
+  if (pooe && (!baseT3 || !baseT3.includes(pooe.slice(0, 40)))) {
+    t3Parts.push(`Phân tích loại trừ (POOE):\n${pooe}`);
+  }
+  const gridExp = cleanTextForExcel(q.grid_in_explanation || "");
+  if (gridExp && (!baseT3 || !baseT3.includes(gridExp.slice(0, 40)))) {
+    t3Parts.push(`Hướng dẫn điền số (Grid-In):\n${gridExp}`);
+  }
+  const tier3 = cleanTextForExcel(t3Parts.join("\n\n"));
+
+  const t4Parts = [];
+  if (q.princeton_strategy) t4Parts.push(`Chiến thuật Princeton Review: ${cleanTextForExcel(q.princeton_strategy)}`);
+  if (q.target_clue) t4Parts.push(`Phân tích manh mối & Target: ${cleanTextForExcel(q.target_clue)}`);
+  if (q.pro_tip) t4Parts.push(`Mẹo độc quyền Pro-Tip: ${cleanTextForExcel(q.pro_tip)}`);
+  const stratTip = cleanTextForExcel(q.strategic_tip || "");
+  if (stratTip) t4Parts.push(t4Parts.length > 0 ? `Chiến thuật / Công thức cốt lõi: ${stratTip}` : stratTip);
+  const tier4 = cleanTextForExcel(t4Parts.join("\n\n"));
+
+  return { tier1, tier2, tier3, tier4 };
+}
+
+function formatQuestionPromptForExcel(q) {
+  if (!q) return "";
+  const parts = [];
+  const passage = cleanTextForExcel(q.passage || "", 12000);
+  const prompt = cleanTextForExcel(q.prompt || "", 4000);
+  if (passage) parts.push(`[Ngữ liệu]: ${passage}`);
+  if (prompt) parts.push(`[Câu hỏi]: ${prompt}`);
+  if (q.is_grid_in) {
+    parts.push("[Hình thức]: Tự luận điền đáp án (Grid-in)");
+  } else if (Array.isArray(q.options) && q.options.length > 0) {
+    const optStr = q.options.map(o => `${o.key}) ${cleanTextForExcel(o.text || "", 1000)}`).join(" | ");
+    if (optStr) parts.push(`[Phương án]: ${optStr}`);
+  } else if (q.options_raw) {
+    parts.push(`[Phương án]: ${cleanTextForExcel(q.options_raw, 4000)}`);
+  }
+  return cleanTextForExcel(parts.join("\n"), 20000);
+}
+
+function parseSocraticVocabEntries(vocabText) {
+  if (!vocabText) return [];
+  const lines = String(vocabText).split(/[\n;]+/).map(s => s.trim()).filter(Boolean);
+  return lines.map(line => {
+    const m = line.match(/^(.*?)\s*(?:[:=–—]|\s+-\s+)\s*(.+)$/);
+    if (m && m[1].trim() && m[2].trim()) {
+      return { term: m[1].trim(), meaning: m[2].trim() };
+    }
+    return { term: line, meaning: "" };
+  });
+}
+
+function getExportStatusMeta(qState) {
+  const status = (qState && qState.status) ? String(qState.status) : "";
+  const eff = parseFloat(qState && qState.efficiency) || 0;
+  const isL1 = eff >= 0.99 || status === "mastered_l1";
+  const isL2 = !isL1 && (eff >= 0.6 || status === "mastered_l2");
+  const isL3 = !isL1 && !isL2 && (eff >= 0.3 || status === "mastered_l3");
+  const isCorrect = isL1 || isL2 || isL3;
+
+  let statusLabel = "Đang thử lại (Chưa hoàn thành)";
+  if (isL1) statusLabel = "Đúng Lần 1 (L1 - 100%)";
+  else if (isL2) statusLabel = "Đúng Lần 2 (L2 - 66.7%)";
+  else if (isL3) statusLabel = "Đúng Lần 3 (L3 - 33.3%)";
+  else if (status === "missed" || ((qState && Array.isArray(qState.attempts) ? qState.attempts.length : 0) >= 3 && !isCorrect)) {
+    statusLabel = "Sai cả 3 lần (0%)";
+  }
+
+  return { isCorrect, isL1, isL2, isL3, eff, effPct: Math.round(eff * 100), statusLabel };
+}
+
+function getSavedStateForTestId(meta) {
+  const canonicalId = meta.id;
+  const activeCanonical = (getActiveTestMeta() || {}).id || App.activeTestId;
+  if (canonicalId === activeCanonical || canonicalId === App.activeTestId || meta.code === App.activeTestId) {
+    return App.studentState || { attempts: {}, error_logs: [] };
+  }
+
+  const keysToTry = [getStorageKeyForTest(meta.id)];
+  if (meta.code && meta.code !== meta.id) keysToTry.push(`bluebook_${meta.code}_student_state_v1`);
+  if (meta.id === "oct-2026") keysToTry.push(LEGACY_STORAGE_KEY);
+
+  for (const key of keysToTry) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") {
+          return {
+            student_name: parsed.student_name || "",
+            student_email: parsed.student_email || "",
+            student_target: parsed.student_target || "1400+",
+            attempts: parsed.attempts || {},
+            error_logs: Array.isArray(parsed.error_logs)
+              ? parsed.error_logs.filter(e => e && e.id && !String(e.id).startsWith("err_oct_"))
+              : []
+          };
+        }
+      }
+    } catch (e) {}
+  }
+  return { attempts: {}, error_logs: [] };
+}
+
+async function ensureTestDbLoadedForExport(meta) {
+  if (!App.dbCacheByTestId) App.dbCacheByTestId = {};
+  const activeCanonical = (getActiveTestMeta() || {}).id || App.activeTestId;
+  if ((meta.id === activeCanonical || meta.id === App.activeTestId || meta.code === App.activeTestId) && App.db) {
+    App.dbCacheByTestId[meta.id] = App.db;
+    return App.db;
+  }
+  if (App.dbCacheByTestId[meta.id]) return App.dbCacheByTestId[meta.id];
+  if (meta.dataFile) {
+    try {
+      const res = await fetch(meta.dataFile);
+      if (res.ok) {
+        const db = await res.json();
+        App.dbCacheByTestId[meta.id] = db;
+        return db;
+      }
+    } catch (e) {
+      console.warn("Could not hydrate dataset for export:", meta.dataFile, e);
+    }
+  }
+  return null;
+}
+
+async function collectConsolidatedExportData(studentName) {
+  const manifest = (App.testsManifest && App.testsManifest.length) ? App.testsManifest : TESTS_MANIFEST_DEFAULT;
+  const sessionItemsAll = Object.values(App.globalSessionItems || {});
+
+  const practicedRows = [];
+  const errorLogs = [];
+  const vocabEntries = [];
+  const byTestStats = [];
+  const byModuleMap = {};
+  const seenErrorKeys = new Set();
+
+  let totalPracticed = 0;
+  let totalCorrect = 0;
+  let totalL1 = 0;
+  let totalL2 = 0;
+  let totalL3 = 0;
+  let totalEarnedWeight = 0;
+
+  for (const meta of manifest) {
+    const state = getSavedStateForTestId(meta);
+    const attemptsMap = state.attempts || {};
+    const testErrors = Array.isArray(state.error_logs) ? state.error_logs : [];
+    const matchingSessionItems = sessionItemsAll.filter(it => it && (it.test_id === meta.id || it.test_id === meta.code));
+
+    const practicedQids = Object.keys(attemptsMap).filter(qid => {
+      const st = attemptsMap[qid];
+      return st && Array.isArray(st.attempts) && st.attempts.length > 0;
+    });
+
+    if (practicedQids.length === 0 && testErrors.length === 0 && matchingSessionItems.length === 0) {
+      continue;
+    }
+
+    const db = await ensureTestDbLoadedForExport(meta);
+    const allQs = (db && Array.isArray(db.questions)) ? db.questions : [];
+    const qById = new Map();
+    allQs.forEach(q => qById.set(String(q.id), q));
+
+    // Build lookup from error logs by question_id so practiced questions link to Socratic reflections
+    const errByQid = {};
+    testErrors.forEach(err => {
+      const qKey = String(err.question_id || "");
+      if (!errByQid[qKey]) errByQid[qKey] = [];
+      errByQid[qKey].push(err);
+    });
+
+    const testShort = meta.short_title || (db && db.test_title) || meta.title || meta.id;
+    const testStat = {
+      test_id: meta.id,
+      test_short: testShort,
+      test_title: meta.title || testShort,
+      bank_total: allQs.length || meta.total_questions || 0,
+      practiced: 0,
+      correct: 0,
+      unfinished_or_missed: 0,
+      l1: 0,
+      l2: 0,
+      l3: 0,
+      earned_weight: 0,
+      accuracy_pct: 0,
+      weighted_pct: 0,
+      error_log_count: testErrors.length
+    };
+
+    // Order practiced questions cleanly by canonical question order first, then any extras
+    const orderedIds = [];
+    const pushedIds = new Set();
+    allQs.forEach(q => {
+      const idStr = String(q.id);
+      const st = attemptsMap[q.id] || attemptsMap[idStr];
+      if (st && Array.isArray(st.attempts) && st.attempts.length > 0) {
+        orderedIds.push(idStr);
+        pushedIds.add(idStr);
+      }
+    });
+    practicedQids.forEach(idStr => {
+      if (!pushedIds.has(idStr)) {
+        orderedIds.push(idStr);
+        pushedIds.add(idStr);
+      }
+    });
+
+    orderedIds.forEach(idStr => {
+      const q = qById.get(idStr);
+      const st = attemptsMap[idStr] || (q ? attemptsMap[q.id] : null);
+      if (!st || !Array.isArray(st.attempts) || st.attempts.length === 0) return;
+
+      const sMeta = getExportStatusMeta(st);
+      totalPracticed++;
+      if (sMeta.isCorrect) totalCorrect++;
+      if (sMeta.isL1) totalL1++;
+      else if (sMeta.isL2) totalL2++;
+      else if (sMeta.isL3) totalL3++;
+      totalEarnedWeight += sMeta.eff;
+
+      testStat.practiced++;
+      if (sMeta.isCorrect) testStat.correct++;
+      else testStat.unfinished_or_missed++;
+      if (sMeta.isL1) testStat.l1++;
+      else if (sMeta.isL2) testStat.l2++;
+      else if (sMeta.isL3) testStat.l3++;
+      testStat.earned_weight += sMeta.eff;
+
+      const modTitle = (q && (q.module_title || q.chapter || q.module_code)) || "SAT";
+      const modKey = `${meta.id}::${modTitle}`;
+      if (!byModuleMap[modKey]) {
+        byModuleMap[modKey] = {
+          test_short: testShort,
+          module_title: modTitle,
+          practiced: 0,
+          correct: 0,
+          l1: 0,
+          l2: 0,
+          l3: 0,
+          earned_weight: 0
+        };
+      }
+      const mStat = byModuleMap[modKey];
+      mStat.practiced++;
+      if (sMeta.isCorrect) mStat.correct++;
+      if (sMeta.isL1) mStat.l1++;
+      else if (sMeta.isL2) mStat.l2++;
+      else if (sMeta.isL3) mStat.l3++;
+      mStat.earned_weight += sMeta.eff;
+
+      const tiers = buildQuestionTierFeedbacks(q);
+      const matchingErrs = errByQid[idStr] || [];
+      const errSummary = matchingErrs.map(e => {
+        const head = e.root_cause ? `[${e.root_cause}]` : "[Sổ thử sai]";
+        const body = cleanTextForExcel(e.trap_detail || "");
+        const note = e.student_notes ? ` | Ghi chú: ${cleanTextForExcel(e.student_notes)}` : "";
+        return `${head} ${body}${note}`;
+      }).join("\n");
+
+      const pageParts = [];
+      if (q && q.pdf_page) pageParts.push(`PDF tr.${q.pdf_page}`);
+      if (q && q.book_page) pageParts.push(`Sách tr.${q.book_page}`);
+
+      const topicParts = [];
+      if (q && q.topic) topicParts.push(q.topic);
+      if (q && q.domain && !String(q.topic || "").includes(q.domain)) topicParts.push(q.domain);
+      if (q && q.calc_mode) topicParts.push(q.calc_mode);
+
+      practicedRows.push({
+        stt: practicedRows.length + 1,
+        test_id: meta.id,
+        test_short: testShort,
+        module_title: modTitle,
+        q_label: (q && q.q_label) || `Q${idStr}`,
+        topic: topicParts.join(" • "),
+        page_label: pageParts.join(" / "),
+        difficulty: (q && q.difficulty) || "",
+        question_content: formatQuestionPromptForExcel(q),
+        attempt_1: st.attempts[0] !== undefined ? String(st.attempts[0]) : "",
+        attempt_2: st.attempts[1] !== undefined ? String(st.attempts[1]) : "",
+        attempt_3: st.attempts[2] !== undefined ? String(st.attempts[2]) : "",
+        correct_answer: (q && q.correct_answer) ? String(q.correct_answer) : "",
+        status_label: sMeta.statusLabel,
+        efficiency_pct: sMeta.effPct,
+        tier1_feedback: tiers.tier1,
+        tier2_feedback: tiers.tier2,
+        tier3_feedback: tiers.tier3,
+        tier4_feedback: tiers.tier4,
+        error_note_summary: errSummary,
+        practiced_at: formatExcelDateTime(st.last_practiced_at)
+      });
+    });
+
+    if (testStat.practiced > 0) {
+      testStat.accuracy_pct = Math.round((testStat.correct / testStat.practiced) * 100);
+      testStat.weighted_pct = Math.round((testStat.earned_weight / testStat.practiced) * 100);
+      byTestStats.push(testStat);
+    }
+
+    // Collect Error Notebook & Socratic Vocabulary rows for this test
+    testErrors.forEach(err => {
+      const uniq = `${meta.id}::${err.id || `${err.question_id}_${err.date}`}`;
+      if (seenErrorKeys.has(uniq)) return;
+      seenErrorKeys.add(uniq);
+
+      const q = qById.get(String(err.question_id || ""));
+      const wrongsText = Array.isArray(err.wrong_attempts)
+        ? err.wrong_attempts.join(", ")
+        : (err.wrong_attempts ? String(err.wrong_attempts) : "");
+      const vocabRaw = cleanTextForExcel(err.vocabulary || "");
+      const socraticRef = cleanTextForExcel(
+        err.socratic_analysis || (q && (q.tier1_hint || q.level1_tip)) || ""
+      );
+
+      const row = {
+        stt: errorLogs.length + 1,
+        test_short: testShort,
+        q_label: String(err.q_label || (q && q.q_label) || (err.question_id ? `Q${err.question_id}` : "Ghi chép")),
+        module: cleanTextForExcel(err.module || (q && (q.module_title || q.chapter)) || "SAT"),
+        skill: cleanTextForExcel(err.skill || (q && q.topic) || ""),
+        wrong_attempts: wrongsText,
+        correct_answer: String(err.correct_answer || (q && q.correct_answer) || ""),
+        root_cause: cleanTextForExcel(err.root_cause || "Bẫy SAT"),
+        trap_detail: cleanTextForExcel(err.trap_detail || ""),
+        student_notes: cleanTextForExcel(err.student_notes || ""),
+        vocabulary: vocabRaw,
+        socratic_analysis: socraticRef,
+        status: cleanTextForExcel(err.status || "Đang theo dõi"),
+        date: String(err.date || new Date().toLocaleDateString("vi-VN"))
+      };
+      errorLogs.push(row);
+
+      if (vocabRaw) {
+        const parsedTerms = parseSocraticVocabEntries(vocabRaw);
+        parsedTerms.forEach(vt => {
+          vocabEntries.push({
+            stt: vocabEntries.length + 1,
+            test_short: testShort,
+            q_label: row.q_label,
+            module_skill: [row.module, row.skill].filter(Boolean).join(" • "),
+            term: vt.term,
+            meaning: vt.meaning,
+            context_note: [row.root_cause, row.student_notes].filter(Boolean).join(" | "),
+            date: row.date
+          });
+        });
+      }
+    });
+  }
+
+  const byModuleStats = Object.values(byModuleMap).map(m => ({
+    test_short: m.test_short,
+    module_title: m.module_title,
+    practiced: m.practiced,
+    correct: m.correct,
+    unfinished_or_missed: Math.max(0, m.practiced - m.correct),
+    l1: m.l1,
+    l2: m.l2,
+    l3: m.l3,
+    accuracy_pct: m.practiced > 0 ? Math.round((m.correct / m.practiced) * 100) : 0,
+    weighted_pct: m.practiced > 0 ? Math.round((m.earned_weight / m.practiced) * 100) : 0
+  }));
+
+  const accuracyPct = totalPracticed > 0 ? Math.round((totalCorrect / totalPracticed) * 100) : 0;
+  const weightedPct = totalPracticed > 0 ? Math.round((totalEarnedWeight / totalPracticed) * 100) : 0;
+
+  // Session counter (cross-test ARR session metrics) for transparency
+  const sessionPracticed = sessionItemsAll.length;
+  const sessionCorrect = sessionItemsAll.filter(it => it && it.is_correct).length;
+  const sessionAccuracyPct = sessionPracticed > 0 ? Math.round((sessionCorrect / sessionPracticed) * 100) : 0;
+
+  const sourcesSummary = byTestStats.length > 0
+    ? byTestStats.map(s => `${s.test_short} (${s.correct}/${s.practiced})`).join(" + ")
+    : ((getActiveTestMeta() || {}).short_title || "Digital SAT");
+
+  return {
+    generated_at: new Date().toLocaleString("vi-VN"),
+    generated_date_iso: new Date().toISOString().slice(0, 10),
+    student: {
+      name: studentName,
+      email: (App.studentState && App.studentState.student_email) || "Chưa cung cấp",
+      target: (App.studentState && App.studentState.student_target) || "1400+",
+      sources_summary: sourcesSummary
+    },
+    overall: {
+      total_practiced: totalPracticed,
+      total_correct: totalCorrect,
+      total_unfinished_or_missed: Math.max(0, totalPracticed - totalCorrect),
+      l1_correct: totalL1,
+      l2_correct: totalL2,
+      l3_correct: totalL3,
+      accuracy_pct: accuracyPct,
+      weighted_pct: weightedPct,
+      error_logs_count: errorLogs.length,
+      vocab_notes_count: errorLogs.filter(e => e.vocabulary && e.vocabulary.trim()).length,
+      vocab_terms_count: vocabEntries.length,
+      session_practiced: sessionPracticed,
+      session_correct: sessionCorrect,
+      session_accuracy_pct: sessionAccuracyPct
+    },
+    by_test: byTestStats,
+    by_module: byModuleStats,
+    practiced_questions: practicedRows,
+    error_logs: errorLogs,
+    vocab_entries: vocabEntries
+  };
+}
+
+function buildConsolidatedWorkbookAoa(exportData) {
+  const st = exportData.student || {};
+  const ov = exportData.overall || {};
+
+  // ---- Sheet 1: Hieu_Suat_Lam_Bai ----
+  const perfAoa = [
+    ["BÁO CÁO TỔNG HỢP THỰC HÀNH DIGITAL SAT BLUEBOOK (SOCRATIC)"],
+    ["Thông tin học sinh & Hiệu suất làm bài • Phản hồi đa tầng • Sổ tay Thử sai & Từ vựng Socratic"],
+    [],
+    ["1. THÔNG TIN HỌC SINH & PHIÊN XUẤT BÁO CÁO"],
+    ["Họ và tên học sinh", st.name || "Hoc_Sinh"],
+    ["Email học sinh", st.email || "Chưa cung cấp"],
+    ["Mục tiêu điểm SAT", st.target || "1400+"],
+    ["Nguồn tài liệu / Bộ đề đã thực hành", st.sources_summary || "Chưa có dữ liệu"],
+    ["Thời gian xuất báo cáo", exportData.generated_at || new Date().toLocaleString("vi-VN")],
+    ["Giáo viên hướng dẫn", "Mike Pham Bá Hong Son • mikepham358@gmail.com"],
+    [],
+    ["2. HIỆU SUẤT LÀM BÀI TỔNG HỢP"],
+    ["Chỉ số hiệu suất", "Giá trị", "Diễn giải / Ghi chú"],
+    ["Tổng số câu đã thực hành", ov.total_practiced || 0, "Tổng số câu đã có ít nhất 1 lần chọn đáp án xuyên suốt các bộ đề"],
+    ["Số câu hoàn thành đúng", ov.total_correct || 0, "Trả lời chính xác ở Lần 1, Lần 2 hoặc Lần 3"],
+    ["Chưa hoàn thành / Sai cả 3 lần", ov.total_unfinished_or_missed || 0, "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử sai"],
+    ["Tỷ lệ chính xác (Đúng / Đã làm)", `${ov.accuracy_pct || 0}%`, "Tỷ lệ số câu hoàn thành đúng trên tổng số câu đã thực hành"],
+    ["Hiệu suất Socratic (Có trọng số)", `${ov.weighted_pct || 0}%`, "Trọng số Socratic: Đúng Lần 1 = 100%, Lần 2 = 66.7%, Lần 3 = 33.3%"],
+    ["Đúng ngay Lần 1 (L1 - 100%)", ov.l1_correct || 0, "Làm đúng độc lập không cần mở gợi ý"],
+    ["Đúng ở Lần 2 (L2 - 66.7%)", ov.l2_correct || 0, "Điều chỉnh đúng sau Phản hồi Tầng 1"],
+    ["Đúng ở Lần 3 (L3 - 33.3%)", ov.l3_correct || 0, "Hoàn thành sau Phản hồi Tầng 2"],
+    ["Tổng ghi chép Sổ tay Thử sai Socratic", ov.error_logs_count || 0, "Số thẻ phân tích bẫy SAT & bài học đã lưu"],
+    ["Số mục Từ vựng Socratic đã ghi", ov.vocab_terms_count || 0, `${ov.vocab_notes_count || 0} thẻ ghi chép có từ mới / thuật ngữ`],
+    ["Phiên học hiện tại (Bộ đếm ARR)", `${ov.session_correct || 0}/${ov.session_practiced || 0} câu (${ov.session_accuracy_pct || 0}%)`, "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"]
+  ];
+
+  perfAoa.push([]);
+  perfAoa.push(["3. HIỆU SUẤT THEO TỪNG NGUỒN TÀI LIỆU / BỘ ĐỀ"]);
+  perfAoa.push([
+    "Nguồn tài liệu / Bộ đề", "Đã thực hành", "Số câu đúng", "Chưa đúng / Chờ xử lý",
+    "L1 (100%)", "L2 (66.7%)", "L3 (33.3%)", "Tỷ lệ đúng (%)", "Hiệu suất Socratic (%)"
+  ]);
+  const byTest = exportData.by_test || [];
+  if (byTest.length === 0) {
+    perfAoa.push(["Chưa có câu hỏi nào được thực hành", 0, 0, 0, 0, 0, 0, "0%", "0%"]);
+  } else {
+    byTest.forEach(t => {
+      perfAoa.push([
+        t.test_short,
+        t.practiced,
+        t.correct,
+        t.unfinished_or_missed,
+        t.l1,
+        t.l2,
+        t.l3,
+        `${t.accuracy_pct}%`,
+        `${t.weighted_pct}%`
+      ]);
+    });
+    perfAoa.push([
+      "TỔNG CỘNG TẤT CẢ BỘ ĐỀ",
+      ov.total_practiced || 0,
+      ov.total_correct || 0,
+      ov.total_unfinished_or_missed || 0,
+      ov.l1_correct || 0,
+      ov.l2_correct || 0,
+      ov.l3_correct || 0,
+      `${ov.accuracy_pct || 0}%`,
+      `${ov.weighted_pct || 0}%`
+    ]);
+  }
+
+  perfAoa.push([]);
+  perfAoa.push(["4. CHI TIẾT HIỆU SUẤT THEO MODULE / CHƯƠNG / CHUYÊN ĐỀ"]);
+  perfAoa.push([
+    "Nguồn tài liệu", "Module / Chương / Chuyên đề", "Đã thực hành", "Số câu đúng",
+    "Chưa đúng", "L1", "L2", "L3", "Tỷ lệ đúng (%)"
+  ]);
+  const byMod = exportData.by_module || [];
+  if (byMod.length === 0) {
+    perfAoa.push(["Chưa có dữ liệu module / chương", "", 0, 0, 0, 0, 0, 0, "0%"]);
+  } else {
+    byMod.forEach(m => {
+      perfAoa.push([
+        m.test_short,
+        m.module_title,
+        m.practiced,
+        m.correct,
+        m.unfinished_or_missed,
+        m.l1,
+        m.l2,
+        m.l3,
+        `${m.accuracy_pct}%`
+      ]);
+    });
+  }
+
+  // ---- Sheet 2: Cau_Hoi_Da_Thuc_Hanh ----
+  const qHeaders = [
+    "STT",
+    "Nguồn tài liệu / Bộ đề",
+    "Module / Chương",
+    "Mã câu",
+    "Chủ đề / Kỹ năng",
+    "Trang (PDF / Sách)",
+    "Độ khó",
+    "Nội dung câu hỏi & Phương án",
+    "Lần thử 1",
+    "Lần thử 2",
+    "Lần thử 3",
+    "Đáp án đúng",
+    "Kết quả & Mức đạt",
+    "Hiệu suất (%)",
+    "Phản hồi Tầng 1 (Định hướng tư duy)",
+    "Phản hồi Tầng 2 (Manh mối cấu trúc & Loại trừ)",
+    "Phản hồi Tầng 3 (Chốt phương pháp & Lời giải chi tiết)",
+    "Phản hồi Tầng 4 (Chiến thuật & Công thức cốt lõi)",
+    "Ghi chú Sổ thử sai Socratic (nếu có)",
+    "Thời gian thực hành"
+  ];
+  const qAoa = [
+    [`DANH SÁCH CÂU HỎI ĐÃ THỰC HÀNH & PHẢN HỒI ĐA TẦNG — ${(st.name || "HỌC SINH").toUpperCase()}`],
+    qHeaders
+  ];
+  const pQuestions = exportData.practiced_questions || [];
+  if (pQuestions.length === 0) {
+    qAoa.push([
+      1, "", "", "", "", "", "",
+      "Chưa có câu hỏi nào được thực hành. Hãy chọn đáp án trong bài luyện tập để hệ thống lưu lại câu hỏi và phản hồi đa tầng.",
+      "", "", "", "", "", "", "", "", "", "", "", ""
+    ]);
+  } else {
+    pQuestions.forEach(q => {
+      qAoa.push([
+        q.stt,
+        q.test_short,
+        q.module_title,
+        q.q_label,
+        q.topic,
+        q.page_label,
+        q.difficulty,
+        q.question_content,
+        q.attempt_1,
+        q.attempt_2,
+        q.attempt_3,
+        q.correct_answer,
+        q.status_label,
+        `${q.efficiency_pct}%`,
+        q.tier1_feedback,
+        q.tier2_feedback,
+        q.tier3_feedback,
+        q.tier4_feedback,
+        q.error_note_summary,
+        q.practiced_at
+      ]);
+    });
+  }
+
+  // ---- Sheet 3: So_Tay_Thu_Sai_Socratic ----
+  const errHeaders = [
+    "STT",
+    "Nguồn tài liệu / Bộ đề",
+    "Mã câu",
+    "Module / Chương",
+    "Chủ đề / Kỹ năng",
+    "Các lần chọn sai",
+    "Đáp án đúng",
+    "Nhóm bẫy SAT / Nguyên nhân gốc",
+    "Phân tích nguyên nhân thử sai & Bài học rút ra",
+    "Ghi chú tư duy cá nhân",
+    "Từ mới & Thuật ngữ Socratic đã ghi",
+    "Gợi ý Socratic tham chiếu (Tầng 1)",
+    "Tình trạng xử lý",
+    "Ngày ghi chép"
+  ];
+  const errAoa = [
+    [`SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ — ${(st.name || "HỌC SINH").toUpperCase()}`],
+    errHeaders
+  ];
+  const eLogs = exportData.error_logs || [];
+  if (eLogs.length === 0) {
+    errAoa.push([
+      1, "", "", "", "", "", "", "",
+      "Chưa có ghi chép nào trong Sổ tay Thử sai Socratic.",
+      "", "", "", "", ""
+    ]);
+  } else {
+    eLogs.forEach(e => {
+      errAoa.push([
+        e.stt,
+        e.test_short,
+        e.q_label,
+        e.module,
+        e.skill,
+        e.wrong_attempts,
+        e.correct_answer,
+        e.root_cause,
+        e.trap_detail,
+        e.student_notes,
+        e.vocabulary,
+        e.socratic_analysis,
+        e.status,
+        e.date
+      ]);
+    });
+  }
+
+  // ---- Sheet 4: Tu_Vung_Socratic ----
+  const vocabHeaders = [
+    "STT",
+    "Nguồn tài liệu / Bộ đề",
+    "Mã câu liên quan",
+    "Module / Chủ đề",
+    "Từ mới / Thuật ngữ Socratic",
+    "Nghĩa / Giải thích học sinh đã ghi",
+    "Ngữ cảnh bẫy SAT & Ghi chú liên quan",
+    "Ngày ghi chép"
+  ];
+  const vocabAoa = [
+    [`TỪ VỰNG & THUẬT NGỮ SOCRATIC ĐÃ GHI CHÉP — ${(st.name || "HỌC SINH").toUpperCase()}`],
+    vocabHeaders
+  ];
+  const vEntries = exportData.vocab_entries || [];
+  if (vEntries.length === 0) {
+    vocabAoa.push([
+      1, "", "", "",
+      "Chưa có từ vựng / thuật ngữ nào được ghi chép trong Sổ tay Socratic.",
+      "", "", ""
+    ]);
+  } else {
+    vEntries.forEach(v => {
+      vocabAoa.push([
+        v.stt,
+        v.test_short,
+        v.q_label,
+        v.module_skill,
+        v.term,
+        v.meaning,
+        v.context_note,
+        v.date
+      ]);
+    });
+  }
+
+  return { perfAoa, qAoa, errAoa, vocabAoa };
+}
+
+// ================= CLIENT-SIDE CONSOLIDATED EXCEL GENERATOR =================
+async function generateClientExcelBlob(studentName, exportData) {
   if (typeof XLSX === "undefined") return null;
 
   try {
-    let wb = null;
-    // 1. Try to load the master template.xlsx
-    try {
-      const res = await fetch("template.xlsx");
-      if (res.ok) {
-        const ab = await res.arrayBuffer();
-        wb = XLSX.read(ab, { type: "array", cellStyles: true });
-      }
-    } catch (e) {
-      console.warn("Could not fetch template.xlsx:", e);
-    }
+    const data = exportData || await collectConsolidatedExportData(studentName);
+    const { perfAoa, qAoa, errAoa, vocabAoa } = buildConsolidatedWorkbookAoa(data);
 
-    if (wb && wb.SheetNames && wb.SheetNames.includes("RW_Module1")) {
-      const attempts = App.studentState.attempts || {};
-      const questions = (App.db && App.db.questions) ? App.db.questions : (App.questions || []);
+    const wb = XLSX.utils.book_new();
 
-      // 1. Populate Overview_Strategies with Tong_Quan structure
-      if (wb.Sheets["Overview_Strategies"]) {
-        const wsOv = wb.Sheets["Overview_Strategies"];
-        wsOv["A1"] = { t: "s", v: "BÁO CÁO KẾT QUẢ DIGITAL SAT BLUEBOOK" };
-        wsOv["A2"] = { t: "s", v: "Đề thi" };
-        wsOv["B2"] = { t: "s", v: App.db ? App.db.test_title : "Digital SAT Practice Test — October 2026 (INT-B)" };
-        wsOv["A3"] = { t: "s", v: "Học sinh" };
-        wsOv["B3"] = { t: "s", v: studentName };
-        wsOv["A4"] = { t: "s", v: "Email học sinh" };
-        wsOv["B4"] = { t: "s", v: App.studentState.student_email || "Chưa cung cấp" };
-        wsOv["A5"] = { t: "s", v: "Mục tiêu điểm" };
-        wsOv["B5"] = { t: "s", v: App.studentState.student_target || "1400+" };
-        wsOv["A6"] = { t: "s", v: "Thời gian nộp" };
-        wsOv["B6"] = { t: "s", v: new Date().toLocaleString("vi-VN") };
-        wsOv["A7"] = { t: "s", v: "Giáo viên phụ trách" };
-        wsOv["B7"] = { t: "s", v: "Mike Pham Bá Hong Son (Google for Education Innovator: https://edudirectory.withgoogle.com/profiles/5087615831769088) - mikepham358@gmail.com" };
-        wsOv["A8"] = { t: "s", v: "Nguồn tài liệu" };
-        wsOv["B8"] = { t: "s", v: "Tham khảo từ hocsat.com" };
-
-        wsOv["A10"] = { t: "s", v: "BẢNG TỔNG KẾT ĐIỂM SỐ" };
-        wsOv["A11"] = { t: "s", v: "Tổng số câu" };
-        wsOv["B11"] = { t: "n", v: summary ? summary.total : 98 };
-        wsOv["A12"] = { t: "s", v: "Số câu đã làm" };
-        wsOv["B12"] = { t: "n", v: summary ? summary.answered : 0 };
-        wsOv["A13"] = { t: "s", v: "Số câu đúng Lần 1 (100%)" };
-        wsOv["B13"] = { t: "n", v: summary ? summary.l1Correct : 0 };
-        wsOv["A14"] = { t: "s", v: "Số câu đúng Lần 2 (66.7%)" };
-        wsOv["B14"] = { t: "n", v: summary ? summary.l2Correct : 0 };
-        wsOv["A15"] = { t: "s", v: "Số câu đúng Lần 3 (33.3%)" };
-        wsOv["B15"] = { t: "n", v: summary ? summary.l3Correct : 0 };
-        wsOv["A16"] = { t: "s", v: "Hiệu suất điểm" };
-        wsOv["B16"] = { t: "s", v: summary ? `${summary.scorePct}%` : "0%" };
-        wsOv["A17"] = { t: "s", v: "Điểm ước tính" };
-        wsOv["B17"] = { t: "s", v: `${summary ? (summary.estimatedScore || Math.round(400 + (summary.scorePct / 100) * 1200)) : 400} / 1600` };
-        wsOv["A18"] = { t: "s", v: "Số lần thử sai ghi sổ" };
-        wsOv["B18"] = { t: "n", v: (App.studentState.error_logs || []).length };
-      }
-
-      // 2. Personalize Performance_Summary header
-      if (wb.Sheets["Performance_Summary"]) {
-        const wsPerf = wb.Sheets["Performance_Summary"];
-        wsPerf["A1"] = { t: "s", v: `BẢNG TỔNG HỢP KẾT QUẢ: ${studentName.toUpperCase()} (OCTOBER 2026 TEST)` };
-        wsPerf["A3"] = { t: "s", v: `Học sinh: ${studentName} | Thời gian làm bài: ${new Date().toLocaleString("vi-VN")}` };
-      }
-
-      // 3. Clear old attempt values from Module sheets & Master sheet
-      const modSheets = ["RW_Module1", "RW_Module2", "Math_Module1", "Math_Module2"];
-      modSheets.forEach(mName => {
-        const ws = wb.Sheets[mName];
-        if (ws) {
-          for (let r = 5; r <= 35; r++) {
-            delete ws[`F${r}`];
-            delete ws[`H${r}`];
-            delete ws[`J${r}`];
-          }
-        }
-      });
-
-      const wsMaster = wb.Sheets["Master_All_98_Questions"];
-      if (wsMaster) {
-        for (let r = 5; r <= 105; r++) {
-          delete wsMaster[`G${r}`];
-          delete wsMaster[`I${r}`];
-          delete wsMaster[`K${r}`];
-        }
-      }
-
-      // 4. Populate student attempts into Module sheets & Master sheet
-      questions.forEach(q => {
-        const qState = attempts[q.id];
-        if (!qState) return;
-
-        let attList = qState.attempts || [];
-        if (!Array.isArray(attList)) attList = [attList];
-
-        const att1 = attList[0] ? String(attList[0]).trim().toUpperCase() : "";
-        const att2 = attList[1] ? String(attList[1]).trim().toUpperCase() : "";
-        const att3 = attList[2] ? String(attList[2]).trim().toUpperCase() : "";
-
-        // Module Sheet
-        const ws = wb.Sheets[q.module_code];
-        if (ws) {
-          for (let r = 5; r <= 35; r++) {
-            const cellA = ws[`A${r}`];
-            if (cellA && String(cellA.v).trim() === String(q.q_label).trim()) {
-              if (att1) ws[`F${r}`] = { t: "s", v: att1 };
-              if (att2) ws[`H${r}`] = { t: "s", v: att2 };
-              if (att3) ws[`J${r}`] = { t: "s", v: att3 };
-              break;
-            }
-          }
-        }
-
-        // Master Sheet
-        if (wsMaster) {
-          const r = q.id + 4;
-          if (att1) wsMaster[`G${r}`] = { t: "s", v: att1 };
-          if (att2) wsMaster[`I${r}`] = { t: "s", v: att2 };
-          if (att3) wsMaster[`K${r}`] = { t: "s", v: att3 };
-        }
-      });
-
-      // 5. Populate SAT_Error_Log_Tracker with So_Tay_Loi_Sai_Tu_Vung structure
-      const wsErr = wb.Sheets["SAT_Error_Log_Tracker"];
-      if (wsErr) {
-        // Headers in Row 1
-        const headers = [
-          "STT", "Mã câu", "Module", "Chủ đề / Kỹ năng", "Nhóm bẫy SAT",
-          "Phân tích nguyên nhân & Bài học", "Ghi chú tư duy", "Từ mới / Thuật ngữ",
-          "Tình trạng", "Thời gian"
-        ];
-        const cols = ["A","B","C","D","E","F","G","H","I","J"];
-        headers.forEach((h, i) => {
-          wsErr[`${cols[i]}1`] = { t: "s", v: h };
-        });
-
-        // Clear old rows 2 to 60
-        for (let r = 2; r <= 60; r++) {
-          for (let col of cols) {
-            delete wsErr[`${col}${r}`];
-          }
-        }
-
-        // Write student error logs
-        const errList = App.studentState.error_logs || [];
-        errList.forEach((e, idx) => {
-          const r = 2 + idx;
-          wsErr[`A${r}`] = { t: "n", v: idx + 1 };
-          wsErr[`B${r}`] = { t: "s", v: String(e.q_label || `Q${e.question_id || ""}`) };
-          wsErr[`C${r}`] = { t: "s", v: String(e.module || "") };
-          wsErr[`D${r}`] = { t: "s", v: String(e.skill || "") };
-          wsErr[`E${r}`] = { t: "s", v: String(e.root_cause || "Bẫy SAT") };
-          wsErr[`F${r}`] = { t: "s", v: String(e.trap_detail || "") };
-          wsErr[`G${r}`] = { t: "s", v: String(e.student_notes || "") };
-          wsErr[`H${r}`] = { t: "s", v: String(e.vocabulary || "") };
-          wsErr[`I${r}`] = { t: "s", v: String(e.status || "Đang theo dõi") };
-          wsErr[`J${r}`] = { t: "s", v: String(e.date || new Date().toLocaleDateString("vi-VN")) };
-        });
-      }
-
-      const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-      return new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-    }
-
-    // Fallback: minimal workbook if template.xlsx is unreachable
-    const fallbackWb = XLSX.utils.book_new();
-    const overviewData = [
-      ["BÁO CÁO KẾT QUẢ DIGITAL SAT BLUEBOOK"],
-      ["Học sinh", studentName],
-      ["Email", App.studentState.student_email || "N/A"],
-      ["Hiệu suất", summary ? `${summary.scorePct}%` : "0%"]
+    const wsPerf = XLSX.utils.aoa_to_sheet(perfAoa);
+    wsPerf["!cols"] = [
+      { wch: 36 }, { wch: 34 }, { wch: 48 }, { wch: 20 },
+      { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 16 }, { wch: 20 }
     ];
-    XLSX.utils.book_append_sheet(fallbackWb, XLSX.utils.aoa_to_sheet(overviewData), "Tong_Quan");
-    const wbout = XLSX.write(fallbackWb, { bookType: "xlsx", type: "array" });
+    wsPerf["!merges"] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 8 } },
+      { s: { r: 1, c: 0 }, e: { r: 1, c: 8 } }
+    ];
+    XLSX.utils.book_append_sheet(wb, wsPerf, "Hieu_Suat_Lam_Bai");
+
+    const wsQ = XLSX.utils.aoa_to_sheet(qAoa);
+    wsQ["!cols"] = [
+      { wch: 6 }, { wch: 24 }, { wch: 30 }, { wch: 14 }, { wch: 28 },
+      { wch: 18 }, { wch: 12 }, { wch: 52 }, { wch: 10 }, { wch: 10 },
+      { wch: 10 }, { wch: 12 }, { wch: 22 }, { wch: 13 }, { wch: 44 },
+      { wch: 46 }, { wch: 54 }, { wch: 48 }, { wch: 40 }, { wch: 20 }
+    ];
+    wsQ["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 19 } }];
+    XLSX.utils.book_append_sheet(wb, wsQ, "Cau_Hoi_Da_Thuc_Hanh");
+
+    const wsErr = XLSX.utils.aoa_to_sheet(errAoa);
+    wsErr["!cols"] = [
+      { wch: 6 }, { wch: 24 }, { wch: 14 }, { wch: 28 }, { wch: 26 },
+      { wch: 16 }, { wch: 12 }, { wch: 32 }, { wch: 46 }, { wch: 36 },
+      { wch: 36 }, { wch: 40 }, { wch: 18 }, { wch: 14 }
+    ];
+    wsErr["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 13 } }];
+    XLSX.utils.book_append_sheet(wb, wsErr, "So_Tay_Thu_Sai_Socratic");
+
+    const wsVocab = XLSX.utils.aoa_to_sheet(vocabAoa);
+    wsVocab["!cols"] = [
+      { wch: 6 }, { wch: 24 }, { wch: 16 }, { wch: 30 },
+      { wch: 28 }, { wch: 44 }, { wch: 42 }, { wch: 14 }
+    ];
+    wsVocab["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 7 } }];
+    XLSX.utils.book_append_sheet(wb, wsVocab, "Tu_Vung_Socratic");
+
+    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     return new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
   } catch (e) {
     console.error("Client Excel generation failed:", e);
@@ -3064,55 +3640,84 @@ async function generateClientExcelBlob(studentName, summary) {
   }
 }
 
-// ================= EXPORT EXCEL (SENDS STUDENT'S LOCALSTORAGE) =================
+// ================= EXPORT CONSOLIDATED EXCEL =================
 async function exportExcelPersonalized() {
-  const studentName = DOM.inputStudentName.value.trim() || prompt("Nhập họ và tên của em để xuất phiếu làm bài:") || "Hoc_Sinh";
-  DOM.inputStudentName.value = studentName;
-  App.studentState.student_name = studentName;
+  const resolvedName = (
+    (App.studentState && App.studentState.student_name ? String(App.studentState.student_name).trim() : "") ||
+    (DOM.inputStudentName ? DOM.inputStudentName.value.trim() : "") ||
+    (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") ||
+    prompt("Nhập họ và tên của em để xuất file Excel tổng hợp:") ||
+    "Hoc_Sinh"
+  ).trim() || "Hoc_Sinh";
+
+  App.studentState.student_name = resolvedName;
+  if (DOM.inputStudentName) DOM.inputStudentName.value = resolvedName;
+  if (DOM.homeInputName) DOM.homeInputName.value = resolvedName;
+  if (DOM.headerStudentName) DOM.headerStudentName.textContent = resolvedName;
   saveLocalState();
 
-  const payload = {
-    student_name: studentName,
-    attempts: App.studentState.attempts,
-    error_logs: App.studentState.error_logs || []
-  };
+  const btn = DOM.btnExportExcel;
+  const textSpan = btn ? btn.querySelector(".tool-text") : null;
+  const origLabel = textSpan ? textSpan.textContent : "";
+  if (btn) btn.disabled = true;
+  if (textSpan) textSpan.textContent = "Đang xuất...";
 
-  let downloaded = false;
   try {
-    const res = await fetch("/api/export-excel", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    const exportData = await collectConsolidatedExportData(resolvedName);
+    const safeFileStudent = resolvedName.replace(/[^a-zA-Z0-9\u00C0-\u1EF9_-]+/g, "_").replace(/^_+|_+$/g, "") || "Hoc_Sinh";
+    const dateStamp = (exportData.generated_date_iso || new Date().toISOString().slice(0, 10)).replace(/-/g, "");
+    const downloadFilename = `SAT_Tong_Hop_Thuc_Hanh_${safeFileStudent}_${dateStamp}.xlsx`;
 
-    if (res.ok) {
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `SAT_October_2026_${studentName.replace(/\s+/g, '_')}.xlsx`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      downloaded = true;
-    }
-  } catch (e) {}
+    const payload = {
+      student_name: resolvedName,
+      student_email: (App.studentState && App.studentState.student_email) || "",
+      student_target: (App.studentState && App.studentState.student_target) || "1400+",
+      attempts: App.studentState.attempts || {},
+      error_logs: App.studentState.error_logs || [],
+      export_data: exportData
+    };
 
-  // Fallback to client-side SheetJS generation (for GitHub Pages)
-  if (!downloaded) {
-    const s = calculateTestSummary();
-    const blob = await generateClientExcelBlob(studentName, s);
-    if (blob) {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `SAT_October_2026_${studentName.replace(/\s+/g, '_')}.xlsx`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    } else {
-      alert("Không thể tạo file Excel. Vui lòng tải lại trang.");
+    let downloaded = false;
+    try {
+      const res = await fetch("/api/export-excel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = downloadFilename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+        downloaded = true;
+      }
+    } catch (e) {}
+
+    // Fallback to client-side SheetJS generation (for GitHub Pages static hosting)
+    if (!downloaded) {
+      const blob = await generateClientExcelBlob(resolvedName, exportData);
+      if (blob) {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = downloadFilename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+      } else {
+        alert("Không thể tạo file Excel tổng hợp. Vui lòng tải lại trang.");
+      }
     }
+  } finally {
+    if (btn) btn.disabled = false;
+    if (textSpan && origLabel) textSpan.textContent = origLabel;
   }
 }
 
