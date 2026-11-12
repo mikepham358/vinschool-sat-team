@@ -159,7 +159,9 @@ const App = {
   aarLogs: [],
   lastAarReportAt: null,
   aarDraft: {
+    session_date: "",
     session_label: "",
+    session_label_user_set: false,
     sat_module: "",
     sat_module_custom: "",
     sat_module_user_set: false,
@@ -928,6 +930,10 @@ function startPracticeFromHome(targetModule) {
   }
 
   // Validate & auto-save Stage 1 Anticipation (ARR) before entering practice
+  if (DOM.homeAarSession && !isValidIsoDate(DOM.homeAarSession.value)) {
+    flagHomeFieldError(DOM.homeAarSession, "Vui lòng chọn ngày thực tập ở mục Buổi # trước khi bắt đầu làm bài!");
+    return;
+  }
   if (DOM.homeAarGoal && DOM.homeAarChallenge) {
     const draftGoal = DOM.homeAarGoal.value.trim();
     const draftChallenge = DOM.homeAarChallenge.value.trim();
@@ -5095,7 +5101,12 @@ function setupEventListeners() {
     DOM.aarInputSatModuleCustom.addEventListener("input", () => captureModalAarDraftFromInputs({ markModuleUserSet: true }));
   }
   if (DOM.aarInputSessionLabel) {
-    DOM.aarInputSessionLabel.addEventListener("input", () => captureModalAarDraftFromInputs());
+    DOM.aarInputSessionLabel.addEventListener("input", () => captureModalAarDraftFromInputs({ markSessionLabelUserSet: true }));
+  }
+  if (DOM.aarInputDate) {
+    const onModalDateChange = () => captureModalAarDraftFromInputs();
+    DOM.aarInputDate.addEventListener("input", onModalDateChange);
+    DOM.aarInputDate.addEventListener("change", onModalDateChange);
   }
   if (DOM.aarSelectIste) {
     DOM.aarSelectIste.addEventListener("change", () => {
@@ -5269,7 +5280,9 @@ function setupEventListeners() {
 
   // Integrated Home Anticipation (Stage 1 AAR) real-time two-way sync
   if (DOM.homeAarSession) {
-    DOM.homeAarSession.addEventListener("input", () => captureHomeAarDraftFromInputs());
+    const onHomeDateChange = () => captureHomeAarDraftFromInputs();
+    DOM.homeAarSession.addEventListener("input", onHomeDateChange);
+    DOM.homeAarSession.addEventListener("change", onHomeDateChange);
   }
   if (DOM.homeAarSatModule) {
     DOM.homeAarSatModule.addEventListener("change", () => {
@@ -5510,9 +5523,15 @@ const ISTE_STANDARDS_LOOKUP = {
   }
 };
 
+function isValidIsoDate(val) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(val || "").trim());
+}
+
 function createEmptyAarDraft() {
   return {
+    session_date: getTodayIsoLocal(),
     session_label: "",
+    session_label_user_set: false,
     sat_module: "",
     sat_module_custom: "",
     sat_module_user_set: false,
@@ -5593,6 +5612,10 @@ function loadGlobalAARState() {
     if (rawDraft) {
       const parsedDraft = JSON.parse(rawDraft);
       App.aarDraft = Object.assign(createEmptyAarDraft(), parsedDraft || {});
+      if (!isValidIsoDate(App.aarDraft.session_date)) {
+        App.aarDraft.session_date = isValidIsoDate(App.aarDraft.session_label) ? App.aarDraft.session_label.trim() : getTodayIsoLocal();
+      }
+      delete App.aarDraft.session_date_cleared;
     } else {
       App.aarDraft = createEmptyAarDraft();
     }
@@ -5652,14 +5675,22 @@ function getEffectiveModuleForIste(satModule, customModule) {
 
 function resolveAnticipationState() {
   const d = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
-  const nextIdx = (App.aarLogs ? App.aarLogs.length : 0) + 1;
-  const sessionLabel = d.session_label && d.session_label.trim() ? d.session_label : `Buổi ${nextIdx}`;
+  const sessionDate = d.session_date_cleared
+    ? ""
+    : (isValidIsoDate(d.session_date)
+      ? d.session_date.trim()
+      : (isValidIsoDate(d.session_label) ? d.session_label.trim() : getTodayIsoLocal()));
+  const dateDisplay = formatDateViFromIso(sessionDate || getTodayIsoLocal());
+  const sessionLabel = (d.session_label_user_set && d.session_label && d.session_label.trim())
+    ? d.session_label.trim()
+    : `Buổi ${dateDisplay}`;
   const satModule = (d.sat_module_user_set && d.sat_module) ? d.sat_module : detectDefaultAarModule();
   const effectiveModForIste = getEffectiveModuleForIste(satModule, d.sat_module_custom);
   const isteStandard = (d.iste_user_set && d.iste_standard)
     ? d.iste_standard
     : (getDefaultIsteForModule(effectiveModForIste) || d.iste_standard);
   return {
+    session_date: sessionDate,
     session_label: sessionLabel,
     sat_module: satModule,
     sat_module_custom: d.sat_module_custom || "",
@@ -5670,8 +5701,13 @@ function resolveAnticipationState() {
 }
 
 function applyAnticipationFieldsToElements(resolved, targets) {
-  targets.forEach(({ sessionEl, modEl, modCustomEl, isteEl, hintEl, goalEl, challengeEl }) => {
-    if (sessionEl && document.activeElement !== sessionEl) sessionEl.value = resolved.session_label;
+  targets.forEach(({ dateEl, sessionEl, modEl, modCustomEl, isteEl, hintEl, goalEl, challengeEl }) => {
+    if (dateEl && document.activeElement !== dateEl) {
+      dateEl.value = isValidIsoDate(resolved.session_date) ? resolved.session_date : "";
+    }
+    if (sessionEl && document.activeElement !== sessionEl) {
+      sessionEl.value = resolved.session_label;
+    }
     if (modEl && modEl.options.length > 0 && document.activeElement !== modEl) {
       modEl.value = resolved.sat_module;
     }
@@ -5692,7 +5728,8 @@ function syncAarAnticipationUI() {
   const resolved = resolveAnticipationState();
   applyAnticipationFieldsToElements(resolved, [
     {
-      sessionEl: DOM.homeAarSession,
+      dateEl: DOM.homeAarSession,
+      sessionEl: null,
       modEl: DOM.homeAarSatModule,
       modCustomEl: DOM.homeAarSatModuleCustom,
       isteEl: DOM.homeAarIste,
@@ -5701,6 +5738,7 @@ function syncAarAnticipationUI() {
       challengeEl: DOM.homeAarChallenge
     },
     {
+      dateEl: DOM.aarInputDate,
       sessionEl: DOM.aarInputSessionLabel,
       modEl: DOM.aarSelectSatModule,
       modCustomEl: DOM.aarInputSatModuleCustom,
@@ -5714,14 +5752,45 @@ function syncAarAnticipationUI() {
   updateHomeAarSyncBadge();
 }
 
-function captureDraftFromSource(source, { markModuleUserSet = false, markIsteUserSet = false } = {}) {
+function captureDraftFromSource(source, { markModuleUserSet = false, markIsteUserSet = false, markSessionLabelUserSet = false } = {}) {
   const prev = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
   const modVal = source.modEl ? source.modEl.value : prev.sat_module;
   const userSetMod = markModuleUserSet || prev.sat_module_user_set;
   const userSetIste = markIsteUserSet || prev.iste_user_set;
 
+  let nextDate = prev.session_date;
+  let dateCleared = Boolean(prev.session_date_cleared);
+  if (source.dateEl) {
+    const rawDate = source.dateEl.value.trim();
+    if (isValidIsoDate(rawDate)) {
+      nextDate = rawDate;
+      dateCleared = false;
+    } else {
+      nextDate = "";
+      dateCleared = true;
+    }
+  } else if (!isValidIsoDate(nextDate) && !dateCleared) {
+    nextDate = getTodayIsoLocal();
+  }
+
+  let nextSessionLabel = prev.session_label;
+  let userSetSessionLabel = Boolean(prev.session_label_user_set);
+  if (source.sessionEl && markSessionLabelUserSet) {
+    const rawLbl = source.sessionEl.value.trim();
+    if (rawLbl) {
+      nextSessionLabel = rawLbl;
+      userSetSessionLabel = true;
+    } else {
+      nextSessionLabel = "";
+      userSetSessionLabel = false;
+    }
+  }
+
   App.aarDraft = {
-    session_label: source.sessionEl ? source.sessionEl.value.trim() : prev.session_label,
+    session_date: nextDate,
+    session_date_cleared: dateCleared,
+    session_label: nextSessionLabel,
+    session_label_user_set: userSetSessionLabel,
     sat_module: modVal,
     sat_module_custom: source.modCustomEl ? source.modCustomEl.value.trim() : prev.sat_module_custom,
     sat_module_user_set: userSetMod,
@@ -5744,7 +5813,7 @@ function captureDraftFromSource(source, { markModuleUserSet = false, markIsteUse
 
 function captureHomeAarDraftFromInputs(opts = {}) {
   captureDraftFromSource({
-    sessionEl: DOM.homeAarSession,
+    dateEl: DOM.homeAarSession,
     modEl: DOM.homeAarSatModule,
     modCustomEl: DOM.homeAarSatModuleCustom,
     isteEl: DOM.homeAarIste,
@@ -5755,6 +5824,7 @@ function captureHomeAarDraftFromInputs(opts = {}) {
 
 function captureModalAarDraftFromInputs(opts = {}) {
   captureDraftFromSource({
+    dateEl: DOM.aarInputDate,
     sessionEl: DOM.aarInputSessionLabel,
     modEl: DOM.aarSelectSatModule,
     modCustomEl: DOM.aarInputSatModuleCustom,
@@ -6201,9 +6271,12 @@ function openAARModal() {
   }
   App.aarScope = initialScope;
 
-  if (DOM.aarInputDate) DOM.aarInputDate.value = getTodayIsoLocal();
+  if (App.aarDraft && !isValidIsoDate(App.aarDraft.session_date)) {
+    App.aarDraft.session_date = getTodayIsoLocal();
+    delete App.aarDraft.session_date_cleared;
+  }
 
-  // Restore saved pre-session Anticipation values (Session #, Module, ISTE, Goal, Challenge) & SAT Target
+  // Restore saved pre-session Anticipation values (Session date/label, Module, ISTE, Goal, Challenge) & SAT Target
   syncAarAnticipationUI();
 
   refreshAARPerformanceUI(true);
@@ -6273,7 +6346,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
     l3_correct: s.l3Correct,
     missed_count: s.missedOrRetry,
     error_log_count: (s.scopedErrors || []).length,
-    session_label: (DOM.aarInputSessionLabel && DOM.aarInputSessionLabel.value.trim()) || `Buổi ${(App.aarLogs || []).length + 1}`,
+    session_label: (DOM.aarInputSessionLabel && DOM.aarInputSessionLabel.value.trim()) || `Buổi ${formatDateViFromIso(dateIso)}`,
     date_iso: dateIso,
     date_display: formatDateViFromIso(dateIso),
     sat_module: satModuleVal,

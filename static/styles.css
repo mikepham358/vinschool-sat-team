@@ -4264,6 +4264,23 @@ body {
   box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
 }
 
+.m3-input-field input[type="date"],
+.aar-field input[type="date"] {
+  min-height: 41px;
+  cursor: pointer;
+}
+
+.m3-input-field input[type="date"]::-webkit-calendar-picker-indicator,
+.aar-field input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.m3-input-field input[type="date"]::-webkit-calendar-picker-indicator:hover,
+.aar-field input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 /* Integrated Home Stage 1 Anticipation Box */
 .home-anticipation-box {
   background: #f8faff;
