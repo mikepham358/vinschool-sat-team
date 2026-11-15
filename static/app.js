@@ -98,6 +98,24 @@ const TESTS_MANIFEST_DEFAULT = [
     modules_count: 17,
     storageKey: "bluebook_erica_writing_student_state_v1",
     description: "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc."
+  },
+  {
+    id: "princeton-advanced",
+    code: "princetonadvanced",
+    title: "Digital SAT Advanced: Harder Modules Practice Test (Princeton Review)",
+    short_title: "Princeton Harder Modules",
+    badge: "Thử Thách 1500+",
+    date: "2026-Advanced",
+    dataFile: "data/princeton_advanced.json",
+    pdfDriveId: "1KCJfZeXPf9rBVAAnY28vR6uH47enOq57",
+    pdfPreviewUrl: "https://drive.google.com/file/d/1KCJfZeXPf9rBVAAnY28vR6uH47enOq57/preview",
+    pdfViewUrl: "https://drive.google.com/file/d/1KCJfZeXPf9rBVAAnY28vR6uH47enOq57/view",
+    poster: "poster.png",
+    total_questions: 49,
+    time_minutes: 67,
+    modules_count: 2,
+    storageKey: "bluebook_princeton_advanced_student_state_v1",
+    description: "Bộ đề 2 Modules phân hóa đỉnh cao (27 câu Reading & Writing + 22 câu Harder Math) trích từ The Princeton Review Digital SAT Advanced kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
   }
 ];
 
@@ -108,6 +126,7 @@ function detectInitialTestId() {
     const paramTest = urlParams.get("test");
     if (paramTest) {
       const clean = paramTest.toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (clean.includes("princeton") || clean.includes("advanced") || clean.includes("harder")) return "princeton-advanced";
       if (clean.includes("panda") || clean.includes("nielson") || clean.includes("math")) return "panda-math";
       if (clean.includes("writing") || clean.includes("grammar")) return "erica-writing";
       if (clean.includes("erica") || clean.includes("reading")) return "erica-reading";
@@ -116,6 +135,7 @@ function detectInitialTestId() {
       return paramTest;
     }
     const hash = window.location.hash || "";
+    if (hash.includes("princeton") || hash.includes("advanced") || hash.includes("harder")) return "princeton-advanced";
     if (hash.includes("panda") || hash.includes("nielson") || hash.includes("math")) return "panda-math";
     if (hash.includes("writing") || hash.includes("grammar")) return "erica-writing";
     if (hash.includes("erica") || hash.includes("reading")) return "erica-reading";
@@ -756,10 +776,15 @@ function renderModuleCards() {
   const isErica = App.activeTestId === "erica-reading";
   const isEricaWriting = App.activeTestId === "erica-writing";
   const isPanda = App.activeTestId === "panda-math";
-  const isChapterBased = isErica || isEricaWriting || isPanda;
+  const isPrinceton = App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced";
+  const isChapterBased = isErica || isEricaWriting || isPanda || isPrinceton || (App.db && App.db.modules && App.db.modules.length !== 4);
 
   if (isChapterBased) {
-    if (isErica) {
+    if (isPrinceton) {
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "BỘ ĐỀ PHÂN HÓA ĐIỂM SỐ 1500+ (THE PRINCETON REVIEW)";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "2 Modules Nâng Cao (Digital SAT Advanced)";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập Reading & Writing (27 câu • 32 phút) hoặc Math (22 câu • 35 phút) kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.";
+    } else if (isErica) {
       if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
       if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chương Sách The Critical Reader";
       if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 101 câu (27 ví dụ minh họa kèm bài giảng + 74 bài tập thực hành).";
@@ -798,8 +823,12 @@ function renderModuleCards() {
       const titleClean = (m.short_title || m.title || "").replace(/^Chương \d+:\s*/, "");
       const headingText = m.card_heading || (m.chapter_num ? `Chương ${m.chapter_num}: ${titleClean}` : titleClean);
       const btnText = m.btn_label || (m.chapter_num ? `Luyện Tập Chương ${m.chapter_num} ➔` : `Luyện Tập ${titleClean} ➔`);
-      const pageLabel = isEricaWriting && m.book_start_page ? m.book_start_page : (m.pdf_start_page || 1);
-      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : (isEricaWriting ? "Quy tắc ngữ pháp và dấu câu SAT trọng tâm" : "Chiến thuật đọc hiểu cốt lõi"));
+      let pageLabel = isEricaWriting && m.book_start_page ? m.book_start_page : (m.pdf_start_page || 1);
+      if (isPrinceton) {
+        if (m.code === "RW_Harder") pageLabel = "2 – 12";
+        else if (m.code === "Math_Harder") pageLabel = "16 – 22";
+      }
+      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : (isEricaWriting ? "Quy tắc ngữ pháp và dấu câu SAT trọng tâm" : (isPrinceton ? "Chiến thuật xử lý câu hỏi SAT nâng cao 1500+" : "Chiến thuật đọc hiểu cốt lõi")));
       const countDetail = exCount > 0 
         ? `${total} Câu (${exCount} ví dụ + ${prCount} thực hành)`
         : `${total} Câu`;
@@ -1182,6 +1211,8 @@ function updateActiveTestUI() {
         optAll.textContent = `Toàn bộ 17 chuyên đề: Tất cả ${totalCount} câu (${App.db.total_examples || 62} ví dụ + ${App.db.total_practice || 272} thực hành)`;
       } else if (App.activeTestId === "panda-math") {
         optAll.textContent = `Toàn bộ 27 chương: Tất cả ${totalCount} câu hỏi SAT Math (College Panda)`;
+      } else if (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced") {
+        optAll.textContent = `Toàn bộ 2 Modules Nâng Cao: Tất cả ${totalCount} câu (Harder RW & Math)`;
       } else {
         optAll.textContent = `Toàn bộ đề: Tất cả ${totalCount} câu`;
       }
@@ -1445,7 +1476,7 @@ function startModuleTimer() {
     if (activeModObj && activeModObj.time_minutes) {
       mins = activeModObj.time_minutes;
     } else if (App.activeModuleCode === "ALL") {
-      mins = (App.db && App.db.time_minutes) ? App.db.time_minutes : (App.activeTestId === "erica-writing" ? 352 : (App.activeTestId === "erica-reading" ? 96 : 134));
+      mins = (App.db && App.db.time_minutes) ? App.db.time_minutes : (App.activeTestId === "erica-writing" ? 352 : (App.activeTestId === "erica-reading" ? 96 : ((App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced") ? 67 : 134)));
     }
     App.studentState.timer_seconds[App.activeModuleCode] = mins * 60;
   }
@@ -1533,8 +1564,11 @@ function renderCurrentQuestion() {
     const labelMeta = isEricaWriting && q.q_label
       ? ` — <span style="color:#1e40af; font-weight:700;">${escapeHtml(q.q_label)}</span>${bookPg ? ` <span style="opacity:0.78;">(Sách tr. ${bookPg})</span>` : ""}`
       : "";
+    const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
     if (App.activeTestId === "panda-math") {
       DOM.responseInstruction.innerHTML = '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> — Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
+    } else if (isPrinceton) {
+      DOM.responseInstruction.innerHTML = '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> — Đọc đề trên PDF và làm bài (gợi ý Socratic phản tư không lộ đáp án):';
     } else if (q.category === "example") {
       DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong>${labelMeta} — Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:`;
     } else if (q.category === "practice") {
@@ -2419,7 +2453,8 @@ function renderNavigatorTiles() {
 
 // ================= PDF NAVIGATION (GOOGLE DRIVE OFFICIAL) =================
 function navigatePdf(page, zoom = null) {
-  const maxPage = App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-writing" ? 218 : (App.activeTestId === "erica-reading" ? 175 : 44));
+  const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
+  const maxPage = App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-writing" ? 218 : (App.activeTestId === "erica-reading" ? 175 : (isPrinceton ? 22 : 44)));
   const p = Math.max(1, Math.min(maxPage, parseInt(page) || 1));
   if (DOM.pdfSyncPageNum) DOM.pdfSyncPageNum.textContent = p;
 }
