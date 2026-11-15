@@ -134,6 +134,25 @@ const TESTS_MANIFEST_DEFAULT = [
     modules_count: 17,
     storageKey: "bluebook_princeton_book_student_state_v1",
     description: "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
+  },
+  {
+    id: "princeton-prep-2025",
+    code: "princeton2025",
+    title: "The Princeton Review: Digital SAT Premium Prep 2025 (All Chapters & Drills)",
+    short_title: "Princeton SAT Prep 2025",
+    badge: "21 Chương Toàn Diện",
+    date: "2025-Premium",
+    dataFile: "data/princeton_2025.json",
+    pdfDriveId: "1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe",
+    pdfPreviewUrl: "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/preview",
+    pdfViewUrl: "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/view",
+    pdfFolderUrl: "https://drive.google.com/drive/folders/19qrbozV5u6ZxnAwDmemIKCMnnst7s5Wg",
+    poster: "poster.png",
+    total_questions: 277,
+    time_minutes: 380,
+    modules_count: 21,
+    storageKey: "bluebook_princeton_2025_student_state_v1",
+    description: "Bộ toàn bộ 277 câu hỏi và ví dụ minh họa (kèm bài giảng Here's How to Crack It và bài tập thực hành Drills) trích từ sách The Princeton Review Digital SAT Premium Prep 2025 phân theo 21 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
   }
 ];
 
@@ -144,6 +163,7 @@ function detectInitialTestId() {
     const paramTest = urlParams.get("test");
     if (paramTest) {
       const clean = paramTest.toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (clean.includes("princeton2025") || clean.includes("prep2025") || clean.includes("premium2025") || clean.includes("2025")) return "princeton-prep-2025";
       if (clean.includes("princetonbook") || clean.includes("book")) return "princeton-book";
       if (clean.includes("princeton") || clean.includes("advanced") || clean.includes("harder")) return "princeton-advanced";
       if (clean.includes("panda") || clean.includes("nielson") || clean.includes("math")) return "panda-math";
@@ -154,6 +174,7 @@ function detectInitialTestId() {
       return paramTest;
     }
     const hash = window.location.hash || "";
+    if (hash.includes("princeton2025") || hash.includes("prep2025") || hash.includes("premium2025") || hash.includes("2025")) return "princeton-prep-2025";
     if (hash.includes("princetonbook") || hash.includes("book")) return "princeton-book";
     if (hash.includes("princeton") || hash.includes("advanced") || hash.includes("harder")) return "princeton-advanced";
     if (hash.includes("panda") || hash.includes("nielson") || hash.includes("math")) return "panda-math";
@@ -798,10 +819,15 @@ function renderModuleCards() {
   const isPanda = App.activeTestId === "panda-math";
   const isPrinceton = App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced";
   const isPrincetonBook = App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook";
-  const isChapterBased = isErica || isEricaWriting || isPanda || isPrinceton || isPrincetonBook || (App.db && App.db.modules && App.db.modules.length !== 4);
+  const isPrincetonPrep2025 = App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025";
+  const isChapterBased = isErica || isEricaWriting || isPanda || isPrinceton || isPrincetonBook || isPrincetonPrep2025 || (App.db && App.db.modules && App.db.modules.length !== 4);
 
   if (isChapterBased) {
-    if (isPrincetonBook) {
+    if (isPrincetonPrep2025) {
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "21 CHƯƠNG TOÀN DIỆN THE PRINCETON REVIEW (PREMIUM PREP 2025)";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Toàn Diện 21 Chương Sách SAT Premium Prep 2025";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt từ Orientation, Reading, Rules/Writing đến Math (tổng 277 câu: ví dụ minh họa kèm bài giảng Here's How to Crack It + bài tập thực hành Drills) kèm gợi ý phản tư Socratic 4 tầng và link PDF gốc 1,094 trang.";
+    } else if (isPrincetonBook) {
       if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "17 CHƯƠNG CHUYÊN SÂU THE PRINCETON REVIEW (SAT ADVANCED)";
       if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Toàn Diện 17 Chương Sách SAT Advanced";
       if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt từ Orientation, Reading, Writing đến Math (tổng 233 câu: ví dụ minh họa kèm bài giảng Here's How to Ace It + bài tập thực hành Drills) kèm gợi ý phản tư Socratic 4 tầng và link PDF gốc 599 trang.";
@@ -852,10 +878,10 @@ function renderModuleCards() {
       if (isPrinceton) {
         if (m.code === "RW_Harder") pageLabel = "2 – 12";
         else if (m.code === "Math_Harder") pageLabel = "16 – 22";
-      } else if (isPrincetonBook && m.pdf_start_page && m.pdf_end_page) {
+      } else if ((isPrincetonBook || isPrincetonPrep2025) && m.pdf_start_page && m.pdf_end_page) {
         pageLabel = `${m.pdf_start_page} – ${m.pdf_end_page}`;
       }
-      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : (isEricaWriting ? "Quy tắc ngữ pháp và dấu câu SAT trọng tâm" : (isPrincetonBook ? "Chiến thuật xử lý câu hỏi SAT Advanced & bài giảng Princeton Review" : (isPrinceton ? "Chiến thuật xử lý câu hỏi SAT nâng cao 1500+" : "Chiến thuật đọc hiểu cốt lõi"))));
+      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : (isEricaWriting ? "Quy tắc ngữ pháp và dấu câu SAT trọng tâm" : (isPrincetonPrep2025 ? "Chiến thuật xử lý câu hỏi SAT Premium Prep 2025 & bài giảng Princeton Review" : (isPrincetonBook ? "Chiến thuật xử lý câu hỏi SAT Advanced & bài giảng Princeton Review" : (isPrinceton ? "Chiến thuật xử lý câu hỏi SAT nâng cao 1500+" : "Chiến thuật đọc hiểu cốt lõi")))));
       const countDetail = exCount > 0 
         ? `${total} Câu (${exCount} ví dụ + ${prCount} thực hành)`
         : `${total} Câu`;
@@ -1238,6 +1264,8 @@ function updateActiveTestUI() {
         optAll.textContent = `Toàn bộ 17 chuyên đề: Tất cả ${totalCount} câu (${App.db.total_examples || 62} ví dụ + ${App.db.total_practice || 272} thực hành)`;
       } else if (App.activeTestId === "panda-math") {
         optAll.textContent = `Toàn bộ 27 chương: Tất cả ${totalCount} câu hỏi SAT Math (College Panda)`;
+      } else if (App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025") {
+        optAll.textContent = `Toàn bộ 21 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 123} ví dụ + ${App.db.total_practice || 154} thực hành)`;
       } else if (App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook") {
         optAll.textContent = `Toàn bộ 17 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 97} ví dụ + ${App.db.total_practice || 136} thực hành)`;
       } else if (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced") {
@@ -1505,7 +1533,7 @@ function startModuleTimer() {
     if (activeModObj && activeModObj.time_minutes) {
       mins = activeModObj.time_minutes;
     } else if (App.activeModuleCode === "ALL") {
-      mins = (App.db && App.db.time_minutes) ? App.db.time_minutes : (App.activeTestId === "erica-writing" ? 352 : (App.activeTestId === "erica-reading" ? 96 : ((App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook") ? 320 : ((App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced") ? 67 : 134))));
+      mins = (App.db && App.db.time_minutes) ? App.db.time_minutes : ((App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025") ? 380 : (App.activeTestId === "erica-writing" ? 352 : (App.activeTestId === "erica-reading" ? 96 : ((App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook") ? 320 : ((App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced") ? 67 : 134)))));
     }
     App.studentState.timer_seconds[App.activeModuleCode] = mins * 60;
   }
@@ -1558,7 +1586,7 @@ function renderCurrentQuestion() {
 
   // Question Number & Navigation Labels
   if (DOM.qNumberLabel) {
-    if ((App.activeTestId === "erica-reading" || App.activeTestId === "ericareading" || App.activeTestId === "erica-writing" || App.activeTestId === "ericawriting" || App.activeTestId === "panda-math" || App.activeTestId === "pandamath" || App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook") && q.q_label) {
+    if ((App.activeTestId === "erica-reading" || App.activeTestId === "ericareading" || App.activeTestId === "erica-writing" || App.activeTestId === "ericawriting" || App.activeTestId === "panda-math" || App.activeTestId === "pandamath" || App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook" || App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025") && q.q_label) {
       const bookPg = q.book_page || (q.pdf_page ? (App.activeTestId.includes("princeton") ? q.pdf_page : q.pdf_page - 1) : null);
       const bookStr = bookPg ? ` • PDF trang ${bookPg}` : "";
       DOM.qNumberLabel.innerHTML = `<strong>${escapeHtml(q.q_label)}</strong> <span style="opacity:0.75; font-weight:normal; margin-left:8px;">(Mục ${App.currentIndex + 1}/${App.questions.length}${bookStr})</span>`;
@@ -1593,10 +1621,17 @@ function renderCurrentQuestion() {
     const labelMeta = isEricaWriting && q.q_label
       ? ` — <span style="color:#1e40af; font-weight:700;">${escapeHtml(q.q_label)}</span>${bookPg ? ` <span style="opacity:0.78;">(Sách tr. ${bookPg})</span>` : ""}`
       : "";
+    const isPrincetonPrep2025 = (App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025");
     const isPrincetonBook = (App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook");
     const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
     if (App.activeTestId === "panda-math") {
       DOM.responseInstruction.innerHTML = '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> — Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
+    } else if (isPrincetonPrep2025) {
+      if (q.category === "example") {
+        DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (PRINCETON SAT PREP 2025)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Crack It:`;
+      } else {
+        DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
+      }
     } else if (isPrincetonBook) {
       if (q.category === "example") {
         DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (THE PRINCETON REVIEW)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Ace It:`;
@@ -2489,9 +2524,10 @@ function renderNavigatorTiles() {
 
 // ================= PDF NAVIGATION (GOOGLE DRIVE OFFICIAL) =================
 function navigatePdf(page, zoom = null) {
+  const isPrincetonPrep2025 = (App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025");
   const isPrincetonBook = (App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook");
   const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
-  const maxPage = isPrincetonBook ? 599 : (App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-writing" ? 218 : (App.activeTestId === "erica-reading" ? 175 : (isPrinceton ? 22 : 44))));
+  const maxPage = isPrincetonPrep2025 ? 1094 : (isPrincetonBook ? 599 : (App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-writing" ? 218 : (App.activeTestId === "erica-reading" ? 175 : (isPrinceton ? 22 : 44)))));
   const p = Math.max(1, Math.min(maxPage, parseInt(page) || 1));
   if (DOM.pdfSyncPageNum) DOM.pdfSyncPageNum.textContent = p;
 }

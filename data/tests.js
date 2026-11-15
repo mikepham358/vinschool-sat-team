@@ -1,4 +1,3 @@
-// Auto-generated tests manifest
 window.TESTS_MANIFEST = [
   {
     "id": "oct-2026",
@@ -121,5 +120,24 @@ window.TESTS_MANIFEST = [
     "modules_count": 17,
     "storageKey": "bluebook_princeton_book_student_state_v1",
     "description": "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
+  },
+  {
+    "id": "princeton-prep-2025",
+    "code": "princeton2025",
+    "title": "The Princeton Review: Digital SAT Premium Prep 2025 (All Chapters & Drills)",
+    "short_title": "Princeton SAT Prep 2025",
+    "badge": "21 Chương Toàn Diện",
+    "date": "2025-Premium",
+    "dataFile": "data/princeton_2025.json",
+    "pdfDriveId": "1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/view",
+    "pdfFolderUrl": "https://drive.google.com/drive/folders/19qrbozV5u6ZxnAwDmemIKCMnnst7s5Wg",
+    "poster": "poster.png",
+    "total_questions": 277,
+    "time_minutes": 380,
+    "modules_count": 21,
+    "storageKey": "bluebook_princeton_2025_student_state_v1",
+    "description": "Bộ toàn bộ câu hỏi và ví dụ minh họa (kèm bài giảng Here's How to Crack It và bài tập thực hành Drills) trích từ sách The Princeton Review Digital SAT Premium Prep 2025 phân theo 21 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
   }
 ];
