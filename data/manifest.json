@@ -102,5 +102,23 @@
     "modules_count": 2,
     "storageKey": "bluebook_princeton_advanced_student_state_v1",
     "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực."
+  },
+  {
+    "id": "princeton-book",
+    "code": "princetonbook",
+    "title": "The Princeton Review: Digital SAT Advanced Comprehensive Guide (All Chapters & Drills)",
+    "short_title": "Princeton SAT Advanced Book",
+    "badge": "17 Chương Chuyên Sâu",
+    "date": "2026-Advanced",
+    "dataFile": "data/princeton_book.json",
+    "pdfDriveId": "10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd/view",
+    "poster": "poster.png",
+    "total_questions": 233,
+    "time_minutes": 320,
+    "modules_count": 17,
+    "storageKey": "bluebook_princeton_book_student_state_v1",
+    "description": "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
   }
 ]
