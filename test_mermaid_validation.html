@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mermaid Validation Test - Princeton Advanced</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+  <h1>Mermaid Validation for Princeton Advanced (49 Questions)</h1>
+  <div id="status">Loading data...</div>
+  <div id="results" style="margin-top: 20px;"></div>
+
+  <script>
+    mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+
+    async function runValidation() {
+      const statusEl = document.getElementById("status");
+      const resultsEl = document.getElementById("results");
+
+      try {
+        const resp = await fetch("data/princeton_advanced.json");
+        const data = await resp.json();
+        const questions = data.questions || [];
+
+        let passed = 0;
+        let failed = 0;
+        let html = "<table border='1' cellpadding='8' style='border-collapse: collapse; width: 100%;'>";
+        html += "<tr><th>ID</th><th>Label</th><th>Topic</th><th>Status</th><th>Error</th></tr>";
+
+        for (const q of questions) {
+          const code = q.mermaid_diagram;
+          let statusText = "PASSED";
+          let errText = "-";
+          let color = "#10b981";
+
+          if (!code || !code.trim()) {
+            statusText = "MISSING";
+            errText = "No mermaid diagram found";
+            color = "#ef4444";
+            failed++;
+          } else {
+            try {
+              await mermaid.parse(code.trim());
+              passed++;
+            } catch (err) {
+              statusText = "SYNTAX ERROR";
+              errText = err.message || String(err);
+              color = "#ef4444";
+              failed++;
+            }
+          }
+
+          html += `<tr>
+            <td>${q.id}</td>
+            <td><strong>${q.q_label}</strong></td>
+            <td>${q.topic || ''}</td>
+            <td style="color: ${color}; font-weight: bold;">${statusText}</td>
+            <td><small style="color: #666;">${errText}</small></td>
+          </tr>`;
+        }
+
+        html += "</table>";
+        statusEl.innerHTML = `<h2 style="color: ${failed === 0 ? '#10b981' : '#ef4444'}">
+          Summary: ${passed} / ${questions.length} PASSED (Failed: ${failed})
+        </h2>`;
+        resultsEl.innerHTML = html;
+        window.VALIDATION_DONE = true;
+        window.VALIDATION_PASSED = (failed === 0);
+      } catch (e) {
+        statusEl.innerHTML = `<h2 style="color: red;">Failed to load data: ${e.message}</h2>`;
+      }
+    }
+
+    runValidation();
+  </script>
+</body>
+</html>

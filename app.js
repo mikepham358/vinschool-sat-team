@@ -1073,7 +1073,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       mermaid.initialize({
         startOnLoad: false,
-        theme: 'neutral',
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#ffffff',
+          primaryTextColor: '#0f172a',
+          primaryBorderColor: '#4f46e5',
+          lineColor: '#475569',
+          secondaryColor: '#f1f5f9',
+          tertiaryColor: '#ffffff'
+        },
         securityLevel: 'loose',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
         flowchart: {
