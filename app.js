@@ -450,6 +450,10 @@ const DOM = {
   mermaidTriggerBanner: document.getElementById("mermaid-trigger-banner"),
   btnOpenMermaidModal: document.getElementById("btn-open-mermaid-modal"),
   btnCloseMermaid: document.getElementById("btn-close-mermaid"),
+  btnMmFullscreen: document.getElementById("btn-mm-fullscreen"),
+  mmFsIcon: document.getElementById("mm-fs-icon"),
+  mmFsText: document.getElementById("mm-fs-text"),
+  mermaidModalHeader: document.getElementById("mermaid-modal-header"),
   mermaidViewport: document.getElementById("mermaid-viewport"),
   mermaidCanvas: document.getElementById("mermaid-canvas"),
   mermaidViewer: document.getElementById("mermaid-viewer"),
@@ -2045,7 +2049,8 @@ function renderOptions(q, qState, isFinished) {
 
     // Render explanation for every option (why right / why wrong) when finished
     if (isFinished && q.option_explanations && q.option_explanations[opt.key]) {
-      const expText = q.option_explanations[opt.key];
+      const rawExp = q.option_explanations[opt.key] || "";
+      const expText = String(rawExp).replace(/ — /g, " - ").replace(/ —/g, " -").replace(/—/g, "-");
       const expDiv = document.createElement("div");
       expDiv.className = `option-explanation-card ${isCorrect ? 'exp-correct' : 'exp-wrong'}`;
       
@@ -2513,8 +2518,64 @@ async function openMermaidModal() {
   await renderMermaidDiagramContent(q);
 }
 
+function toggleMermaidFullscreen() {
+  const modal = DOM.modalMermaid;
+  const card = DOM.mermaidModalCard;
+  if (!modal || !card) return;
+
+  const isFs = card.classList.contains("is-fullscreen") || document.fullscreenElement != null;
+
+  if (!isFs) {
+    card.classList.add("is-fullscreen");
+    modal.classList.add("is-fullscreen");
+    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.classList.add("is-active");
+    if (DOM.mmFsIcon) DOM.mmFsIcon.textContent = "🗗";
+    if (DOM.mmFsText) DOM.mmFsText.textContent = "Thu nhỏ";
+    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.title = "Thoát toàn màn hình (Esc hoặc F11)";
+
+    try {
+      if (modal.requestFullscreen) {
+        modal.requestFullscreen().catch(() => {});
+      } else if (modal.webkitRequestFullscreen) {
+        modal.webkitRequestFullscreen();
+      }
+    } catch (_) {}
+  } else {
+    card.classList.remove("is-fullscreen");
+    modal.classList.remove("is-fullscreen");
+    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.classList.remove("is-active");
+    if (DOM.mmFsIcon) DOM.mmFsIcon.textContent = "⛶";
+    if (DOM.mmFsText) DOM.mmFsText.textContent = "Toàn màn hình";
+    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.title = "Phóng to toàn màn hình (F11)";
+
+    try {
+      if (document.fullscreenElement) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    } catch (_) {}
+  }
+
+  setTimeout(() => {
+    MermaidPanZoom.fitToView(true);
+  }, 120);
+}
+
 function closeMermaidModal() {
   if (DOM.modalMermaid) {
+    if (document.fullscreenElement) {
+      try {
+        if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      } catch (_) {}
+    }
+    if (DOM.mermaidModalCard) DOM.mermaidModalCard.classList.remove("is-fullscreen");
+    DOM.modalMermaid.classList.remove("is-fullscreen");
+    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.classList.remove("is-active");
+    if (DOM.mmFsIcon) DOM.mmFsIcon.textContent = "⛶";
+    if (DOM.mmFsText) DOM.mmFsText.textContent = "Toàn màn hình";
     DOM.modalMermaid.classList.add("hidden");
   }
 }
@@ -2773,7 +2834,10 @@ function navigatePdf(page, zoom = null) {
 
 function formatMarkdownHints(str) {
   if (!str) return "";
-  return str
+  return String(str)
+    .replace(/ — /g, ' - ')
+    .replace(/ —/g, ' -')
+    .replace(/—/g, '-')
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n/g, '<br>');
 }
@@ -6261,7 +6325,17 @@ function setupEventListeners() {
     }
     if (DOM.modalMermaid && !DOM.modalMermaid.classList.contains("hidden")) {
       if (e.key === "Escape") {
+        if (DOM.mermaidModalCard && DOM.mermaidModalCard.classList.contains("is-fullscreen")) {
+          toggleMermaidFullscreen();
+          e.preventDefault();
+          return;
+        }
         closeMermaidModal();
+        e.preventDefault();
+        return;
+      }
+      if (e.key === "F11" || (e.key.toLowerCase() === "f" && !e.ctrlKey && !e.metaKey && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA")) {
+        toggleMermaidFullscreen();
         e.preventDefault();
         return;
       }
@@ -6362,6 +6436,26 @@ function setupEventListeners() {
   if (DOM.btnCloseMermaid) {
     DOM.btnCloseMermaid.addEventListener("click", closeMermaidModal);
   }
+  if (DOM.btnMmFullscreen) {
+    DOM.btnMmFullscreen.addEventListener("click", toggleMermaidFullscreen);
+  }
+  if (DOM.mermaidModalHeader) {
+    DOM.mermaidModalHeader.addEventListener("dblclick", (e) => {
+      if (e.target.closest("button, .mermaid-zoom-toolbar")) return;
+      toggleMermaidFullscreen();
+    });
+  }
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && DOM.mermaidModalCard && DOM.mermaidModalCard.classList.contains("is-fullscreen")) {
+      DOM.mermaidModalCard.classList.remove("is-fullscreen");
+      if (DOM.modalMermaid) DOM.modalMermaid.classList.remove("is-fullscreen");
+      if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.classList.remove("is-active");
+      if (DOM.mmFsIcon) DOM.mmFsIcon.textContent = "⛶";
+      if (DOM.mmFsText) DOM.mmFsText.textContent = "Toàn màn hình";
+      if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.title = "Phóng to toàn màn hình (F11)";
+      setTimeout(() => MermaidPanZoom.fitToView(true), 120);
+    }
+  });
   if (DOM.modalMermaid) {
     DOM.modalMermaid.addEventListener("click", (e) => {
       if (e.target === DOM.modalMermaid) closeMermaidModal();
