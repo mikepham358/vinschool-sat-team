@@ -1846,7 +1846,7 @@ function renderCurrentQuestion() {
         DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
       }
     } else if (isPrinceton) {
-      DOM.responseInstruction.innerHTML = '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> — Đọc đề trên PDF và làm bài (gợi ý Socratic phản tư không lộ đáp án):';
+      DOM.responseInstruction.innerHTML = '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> — Đọc đề bài &amp; các lựa chọn trên PDF Viewer bên trái, sau đó chọn đáp án A, B, C, D bên dưới:';
     } else if (q.category === "example") {
       DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong>${labelMeta} — Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:`;
     } else if (q.category === "practice") {
@@ -1971,6 +1971,7 @@ function renderOptions(q, qState, isFinished) {
     isFinished = (qState.status && (qState.status.startsWith("mastered") || qState.status === "missed")) || !!qState.reviewAllHints;
   }
   const eliminated = qState.eliminated || [];
+  const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
 
   const defaultKeys = ["A", "B", "C", "D"];
   const opts = (q.options && q.options.length > 0)
@@ -1999,9 +2000,14 @@ function renderOptions(q, qState, isFinished) {
     }
 
     const isEliminated = eliminated.includes(opt.key);
-    const optText = (opt.text && opt.text.trim() && opt.text !== opt.key && opt.text !== `Lựa chọn ${opt.key}`)
-      ? opt.text
-      : `Lựa chọn ${opt.key}`;
+    let optText;
+    if (isPrinceton) {
+      optText = `Đáp án ${opt.key}`;
+    } else {
+      optText = (opt.text && opt.text.trim() && opt.text !== opt.key && opt.text !== `Lựa chọn ${opt.key}`)
+        ? opt.text
+        : `Lựa chọn ${opt.key}`;
+    }
 
     row.innerHTML = `
       <div class="option-header-row">
