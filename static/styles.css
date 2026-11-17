@@ -9422,7 +9422,7 @@ body.resizing-split iframe {
 
 .aar-perf-metrics {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
   gap: 8px;
 }
 
@@ -9448,12 +9448,45 @@ body.resizing-split iframe {
   color: #0f172a;
 }
 
+.aar-metric-pill.aar-m-weighted {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #93c5fd;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+}
+
+.aar-metric-pill.aar-m-weighted span {
+  color: #1e40af;
+  font-weight: 700;
+}
+
+.aar-metric-pill.aar-m-weighted strong {
+  color: #1d4ed8;
+  font-size: 15px;
+  font-weight: 800;
+}
+
 .aar-metric-pill.aar-m-correct strong {
   color: #16a34a;
 }
 
 .aar-metric-pill.aar-m-pct strong {
   color: #0284c7;
+}
+
+.aar-metric-pill.aar-m-l1 strong {
+  color: #15803d;
+}
+
+.aar-metric-pill.aar-m-l2 strong {
+  color: #0284c7;
+}
+
+.aar-metric-pill.aar-m-l3 strong {
+  color: #b45309;
+}
+
+.aar-metric-pill.aar-m-missed strong {
+  color: #b91c1c;
 }
 
 .aar-section-box {

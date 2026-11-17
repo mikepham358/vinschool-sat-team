@@ -604,9 +604,12 @@ const DOM = {
   aarPerfHeadline: document.getElementById("aar-perf-headline"),
   aarPerfSub: document.getElementById("aar-perf-sub"),
   aarScopePills: document.getElementById("aar-scope-pills"),
+  aarStatWeighted: document.getElementById("aar-stat-weighted"),
   aarStatCorrect: document.getElementById("aar-stat-correct"),
   aarStatPct: document.getElementById("aar-stat-pct"),
   aarStatL1: document.getElementById("aar-stat-l1"),
+  aarStatL2: document.getElementById("aar-stat-l2"),
+  aarStatL3: document.getElementById("aar-stat-l3"),
   aarStatL23: document.getElementById("aar-stat-l23"),
   aarStatMissed: document.getElementById("aar-stat-missed"),
   aarInputSessionLabel: document.getElementById("aar-input-session-label"),
@@ -3899,10 +3902,11 @@ function buildConsolidatedWorkbookAoa(exportData) {
     ["Số câu hoàn thành đúng", ov.total_correct || 0, "Trả lời chính xác ở Lần 1, Lần 2 hoặc Lần 3"],
     ["Chưa hoàn thành / Sai cả 3 lần", ov.total_unfinished_or_missed || 0, "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử sai"],
     ["Tỷ lệ chính xác (Đúng / Đã làm)", `${ov.accuracy_pct || 0}%`, "Tỷ lệ số câu hoàn thành đúng trên tổng số câu đã thực hành"],
-    ["Hiệu suất Socratic (Có trọng số)", `${ov.weighted_pct || 0}%`, "Trọng số Socratic: Đúng Lần 1 = 100%, Lần 2 = 66.7%, Lần 3 = 33.3%"],
+    ["Hiệu suất Socratic (Tính trung bình)", formatWeightedPct(ov.weighted_pct), "Trọng số Socratic: Đúng Lần 1 = 100%, Lần 2 = 66,7%, Lần 3 = 33,3%, Chưa đúng = 0%"],
     ["Đúng ngay Lần 1 (L1 - 100%)", ov.l1_correct || 0, "Làm đúng độc lập không cần mở gợi ý"],
-    ["Đúng ở Lần 2 (L2 - 66.7%)", ov.l2_correct || 0, "Điều chỉnh đúng sau Phản hồi Tầng 1"],
-    ["Đúng ở Lần 3 (L3 - 33.3%)", ov.l3_correct || 0, "Hoàn thành sau Phản hồi Tầng 2"],
+    ["Đúng ở Lần 2 (L2 - 66,7%)", ov.l2_correct || 0, "Điều chỉnh đúng sau Phản hồi Tầng 1"],
+    ["Đúng ở Lần 3 (L3 - 33,3%)", ov.l3_correct || 0, "Hoàn thành sau Phản hồi Tầng 2"],
+    ["Chưa hoàn thành / Sai cả 3 lần (0%)", ov.total_unfinished_or_missed || 0, "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử sai"],
     ["Tổng ghi chép Sổ tay Thử sai Socratic", ov.error_logs_count || 0, "Số thẻ phân tích bẫy SAT & bài học đã lưu"],
     ["Số mục Từ vựng Socratic đã ghi", ov.vocab_terms_count || 0, `${ov.vocab_notes_count || 0} thẻ ghi chép có từ mới / thuật ngữ`],
     ["Phiên học hiện tại (Bộ đếm AAR)", `${ov.session_correct || 0}/${ov.session_practiced || 0} câu (${ov.session_accuracy_pct || 0}%)`, "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"]
@@ -3912,7 +3916,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
   perfAoa.push(["3. HIỆU SUẤT THEO TỪNG NGUỒN TÀI LIỆU / BỘ ĐỀ"]);
   perfAoa.push([
     "Nguồn tài liệu / Bộ đề", "Đã thực hành", "Số câu đúng", "Chưa đúng / Chờ xử lý",
-    "L1 (100%)", "L2 (66.7%)", "L3 (33.3%)", "Tỷ lệ đúng (%)", "Hiệu suất Socratic (%)"
+    "L1 (100%)", "L2 (66,7%)", "L3 (33,3%)", "Tỷ lệ đúng (%)", "Hiệu suất trung bình (%)"
   ]);
   const byTest = exportData.by_test || [];
   if (byTest.length === 0) {
@@ -3928,7 +3932,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
         t.l2,
         t.l3,
         `${t.accuracy_pct}%`,
-        `${t.weighted_pct}%`
+        formatWeightedPct(t.weighted_pct)
       ]);
     });
     perfAoa.push([
@@ -3940,7 +3944,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
       ov.l2_correct || 0,
       ov.l3_correct || 0,
       `${ov.accuracy_pct || 0}%`,
-      `${ov.weighted_pct || 0}%`
+      formatWeightedPct(ov.weighted_pct)
     ]);
   }
 
@@ -7235,7 +7239,12 @@ function calculateAARSessionSummary(scope = "session") {
 
   const missedOrRetry = Math.max(0, practicedCount - correctCount);
   const accuracyPct = practicedCount > 0 ? Math.round((correctCount / practicedCount) * 100) : 0;
-  const weightedPct = practicedCount > 0 ? Math.round((earnedWeight / practicedCount) * 100) : 0;
+  
+  // Socratic weighted average: L1 = 100% (1.0), L2 = 66.7% (0.667), L3 = 33.3% (0.333), Missed = 0% (0.0)
+  const weightedScore = (l1Correct * 1.0) + (l2Correct * 0.667) + (l3Correct * 0.333);
+  const weightedPctRaw = practicedCount > 0 ? (weightedScore / practicedCount) * 100 : 0;
+  const weightedPct = Math.round(weightedPctRaw * 10) / 10;
+  const weightedPctDisplay = formatWeightedPct(weightedPct);
 
   return {
     scope,
@@ -7248,6 +7257,7 @@ function calculateAARSessionSummary(scope = "session") {
     missedOrRetry,
     accuracyPct,
     weightedPct,
+    weightedPctDisplay,
     hasMath,
     scopedErrors,
     testShort: sourceSummary,
@@ -7271,6 +7281,18 @@ function updateIsteHintFor(selectEl, hintEl) {
 
 function updateAARIsteHint() {
   updateIsteHintFor(DOM.aarSelectIste, DOM.aarIsteHint);
+}
+
+function formatWeightedPct(pctNum) {
+  if (pctNum == null || isNaN(pctNum)) return "0%";
+  const num = Number(pctNum);
+  if (num <= 0) return "0%";
+  if (num >= 100) return "100%";
+  const rounded = Math.round(num * 10) / 10;
+  if (rounded % 1 === 0) {
+    return `${rounded}%`;
+  }
+  return `${String(rounded.toFixed(1)).replace(".", ",")}%`;
 }
 
 function escapeHtmlSafe(str) {
@@ -7298,21 +7320,28 @@ function refreshAARPerformanceUI(updateFormFields = false) {
   };
 
   if (DOM.aarPerfHeadline) {
-    DOM.aarPerfHeadline.textContent = `Đúng ${s.correctCount} / ${s.practicedCount} câu thực hành (${s.accuracyPct}%)`;
+    if (s.practicedCount > 0) {
+      DOM.aarPerfHeadline.textContent = `Hiệu suất: ${s.weightedPctDisplay} • Đúng ${s.correctCount} / ${s.practicedCount} câu thực hành`;
+    } else {
+      DOM.aarPerfHeadline.textContent = "Hiệu suất: 0% • Đúng 0 / 0 câu thực hành";
+    }
   }
   if (DOM.aarPerfSub) {
-    DOM.aarPerfSub.textContent = `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Hiệu suất trọng số Socratic: ${s.weightedPct}%`;
+    DOM.aarPerfSub.textContent = `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Công thức tính trung bình: Đúng L1 (100%) • L2 (66,7%) • L3 (33,3%) • Chưa đúng (0%)`;
   }
+  if (DOM.aarStatWeighted) DOM.aarStatWeighted.textContent = s.weightedPctDisplay;
   if (DOM.aarStatCorrect) DOM.aarStatCorrect.textContent = `${s.correctCount} / ${s.practicedCount}`;
   if (DOM.aarStatPct) DOM.aarStatPct.textContent = `${s.accuracyPct}%`;
   if (DOM.aarStatL1) DOM.aarStatL1.textContent = String(s.l1Correct);
+  if (DOM.aarStatL2) DOM.aarStatL2.textContent = String(s.l2Correct);
+  if (DOM.aarStatL3) DOM.aarStatL3.textContent = String(s.l3Correct);
   if (DOM.aarStatL23) DOM.aarStatL23.textContent = String(s.l23Correct);
   if (DOM.aarStatMissed) DOM.aarStatMissed.textContent = String(s.missedOrRetry);
 
   if (updateFormFields) {
     if (DOM.aarInputEvidence) {
       if (s.practicedCount > 0) {
-        DOM.aarInputEvidence.value = `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%) - Đúng Lần 1: ${s.l1Correct}, Lần 2: ${s.l2Correct}, Lần 3: ${s.l3Correct}, Chưa đúng/Đang thử: ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
+        DOM.aarInputEvidence.value = `Hiệu suất buổi học: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu thực hành - Tỷ lệ đúng: ${s.accuracyPct}%) - Đúng Lần 1 (100%): ${s.l1Correct}, Lần 2 (66,7%): ${s.l2Correct}, Lần 3 (33,3%): ${s.l3Correct}, Chưa đúng (0%): ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
       } else {
         DOM.aarInputEvidence.value = `Đã hoàn thành buổi học trên ${s.activeTestShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
       }
@@ -7490,6 +7519,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
     practiced_count: s.practicedCount,
     accuracy_pct: s.accuracyPct,
     weighted_pct: s.weightedPct,
+    weighted_pct_display: s.weightedPctDisplay,
     l1_correct: s.l1Correct,
     l2_correct: s.l2Correct,
     l3_correct: s.l3Correct,
@@ -7503,7 +7533,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
     goal: fullGoal,
     challenge: (DOM.aarInputChallenge && DOM.aarInputChallenge.value.trim()) || "",
     tools: (DOM.aarInputTools && DOM.aarInputTools.value.trim()) || "",
-    evidence: (DOM.aarInputEvidence && DOM.aarInputEvidence.value.trim()) || `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%)`,
+    evidence: (DOM.aarInputEvidence && DOM.aarInputEvidence.value.trim()) || `Hiệu suất buổi học: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu - Tỷ lệ đúng: ${s.accuracyPct}%)`,
     mastery: (DOM.aarSelectMastery && DOM.aarSelectMastery.value) || "",
     gap: (DOM.aarInputGap && DOM.aarInputGap.value.trim()) || "",
     feedforward: (DOM.aarInputFeedforward && DOM.aarInputFeedforward.value.trim()) || "",
@@ -7692,8 +7722,9 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
 }
 
 function buildAAREmailPayload(entry) {
-  const perfStr = `Đúng ${entry.correct_count} / ${entry.practiced_count} câu thực hành (${entry.accuracy_pct}%)`;
-  const subject = `[SAT AAR Report] ${entry.student_name} - ${entry.session_label} (${entry.sat_module}) - ${entry.correct_count}/${entry.practiced_count} câu đúng (${entry.accuracy_pct}%)`;
+  const weightedStr = entry.weighted_pct_display || formatWeightedPct(entry.weighted_pct);
+  const perfStr = `Hiệu suất: ${weightedStr} (Đúng ${entry.correct_count} / ${entry.practiced_count} câu thực hành - Tỷ lệ đúng: ${entry.accuracy_pct}%)`;
+  const subject = `[SAT AAR Report] ${entry.student_name} - ${entry.session_label} (${entry.sat_module}) - Hiệu suất: ${weightedStr} (${entry.correct_count}/${entry.practiced_count} câu)`;
   const bodyText = `Kính gửi thầy Mike Phạm,
 
 Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learning Compass 2030):
@@ -7702,8 +7733,8 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 - Học sinh: ${entry.student_name} (${entry.student_email})
 - ${entry.session_label} | Ngày học: ${entry.date_display} | Nguồn: ${entry.test_title}
 - Mô-đun SAT: ${entry.sat_module}
-- HIỆU SUẤT TRONG BUỔI HỌC: ${perfStr}
-- Chi tiết: Đúng Lần 1: ${entry.l1_correct} | Lần 2: ${entry.l2_correct} | Lần 3: ${entry.l3_correct} | Chưa đúng: ${entry.missed_count} | Sổ thử sai: ${entry.error_log_count}
+- HIỆU SUẤT BUỔI HỌC (TÍNH TRUNG BÌNH): ${weightedStr} (Đúng ${entry.correct_count}/${entry.practiced_count} câu)
+- Chi tiết trọng số: Đúng Lần 1 (100%): ${entry.l1_correct} câu | Đúng Lần 2 (66,7%): ${entry.l2_correct} câu | Đúng Lần 3 (33,3%): ${entry.l3_correct} câu | Chưa đúng (0%): ${entry.missed_count} câu | Sổ thử sai: ${entry.error_log_count} thẻ
 
 [1. DỰ ĐOÁN (ANTICIPATION)]
 - Mục tiêu điểm số SAT: ${entry.student_target || formatTargetScoreLabel((App.studentState && App.studentState.student_target) || "1400+")}
@@ -7894,7 +7925,7 @@ function renderAARHistoryList() {
         <div>
           <strong>${escapeHtmlSafe(item.session_label)}</strong> • ${escapeHtmlSafe(item.date_display)} • <span style="color:#1e3a8a;font-weight:700;">${escapeHtmlSafe(item.sat_module)}</span>
         </div>
-        <span class="aar-history-badge">${escapeHtmlSafe(item.status || "Chưa chọn trạng thái")} • Đúng ${item.correct_count}/${item.practiced_count} (${item.accuracy_pct}%)</span>
+        <span class="aar-history-badge">${escapeHtmlSafe(item.status || "Chưa chọn trạng thái")} • Hiệu suất: ${item.weighted_pct_display || formatWeightedPct(item.weighted_pct)} (Đúng ${item.correct_count}/${item.practiced_count})</span>
       </div>
       <div class="aar-history-meta">
         <div><strong>Minh chứng:</strong> ${escapeHtmlSafe(item.evidence)}</div>
