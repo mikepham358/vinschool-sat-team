@@ -3,7 +3,7 @@
 > **Dự án:** Digital SAT Bluebook Practice App • Vinschool SAT Team  
 > **Giáo viên phụ trách:** Mike Pham Bá Hong Son (Google for Education Innovator) — [mikepham358@gmail.com](mailto:mikepham358@gmail.com)  
 > **Trạng thái đồng bộ:** 🟢 Tự động cập nhật trực tiếp qua GitHub Repository & App Engine  
-> **Cập nhật lần cuối:** 17/11/2026 13:41:15
+> **Cập nhật lần cuối:** 17/11/2026 13:42:19
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Chỉ Số Đánh Giá | Giá Trị Hiện Tại | Ghi Chú |
 | :--- | :---: | :--- |
-| **Tổng số phản hồi nhận được** | **12** | Gồm đóng góp câu hỏi, kỹ thuật & tính năng |
-| **Số phản hồi đã giải quyết triệt để** | **10** | Đã sửa code, dataset hoặc triển khai |
-| **Tỷ lệ xử lý thành công** | **83.3%** | Cam kết hỗ trợ học sinh tối đa |
-| **Phân loại phản hồi** | **🎯 Báo lỗi câu hỏi / Đáp án:** 6 • **💡 Đề xuất tính năng mới:** 2 • **⚡ Lỗi giao diện / Kỹ thuật:** 1 • **📝 Góp ý chung & Đánh giá:** 3 | Tự động phân nhóm |
+| **Tổng số phản hồi nhận được** | **13** | Gồm đóng góp câu hỏi, kỹ thuật & tính năng |
+| **Số phản hồi đã giải quyết triệt để** | **11** | Đã sửa code, dataset hoặc triển khai |
+| **Tỷ lệ xử lý thành công** | **84.6%** | Cam kết hỗ trợ học sinh tối đa |
+| **Phân loại phản hồi** | **🎯 Báo lỗi câu hỏi / Đáp án:** 7 • **💡 Đề xuất tính năng mới:** 2 • **⚡ Lỗi giao diện / Kỹ thuật:** 1 • **📝 Góp ý chung & Đánh giá:** 3 | Tự động phân nhóm |
 
 ---
 
@@ -34,6 +34,7 @@
 | 10 | `FB-20261111-312` | 13:41:28 11/11/2026 | **Đỗ Trung Kiên**<br><code>kien099240@stu.vinschool.edu.vn</code> | 🎯 Báo lỗi câu hỏi / Đáp án | 🟡 Cần xem lại | Chương 18: Absolute Value • Câu 5 (Mã #236) • Trang 159 | wrong answering format | ✅ Đã tiếp nhận & Cập nhật |
 | 11 | `FB-20261111-012` | 13:40:38 11/11/2026 | **Đỗ Trung Kiên**<br><code>kien099240@stu.vinschool.edu.vn</code> | 🎯 Báo lỗi câu hỏi / Đáp án | 🟡 Cần xem lại | Chương 18: Absolute Value • Câu 7 (Mã #238) • Trang 160 | the option reveal the correct answer | ✅ Đã tiếp nhận & Cập nhật |
 | 12 | `FB-20261117-368` | 13:35:38 17/11/2026 | **Đỗ Trung Kiên**<br><code>kien099240@stu.vinschool.edu.vn</code> | 🎯 Báo lỗi câu hỏi / Đáp án | 🟡 Cần xem lại | Module 1: Harder Reading & Writing • Câu 14 (Mã #14) • Trang 8 | the answer in the option and the file is mismatch | ✅ Đã tiếp nhận & Cập nhật |
+| 13 | `FB-20261117-495` | 13:42:13 17/11/2026 | **Đỗ Trung Kiên**<br><code>kien099240@stu.vinschool.edu.vn</code> | 🎯 Báo lỗi câu hỏi / Đáp án | 🟡 Cần xem lại | Module 1: Harder Reading & Writing • Câu 14 (Mã #14) • Trang 8 | the explanation for each answer is still influenced by the previously generated answer by the website, despite it being hidden away at the moment | ✅ Đã tiếp nhận & Cập nhật |
 
 ---
 

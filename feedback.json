@@ -143,5 +143,17 @@
     "content": "the answer in the option and the file is mismatch",
     "status": "✅ Đã tiếp nhận & Cập nhật",
     "github_issue_url": "https://github.com/mikepham358/vinschool-sat-team/issues/6"
+  },
+  {
+    "id": "FB-20261117-495",
+    "student_name": "Đỗ Trung Kiên",
+    "student_email": "kien099240@stu.vinschool.edu.vn",
+    "category": "🎯 Báo lỗi câu hỏi / Đáp án",
+    "priority": "🟡 Cần xem lại",
+    "context_label": "Module 1: Harder Reading & Writing • Câu 14 (Mã #14) • Trang 8",
+    "date_str": "13:42:13 17/11/2026",
+    "content": "the explanation for each answer is still influenced by the previously generated answer by the website, despite it being hidden away at the moment",
+    "status": "✅ Đã tiếp nhận & Cập nhật",
+    "github_issue_url": "https://github.com/mikepham358/vinschool-sat-team/issues/7"
   }
 ]
