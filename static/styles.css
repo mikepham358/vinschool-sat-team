@@ -4163,6 +4163,7 @@ body {
 .hero-form-column {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 /* --- Left: Material 3 Frosted Glass Student Card with Mirror Highlight --- */
@@ -4183,6 +4184,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
+  flex: 1;
+  box-sizing: border-box;
 }
 
 /* Mirror Glare / Specular Sheen Ribbon */
@@ -4257,6 +4261,7 @@ body {
   gap: 16px;
   flex: 1;
   justify-content: space-between;
+  height: 100%;
 }
 
 .hero-form .form-row {
@@ -4395,6 +4400,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .home-anticipation-header {
@@ -4428,9 +4435,30 @@ body {
   border-color: rgba(134, 239, 172, 0.8);
 }
 
-.home-anticipation-meta-row,
+.home-anticipation-meta-row {
+  margin-bottom: 0 !important;
+}
+
 .home-anticipation-grid {
   margin-bottom: 0 !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  flex: 1;
+}
+
+.home-anticipation-grid .m3-input-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.home-anticipation-grid .m3-input-field textarea {
+  flex: 1;
+  min-height: 72px;
+  height: 100%;
+  resize: vertical;
+  box-sizing: border-box;
 }
 
 .home-anticipation-iste-wrap {
@@ -4464,7 +4492,8 @@ body {
   display: grid;
   grid-template-columns: 1.35fr 0.95fr;
   gap: 12px;
-  margin-top: 4px;
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .btn-google-primary.btn-large {
@@ -4606,7 +4635,7 @@ body {
   position: relative;
   width: 100%;
   flex: 1;
-  min-height: 280px;
+  min-height: 240px;
   background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
   display: flex;
   align-items: center;
@@ -4617,7 +4646,7 @@ body {
 
 .hero-poster-img {
   max-width: 100%;
-  max-height: 380px;
+  max-height: 330px;
   width: auto;
   height: auto;
   object-fit: contain;
