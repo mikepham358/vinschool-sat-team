@@ -491,6 +491,23 @@ const DOM = {
   dictErrorState: document.getElementById("dict-error-state"),
   dictCambridgeFallbackLink: document.getElementById("dict-cambridge-fallback-link"),
   zenBtnDict: document.getElementById("zen-btn-dict"),
+
+  // Vocabulary Note-Taking inside Cambridge Dictionary Modal
+  dictNoteBox: document.getElementById("dict-note-box"),
+  dictInputNoteWord: document.getElementById("dict-input-note-word"),
+  dictInputNotePos: document.getElementById("dict-input-note-pos"),
+  dictInputNoteMeaning: document.getElementById("dict-input-note-meaning"),
+  btnSaveVocabNote: document.getElementById("btn-save-vocab-note"),
+  dictNoteToast: document.getElementById("dict-note-toast"),
+  btnToggleSavedNotes: document.getElementById("btn-toggle-saved-notes"),
+  dictSavedNotesDrawer: document.getElementById("dict-saved-notes-drawer"),
+  dictSavedNotesList: document.getElementById("dict-saved-notes-list"),
+  dictSavedCount: document.getElementById("dict-saved-count"),
+  dictDrawerCount: document.getElementById("dict-drawer-count"),
+  welcomeSavedCount: document.getElementById("welcome-saved-count"),
+  btnWelcomeOpenNotes: document.getElementById("btn-welcome-open-notes"),
+  btnExportVocabNotes: document.getElementById("btn-export-vocab-notes"),
+  btnCloseSavedDrawer: document.getElementById("btn-close-saved-drawer"),
   modalReference: document.getElementById("modal-reference"),
   btnCloseReference: document.getElementById("btn-close-reference"),
   refFilterChips: document.getElementById("ref-filter-chips"),
@@ -4772,6 +4789,8 @@ function initDraggableDictionary() {
     modal.style.top = "90px";
     modal.style.right = "50px";
   });
+
+  updateVocabNotesBadge();
 }
 
 function openDictionary(word) {
@@ -4786,6 +4805,8 @@ function openDictionary(word) {
     DOM.modalDictionary.style.top = "90px";
     DOM.modalDictionary.style.right = "50px";
   }
+
+  updateVocabNotesBadge();
 
   if (word && typeof word === "string" && word.trim()) {
     if (DOM.dictSearchInput) DOM.dictSearchInput.value = word.trim();
@@ -4821,6 +4842,7 @@ async function searchDictionary(rawWord) {
     if (DOM.dictResultContainer) DOM.dictResultContainer.classList.add("hidden");
     if (DOM.dictLoadingState) DOM.dictLoadingState.classList.add("hidden");
     if (DOM.dictErrorState) DOM.dictErrorState.classList.add("hidden");
+    if (DOM.dictNoteBox) DOM.dictNoteBox.classList.add("hidden");
     return;
   }
 
@@ -4875,6 +4897,7 @@ async function searchDictionary(rawWord) {
       if (errDesc) errDesc.textContent = `Bạn có thể bấm nút bên dưới để tra cứu trực tiếp trên Cambridge Dictionary chính thức.`;
       DOM.dictErrorState.classList.remove("hidden");
     }
+    showVocabNoteBox(word, "");
   }
 }
 
@@ -4959,6 +4982,196 @@ function renderDictionaryResult(entry, word) {
   }
 
   DOM.dictResultContainer.innerHTML = html;
+
+  // Pre-fill and display the Vocabulary Note-Taking section for this word
+  const firstPos = (entry.meanings && entry.meanings[0] && entry.meanings[0].partOfSpeech) || "";
+  const posPhonetic = [firstPos, phoneticText].filter(Boolean).join(" • ");
+  showVocabNoteBox(wordTitle, posPhonetic);
+}
+
+// ================= CAMBRIDGE VOCABULARY NOTE-TAKING SYSTEM =================
+const VOCAB_NOTES_STORAGE_KEY = "sat_student_vocab_notes_v1";
+
+function getSavedVocabNotes() {
+  try {
+    const raw = localStorage.getItem(VOCAB_NOTES_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    console.warn("Error reading saved vocab notes:", e);
+    return [];
+  }
+}
+
+function saveVocabNotesList(list) {
+  try {
+    localStorage.setItem(VOCAB_NOTES_STORAGE_KEY, JSON.stringify(list));
+  } catch (e) {
+    console.warn("Error saving vocab notes:", e);
+  }
+  updateVocabNotesBadge();
+}
+
+function updateVocabNotesBadge() {
+  const notes = getSavedVocabNotes();
+  const count = notes.length;
+  if (DOM.dictSavedCount) DOM.dictSavedCount.textContent = count;
+  if (DOM.dictDrawerCount) DOM.dictDrawerCount.textContent = count;
+  if (DOM.welcomeSavedCount) DOM.welcomeSavedCount.textContent = count;
+}
+
+function renderSavedVocabNotesList() {
+  if (!DOM.dictSavedNotesList) return;
+  const notes = getSavedVocabNotes();
+  if (notes.length === 0) {
+    DOM.dictSavedNotesList.innerHTML = `<div class="dict-saved-empty">Chưa có từ mới nào được lưu. Hãy tra từ và nhấn <strong>"💾 Lưu Vào Sổ Từ Mới"</strong> để tích luỹ từ vựng nhé!</div>`;
+    return;
+  }
+
+  DOM.dictSavedNotesList.innerHTML = notes.map((item, index) => `
+    <div class="dict-saved-item" data-id="${escapeHtmlSafe(item.id || String(index))}">
+      <div class="dict-saved-item-header">
+        <button type="button" class="dict-saved-word-link" data-word="${escapeHtmlSafe(item.word)}" title="Tra cứu lại từ này">
+          ${escapeHtmlSafe(item.word)}
+        </button>
+        ${item.pos ? `<span class="dict-saved-pos-badge">${escapeHtmlSafe(item.pos)}</span>` : ""}
+      </div>
+      <div class="dict-saved-meaning-text">${escapeHtmlSafe(item.meaning)}</div>
+      <div class="dict-saved-meta">
+        <span>🕒 ${escapeHtmlSafe(item.createdAt || "")}</span>
+        <button type="button" class="btn-del-saved-vocab" data-id="${escapeHtmlSafe(item.id || String(index))}" title="Xóa từ này khỏi sổ">🗑️ Xóa</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function showVocabNoteBox(word, pos, defaultMeaning = "") {
+  if (!DOM.dictNoteBox) return;
+  DOM.dictNoteBox.classList.remove("hidden");
+
+  const cleanWord = (word || "").trim();
+  if (DOM.dictInputNoteWord) DOM.dictInputNoteWord.value = cleanWord;
+  if (DOM.dictInputNotePos) DOM.dictInputNotePos.value = (pos || "").trim();
+
+  // If word is already in saved notes, prefill its saved meaning for quick review/edit!
+  const notes = getSavedVocabNotes();
+  const existing = notes.find(n => n.word.toLowerCase() === cleanWord.toLowerCase());
+  if (DOM.dictInputNoteMeaning) {
+    DOM.dictInputNoteMeaning.value = existing ? existing.meaning : (defaultMeaning || "");
+  }
+  if (DOM.dictNoteToast) DOM.dictNoteToast.classList.add("hidden");
+  updateVocabNotesBadge();
+}
+
+function saveCurrentVocabNote() {
+  const word = DOM.dictInputNoteWord ? DOM.dictInputNoteWord.value.trim() : "";
+  const pos = DOM.dictInputNotePos ? DOM.dictInputNotePos.value.trim() : "";
+  const meaning = DOM.dictInputNoteMeaning ? DOM.dictInputNoteMeaning.value.trim() : "";
+
+  if (!word) {
+    alert("Vui lòng nhập từ vựng (Word)!");
+    if (DOM.dictInputNoteWord) DOM.dictInputNoteWord.focus();
+    return;
+  }
+  if (!meaning) {
+    alert("Vui lòng ghi chú nghĩa hoặc ngữ cảnh SAT của từ!");
+    if (DOM.dictInputNoteMeaning) DOM.dictInputNoteMeaning.focus();
+    return;
+  }
+
+  const notes = getSavedVocabNotes();
+  const existingIndex = notes.findIndex(n => n.word.toLowerCase() === word.toLowerCase());
+  const nowStr = new Date().toLocaleString("vi-VN", { dateStyle: "short", timeStyle: "short" });
+
+  if (existingIndex >= 0) {
+    notes[existingIndex].pos = pos || notes[existingIndex].pos;
+    notes[existingIndex].meaning = meaning;
+    notes[existingIndex].updatedAt = nowStr;
+  } else {
+    notes.unshift({
+      id: "vocab_" + Date.now(),
+      word: word,
+      pos: pos,
+      meaning: meaning,
+      createdAt: nowStr
+    });
+  }
+
+  saveVocabNotesList(notes);
+  renderSavedVocabNotesList();
+
+  if (DOM.dictNoteToast) {
+    DOM.dictNoteToast.classList.remove("hidden");
+    setTimeout(() => {
+      if (DOM.dictNoteToast) DOM.dictNoteToast.classList.add("hidden");
+    }, 3000);
+  }
+}
+
+function deleteVocabNote(id) {
+  let notes = getSavedVocabNotes();
+  notes = notes.filter((item, idx) => item.id !== id && String(idx) !== id);
+  saveVocabNotesList(notes);
+  renderSavedVocabNotesList();
+}
+
+function toggleSavedNotesDrawer(forceState) {
+  if (!DOM.dictSavedNotesDrawer) return;
+  const isHidden = DOM.dictSavedNotesDrawer.classList.contains("hidden");
+  const nextHidden = typeof forceState === "boolean" ? !forceState : !isHidden;
+  DOM.dictSavedNotesDrawer.classList.toggle("hidden", nextHidden);
+  if (!nextHidden) {
+    renderSavedVocabNotesList();
+    DOM.dictSavedNotesDrawer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+function exportSavedVocabNotesExcel() {
+  const notes = getSavedVocabNotes();
+  if (notes.length === 0) {
+    alert("Chưa có từ mới nào để xuất file!");
+    return;
+  }
+
+  const rows = notes.map((item, idx) => ({
+    "STT": idx + 1,
+    "Từ Vựng (Word)": item.word,
+    "Từ Loại & Phát Âm": item.pos || "",
+    "Ghi Chú Nghĩa & Ngữ Cảnh SAT": item.meaning,
+    "Thời Gian Lưu": item.createdAt || ""
+  }));
+
+  try {
+    if (typeof XLSX !== "undefined") {
+      const ws = XLSX.utils.json_to_sheet(rows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "So_Tay_Tu_Moi_SAT");
+      XLSX.writeFile(wb, `So_Tay_Tu_Moi_SAT_${new Date().toISOString().slice(0, 10)}.xlsx`);
+    } else {
+      const headers = ["STT", "Tu Vung", "Tu Loai & Phat Am", "Ghi Chu Nghia", "Thoi Gian Luu"];
+      const csvContent = "\uFEFF" + [
+        headers.join(","),
+        ...rows.map(r => [
+          r["STT"],
+          `"${(r["Từ Vựng (Word)"] || "").replace(/"/g, '""')}"`,
+          `"${(r["Từ Loại & Phát Âm"] || "").replace(/"/g, '""')}"`,
+          `"${(r["Ghi Chú Nghĩa & Ngữ Cảnh SAT"] || "").replace(/"/g, '""')}"`,
+          `"${(r["Thời Gian Lưu"] || "").replace(/"/g, '""')}"`
+        ].join(","))
+      ].join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `So_Tay_Tu_Moi_SAT_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  } catch (err) {
+    console.error("Export vocab notes error:", err);
+    alert("Có lỗi khi xuất file từ vựng!");
+  }
 }
 
 // ================= SMART FEEDBACK & GITHUB LOG SYSTEM =================
@@ -5489,6 +5702,49 @@ function setupEventListeners() {
       if (synBtn) {
         const synWord = synBtn.getAttribute("data-word");
         if (synWord) searchDictionary(synWord);
+      }
+    });
+  }
+
+  // Vocabulary Note-Taking inside Cambridge Dictionary Modal
+  if (DOM.btnSaveVocabNote) {
+    DOM.btnSaveVocabNote.addEventListener("click", saveCurrentVocabNote);
+  }
+  if (DOM.dictInputNoteMeaning) {
+    DOM.dictInputNoteMeaning.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        saveCurrentVocabNote();
+      }
+    });
+  }
+  if (DOM.btnToggleSavedNotes) {
+    DOM.btnToggleSavedNotes.addEventListener("click", () => toggleSavedNotesDrawer());
+  }
+  if (DOM.btnWelcomeOpenNotes) {
+    DOM.btnWelcomeOpenNotes.addEventListener("click", () => toggleSavedNotesDrawer(true));
+  }
+  if (DOM.btnCloseSavedDrawer) {
+    DOM.btnCloseSavedDrawer.addEventListener("click", () => toggleSavedNotesDrawer(false));
+  }
+  if (DOM.btnExportVocabNotes) {
+    DOM.btnExportVocabNotes.addEventListener("click", exportSavedVocabNotesExcel);
+  }
+  if (DOM.dictSavedNotesList) {
+    DOM.dictSavedNotesList.addEventListener("click", (e) => {
+      const wordBtn = e.target.closest(".dict-saved-word-link");
+      if (wordBtn) {
+        const w = wordBtn.getAttribute("data-word");
+        if (w) searchDictionary(w);
+        return;
+      }
+      const delBtn = e.target.closest(".btn-del-saved-vocab");
+      if (delBtn) {
+        const id = delBtn.getAttribute("data-id");
+        if (id && confirm("Bạn có chắc muốn xóa từ này khỏi sổ từ mới?")) {
+          deleteVocabNote(id);
+        }
+        return;
       }
     });
   }

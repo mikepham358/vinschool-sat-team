@@ -452,21 +452,9 @@
         <span class="tool-icon">🧘</span>
         <span class="tool-text">Zen</span>
       </button>
-      <button class="tool-btn" id="btn-open-calc" title="Mở máy tính vẽ đồ thị Desmos">
-        <span class="tool-icon">🧮</span>
-        <span class="tool-text">Calculator</span>
-      </button>
       <button class="tool-btn" id="btn-open-dict" title="Từ điển Cambridge &amp; Tra cứu từ vựng SAT (Khung nổi như Desmos)">
         <span class="tool-icon">📖</span>
         <span class="tool-text">Từ điển</span>
-      </button>
-      <button class="tool-btn" id="btn-open-ref" title="Mở bảng công thức Toán SAT">
-        <span class="tool-icon">📐</span>
-        <span class="tool-text">Reference</span>
-      </button>
-      <button class="tool-btn" id="btn-toggle-scratchpad" title="Bảng nháp Whiteboard">
-        <span class="tool-icon">✏️</span>
-        <span class="tool-text">Scratchpad</span>
       </button>
       <button class="tool-btn" id="btn-open-error-log" title="Sổ tay Thử sai Socratic (Nhật ký lỗi sai)">
         <span class="tool-icon">📓</span>
@@ -475,9 +463,21 @@
       </button>
       <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="Kho 1,000 Từ Vựng SAT (AceSAT Hub)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
         <span class="tool-icon">📚</span>
-        <span class="tool-text">Từ vựng</span>
+        <span class="tool-text">Kho 1000 từ vựng</span>
       </button>
-      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (Chu Trình AAR), Gửi Email & Tải Báo Cáo Tổng Hợp">
+      <button class="tool-btn" id="btn-toggle-scratchpad" title="Bảng nháp Whiteboard">
+        <span class="tool-icon">✏️</span>
+        <span class="tool-text">Bản nháp</span>
+      </button>
+      <button class="tool-btn" id="btn-open-calc" title="Mở máy tính vẽ đồ thị Desmos">
+        <span class="tool-icon">🧮</span>
+        <span class="tool-text">Desmos</span>
+      </button>
+      <button class="tool-btn" id="btn-open-ref" title="Mở bảng công thức Toán SAT">
+        <span class="tool-icon">📐</span>
+        <span class="tool-text">Công thức toán</span>
+      </button>
+      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (Chu Trình AAR), Gửi Email &amp; Tải Báo Cáo Tổng Hợp">
         <span class="tool-icon">📝</span>
         <span class="aar-pill-label">AAR</span>
       </button>
@@ -794,6 +794,11 @@
           <div class="dict-welcome-tip">
             💡 <strong>Mẹo:</strong> Bạn có thể kéo thả khung từ điển này đến bất kỳ vị trí nào trên màn hình, tương tự như máy tính Desmos!
           </div>
+          <div class="dict-welcome-notes-shortcut">
+            <button type="button" class="btn-welcome-open-notes" id="btn-welcome-open-notes">
+              <span>📝 Mở Sổ Từ Mới Của Em (<span id="welcome-saved-count">0</span> từ đã ghi)</span>
+            </button>
+          </div>
         </div>
 
         <!-- Dynamic Results Container -->
@@ -813,6 +818,57 @@
           <a href="#" target="_blank" rel="noopener noreferrer" class="btn-cambridge-fallback" id="dict-cambridge-fallback-link">
             Mở trên Cambridge Dictionary ↗
           </a>
+        </div>
+
+        <!-- Note Taking Section (Appears after looking up a word or in manual mode) -->
+        <div class="dict-note-box hidden" id="dict-note-box">
+          <div class="dict-note-header">
+            <div class="dict-note-title">
+              <span class="dict-note-icon">📝</span>
+              <strong>Ghi Chép Từ Mới Vào Sổ Tay</strong>
+            </div>
+            <button type="button" class="btn-toggle-saved-notes" id="btn-toggle-saved-notes" title="Mở danh sách từ đã ghi chép">
+              <span>📚 Sổ từ đã lưu (<span id="dict-saved-count">0</span>)</span>
+            </button>
+          </div>
+          <div class="dict-note-form" id="dict-note-form">
+            <div class="dict-note-inputs-row">
+              <div class="dict-note-field dict-field-word">
+                <label for="dict-input-note-word">Từ vựng (Word) <span class="req">*</span></label>
+                <input type="text" id="dict-input-note-word" class="dict-note-input" placeholder="Ví dụ: bolster" autocomplete="off">
+              </div>
+              <div class="dict-note-field dict-field-pos">
+                <label for="dict-input-note-pos">Từ loại &amp; Phát âm</label>
+                <input type="text" id="dict-input-note-pos" class="dict-note-input" placeholder="Ví dụ: verb • /ˈboʊl.stɚ/" autocomplete="off">
+              </div>
+            </div>
+            <div class="dict-note-field">
+              <label for="dict-input-note-meaning">Ghi chú nghĩa &amp; Ngữ cảnh SAT <span class="req">*</span></label>
+              <textarea id="dict-input-note-meaning" class="dict-note-textarea" rows="2" placeholder="Nhập nghĩa tiếng Việt, bẫy từ vựng SAT, collocations hoặc câu ví dụ của em..."></textarea>
+            </div>
+            <div class="dict-note-actions">
+              <button type="button" class="btn-save-vocab-note" id="btn-save-vocab-note">
+                <span>💾 Lưu Vào Sổ Từ Mới</span>
+              </button>
+              <span class="dict-note-toast hidden" id="dict-note-toast">✓ Đã lưu từ vựng vào sổ tay cá nhân!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved Vocabulary Notes Drawer -->
+        <div class="dict-saved-notes-drawer hidden" id="dict-saved-notes-drawer">
+          <div class="dict-saved-drawer-header">
+            <div class="dict-drawer-title">
+              <span>📖 Sổ Từ Mới Của Em (<span id="dict-drawer-count">0</span> từ)</span>
+            </div>
+            <div class="dict-drawer-actions">
+              <button type="button" class="btn-export-vocab-notes" id="btn-export-vocab-notes" title="Tải file danh sách từ mới (Excel/CSV)">📥 Xuất Excel</button>
+              <button type="button" class="btn-close-saved-drawer" id="btn-close-saved-drawer" title="Đóng danh sách">✕ Đóng</button>
+            </div>
+          </div>
+          <div class="dict-saved-notes-list" id="dict-saved-notes-list">
+            <!-- Dynamically populated saved words -->
+          </div>
         </div>
       </div>
     </div>

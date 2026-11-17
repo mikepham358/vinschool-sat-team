@@ -5,6 +5,10 @@ import re
 import html
 import urllib.parse
 from http.server import HTTPServer, BaseHTTPRequestHandler
+try:
+    from http.server import ThreadingHTTPServer
+except ImportError:
+    ThreadingHTTPServer = HTTPServer
 import datetime
 import shutil
 import smtplib
@@ -1565,7 +1569,7 @@ def start_github_issue_polling():
 
 def run(port=8085):
     server_address = ('', port)
-    httpd = HTTPServer(server_address, BluebookAppHandler)
+    httpd = ThreadingHTTPServer(server_address, BluebookAppHandler)
     print(f"🚀 Bluebook SAT Practice Engine running at: http://localhost:{port}")
     start_github_issue_polling()
     try:
