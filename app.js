@@ -2580,9 +2580,26 @@ function closeMermaidModal() {
   }
 }
 
+function sanitizeMermaidDiagram(rawCode) {
+  if (!rawCode || typeof rawCode !== "string") return rawCode || "";
+  let clean = rawCode.trim();
+
+  // Safely quote unquoted edge labels containing parentheses: e.g. -->|label (with parens)| -> -->|"label (with parens)"|
+  clean = clean.replace(/(\|)([^\|\r\n]*[\(\)][^\|\r\n]*)(\|)/g, (match, p1, content, p3) => {
+    let text = content.trim();
+    if (text.startsWith('"') && text.endsWith('"')) {
+      return `|${text}|`;
+    }
+    text = text.replace(/"/g, "'");
+    return `|"${text}"|`;
+  });
+
+  return clean;
+}
+
 async function renderMermaidDiagramContent(q) {
   if (!DOM.mermaidViewer) return;
-  const rawCode = q.mermaid_diagram.trim();
+  const rawCode = sanitizeMermaidDiagram(q.mermaid_diagram);
   const targetQId = q.id;
   const renderId = `mermaid-svg-modal-${q.id || App.currentIndex}-${Date.now()}`;
 
