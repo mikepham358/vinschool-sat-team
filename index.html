@@ -470,11 +470,7 @@
         <span class="tool-icon">📚</span>
         <span class="tool-text">Từ vựng</span>
       </button>
-      <button class="tool-btn btn-export" id="btn-export-excel" title="Xuất file Excel tổng hợp: Hiệu suất làm bài, Câu hỏi & Phản hồi các tầng, Sổ tay Thử sai & Từ vựng Socratic">
-        <span class="tool-icon">📥</span>
-        <span class="tool-text">Xuất Excel</span>
-      </button>
-      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (ARR / AAR Cycle) & Gửi Email">
+      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (ARR / AAR Cycle), Gửi Email & Tải Báo Cáo Tổng Hợp">
         <span class="tool-icon">📝</span>
         <span class="aar-pill-label">ARR</span>
       </button>
@@ -1598,7 +1594,7 @@
           <div class="aar-recipient-box">
             <div class="aar-recipient-icon">✉️</div>
             <div class="aar-recipient-body">
-              <strong>Báo cáo ARR &amp; File Excel AAR Tracker sẽ được gửi về:</strong>
+              <strong>Báo cáo ARR sẽ được gửi về:</strong>
               <div class="aar-recipient-lines">
                 <span><strong>To:</strong> <code>v.sonpbh1@vinschool.edu.vn</code>, <code>mikepham@baoan.ai.vn</code></span>
                 <span><strong>CC:</strong> <code id="aar-preview-cc-email">Chưa nhập email học sinh</code></span>
@@ -1608,11 +1604,15 @@
 
           <!-- Submit Actions -->
           <div class="aar-actions-row">
-            <button type="button" class="btn-aar-submit" id="btn-aar-submit-send">
-              <span id="aar-submit-btn-text">📤 Lưu AAR, Tải Excel &amp; Gửi Email ARR</span>
+            <button type="button" class="btn-aar-submit" id="btn-aar-submit-send" title="Lưu chu trình AAR và mở ứng dụng Email để gửi báo cáo phản tư tới thầy cô (chỉ gửi email)">
+              <span id="aar-submit-btn-text">✉️ Gửi email ARR</span>
               <span class="spinner hidden" id="aar-submit-spinner"></span>
             </button>
-            <button type="button" class="btn-action-sub" id="btn-aar-download-only">📥 Chỉ Tải Excel AAR</button>
+            <button type="button" class="btn-aar-combined-download" id="btn-aar-download-combined" title="Tải file Excel báo cáo tổng hợp toàn diện (gộp Nhật ký Chu trình AAR và Toàn bộ Hiệu suất làm bài, Câu hỏi, Sổ thử sai & Từ vựng)">
+              <span>📥</span>
+              <span id="aar-download-btn-text">Tải báo cáo tổng hợp</span>
+              <span class="spinner hidden" id="aar-download-spinner"></span>
+            </button>
             <button type="button" class="btn-action-sub" id="btn-aar-cancel">Đóng</button>
           </div>
         </div>

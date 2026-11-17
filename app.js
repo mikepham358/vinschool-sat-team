@@ -353,7 +353,7 @@ const DOM = {
   badgeErrorCount: document.getElementById("badge-error-count"),
   btnOpenVocab: document.getElementById("btn-open-vocab"),
   btnOpenStrategies: document.getElementById("btn-open-strategies"),
-  btnExportExcel: document.getElementById("btn-export-excel"),
+  btnExportExcel: document.getElementById("btn-aar-download-combined") || document.getElementById("btn-export-excel"),
   headerSessionCounter: document.getElementById("header-session-counter"),
   headerSessionCountVal: document.getElementById("header-session-count-val"),
   btnResetTest: document.getElementById("btn-reset-test"),
@@ -595,7 +595,10 @@ const DOM = {
   btnAarSubmitSend: document.getElementById("btn-aar-submit-send"),
   aarSubmitBtnText: document.getElementById("aar-submit-btn-text"),
   aarSubmitSpinner: document.getElementById("aar-submit-spinner"),
-  btnAarDownloadOnly: document.getElementById("btn-aar-download-only"),
+  btnAarDownloadCombined: document.getElementById("btn-aar-download-combined"),
+  aarDownloadBtnText: document.getElementById("aar-download-btn-text"),
+  aarDownloadSpinner: document.getElementById("aar-download-spinner"),
+  btnAarDownloadOnly: document.getElementById("btn-aar-download-combined") || document.getElementById("btn-aar-download-only"),
   btnAarCancel: document.getElementById("btn-aar-cancel"),
   aarHistorySummary: document.getElementById("aar-history-summary"),
   btnAarExportAllHistory: document.getElementById("btn-aar-export-all-history"),
@@ -3969,83 +3972,7 @@ async function generateClientExcelBlob(studentName, exportData) {
 
 // ================= EXPORT CONSOLIDATED EXCEL =================
 async function exportExcelPersonalized() {
-  const resolvedName = (
-    (App.studentState && App.studentState.student_name ? String(App.studentState.student_name).trim() : "") ||
-    (DOM.inputStudentName ? DOM.inputStudentName.value.trim() : "") ||
-    (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") ||
-    prompt("Nhập họ và tên của em để xuất file Excel tổng hợp:") ||
-    "Hoc_Sinh"
-  ).trim() || "Hoc_Sinh";
-
-  App.studentState.student_name = resolvedName;
-  if (DOM.inputStudentName) DOM.inputStudentName.value = resolvedName;
-  if (DOM.homeInputName) DOM.homeInputName.value = resolvedName;
-  if (DOM.headerStudentName) DOM.headerStudentName.textContent = resolvedName;
-  saveLocalState();
-
-  const btn = DOM.btnExportExcel;
-  const textSpan = btn ? btn.querySelector(".tool-text") : null;
-  const origLabel = textSpan ? textSpan.textContent : "";
-  if (btn) btn.disabled = true;
-  if (textSpan) textSpan.textContent = "Đang xuất...";
-
-  try {
-    const exportData = await collectConsolidatedExportData(resolvedName);
-    const safeFileStudent = resolvedName.replace(/[^a-zA-Z0-9\u00C0-\u1EF9_-]+/g, "_").replace(/^_+|_+$/g, "") || "Hoc_Sinh";
-    const dateStamp = (exportData.generated_date_iso || new Date().toISOString().slice(0, 10)).replace(/-/g, "");
-    const downloadFilename = `SAT_Tong_Hop_Thuc_Hanh_${safeFileStudent}_${dateStamp}.xlsx`;
-
-    const payload = {
-      student_name: resolvedName,
-      student_email: (App.studentState && App.studentState.student_email) || "",
-      student_target: (App.studentState && App.studentState.student_target) || "1400+",
-      attempts: App.studentState.attempts || {},
-      error_logs: App.studentState.error_logs || [],
-      export_data: exportData
-    };
-
-    let downloaded = false;
-    try {
-      const res = await fetch("/api/export-excel", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      if (res.ok) {
-        const blob = await res.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = downloadFilename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => window.URL.revokeObjectURL(url), 1000);
-        downloaded = true;
-      }
-    } catch (e) {}
-
-    // Fallback to client-side SheetJS generation (for GitHub Pages static hosting)
-    if (!downloaded) {
-      const blob = await generateClientExcelBlob(resolvedName, exportData);
-      if (blob) {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = downloadFilename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => window.URL.revokeObjectURL(url), 1000);
-      } else {
-        alert("Không thể tạo file Excel tổng hợp. Vui lòng tải lại trang.");
-      }
-    }
-  } finally {
-    if (btn) btn.disabled = false;
-    if (textSpan && origLabel) textSpan.textContent = origLabel;
-  }
+  return downloadConsolidatedCombinedExcel();
 }
 
 // ================= SCRATCHPAD CANVAS & WHITEBOARD (TOUCH + TEXTBOX + DRAGGABLE) =================
@@ -5367,11 +5294,13 @@ function setupEventListeners() {
   if (DOM.btnAarSubmitSend) {
     DOM.btnAarSubmitSend.addEventListener("click", submitAARReport);
   }
-  if (DOM.btnAarDownloadOnly) {
-    DOM.btnAarDownloadOnly.addEventListener("click", downloadAARExcelOnly);
+  if (DOM.btnAarDownloadCombined) {
+    DOM.btnAarDownloadCombined.addEventListener("click", downloadConsolidatedCombinedExcel);
+  } else if (DOM.btnAarDownloadOnly) {
+    DOM.btnAarDownloadOnly.addEventListener("click", downloadConsolidatedCombinedExcel);
   }
   if (DOM.btnAarExportAllHistory) {
-    DOM.btnAarExportAllHistory.addEventListener("click", exportAllAARHistoryExcel);
+    DOM.btnAarExportAllHistory.addEventListener("click", downloadConsolidatedCombinedExcel);
   }
 
   // Success Modal Controls
@@ -6602,10 +6531,11 @@ function collectAARFormEntry(requireCompleteFields = true) {
   return entry;
 }
 
-async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
+async function generateConsolidatedReportBlob(logsArray, studentName, studentEmail) {
   if (typeof XLSX === "undefined") return null;
   const rows = Array.isArray(logsArray) ? logsArray : [];
-  const safeStudent = studentName || "Học sinh";
+  const safeStudent = studentName || (App.studentState && App.studentState.student_name) || "Hoc_Sinh";
+  const safeEmail = studentEmail || (App.studentState && App.studentState.student_email) || "";
   const latest = rows[rows.length - 1] || null;
 
   try {
@@ -6620,17 +6550,21 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
       console.warn("Could not fetch aar_template.xlsx:", e);
     }
 
-    if (wb && wb.Sheets && wb.Sheets["AAR Journal"]) {
-      const ws = wb.Sheets["AAR Journal"];
+    if (!wb) {
+      wb = XLSX.utils.book_new();
+    }
 
+    // 1. Populate or create AAR Journal sheet
+    if (wb.Sheets && wb.Sheets["AAR Journal"]) {
+      const ws = wb.Sheets["AAR Journal"];
       ws["B1"] = Object.assign({}, ws["B1"] || {}, {
         t: "s",
-        v: `HỆ THỐNG THU THẬP & PHẢN TƯ SAU MỖI BUỔI HỌC - CHU TRÌNH AAR (${safeStudent}${studentEmail ? " - " + studentEmail : ""})`
+        v: `HỆ THỐNG THU THẬP & PHẢN TƯ SAU MỖI BUỔI HỌC - CHU TRÌNH AAR (${safeStudent}${safeEmail ? " - " + safeEmail : ""})`
       });
       if (latest) {
         ws["B6"] = {
           t: "s",
-          v: `Học sinh: ${safeStudent} (${studentEmail || "N/A"}) | Hiệu suất buổi gần nhất (${latest.session_label}): Đúng ${latest.correct_count}/${latest.practiced_count} câu thực hành (${latest.accuracy_pct}%)`
+          v: `Học sinh: ${safeStudent} (${safeEmail || "N/A"}) | Hiệu suất buổi gần nhất (${latest.session_label}): Đúng ${latest.correct_count}/${latest.practiced_count} câu thực hành (${latest.accuracy_pct}%)`
         };
       }
 
@@ -6669,38 +6603,95 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
       ws["H3"] = Object.assign({}, ws["H3"] || {}, { t: "n", v: rate, f: (ws["H3"] && ws["H3"].f) || "IFERROR(E3/B3, 0)" });
       ws["K3"] = Object.assign({}, ws["K3"] || {}, { t: "s", v: rating, f: (ws["K3"] && ws["K3"].f) || 'IF(H3>=80%, "Xuất sắc (Kỷ luật cao)", IF(H3>=50%, "Đang duy trì tốt", IF(H3>0, "Cần tăng cường phản tư", "Chưa bắt đầu")))' });
       ws["M4"] = Object.assign({}, ws["M4"] || {}, { t: "s", v: `${Math.round(rate * 100)}% Hoàn tất`, f: (ws["M4"] && ws["M4"].f) || 'TEXT(H3, "0%") & " Hoàn tất"' });
-
-      const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-      return new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    } else {
+      const headerRow = [
+        "Buổi #", "Ngày học", "Mô-đun SAT", "Tiêu chuẩn ISTE áp dụng",
+        "Mục tiêu bài học & Điểm kỳ vọng", "Thách thức dự kiến", "Công cụ & Kỹ thuật áp dụng",
+        "Kết quả Thực tế & Minh chứng", "Mức độ làm chủ",
+        "Khoảng cách (Gap) & Nguyên nhân thử sai", "Bài học chuyển hóa cho buổi sau (Feed-forward)",
+        "Cảm xúc & Mức độ tập trung", "Trạng thái AAR"
+      ];
+      const aoa = [
+        [`BÁO CÁO CHU TRÌNH AAR - HỌC SINH: ${safeStudent} (${safeEmail || "N/A"})`],
+        headerRow,
+        ...rows.map(entry => [
+          entry.session_label, entry.date_display, entry.sat_module, entry.iste_standard,
+          entry.goal, entry.challenge, entry.tools, entry.evidence, entry.mastery,
+          entry.gap, entry.feedforward, entry.emotion, entry.status
+        ])
+      ];
+      const wsAar = XLSX.utils.aoa_to_sheet(aoa);
+      XLSX.utils.book_append_sheet(wb, wsAar, "AAR Journal");
     }
 
-    const fbWb = XLSX.utils.book_new();
-    const headerRow = [
-      "Buổi #", "Ngày học", "Mô-đun SAT", "Tiêu chuẩn ISTE áp dụng",
-      "Mục tiêu bài học & Điểm kỳ vọng", "Thách thức dự kiến", "Công cụ & Kỹ thuật áp dụng",
-      "Kết quả Thực tế & Minh chứng", "Mức độ làm chủ",
-      "Khoảng cách (Gap) & Nguyên nhân thử sai", "Bài học chuyển hóa cho buổi sau (Feed-forward)",
-      "Cảm xúc & Mức độ tập trung", "Trạng thái AAR"
+    // 2. Collect comprehensive practice performance across all 8 datasets
+    const exportData = await collectConsolidatedExportData(safeStudent);
+    const { perfAoa, qAoa, errAoa, vocabAoa } = buildConsolidatedWorkbookAoa(exportData);
+
+    // Clean duplicate sheet names if present
+    ["Hieu_Suat_Lam_Bai", "Cau_Hoi_Da_Thuc_Hanh", "So_Tay_Thu_Sai_Socratic", "Tu_Vung_Socratic"].forEach(sName => {
+      if (wb.SheetNames.includes(sName)) {
+        delete wb.Sheets[sName];
+        const sIdx = wb.SheetNames.indexOf(sName);
+        if (sIdx > -1) wb.SheetNames.splice(sIdx, 1);
+      }
+    });
+
+    // 3. Append Sheet 2: Hieu_Suat_Lam_Bai
+    const wsPerf = XLSX.utils.aoa_to_sheet(perfAoa);
+    wsPerf["!cols"] = [
+      { wch: 36 }, { wch: 34 }, { wch: 48 }, { wch: 20 },
+      { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 16 }, { wch: 20 }
     ];
-    const aoa = [
-      [`BÁO CÁO CHU TRÌNH AAR - HỌC SINH: ${safeStudent} (${studentEmail || "N/A"})`],
-      headerRow,
-      ...rows.map(entry => [
-        entry.session_label, entry.date_display, entry.sat_module, entry.iste_standard,
-        entry.goal, entry.challenge, entry.tools, entry.evidence, entry.mastery,
-        entry.gap, entry.feedforward, entry.emotion, entry.status
-      ])
+    wsPerf["!merges"] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 8 } },
+      { s: { r: 1, c: 0 }, e: { r: 1, c: 8 } }
     ];
-    XLSX.utils.book_append_sheet(fbWb, XLSX.utils.aoa_to_sheet(aoa), "AAR Journal");
-    const wbout = XLSX.write(fbWb, { bookType: "xlsx", type: "array" });
+    XLSX.utils.book_append_sheet(wb, wsPerf, "Hieu_Suat_Lam_Bai");
+
+    // 4. Append Sheet 3: Cau_Hoi_Da_Thuc_Hanh
+    const wsQ = XLSX.utils.aoa_to_sheet(qAoa);
+    wsQ["!cols"] = [
+      { wch: 6 }, { wch: 24 }, { wch: 30 }, { wch: 14 }, { wch: 28 },
+      { wch: 18 }, { wch: 12 }, { wch: 52 }, { wch: 10 }, { wch: 10 },
+      { wch: 10 }, { wch: 12 }, { wch: 22 }, { wch: 13 }, { wch: 44 },
+      { wch: 46 }, { wch: 54 }, { wch: 48 }, { wch: 40 }, { wch: 20 }
+    ];
+    wsQ["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 19 } }];
+    XLSX.utils.book_append_sheet(wb, wsQ, "Cau_Hoi_Da_Thuc_Hanh");
+
+    // 5. Append Sheet 4: So_Tay_Thu_Sai_Socratic
+    const wsErr = XLSX.utils.aoa_to_sheet(errAoa);
+    wsErr["!cols"] = [
+      { wch: 6 }, { wch: 24 }, { wch: 14 }, { wch: 28 }, { wch: 26 },
+      { wch: 16 }, { wch: 12 }, { wch: 32 }, { wch: 46 }, { wch: 36 },
+      { wch: 36 }, { wch: 40 }, { wch: 18 }, { wch: 14 }
+    ];
+    wsErr["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 13 } }];
+    XLSX.utils.book_append_sheet(wb, wsErr, "So_Tay_Thu_Sai_Socratic");
+
+    // 6. Append Sheet 5: Tu_Vung_Socratic
+    const wsVocab = XLSX.utils.aoa_to_sheet(vocabAoa);
+    wsVocab["!cols"] = [
+      { wch: 6 }, { wch: 24 }, { wch: 16 }, { wch: 30 },
+      { wch: 28 }, { wch: 44 }, { wch: 42 }, { wch: 14 }
+    ];
+    wsVocab["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 7 } }];
+    XLSX.utils.book_append_sheet(wb, wsVocab, "Tu_Vung_Socratic");
+
+    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     return new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
   } catch (err) {
-    console.error("Failed generating AAR Excel:", err);
+    console.error("Failed generating consolidated report:", err);
     return null;
   }
 }
 
-function buildAAREmailPayload(entry, filename) {
+async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
+  return generateConsolidatedReportBlob(logsArray, studentName, studentEmail);
+}
+
+function buildAAREmailPayload(entry) {
   const perfStr = `Đúng ${entry.correct_count} / ${entry.practiced_count} câu thực hành (${entry.accuracy_pct}%)`;
   const subject = `[SAT ARR Report] ${entry.student_name} - ${entry.session_label} (${entry.sat_module}) - ${entry.correct_count}/${entry.practiced_count} câu đúng (${entry.accuracy_pct}%)`;
   const bodyText = `Kính gửi thầy Mike Phạm,
@@ -6730,7 +6721,7 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 - Bài học chuyển hóa (Feed-forward): ${entry.feedforward}
 - Cảm xúc & Tập trung: ${entry.emotion || "(Chưa chọn)"} | Trạng thái AAR: ${entry.status || "(Chưa chọn)"}
 
-(File Excel AAR Tracker: ${filename} đã được tải về thiết bị để đính kèm cùng email này).
+(Báo cáo chu trình AAR & Hiệu suất thực hành SAT chi tiết chuẩn OECD Learning Compass 2030).
 
 Trân trọng,
 ${entry.student_name}`;
@@ -6754,7 +6745,7 @@ async function submitAARReport() {
 
   if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = true;
   if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.remove("hidden");
-  if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "Đang tạo Excel AAR & mở Email...";
+  if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "Đang mở Email ARR...";
 
   try {
     // 1. Persist entry & reset cross-test session tracker for the next study session
@@ -6765,43 +6756,31 @@ async function submitAARReport() {
     saveGlobalAARState();
     saveGlobalSessionTracker();
 
-    const safeName = entry.student_name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_\-À-ỹ]/g, "") || "Hoc_Sinh";
-    const defaultFilename = `AAR_Cycle_Tracker_${safeName}_${entry.date_iso}.xlsx`;
-
     // 2. Optional local server dispatch (if running server.py)
-    let serverData = null;
     try {
-      const res = await fetch("/api/submit-aar", {
+      await fetch("/api/submit-aar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           student_name: entry.student_name,
           student_email: entry.student_email,
           entry,
-          logs: App.aarLogs
+          logs: App.aarLogs,
+          email_only: true
         })
       });
-      if (res.ok) serverData = await res.json();
     } catch (err) {}
 
-    const filename = (serverData && serverData.filename) ? serverData.filename : defaultFilename;
-    let fileBlobUrl = (serverData && serverData.download_url) ? serverData.download_url : null;
-    if (!fileBlobUrl) {
-      const clientBlob = await generateAARExcelBlob(App.aarLogs, entry.student_name, entry.student_email);
-      if (clientBlob) fileBlobUrl = window.URL.createObjectURL(clientBlob);
-    }
-
-    // 3. Build Mailto link (To both teacher emails, CC student)
-    const { subject, bodyText } = buildAAREmailPayload(entry, filename);
+    // 3. Build Mailto link (To both teacher emails, CC student) - PURE EMAIL ONLY (No automatic Excel download)
+    const { subject, bodyText } = buildAAREmailPayload(entry);
     const mailtoUrl = `mailto:${AAR_TEACHER_RECIPIENTS}?cc=${encodeURIComponent(entry.student_email)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
     App.lastMailtoUrl = mailtoUrl;
     App.lastReportText = bodyText;
 
-    // 4. Download Excel & launch Mail client
-    if (fileBlobUrl) triggerBlobDownload(fileBlobUrl, filename);
+    // 4. Launch Mail client directly without file download
     setTimeout(() => {
       window.location.href = mailtoUrl;
-    }, 550);
+    }, 350);
 
     // 5. Reset session inputs for the next AAR cycle & switch to Success Modal
     App.aarDraft = createEmptyAarDraft();
@@ -6817,54 +6796,79 @@ async function submitAARReport() {
     syncAarAnticipationUI();
 
     closeAARModal();
-    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Tạo Báo Cáo ARR & Mở Email!";
+    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Mở Email Báo Cáo ARR!";
     if (DOM.successStatusText) {
-      DOM.successStatusText.textContent = `Hiệu suất buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.accuracy_pct}%) và nội dung chu trình AAR đã được điền sẵn trong Email.`;
+      DOM.successStatusText.textContent = `Hiệu suất buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.accuracy_pct}%) và nội dung chu trình AAR đã được chuẩn bị sẵn trong ứng dụng Email.`;
     }
     if (DOM.successRecipientText) {
-      DOM.successRecipientText.innerHTML = `Bấm <strong>Gửi (Send)</strong> tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>) để hoàn tất!`;
-    }
-    if (DOM.successFilename) DOM.successFilename.textContent = filename;
-    if (fileBlobUrl && DOM.btnDownloadSubmittedFile) {
-      DOM.btnDownloadSubmittedFile.href = fileBlobUrl;
-      DOM.btnDownloadSubmittedFile.setAttribute("download", filename);
+      DOM.successRecipientText.innerHTML = `Bấm <strong>Gửi (Send)</strong> trong ứng dụng Email tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>) để hoàn tất!`;
     }
     if (DOM.modalSubmitSuccess) DOM.modalSubmitSuccess.classList.remove("hidden");
   } finally {
     if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = false;
     if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.add("hidden");
-    if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "📤 Lưu AAR, Tải Excel & Gửi Email ARR";
+    if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "✉️ Gửi email ARR";
+  }
+}
+
+async function downloadConsolidatedCombinedExcel() {
+  const currentEntry = collectAARFormEntry(false);
+  const safeName = (
+    (currentEntry && currentEntry.student_name ? currentEntry.student_name.trim() : "") ||
+    (App.studentState && App.studentState.student_name ? String(App.studentState.student_name).trim() : "") ||
+    (DOM.inputStudentName ? DOM.inputStudentName.value.trim() : "") ||
+    (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") ||
+    "Hoc_Sinh"
+  ).trim() || "Hoc_Sinh";
+  const safeEmail = (
+    (currentEntry && currentEntry.student_email ? currentEntry.student_email.trim() : "") ||
+    (App.studentState && App.studentState.student_email ? String(App.studentState.student_email).trim() : "") ||
+    (DOM.inputStudentEmail ? DOM.inputStudentEmail.value.trim() : "") ||
+    ""
+  ).trim();
+
+  const btn = DOM.btnAarDownloadCombined || DOM.btnAarDownloadOnly;
+  const textSpan = DOM.aarDownloadBtnText || (btn ? btn.querySelector("span:not(.spinner)") : null);
+  const origText = textSpan ? textSpan.textContent : "Tải báo cáo tổng hợp";
+  if (btn) btn.disabled = true;
+  if (DOM.aarDownloadSpinner) DOM.aarDownloadSpinner.classList.remove("hidden");
+  if (textSpan) textSpan.textContent = "Đang tạo báo cáo tổng hợp...";
+
+  try {
+    const existingLogs = Array.isArray(App.aarLogs) ? [...App.aarLogs] : [];
+    let exportLogs = existingLogs;
+    if (currentEntry) {
+      const already = existingLogs.some(it => it.created_at === currentEntry.created_at);
+      if (!already) exportLogs = [...existingLogs, currentEntry];
+    }
+
+    const blob = await generateConsolidatedReportBlob(exportLogs, safeName, safeEmail);
+    if (blob) {
+      const safeFileStudent = safeName.replace(/[^a-zA-Z0-9\u00C0-\u1EF9_-]+/g, "_").replace(/^_+|_+$/g, "") || "Hoc_Sinh";
+      const dateStamp = (new Date().toISOString().slice(0, 10)).replace(/-/g, "");
+      const downloadFilename = `SAT_Bao_Cao_Tong_Hop_AAR_${safeFileStudent}_${dateStamp}.xlsx`;
+      const url = window.URL.createObjectURL(blob);
+      triggerBlobDownload(url, downloadFilename);
+      setTimeout(() => window.URL.revokeObjectURL(url), 1500);
+    } else {
+      alert("Không thể tạo file báo cáo tổng hợp. Vui lòng thử lại.");
+    }
+  } catch (err) {
+    console.error("Error generating consolidated report:", err);
+    alert("Lỗi khi xuất báo cáo tổng hợp: " + (err.message || err));
+  } finally {
+    if (btn) btn.disabled = false;
+    if (DOM.aarDownloadSpinner) DOM.aarDownloadSpinner.classList.add("hidden");
+    if (textSpan) textSpan.textContent = origText;
   }
 }
 
 async function downloadAARExcelOnly() {
-  const entry = collectAARFormEntry(false);
-  if (!entry) return;
-  const exportRows = [...(App.aarLogs || []), entry];
-  const safeName = entry.student_name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_\-À-ỹ]/g, "") || "Hoc_Sinh";
-  const filename = `AAR_Cycle_Tracker_${safeName}_${entry.date_iso}.xlsx`;
-  const blob = await generateAARExcelBlob(exportRows, entry.student_name, entry.student_email);
-  if (blob) {
-    const url = window.URL.createObjectURL(blob);
-    triggerBlobDownload(url, filename);
-  }
+  return downloadConsolidatedCombinedExcel();
 }
 
 async function exportAllAARHistoryExcel() {
-  const logs = App.aarLogs || [];
-  if (logs.length === 0) {
-    alert("Chưa có nhật ký AAR nào được lưu trên thiết bị.");
-    return;
-  }
-  const latest = logs[logs.length - 1];
-  const name = App.studentState.student_name || latest.student_name || "Hoc_Sinh";
-  const email = App.studentState.student_email || latest.student_email || "";
-  const safeName = name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_\-À-ỹ]/g, "") || "Hoc_Sinh";
-  const blob = await generateAARExcelBlob(logs, name, email);
-  if (blob) {
-    const url = window.URL.createObjectURL(blob);
-    triggerBlobDownload(url, `AAR_Cycle_Tracker_${safeName}_TongHop.xlsx`);
-  }
+  return downloadConsolidatedCombinedExcel();
 }
 
 function renderAARHistoryList() {

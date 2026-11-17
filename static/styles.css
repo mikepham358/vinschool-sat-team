@@ -8122,11 +8122,11 @@ body.resizing-split iframe {
 
 .btn-aar-submit {
   flex: 1;
-  min-width: 240px;
+  min-width: 200px;
   padding: 12px 18px;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: #ffffff;
   font-size: 14px;
   font-weight: 800;
@@ -8135,16 +8135,46 @@ body.resizing-split iframe {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
   transition: all 0.2s ease;
 }
 
 .btn-aar-submit:hover {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   transform: translateY(-1px);
 }
 
 .btn-aar-submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.btn-aar-combined-download {
+  flex: 1.2;
+  min-width: 220px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-aar-combined-download:hover {
+  background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.45);
+}
+
+.btn-aar-combined-download:disabled {
   opacity: 0.65;
   cursor: wait;
 }
