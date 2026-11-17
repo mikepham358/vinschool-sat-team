@@ -4,7 +4,7 @@ description: >-
   Architectural blueprint, dataset schema, UI/UX specification, and engineering
   runbook for the Vinschool Digital SAT Bluebook practice web application
   (https://mikepham358.github.io/vinschool-sat-team/). Use whenever maintaining,
-  extending, adding datasets/textbooks, modifying ARR reports, exporting Excel
+  extending, adding datasets/textbooks, modifying AAR reports, exporting Excel
   workbooks, or rebuilding this split-screen SAT practice application.
 ---
 
@@ -30,7 +30,7 @@ flowchart TD
     subgraph Views["SPA Views (index.html + styles.css + app.js)"]
         HOME["#view-home — Google Material Design 3
         • Multi-Exam / Book Selector
-        • Student Profile + Pre-Session ARR Anticipation
+        • Student Profile + Pre-Session AAR Anticipation
         • Dynamic Module / Chapter Grid"]
         PRAC["#view-practice — 100dvh Split Workspace
         • Left: Synced Google Drive PDF Viewer
@@ -49,7 +49,7 @@ flowchart TD
 
     subgraph State["Browser localStorage (100% Device Isolated)"]
         LS_T["Per-Test Progress (bluebook_*_student_state_v1)"]
-        LS_G["Cross-Test Profile, Session Tracker, ARR Logs & Draft"]
+        LS_G["Cross-Test Profile, Session Tracker, AAR Logs & Draft"]
     end
 
     subgraph Outputs["Client-Side Exports (SheetJS XLSX + mailto:)"]
@@ -78,7 +78,7 @@ flowchart TD
 vinschool-sat-team/
 ├── index.html                        # SPA entry point (GitHub Pages root)
 ├── styles.css                        # Material Design 3 + Bluebook split-screen CSS
-├── app.js                            # Client state machine, Socratic engine, ARR, XLSX export
+├── app.js                            # Client state machine, Socratic engine, AAR, XLSX export
 ├── acesat-vocab.js                   # AceSAT 1,000 vocabulary modal module
 ├── aar_template.xlsx                 # Official AAR Cycle Tracker workbook template
 ├── template.xlsx                     # Exam score export template
@@ -174,10 +174,10 @@ Deep linking via query parameter `?test=<id|code>` (resolved in `getActiveTestMe
 
 ### View 1: Google Material Design 3 Home Page (`#view-home`)
 - **Exam Hub Dropdown (`#select-active-exam`)**: Switches active source cleanly without clearing any other exam's progress.
-- **Student Profile + Pre-Session ARR Anticipation (`#form-home-profile` & `#home-anticipation-box`)**:
+- **Student Profile + Pre-Session AAR Anticipation (`#form-home-profile` & `#home-anticipation-box`)**:
   - Captures Student Name (`#home-input-name`), Email (`#home-input-email`), and SAT Target chips (`1300+`, `1400+`, `1500+`).
   - Embeds Stage 1 Anticipation directly above `#btn-home-start-practice`: Session `#` (`#home-aar-session`), Expected SAT Module (`#home-aar-sat-module` + `#home-aar-sat-module-custom`, mirrored dynamically from modal selects via `initHomeAarSelects()`), ISTE Standard (`#home-aar-iste` with auto-suggestion from `getEffectiveModuleForIste()`), Learning Goal + Target pill (`#home-aar-goal`), and Expected Challenge (`#home-aar-challenge`).
-  - Sync badge `#home-aar-sync-badge` switches to `✓ Đã đồng bộ sẵn vào ARR` when Goal & Challenge are filled; `startPracticeFromHome()` blocks entering `#view-practice` via `flagHomeFieldError()` until all required profile and Anticipation fields are completed and saved to `localStorage`.
+  - Sync badge `#home-aar-sync-badge` switches to `✓ Đã đồng bộ sẵn vào AAR` when Goal & Challenge are filled; `startPracticeFromHome()` blocks entering `#view-practice` via `flagHomeFieldError()` until all required profile and Anticipation fields are completed and saved to `localStorage`.
 - **Dynamic Module / Chapter Cards (`#modules-grid`)**: Displays exact question counts, example/practice breakdown, page ranges, and live progress.
 
 ### View 2: Split-Screen Bluebook Workspace (`#view-practice`)
@@ -188,8 +188,8 @@ Deep linking via query parameter `?test=<id|code>` (resolved in `getActiveTestMe
 - **Right Pane (`#pane-content`)**: MCQ (`A/B/C/D` + Eliminator strikethrough) and Math Grid-in parser (accepting integers, decimals, and fractions `a/b`), 3-attempt efficiency scoring (`1.0`, `0.67`, `0.33`), and mandatory Error Reflection gate before advancing after wrong answers.
 - **Persistent Bottom Bar (`.bluebook-footer`)**: Always keeps `#pdf-page-badge` (`📖 Câu này ở Trang X`), `#btn-open-navigator` (`Question N of M ▲`), topic/domain badges, and `Back` / `Next`.
 - **Top Obsidian Header Controls**:
-  - **Cross-Test Session Cluster (`.header-timer-cluster`)**: Module countdown timer, persistent cross-test practiced question counter (`#header-session-counter`), and Reset Test button (`#btn-reset-test`). *(Legacy exam-finish flow removed in favor of continuous session tracking + ARR reporting.)*
-  - **Study Tool Dock**: Desmos (`#modal-calculator`), Math Reference Sheet (`#modal-reference`), Handwriting Scratchpad (`#scratchpad-drawer`), Socratic Error Notebook (`#modal-error-log`), AceSAT 1,000 Vocab (`#modal-acesat-vocab`), Consolidated Excel Export (`#btn-export-excel`), and ARR Report (`#btn-open-aar`).
+  - **Cross-Test Session Cluster (`.header-timer-cluster`)**: Module countdown timer, persistent cross-test practiced question counter (`#header-session-counter`), and Reset Test button (`#btn-reset-test`). *(Legacy exam-finish flow removed in favor of continuous session tracking + AAR reporting.)*
+  - **Study Tool Dock**: Desmos (`#modal-calculator`), Math Reference Sheet (`#modal-reference`), Handwriting Scratchpad (`#scratchpad-drawer`), Socratic Error Notebook (`#modal-error-log`), AceSAT 1,000 Vocab (`#modal-acesat-vocab`), Consolidated Excel Export (`#btn-export-excel`), and AAR Report (`#btn-open-aar`).
 
 ### Google Material 3 Math Reference Sheet (`#modal-reference`)
 - Categorized filter bar (`#ref-filter-chips`: `Tất cả`, `2D & Pythagore`, `Tam giác đặc biệt`, `Thể tích 3D`, `Quy tắc góc`) with `Esc` and backdrop dismissal.
@@ -204,15 +204,15 @@ Deep linking via query parameter `?test=<id|code>` (resolved in `getActiveTestMe
 | :--- | :--- | :--- |
 | `getStorageKeyForTest(id)` (`bluebook_<test>_student_state_v1`) | Per test/book | Answers, attempt history, efficiency scores, bookmarks, eliminations, module timers, error logs |
 | `GLOBAL_PROFILE_KEY` (`bluebook_global_student_profile_v1`) | Global | Student name, email, and SAT score target (`1300+` / `1400+` / `1500+`) |
-| `GLOBAL_AAR_DRAFT_KEY` (`bluebook_global_aar_draft_v1`) | Global | Pre-session Anticipation draft synced two-way between Home and ARR modal |
-| `GLOBAL_AAR_STORAGE_KEY` (`bluebook_global_aar_tracker_v1`) | Global | Completed ARR session logs rendered in History tab & AAR Excel journal |
-| `GLOBAL_SESSION_TRACKER_KEY` (`bluebook_global_session_tracker_v1`) | Global | Cross-test / mixed-source session tracker powering `.header-session-counter` & ARR performance metrics |
+| `GLOBAL_AAR_DRAFT_KEY` (`bluebook_global_aar_draft_v1`) | Global | Pre-session Anticipation draft synced two-way between Home and AAR modal |
+| `GLOBAL_AAR_STORAGE_KEY` (`bluebook_global_aar_tracker_v1`) | Global | Completed AAR session logs rendered in History tab & AAR Excel journal |
+| `GLOBAL_SESSION_TRACKER_KEY` (`bluebook_global_session_tracker_v1`) | Global | Cross-test / mixed-source session tracker powering `.header-session-counter` & AAR performance metrics |
 
 ---
 
 ## 7. Reporting & Excel Export Specifications
 
-### A. AAR / ARR Cycle Report (`#modal-aar-report`)
+### A. AAR Cycle Report (`#modal-aar-report`)
 1. **Stage 0 & 1 (Auto-synced from Home & Session Tracker)**: Pre-populates student identity, SAT target pill, Session `#`, SAT Module (includes `Mix (Nhiều mô-đun / Tài liệu kết hợp)` and `Khác (Tự nhập...)`), ISTE standard, Goal, Challenge, and automatic quantitative performance (`correct_count / practiced_count`, Socratic tier breakdown, mixed-source summary).
 2. **Stage 2 & 3 (Student Self-Reflection — Starts Blank)**:
    - `#aar-input-tools`, `#aar-select-mastery` (required `*`), `#aar-input-gap` (opens empty; optional manual `#btn-aar-pull-errors` helper), `#aar-input-feedforward` (required `*`), `#aar-select-emotion`, and `#aar-select-status` all initialize empty (`""`) with zero silent defaults.
@@ -245,7 +245,7 @@ After any code edit in `vinschool-sat-team`:
    diff -q index.html static/index.html && diff -q styles.css static/styles.css && diff -q app.js static/app.js
    ```
 2. Run browser end-to-end checks over a local HTTP server (Playwright / headless Chromium) covering:
-   - Hero profile + Anticipation validation, reload persistence, two-way ARR sync, blank Stage 2/3 defaults, and `.xlsx` export inspection (`openpyxl`).
+   - Hero profile + Anticipation validation, reload persistence, two-way AAR sync, blank Stage 2/3 defaults, and `.xlsx` export inspection (`openpyxl`).
    - Math Reference Sheet KaTeX rendering (`0` raw `\(` strings), SVG bounding boxes, category filter chips, and `Esc` dismissal.
    - Bottom dock visibility (`#pdf-page-badge` + `#btn-open-navigator`) across desktop, tablet, portrait phone (`320px–390px`), and landscape phone (`844×390`), plus Zen Mode.
    - Cross-exam loading & switching across all 5 registered datasets with `0` console or uncaught page errors.

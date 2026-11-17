@@ -42,9 +42,9 @@
           </div>
         </div>
         <div class="home-nav-actions">
-          <button type="button" class="btn-home-aar" id="btn-home-open-aar" title="Gửi Báo Cáo Phản Tư Sau Buổi Học (ARR / AAR Cycle)">
+          <button type="button" class="btn-home-aar" id="btn-home-open-aar" title="Gửi Báo Cáo Phản Tư Sau Buổi Học (Chu Trình AAR)">
             <span>📝</span>
-            <span>ARR Report</span>
+            <span>AAR Report</span>
           </button>
           <button type="button" class="btn-home-vocab" id="btn-home-open-vocab" title="Kho 1,000 Từ Vựng SAT (AceSAT Hub)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
             <span>📚</span>
@@ -97,11 +97,11 @@
                   </div>
                 </div>
 
-                <!-- Integrated ARR / AAR Stage 1: Anticipation (Pre-Session Self-Regulation) -->
+                <!-- Integrated AAR Stage 1: Anticipation (Pre-Session Self-Regulation) -->
                 <div class="home-anticipation-box" id="home-anticipation-box">
                   <div class="home-anticipation-header">
                     <span class="home-anticipation-title">1️⃣ Dự Đoán Trước Buổi Học (Anticipation — Chu Trình AAR)</span>
-                    <span class="home-aar-sync-badge" id="home-aar-sync-badge">💾 Tự lưu vào Báo cáo ARR</span>
+                    <span class="home-aar-sync-badge" id="home-aar-sync-badge">💾 Tự lưu vào Báo cáo AAR</span>
                   </div>
 
                   <div class="form-row home-anticipation-meta-row">
@@ -435,7 +435,7 @@
         <button class="btn-timer-action" id="btn-timer-toggle-view" title="Ẩn / Hiện đồng hồ">Hide</button>
         <button class="btn-timer-action" id="btn-timer-pause" title="Tạm dừng / Tiếp tục">⏸️</button>
       </div>
-      <button type="button" class="header-session-counter" id="header-session-counter" title="Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) — Bấm để mở báo cáo ARR">
+      <button type="button" class="header-session-counter" id="header-session-counter" title="Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) — Bấm để mở báo cáo AAR">
         <span class="sc-icon">📊</span>
         <span class="sc-val" id="header-session-count-val">0</span>
         <span class="sc-lbl">câu</span>
@@ -473,9 +473,9 @@
         <span class="tool-icon">📚</span>
         <span class="tool-text">Từ vựng</span>
       </button>
-      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (ARR / AAR Cycle), Gửi Email & Tải Báo Cáo Tổng Hợp">
+      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (Chu Trình AAR), Gửi Email & Tải Báo Cáo Tổng Hợp">
         <span class="tool-icon">📝</span>
-        <span class="aar-pill-label">ARR</span>
+        <span class="aar-pill-label">AAR</span>
       </button>
       <div class="header-student-badge" id="header-student-badge" title="Thông tin học sinh (Bấm để chỉnh sửa)">
         <span class="badge-icon tool-icon">👤</span>
@@ -1356,8 +1356,8 @@
           <div class="guide-item">
             <div class="guide-icon">📊</div>
             <div class="guide-text">
-              <h4>Theo dõi phiên học &amp; Báo cáo ARR</h4>
-              <p>Bộ đếm cạnh đồng hồ tự động cộng dồn số câu em đã làm xuyên suốt cả khi đổi đề/sách. Sau buổi học, bấm nút <strong>📝 ARR</strong> để tổng kết hiệu suất và gửi báo cáo chu trình AAR kèm file Excel qua Email!</p>
+              <h4>Theo dõi phiên học &amp; Báo cáo AAR</h4>
+              <p>Bộ đếm cạnh đồng hồ tự động cộng dồn số câu em đã làm xuyên suốt cả khi đổi đề/sách. Sau buổi học, bấm nút <strong>📝 AAR</strong> để tổng kết hiệu suất và gửi báo cáo chu trình AAR qua Email!</p>
             </div>
           </div>
         </div>
@@ -1407,12 +1407,12 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: AFTER ACTION REVIEW (ARR / AAR CYCLE) ================= -->
+  <!-- ================= MODAL: AFTER ACTION REVIEW (AAR CYCLE) ================= -->
   <div class="modal-overlay hidden" id="modal-aar-report">
     <div class="modal-card aar-modal-card">
       <div class="modal-card-header aar-modal-header">
         <div>
-          <h3>📝 Báo Cáo Phản Tư Sau Buổi Học — Chu Trình AAR (ARR)</h3>
+          <h3>📝 Báo Cáo Phản Tư Sau Buổi Học — Chu Trình AAR</h3>
           <p class="aar-subtitle">Chuẩn OECD Learning Compass 2030 &amp; ISTE Standards • Đồng bộ hiệu suất thực hành</p>
         </div>
         <button type="button" class="btn-close-modal" id="btn-close-aar">✕</button>
@@ -1592,7 +1592,7 @@
           <div class="aar-recipient-box">
             <div class="aar-recipient-icon">✉️</div>
             <div class="aar-recipient-body">
-              <strong>Báo cáo ARR sẽ được gửi về:</strong>
+              <strong>Báo cáo AAR sẽ được gửi về:</strong>
               <div class="aar-recipient-lines">
                 <span><strong>To:</strong> <code>v.sonpbh1@vinschool.edu.vn</code>, <code>mikepham@baoan.ai.vn</code></span>
                 <span><strong>CC:</strong> <code id="aar-preview-cc-email">Chưa nhập email học sinh</code></span>
@@ -1603,7 +1603,7 @@
           <!-- Submit Actions -->
           <div class="aar-actions-row">
             <button type="button" class="btn-aar-submit" id="btn-aar-submit-send" title="Lưu chu trình AAR và mở ứng dụng Email để gửi báo cáo phản tư tới thầy cô (chỉ gửi email)">
-              <span id="aar-submit-btn-text">✉️ Gửi email ARR</span>
+              <span id="aar-submit-btn-text">✉️ Gửi email AAR</span>
               <span class="spinner hidden" id="aar-submit-spinner"></span>
             </button>
             <button type="button" class="btn-aar-combined-download" id="btn-aar-download-combined" title="Tải file Excel báo cáo tổng hợp toàn diện (gộp Nhật ký Chu trình AAR và Toàn bộ Hiệu suất làm bài, Câu hỏi, Sổ thử sai & Từ vựng)">
@@ -1641,7 +1641,7 @@
         </label>
         <label class="reset-chk-label">
           <input type="checkbox" id="chk-reset-session-counter" checked>
-          <span>Đặt lại bộ đếm câu đã làm xuyên suốt buổi học về 0 (Session &amp; ARR Counter)</span>
+          <span>Đặt lại bộ đếm câu đã làm xuyên suốt buổi học về 0 (Session &amp; AAR Counter)</span>
         </label>
         <label class="reset-chk-label">
           <input type="checkbox" id="chk-reset-timer" checked>

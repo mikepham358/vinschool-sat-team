@@ -554,7 +554,7 @@ const DOM = {
   btnCopyMailBody: document.getElementById("btn-copy-mail-body"),
   btnCloseSuccess: document.getElementById("btn-close-success"),
 
-  // AAR / ARR Cycle Modal
+  // AAR Cycle Modal
   modalAarReport: document.getElementById("modal-aar-report"),
   btnCloseAar: document.getElementById("btn-close-aar"),
   tabBtnAarForm: document.getElementById("tab-btn-aar-form"),
@@ -1085,14 +1085,14 @@ function startPracticeFromHome(targetModule) {
   // 7. Validate Mục tiêu bài học & Điểm kỳ vọng *
   const draftGoal = DOM.homeAarGoal ? DOM.homeAarGoal.value.trim() : "";
   if (!draftGoal) {
-    flagHomeFieldError(DOM.homeAarGoal, "Vui lòng điền Mục tiêu bài học & Điểm kỳ vọng (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
+    flagHomeFieldError(DOM.homeAarGoal, "Vui lòng điền Mục tiêu bài học & Điểm kỳ vọng (phần Dự đoán trước buổi học - AAR) trước khi bắt đầu làm bài!");
     return;
   }
 
   // 8. Validate Thách thức dự kiến *
   const draftChallenge = DOM.homeAarChallenge ? DOM.homeAarChallenge.value.trim() : "";
   if (!draftChallenge) {
-    flagHomeFieldError(DOM.homeAarChallenge, "Vui lòng điền Thách thức dự kiến (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
+    flagHomeFieldError(DOM.homeAarChallenge, "Vui lòng điền Thách thức dự kiến (phần Dự đoán trước buổi học - AAR) trước khi bắt đầu làm bài!");
     return;
   }
 
@@ -3648,7 +3648,7 @@ async function collectConsolidatedExportData(studentName) {
   const accuracyPct = totalPracticed > 0 ? Math.round((totalCorrect / totalPracticed) * 100) : 0;
   const weightedPct = totalPracticed > 0 ? Math.round((totalEarnedWeight / totalPracticed) * 100) : 0;
 
-  // Session counter (cross-test ARR session metrics) for transparency
+  // Session counter (cross-test AAR session metrics) for transparency
   const sessionPracticed = sessionItemsAll.length;
   const sessionCorrect = sessionItemsAll.filter(it => it && it.is_correct).length;
   const sessionAccuracyPct = sessionPracticed > 0 ? Math.round((sessionCorrect / sessionPracticed) * 100) : 0;
@@ -3719,7 +3719,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
     ["Đúng ở Lần 3 (L3 - 33.3%)", ov.l3_correct || 0, "Hoàn thành sau Phản hồi Tầng 2"],
     ["Tổng ghi chép Sổ tay Thử sai Socratic", ov.error_logs_count || 0, "Số thẻ phân tích bẫy SAT & bài học đã lưu"],
     ["Số mục Từ vựng Socratic đã ghi", ov.vocab_terms_count || 0, `${ov.vocab_notes_count || 0} thẻ ghi chép có từ mới / thuật ngữ`],
-    ["Phiên học hiện tại (Bộ đếm ARR)", `${ov.session_correct || 0}/${ov.session_practiced || 0} câu (${ov.session_accuracy_pct || 0}%)`, "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"]
+    ["Phiên học hiện tại (Bộ đếm AAR)", `${ov.session_correct || 0}/${ov.session_practiced || 0} câu (${ov.session_accuracy_pct || 0}%)`, "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"]
   ];
 
   perfAoa.push([]);
@@ -5232,12 +5232,12 @@ function setupEventListeners() {
     DOM.btnExportExcel.addEventListener("click", exportExcelPersonalized);
   }
 
-  // Session Counter -> Open ARR Report
+  // Session Counter -> Open AAR Report
   if (DOM.headerSessionCounter) {
     DOM.headerSessionCounter.addEventListener("click", openAARModal);
   }
 
-  // ARR / AAR Report Controls
+  // AAR Report Controls
   if (DOM.btnOpenAar) DOM.btnOpenAar.addEventListener("click", openAARModal);
   if (DOM.btnHomeOpenAar) DOM.btnHomeOpenAar.addEventListener("click", openAARModal);
   if (DOM.btnCloseAar) DOM.btnCloseAar.addEventListener("click", closeAARModal);
@@ -5659,7 +5659,7 @@ function closeReferenceModal() {
   syncTimerState();
 }
 
-// ================= ARR / AAR CYCLE REPORT SYSTEM =================
+// ================= AAR CYCLE REPORT SYSTEM =================
 const ISTE_STANDARDS_LOOKUP = {
   "Empowered Learner": {
     concept: "Đặt mục tiêu cá nhân, sử dụng công nghệ để đạt mục tiêu và tự đánh giá quá trình học.",
@@ -5830,7 +5830,7 @@ function updateHomeAarSyncBadge() {
   const d = App.aarDraft || {};
   const isReady = Boolean(String(d.goal || "").trim() && String(d.challenge || "").trim());
   DOM.homeAarSyncBadge.classList.toggle("ready", isReady);
-  DOM.homeAarSyncBadge.textContent = isReady ? "✓ Đã đồng bộ sẵn vào ARR" : "💾 Tự lưu vào Báo cáo ARR";
+  DOM.homeAarSyncBadge.textContent = isReady ? "✓ Đã đồng bộ sẵn vào AAR" : "💾 Tự lưu vào Báo cáo AAR";
 }
 
 function getEffectiveModuleForIste(satModule, customModule) {
@@ -6072,8 +6072,8 @@ function updateGlobalSessionCounterUI() {
   if (DOM.headerSessionCounter) {
     const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
     DOM.headerSessionCounter.title = total > 0
-      ? `Đã thực hành ${total} câu xuyên suốt buổi học (Đúng: ${correct}/${total} - ${pct}%) • Bấm để mở ARR Report`
-      : "Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) — Bấm để mở ARR Report";
+      ? `Đã thực hành ${total} câu xuyên suốt buổi học (Đúng: ${correct}/${total} - ${pct}%) • Bấm để mở AAR Report`
+      : "Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) — Bấm để mở AAR Report";
   }
 }
 
@@ -6454,7 +6454,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
   const studentEmail = DOM.aarInputStudentEmail ? DOM.aarInputStudentEmail.value.trim() : "";
   if (requireCompleteFields) {
     if (!studentName) {
-      alert("Vui lòng nhập Họ và tên học sinh trước khi gửi báo cáo ARR!");
+      alert("Vui lòng nhập Họ và tên học sinh trước khi gửi báo cáo AAR!");
       if (DOM.aarInputStudentName) DOM.aarInputStudentName.focus();
       return null;
     }
@@ -6708,7 +6708,7 @@ async function generateAARExcelBlob(logsArray, studentName, studentEmail) {
 
 function buildAAREmailPayload(entry) {
   const perfStr = `Đúng ${entry.correct_count} / ${entry.practiced_count} câu thực hành (${entry.accuracy_pct}%)`;
-  const subject = `[SAT ARR Report] ${entry.student_name} - ${entry.session_label} (${entry.sat_module}) - ${entry.correct_count}/${entry.practiced_count} câu đúng (${entry.accuracy_pct}%)`;
+  const subject = `[SAT AAR Report] ${entry.student_name} - ${entry.session_label} (${entry.sat_module}) - ${entry.correct_count}/${entry.practiced_count} câu đúng (${entry.accuracy_pct}%)`;
   const bodyText = `Kính gửi thầy Mike Phạm,
 
 Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learning Compass 2030):
@@ -6760,7 +6760,7 @@ async function submitAARReport() {
 
   if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = true;
   if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.remove("hidden");
-  if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "Đang mở Email ARR...";
+  if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "Đang mở Email AAR...";
 
   try {
     // 1. Persist entry & reset cross-test session tracker for the next study session
@@ -6811,7 +6811,7 @@ async function submitAARReport() {
     syncAarAnticipationUI();
 
     closeAARModal();
-    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Mở Email Báo Cáo ARR!";
+    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Mở Email Báo Cáo AAR!";
     if (DOM.successStatusText) {
       DOM.successStatusText.textContent = `Hiệu suất buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.accuracy_pct}%) và nội dung chu trình AAR đã được chuẩn bị sẵn trong ứng dụng Email.`;
     }
@@ -6822,7 +6822,7 @@ async function submitAARReport() {
   } finally {
     if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = false;
     if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.add("hidden");
-    if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "✉️ Gửi email ARR";
+    if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "✉️ Gửi email AAR";
   }
 }
 
@@ -6899,7 +6899,7 @@ function renderAARHistoryList() {
   }
   if (!DOM.aarHistoryList) return;
   if (logs.length === 0) {
-    DOM.aarHistoryList.innerHTML = `<div style="text-align:center;padding:24px;color:#64748b;font-size:13px;">Hãy hoàn thiện báo cáo ARR đầu tiên ở tab <strong>Báo Cáo Buổi Học Mới</strong> nhé!</div>`;
+    DOM.aarHistoryList.innerHTML = `<div style="text-align:center;padding:24px;color:#64748b;font-size:13px;">Hãy hoàn thiện báo cáo AAR đầu tiên ở tab <strong>Báo Cáo Buổi Học Mới</strong> nhé!</div>`;
     return;
   }
 

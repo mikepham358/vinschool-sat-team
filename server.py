@@ -567,7 +567,7 @@ def generate_student_excel(payload):
         ("Đúng ở Lần 3 (L3 - 33.3%)", ov.get("l3_correct", 0), "Hoàn thành sau Phản hồi Tầng 2"),
         ("Tổng ghi chép Sổ tay Thử sai Socratic", ov.get("error_logs_count", 0), "Số thẻ phân tích bẫy SAT & bài học đã lưu"),
         ("Số mục Từ vựng Socratic đã ghi", ov.get("vocab_terms_count", 0), f"{ov.get('vocab_notes_count', 0)} thẻ ghi chép có từ mới / thuật ngữ"),
-        ("Phiên học hiện tại (Bộ đếm ARR)", f"{ov.get('session_correct', 0)}/{ov.get('session_practiced', 0)} câu ({ov.get('session_accuracy_pct', 0)}%)", "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"),
+        ("Phiên học hiện tại (Bộ đếm AAR)", f"{ov.get('session_correct', 0)}/{ov.get('session_practiced', 0)} câu ({ov.get('session_accuracy_pct', 0)}%)", "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"),
     ]
     for idx_k, (lbl, val, desc) in enumerate(kpi_rows):
         fill_use = zebra_fill if idx_k % 2 == 1 else PatternFill(fill_type=None)
@@ -1095,7 +1095,7 @@ def send_aar_email(student_name, student_email, entry, excel_bytes, excel_filena
     acc_pct = int(entry.get("accuracy_pct", 0))
     sess_lbl = entry.get("session_label", "Buổi học")
     sat_mod = entry.get("sat_module", "")
-    msg['Subject'] = f"[SAT ARR Report] {student_name} - {sess_lbl} ({sat_mod}) - {correct_c}/{practiced_c} câu đúng ({acc_pct}%)"
+    msg['Subject'] = f"[SAT AAR Report] {student_name} - {sess_lbl} ({sat_mod}) - {correct_c}/{practiced_c} câu đúng ({acc_pct}%)"
 
     e_name = html.escape(str(student_name))
     e_email = html.escape(str(student_email or "Chưa cung cấp"))
@@ -1115,7 +1115,7 @@ def send_aar_email(student_name, student_email, entry, excel_bytes, excel_filena
     <html>
     <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.6; color: #0f172a; max-width: 680px; margin: 0 auto; padding: 20px;">
       <div style="background: #1e3a8a; color: #fff; padding: 18px 22px; border-radius: 10px 10px 0 0;">
-        <h2 style="margin: 0; font-size: 18px;">📝 BÁO CÁO PHẢN TƯ SAU BUỔI HỌC (AAR / ARR CYCLE)</h2>
+        <h2 style="margin: 0; font-size: 18px;">📝 BÁO CÁO PHẢN TƯ SAU BUỔI HỌC (CHU TRÌNH AAR)</h2>
         <p style="margin: 4px 0 0; font-size: 13px; color: #cbd5e1;">Học sinh: {e_name} ({e_email})</p>
       </div>
       <div style="border: 1px solid #cbd5e1; border-top: none; padding: 20px 22px; border-radius: 0 0 10px 10px; background: #fff;">
@@ -1146,9 +1146,9 @@ def send_aar_email(student_name, student_email, entry, excel_bytes, excel_filena
                 server.starttls()
                 server.login(smtp_user, smtp_pass)
                 server.sendmail(smtp_user, all_recipients, msg.as_string())
-        return True, "Đã gửi email báo cáo ARR thành công!", all_recipients
+        return True, "Đã gửi email báo cáo AAR thành công!", all_recipients
     except Exception as e:
-        return False, f"Lỗi gửi email ARR qua SMTP: {str(e)}", all_recipients
+        return False, f"Lỗi gửi email AAR qua SMTP: {str(e)}", all_recipients
 
 def send_feedback_email_notification(fb_item):
     config = load_email_config()
@@ -1496,7 +1496,7 @@ class BluebookAppHandler(BaseHTTPRequestHandler):
                 resp_data["download_url"] = f"/api/download-submission?file={urllib.parse.quote(export_filename)}"
             self.send_json(resp_data)
         except Exception as e:
-            self.send_json({"success": False, "error": f"Failed to submit ARR report: {str(e)}"}, 500)
+            self.send_json({"success": False, "error": f"Failed to submit AAR report: {str(e)}"}, 500)
 
     # --- UTILS ---
 
