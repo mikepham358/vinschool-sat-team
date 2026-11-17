@@ -744,18 +744,25 @@ function loadLocalState() {
   }
 
   // On fresh page open / reload: Reset Home form session fields so student fills them before starting practice
-  if (DOM.homeAarSession) DOM.homeAarSession.value = "";
-  if (DOM.homeAarSatModule) DOM.homeAarSatModule.selectedIndex = 0;
-  if (DOM.homeAarSatModuleCustom) {
-    DOM.homeAarSatModuleCustom.value = "";
-    DOM.homeAarSatModuleCustom.classList.add("hidden");
-  }
-  if (DOM.homeAarIste) DOM.homeAarIste.selectedIndex = 0;
-  if (DOM.homeAarIsteHint) DOM.homeAarIsteHint.textContent = "";
-  if (DOM.homeAarGoal) DOM.homeAarGoal.value = "";
-  if (DOM.homeAarChallenge) DOM.homeAarChallenge.value = "";
-  if (DOM.targetChipsContainer) {
-    DOM.targetChipsContainer.querySelectorAll(".target-chip").forEach(c => c.classList.remove("active"));
+  if (!App.homeFormInitialized) {
+    App.homeFormInitialized = true;
+    if (DOM.homeAarSession) DOM.homeAarSession.value = "";
+    if (DOM.homeAarSatModule) DOM.homeAarSatModule.selectedIndex = 0;
+    if (DOM.homeAarSatModuleCustom) {
+      DOM.homeAarSatModuleCustom.value = "";
+      DOM.homeAarSatModuleCustom.classList.add("hidden");
+    }
+    if (DOM.homeAarIste) DOM.homeAarIste.selectedIndex = 0;
+    if (DOM.homeAarIsteHint) DOM.homeAarIsteHint.textContent = "";
+    if (DOM.homeAarGoal) DOM.homeAarGoal.value = "";
+    if (DOM.homeAarChallenge) DOM.homeAarChallenge.value = "";
+    if (DOM.targetChipsContainer) {
+      DOM.targetChipsContainer.querySelectorAll(".target-chip").forEach(c => c.classList.remove("active"));
+    }
+    if (App.aarDraft) {
+      App.aarDraft.session_date = "";
+      App.aarDraft.session_date_cleared = true;
+    }
   }
 
   loadGlobalAARState();
@@ -1089,7 +1096,9 @@ function startPracticeFromHome(targetModule) {
   }
 
   // 4. Validate Buổi # / Ngày thực tập *
-  if (!DOM.homeAarSession || !DOM.homeAarSession.value || !isValidIsoDate(DOM.homeAarSession.value)) {
+  const homeSessionRaw = DOM.homeAarSession ? DOM.homeAarSession.value.trim() : "";
+  const homeSessionIso = normalizeToIsoDate(homeSessionRaw);
+  if (!homeSessionIso) {
     flagHomeFieldError(DOM.homeAarSession, "Vui lòng chọn ngày thực tập ở mục Buổi # trước khi bắt đầu làm bài!");
     return;
   }
@@ -1138,8 +1147,8 @@ function startPracticeFromHome(targetModule) {
   if (DOM.inputStudentName) DOM.inputStudentName.value = name;
 
   // Format date and session label
-  const dateVal = (DOM.homeAarSession ? DOM.homeAarSession.value.trim() : "") || getTodayIsoLocal();
-  const dateDisplay = isValidIsoDate(dateVal) ? formatDateViFromIso(dateVal) : "";
+  const dateVal = homeSessionIso || getTodayIsoLocal();
+  const dateDisplay = formatDateViFromIso(dateVal);
   const sessionLabel = dateDisplay ? `Buổi ${dateDisplay}` : `Buổi ${dateVal}`;
 
   // Automatically commit and save all student info and pre-session anticipation fields into AAR Draft
@@ -5713,9 +5722,29 @@ function setupEventListeners() {
     DOM.aarInputSessionLabel.addEventListener("input", () => captureModalAarDraftFromInputs({ markSessionLabelUserSet: true }));
   }
   if (DOM.aarInputDate) {
-    const onModalDateChange = () => captureModalAarDraftFromInputs();
-    DOM.aarInputDate.addEventListener("input", onModalDateChange);
-    DOM.aarInputDate.addEventListener("change", onModalDateChange);
+    DOM.aarInputDate.addEventListener("change", (e) => {
+      const val = e.target.value ? e.target.value.trim() : "";
+      const norm = normalizeToIsoDate(val);
+      if (norm) {
+        captureModalAarDraftFromInputs({ markDateUserSet: true });
+      } else if (!val) {
+        captureModalAarDraftFromInputs({ markDateCleared: true });
+      }
+    });
+    DOM.aarInputDate.addEventListener("input", (e) => {
+      const val = e.target.value ? e.target.value.trim() : "";
+      const norm = normalizeToIsoDate(val);
+      if (norm) {
+        captureModalAarDraftFromInputs({ markDateUserSet: true });
+      }
+    });
+    DOM.aarInputDate.addEventListener("blur", (e) => {
+      const val = e.target.value ? e.target.value.trim() : "";
+      const norm = normalizeToIsoDate(val);
+      if (norm) {
+        captureModalAarDraftFromInputs({ markDateUserSet: true });
+      }
+    });
   }
   if (DOM.aarSelectIste) {
     DOM.aarSelectIste.addEventListener("change", () => {
@@ -5891,9 +5920,29 @@ function setupEventListeners() {
 
   // Integrated Home Anticipation (Stage 1 AAR) real-time two-way sync
   if (DOM.homeAarSession) {
-    const onHomeDateChange = () => captureHomeAarDraftFromInputs();
-    DOM.homeAarSession.addEventListener("input", onHomeDateChange);
-    DOM.homeAarSession.addEventListener("change", onHomeDateChange);
+    DOM.homeAarSession.addEventListener("change", (e) => {
+      const val = e.target.value ? e.target.value.trim() : "";
+      const norm = normalizeToIsoDate(val);
+      if (norm) {
+        captureHomeAarDraftFromInputs({ markDateUserSet: true });
+      } else if (!val) {
+        captureHomeAarDraftFromInputs({ markDateCleared: true });
+      }
+    });
+    DOM.homeAarSession.addEventListener("input", (e) => {
+      const val = e.target.value ? e.target.value.trim() : "";
+      const norm = normalizeToIsoDate(val);
+      if (norm) {
+        captureHomeAarDraftFromInputs({ markDateUserSet: true });
+      }
+    });
+    DOM.homeAarSession.addEventListener("blur", (e) => {
+      const val = e.target.value ? e.target.value.trim() : "";
+      const norm = normalizeToIsoDate(val);
+      if (norm) {
+        captureHomeAarDraftFromInputs({ markDateUserSet: true });
+      }
+    });
   }
   if (DOM.homeAarSatModule) {
     DOM.homeAarSatModule.addEventListener("change", () => {
@@ -6139,13 +6188,29 @@ const ISTE_STANDARDS_LOOKUP = {
   }
 };
 
+function normalizeToIsoDate(val) {
+  if (!val) return "";
+  const s = String(val).trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  const dmy = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+  if (dmy) {
+    const day = dmy[1].padStart(2, "0");
+    const month = dmy[2].padStart(2, "0");
+    const year = dmy[3];
+    return `${year}-${month}-${day}`;
+  }
+  return "";
+}
+
 function isValidIsoDate(val) {
-  return /^\d{4}-\d{2}-\d{2}$/.test(String(val || "").trim());
+  const norm = normalizeToIsoDate(val);
+  return /^\d{4}-\d{2}-\d{2}$/.test(norm);
 }
 
 function createEmptyAarDraft() {
   return {
-    session_date: getTodayIsoLocal(),
+    session_date: "",
+    session_date_cleared: false,
     session_label: "",
     session_label_user_set: false,
     sat_module: "",
@@ -6294,7 +6359,13 @@ function getEffectiveModuleForIste(satModule, customModule) {
 
 function resolveAnticipationState() {
   const d = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
-  const sessionDate = (isValidIsoDate(d.session_date)) ? d.session_date.trim() : "";
+  let sessionDate = normalizeToIsoDate(d.session_date);
+  if (!sessionDate && DOM.homeAarSession) {
+    sessionDate = normalizeToIsoDate(DOM.homeAarSession.value);
+  }
+  if (!sessionDate && DOM.aarInputDate) {
+    sessionDate = normalizeToIsoDate(DOM.aarInputDate.value);
+  }
   const dateDisplay = sessionDate ? formatDateViFromIso(sessionDate) : "";
   const sessionLabel = (d.session_label && d.session_label.trim())
     ? d.session_label.trim()
@@ -6316,7 +6387,21 @@ function resolveAnticipationState() {
 function applyAnticipationFieldsToElements(resolved, targets) {
   targets.forEach(({ dateEl, sessionEl, modEl, modCustomEl, isteEl, hintEl, goalEl, challengeEl }) => {
     if (dateEl && document.activeElement !== dateEl) {
-      dateEl.value = isValidIsoDate(resolved.session_date) ? resolved.session_date : "";
+      const targetIso = normalizeToIsoDate(resolved.session_date);
+      if (targetIso) {
+        if (dateEl.value !== targetIso) dateEl.value = targetIso;
+      } else {
+        const existingIso = normalizeToIsoDate(dateEl.value);
+        if (existingIso) {
+          if (App.aarDraft) {
+            App.aarDraft.session_date = existingIso;
+            App.aarDraft.session_date_cleared = false;
+            saveGlobalAARDraft();
+          }
+        } else {
+          dateEl.value = "";
+        }
+      }
     }
     if (sessionEl && document.activeElement !== sessionEl) {
       sessionEl.value = resolved.session_label || "";
@@ -6365,31 +6450,40 @@ function syncAarAnticipationUI() {
   updateHomeAarSyncBadge();
 }
 
-function captureDraftFromSource(source, { markModuleUserSet = false, markIsteUserSet = false, markSessionLabelUserSet = false } = {}) {
+function captureDraftFromSource(source, { markModuleUserSet = false, markIsteUserSet = false, markSessionLabelUserSet = false, markDateUserSet = false, markDateCleared = false } = {}) {
   const prev = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
   const modVal = source.modEl ? source.modEl.value : prev.sat_module;
   const userSetMod = markModuleUserSet || prev.sat_module_user_set;
   const userSetIste = markIsteUserSet || prev.iste_user_set;
 
-  let nextDate = prev.session_date;
+  let nextDate = prev.session_date || "";
   let dateCleared = Boolean(prev.session_date_cleared);
   if (source.dateEl) {
-    const rawDate = source.dateEl.value.trim();
-    if (isValidIsoDate(rawDate)) {
-      nextDate = rawDate;
+    const rawVal = source.dateEl.value ? source.dateEl.value.trim() : "";
+    const norm = normalizeToIsoDate(rawVal);
+    if (norm) {
+      nextDate = norm;
       dateCleared = false;
-    } else {
+    } else if (markDateCleared || (markDateUserSet && !rawVal)) {
       nextDate = "";
       dateCleared = true;
     }
-  } else if (!isValidIsoDate(nextDate) && !dateCleared) {
-    nextDate = getTodayIsoLocal();
+  }
+
+  if (!nextDate && !dateCleared) {
+    const homeVal = DOM.homeAarSession ? normalizeToIsoDate(DOM.homeAarSession.value) : "";
+    const modalVal = DOM.aarInputDate ? normalizeToIsoDate(DOM.aarInputDate.value) : "";
+    if (homeVal) {
+      nextDate = homeVal;
+    } else if (modalVal) {
+      nextDate = modalVal;
+    }
   }
 
   let nextSessionLabel = prev.session_label;
   let userSetSessionLabel = Boolean(prev.session_label_user_set);
   if (source.sessionEl && markSessionLabelUserSet) {
-    const rawLbl = source.sessionEl.value.trim();
+    const rawLbl = source.sessionEl.value ? source.sessionEl.value.trim() : "";
     if (rawLbl) {
       nextSessionLabel = rawLbl;
       userSetSessionLabel = true;
