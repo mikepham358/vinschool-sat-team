@@ -1320,69 +1320,127 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: MANDATORY ERROR REFLECTION ================= -->
+  <!-- ================= MODAL: MANDATORY ERROR REFLECTION (GOOGLE KANBAN RETROSPECTIVE) ================= -->
   <div class="modal-overlay hidden" id="modal-mandatory-reflection">
-    <div class="modal-card reflection-modal-card">
-      <div class="reflection-header">
-        <div class="reflection-badge">⚠️ BẮT BUỘC GHI CHÉP SỔ THỬ SAI</div>
-        <h3>Phân Tích Thử Sai: <span id="refl-q-label">Question 1</span></h3>
-        <p class="reflection-subtitle">Chủ đề: <strong id="refl-q-topic">Reading</strong> (<span id="refl-q-module">Module 1</span>)</p>
+    <div class="modal-card reflection-modal-card g-kanban-card">
+      <!-- Kanban Header -->
+      <div class="reflection-header g-kanban-header">
+        <div class="kanban-badge-row">
+          <span class="g-kanban-pill">
+            <span class="g-kanban-dot"></span>
+            <span class="g-kanban-tag">GOOGLE KANBAN RETROSPECTIVE</span>
+            <span class="g-kanban-sep">•</span>
+            <span class="g-kanban-status">⚠️ BẮT BUỘC GHI CHÉP SỔ THỬ SAI</span>
+          </span>
+          <span class="g-kanban-q-tag" id="refl-q-label">Question 1</span>
+        </div>
+        <h3 class="g-kanban-title">Phân Tích Thử Sai &amp; Kế Hoạch Triệt Tiêu Bẫy</h3>
+        <p class="reflection-subtitle g-kanban-subtitle">
+          Chủ đề: <strong id="refl-q-topic">Reading</strong> &bull; Phân hệ: <span id="refl-q-module">Module 1</span>
+        </p>
+
+        <!-- Visual 3-Stage Kanban Workflow -->
+        <div class="g-kanban-pipeline">
+          <div class="pipeline-step completed">
+            <span class="step-num">1</span>
+            <span class="step-text">Hiện trạng &amp; Sai lệch</span>
+          </div>
+          <div class="pipeline-arrow">➔</div>
+          <div class="pipeline-step active">
+            <span class="step-num">2</span>
+            <span class="step-text">Phân loại bẫy SAT</span>
+          </div>
+          <div class="pipeline-arrow">➔</div>
+          <div class="pipeline-step">
+            <span class="step-num">3</span>
+            <span class="step-text">Bài học &amp; Ghi chú</span>
+          </div>
+        </div>
       </div>
 
-      <div class="reflection-body">
-        <div class="reflection-info-box">
-          <div class="info-row">
-            <span class="lbl">Đáp án đúng của đề:</span>
-            <span class="val val-correct" id="refl-correct-ans">B</span>
+      <div class="reflection-body g-kanban-body">
+        <!-- Kanban Column 1: Diagnosis & Mistake Overview -->
+        <div class="reflection-info-box g-kanban-diagnosis-card">
+          <div class="g-card-section-label">🎯 Giai Đoạn 1: Đối Chiếu Dữ Liệu Sai Lệch</div>
+          <div class="g-diagnosis-grid">
+            <div class="diagnosis-item item-correct">
+              <span class="diag-lbl">Đáp án chuẩn của đề</span>
+              <div class="diag-val-correct">
+                <span class="diag-icon">✓</span>
+                <span class="val val-correct" id="refl-correct-ans">B</span>
+              </div>
+            </div>
+            <div class="diagnosis-item item-wrong">
+              <span class="diag-lbl">Các lựa chọn chưa chính xác</span>
+              <div class="diag-val-wrong">
+                <span class="diag-icon">✗</span>
+                <span class="val val-wrong" id="refl-wrong-picks">Lần 1: C</span>
+              </div>
+            </div>
           </div>
-          <div class="info-row">
-            <span class="lbl">Các lần em chọn chưa đúng:</span>
-            <span class="val val-wrong" id="refl-wrong-picks">Lần 1: C</span>
-          </div>
-          <div class="info-hint" id="refl-hint-box">
-            <!-- Socratic Hint -->
+          <div class="info-hint g-kanban-socratic-callout" id="refl-hint-box">
+            <!-- Socratic Hint populated by JS -->
           </div>
         </div>
 
-        <form class="reflection-form" id="form-mandatory-reflection" onsubmit="return false;">
-          <div class="form-group">
-            <label for="select-refl-trap">1. Nhóm bẫy SAT em đã gặp phải <span class="req">*</span></label>
-            <select id="select-refl-trap" required>
-              <option value="">-- Chọn nhóm bẫy SAT em gặp phải --</option>
-              <option value="Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)">📖 Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)</option>
-              <option value="Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)">⚠️ Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)</option>
-              <option value="Bẫy tương phản giả & Cụm nối (However, Although, But...)">⚡ Bẫy tương phản giả & Cụm nối (However, Although, But...)</option>
-              <option value="Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)">🔍 Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)</option>
-              <option value="Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)">👀 Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)</option>
-              <option value="Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)">🧮 Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)</option>
-              <option value="Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)">🎯 Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)</option>
-              <option value="Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)">📏 Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)</option>
-              <option value="Chưa nắm chắc công thức / lý thuyết cốt lõi">📚 Chưa nắm chắc công thức / lý thuyết cốt lõi</option>
-              <option value="Khác">💡 Bẫy khác...</option>
-            </select>
+        <!-- Kanban Column 2: Root Cause Triage & Action Items -->
+        <form class="reflection-form g-kanban-form" id="form-mandatory-reflection" onsubmit="return false;">
+          <div class="g-card-section-label" style="margin-top: 6px;">🏷️ Giai Đoạn 2: Phân Tích &amp; Kế Hoạch Khắc Phục</div>
+          
+          <div class="form-group g-kanban-field">
+            <label for="select-refl-trap" class="g-kanban-label">
+              <span>1. Phân loại nhóm bẫy SAT gặp phải</span>
+              <span class="req">*</span>
+            </label>
+            <div class="g-select-wrap">
+              <select id="select-refl-trap" class="g-kanban-select" required>
+                <option value="">-- Chọn nhóm bẫy SAT để gắn thẻ Kanban --</option>
+                <option value="Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)">📖 Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)</option>
+                <option value="Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)">⚠️ Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)</option>
+                <option value="Bẫy tương phản giả & Cụm nối (However, Although, But...)">⚡ Bẫy tương phản giả & Cụm nối (However, Although, But...)</option>
+                <option value="Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)">🔍 Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)</option>
+                <option value="Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)">👀 Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)</option>
+                <option value="Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)">🧮 Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)</option>
+                <option value="Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)">🎯 Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)</option>
+                <option value="Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)">📏 Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)</option>
+                <option value="Chưa nắm chắc công thức / lý thuyết cốt lõi">📚 Chưa nắm chắc công thức / lý thuyết cốt lõi</option>
+                <option value="Khác">💡 Bẫy khác...</option>
+              </select>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="input-refl-detail">2. Phân tích nguyên nhân thử sai & Bài học rút ra <span class="req">*</span></label>
-            <textarea id="input-refl-detail" rows="3" placeholder="Tại sao em lại chọn phương án đó? Em đã nhìn nhận sót manh mối nào và lần sau gặp dạng bài này em sẽ chú ý điều gì? (Tối thiểu 5 ký tự)" required minlength="5"></textarea>
+          <div class="form-group g-kanban-field">
+            <label for="input-refl-detail" class="g-kanban-label">
+              <span>2. Phân tích nguyên nhân thử sai &amp; Bài học rút ra (Action Item)</span>
+              <span class="req">*</span>
+            </label>
+            <textarea id="input-refl-detail" class="g-kanban-textarea" rows="3" placeholder="Tại sao em lại chọn phương án đó? Em đã nhìn nhận sót manh mối nào và lần sau gặp dạng bài này em sẽ chú ý điều gì? (Tối thiểu 5 ký tự)" required minlength="5"></textarea>
           </div>
 
-          <div class="form-group">
-            <label for="input-refl-notes">3. 📝 Ghi chú tư duy cá nhân (Mẹo nhớ nhanh - Không bắt buộc)</label>
-            <textarea id="input-refl-notes" rows="2" placeholder="Ví dụ: Quy tắc gạch chân từ khóa, chú ý liên từ đảo chiều, mẹo nhẩm nhanh..."></textarea>
+          <div class="g-kanban-twocol">
+            <div class="form-group g-kanban-field">
+              <label for="input-refl-notes" class="g-kanban-label">
+                <span>3. 📝 Mẹo tư duy nhanh</span>
+                <span class="opt-tag">(Tùy chọn)</span>
+              </label>
+              <textarea id="input-refl-notes" class="g-kanban-textarea g-sub-textarea" rows="2" placeholder="Ví dụ: Gạch chân từ khóa, chú ý liên từ đối lập..."></textarea>
+            </div>
+
+            <div class="form-group g-kanban-field">
+              <label for="input-refl-vocab" class="g-kanban-label">
+                <span>4. 📖 Từ vựng / Thuật ngữ</span>
+                <span class="opt-tag">(Tùy chọn)</span>
+              </label>
+              <textarea id="input-refl-vocab" class="g-kanban-textarea g-sub-textarea" rows="2" placeholder="Ví dụ: repudiate (v) = bác bỏ; ephemeral (adj) = ngắn ngủi..."></textarea>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="input-refl-vocab">4. 📖 Từ mới / Thuật ngữ tiếng Anh (Không bắt buộc)</label>
-            <textarea id="input-refl-vocab" rows="2" placeholder="Ví dụ: repudiate (v) = bác bỏ; ephemeral (adj) = ngắn ngủi; substantiate (v) = chứng minh..."></textarea>
-          </div>
-
-          <div class="reflection-actions">
-            <button type="button" class="btn-save-review" id="btn-save-refl-and-review">
-              👀 Lưu Vào Sổ & Xem Lại Câu Vừa Rồi (Mở Khóa Toàn Bộ Gợi Ý)
+          <div class="reflection-actions g-kanban-actions">
+            <button type="button" class="btn-save-next g-kanban-btn-primary" id="btn-save-mandatory-reflection">
+              <span>💾 Lưu Vào Sổ Thử Sai &amp; Sang Câu Tiếp Theo ➔</span>
             </button>
-            <button type="button" class="btn-save-next" id="btn-save-mandatory-reflection">
-              💾 Lưu Vào Sổ Thử Sai & Sang Câu Tiếp Theo ➔
+            <button type="button" class="btn-save-review g-kanban-btn-secondary" id="btn-save-refl-and-review">
+              <span>👀 Lưu &amp; Xem Lại Lời Giải Câu Này (Mở Khóa Toàn Bộ Gợi Ý)</span>
             </button>
           </div>
         </form>

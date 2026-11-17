@@ -234,8 +234,11 @@
   }
 
   // --- 1. 3D FLASHCARDS (GOOGLE MATERIAL DESIGN 3) ---
-  function initPracticeCards() {
+  function initPracticeCards(shouldShuffle = true) {
     practiceWords = [...(rawWordLists[currentListIndex] || [])];
+    if (shouldShuffle) {
+      practiceWords.sort(() => Math.random() - 0.5);
+    }
     currentCardIndex = 0;
     isCardFlipped = false;
     renderCard();
@@ -558,6 +561,16 @@
   function openModal(defaultTab = 'practice') {
     if (window.pauseTimer) window.pauseTimer();
     if (el.modal) el.modal.classList.remove('hidden');
+
+    // On every modal open, pick a random list and shuffle flashcards
+    // so the student is greeted with a fresh SAT word instead of always starting on "Abhor"
+    if (rawWordLists && rawWordLists.length > 0) {
+      const randomListIdx = Math.floor(Math.random() * rawWordLists.length);
+      currentListIndex = randomListIdx;
+      if (el.listPicker) el.listPicker.value = currentListIndex;
+      updateListMetaUI();
+    }
+
     switchTab(defaultTab);
   }
 

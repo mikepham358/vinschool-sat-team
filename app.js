@@ -4855,6 +4855,54 @@ function initDraggableDictionary() {
   });
 
   updateVocabNotesBadge();
+  randomizeDictionaryChips();
+}
+
+// ================= ACESAT 1,000 WORDS INTEGRATION FOR CAMBRIDGE DICTIONARY =================
+function getAllAceSATVocabularyWords() {
+  const words = [];
+  if (window.ACESAT_VOCAB_DATA && Array.isArray(window.ACESAT_VOCAB_DATA)) {
+    for (const dict of window.ACESAT_VOCAB_DATA) {
+      for (const key of Object.keys(dict)) {
+        const clean = key.trim().toLowerCase();
+        if (clean && !words.includes(clean)) {
+          words.push(clean);
+        }
+      }
+    }
+  }
+  return words;
+}
+
+function randomizeDictionaryChips(activeWord = "") {
+  if (!DOM.dictChipsContainer) return;
+  let allWords = getAllAceSATVocabularyWords();
+  if (allWords.length === 0) {
+    allWords = [
+      "bolster", "ambiguous", "mitigate", "substantiate", "pragmatic",
+      "paradox", "lucid", "scrutinize", "ephemeral", "tenuous",
+      "candid", "comprehensive", "equivocal", "indifferent", "viable"
+    ];
+  }
+
+  // Shuffle and pick 14 random words
+  const shuffled = [...allWords].sort(() => Math.random() - 0.5);
+  const chosen = shuffled.slice(0, 14);
+
+  const cleanActive = (activeWord || "").trim().toLowerCase();
+  if (cleanActive && !chosen.includes(cleanActive)) {
+    chosen.unshift(cleanActive);
+    if (chosen.length > 14) chosen.pop();
+  }
+
+  DOM.dictChipsContainer.innerHTML = `
+    <span class="dict-chips-label">🎯 Từ SAT hay gặp:</span>
+    ${chosen.map(w => `
+      <button type="button" class="dict-chip ${w === cleanActive ? 'active' : ''}" data-word="${escapeHtmlSafe(w)}">
+        ${escapeHtmlSafe(w)}
+      </button>
+    `).join("")}
+  `;
 }
 
 function openDictionary(word) {
@@ -4869,6 +4917,9 @@ function openDictionary(word) {
     DOM.modalDictionary.style.top = "90px";
     DOM.modalDictionary.style.right = "50px";
   }
+
+  // Randomize quick SAT chips from AceSAT 1,000 Vocabulary bank on every open
+  randomizeDictionaryChips(word);
 
   updateVocabNotesBadge();
 
