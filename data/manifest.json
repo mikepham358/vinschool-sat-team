@@ -121,11 +121,7 @@
     "time_minutes": 67,
     "modules_count": 2,
     "storageKey": "bluebook_princeton_advanced_student_state_v1",
-    "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực.",
-    "category": "tests",
-    "category_name": "Đề thi phân hóa 1500+ (Tests)",
-    "category_badge": "🎯 Harder Modules",
-    "category_color": "amber"
+    "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực."
   },
   {
     "id": "princeton-book",

@@ -206,29 +206,29 @@ def get_math_questions():
             "module_num": 2,
             "topic": "Geometry and Trigonometry • Proportions and Scale Changes",
             "passage": "",
-            "prompt": "The ratio of the base of triangle DEF to the height of triangle DEF is 5 to 2. If the base of the triangle is doubled and the height of the triangle is tripled, what is the ratio of the base of the new triangle to the height of the new triangle?",
+            "prompt": "The ratio of the base of triangle DEF to the height of triangle DEF is 64 to 80. If the length of the height decreases by 55 units, how must the length of the base change to keep the same ratio?",
             "options": [
-                {"key": "A", "text": "5 to 3"},
-                {"key": "B", "text": "5 to 6"},
-                {"key": "C", "text": "10 to 3"},
-                {"key": "D", "text": "10 to 6"}
+                {"key": "A", "text": "It must decrease by 44 units."},
+                {"key": "B", "text": "It must increase by 44 units."},
+                {"key": "C", "text": "It must decrease by 55 units."},
+                {"key": "D", "text": "It must increase by 55 units."}
             ],
-            "options_raw": "A. 5 to 3\nB. 5 to 6\nC. 10 to 3\nD. 10 to 6",
+            "options_raw": "A. It must decrease by 44 units.\nB. It must increase by 44 units.\nC. It must decrease by 55 units.\nD. It must increase by 55 units.",
             "is_grid_in": False,
             "correct_answer": "A",
             "pdf_page": 17,
             "difficulty": "Hard",
             "princeton_strategy": "Plugging In Numbers & Ratio Simplification",
-            "tier1_hint": "Câu hỏi yêu cầu tìm tỉ số giữa cạnh đáy mới và chiều cao mới của tam giác DEF sau khi thay đổi kích thước.",
-            "tier2_hint": "Áp dụng phương pháp chọn số thực tế (Plugging In): Chọn đáy ban đầu b = 5, chiều cao ban đầu h = 2 (đúng tỉ lệ 5:2). Đáy mới tăng gấp đôi -> b_new = 2 × 5. Chiều cao mới tăng gấp ba -> h_new = 3 × 2. Lập tỉ số b_new / h_new và rút gọn về phân số tối giản.",
-            "tier3_hint": "Phương án đúng là **[A]** (*5 to 3*).\n\n**Phân tích chi tiết:**\nChọn b = 5, h = 2.\n- Đáy mới = 2 × 5 = 10.\n- Chiều cao mới = 3 × 2 = 6.\nTỉ số giữa đáy mới và chiều cao mới là 10 / 6. Rút gọn chia cả tử và mẫu cho 2 được tỉ số tối giản 5 / 3 (5 to 3).\n\n• (D) 10 to 6 sai vì tỉ số trên SAT bắt buộc phải rút gọn về dạng tối giản.",
-            "strategic_tip": "Mẹo Princeton Review: Mọi tỉ số trên bài thi SAT đều phải rút gọn về phân số tối giản (Reduced Form). Bẫy kinh điển là phương án D (10 to 6) chưa rút gọn.",
-            "pooe_breakdown": "• [A] ĐÚNG: 10/6 rút gọn thành 5 to 3.\n• [B] Loại vì tính nhầm thành 5/6.\n• [C] Loại vì nhân sai hệ số.\n• [D] Bẫy: chưa rút gọn phân số (10 to 6 = 5 to 3).",
+            "tier1_hint": "Câu hỏi yêu cầu tìm sự thay đổi về độ dài cạnh đáy của tam giác DEF để giữ nguyên tỉ số giữa đáy và chiều cao khi chiều cao giảm 55 đơn vị.",
+            "tier2_hint": "Áp dụng chiến thuật chọn số (TPR Plugging In): Sử dụng ngay các số trong tỉ lệ đã cho, giả sử đáy ban đầu là 64 đơn vị và chiều cao ban đầu là 80 đơn vị. Khi chiều cao giảm 55 đơn vị, chiều cao mới là 80 – 55 = 25 đơn vị. Thiết lập phương trình tỉ lệ: Đáy / Chiều cao = 64 / 80 = x / 25 để tìm độ dài đáy mới x.",
+            "tier3_hint": "Phương án đúng là **[A]** (*It must decrease by 44 units.*).\n\n**Phân tích chi tiết (Princeton Review):**\n- Đáy ban đầu = 64, Chiều cao ban đầu = 80.\n- Chiều cao mới = 80 – 55 = 25.\n- Thiết lập tỉ lệ: 64 / 80 = x / 25.\n- Nhân chéo: 80x = 64 × 25 = 1,600 => x = 20.\n- Đáy mới là 20 đơn vị. So với đáy ban đầu là 64, mức thay đổi là 64 – 20 = 44 đơn vị.\nVì đáy mới nhỏ hơn đáy ban đầu nên đáy phải GIẢM 44 đơn vị (decrease by 44 units).\n\n• (B) sai chiều biến thiên (increase).\n• (C) và (D) là bẫy nhầm lẫn lấy độ giảm của chiều cao (55) gán cho cạnh đáy.",
+            "strategic_tip": "Mẹo Princeton Review: Dùng phương pháp thế số thực tế (Plugging In): Giả sử đáy = 64, chiều cao = 80. Khi chiều cao mới là 25, giải tỉ lệ ra đáy mới = 20. Độ biến thiên: 64 - 20 = 44 (giảm 44 đơn vị).",
+            "pooe_breakdown": "• [A] ĐÚNG: Đáy mới = 20 => giảm 44 đơn vị so với ban đầu (64 – 20 = 44).\n• [B] Loại vì sai chiều (tăng 44).\n• [C] Loại vì bẫy giảm 55 đơn vị theo chiều cao.\n• [D] Loại vì sai cả số lượng lẫn chiều biến thiên.",
             "option_explanations": {
-                "A": "ĐÁP ÁN ĐÚNG. (5 × 2) / (2 × 3) = 10 / 6 = 5 to 3.",
-                "B": "Loại B — tính sai mẫu số.",
-                "C": "Loại C — không nhân hệ số 2 vào chiều cao.",
-                "D": "Loại D — bẫy chưa rút gọn phân số tối giản của College Board."
+                "A": "ĐÁP ÁN ĐÚNG. Đáy ban đầu 64, chiều cao 80. Chiều cao mới 80 – 55 = 25. Tỉ lệ: 64/80 = x/25 => x = 20. Độ thay đổi: 64 – 20 = 44 (giảm 44 đơn vị).",
+                "B": "Loại B — tính nhầm chiều biến thiên thành tăng 44 đơn vị.",
+                "C": "Loại C — bẫy nhầm lẫn: cho rằng đáy giảm cùng 55 đơn vị như chiều cao.",
+                "D": "Loại D — sai cả về độ lớn lẫn chiều biến thiên."
             }
         },
         # --- Q7 (Global 34) ---
@@ -243,29 +243,29 @@ def get_math_questions():
             "module_num": 2,
             "topic": "Advanced Math • Exponential Functions & Intercepts",
             "passage": "",
-            "prompt": "What is the y-intercept of the graph of y = 3(0.5)^(x+2) – 1 in the xy-plane?",
+            "prompt": "h(x) = 30 – (9)(–3)^x\nThe function h is defined by the given equation. What is the y-intercept of the graph of y = h(x) in the xy-plane?",
             "options": [
-                {"key": "A", "text": "(0, 3)"},
-                {"key": "B", "text": "(0, 2)"},
-                {"key": "C", "text": "(0, 0.75)"},
-                {"key": "D", "text": "(0, –0.25)"}
+                {"key": "A", "text": "(0, 30)"},
+                {"key": "B", "text": "(0, 9)"},
+                {"key": "C", "text": "(0, –3)"},
+                {"key": "D", "text": "(0, 21)"}
             ],
-            "options_raw": "A. (0, 3)\nB. (0, 2)\nC. (0, 0.75)\nD. (0, –0.25)",
+            "options_raw": "A. (0, 30)\nB. (0, 9)\nC. (0, –3)\nD. (0, 21)",
             "is_grid_in": False,
             "correct_answer": "D",
             "pdf_page": 17,
             "difficulty": "Hard",
             "princeton_strategy": "Desmos / Algebraic Evaluation at x = 0",
-            "tier1_hint": "Giao điểm của bất kỳ đồ thị hàm số nào với trục tung (y-intercept) luôn có hoành độ x = 0.",
-            "tier2_hint": "Thay giá trị x = 0 vào phương trình hàm số: y = 3(0.5)^(0+2) – 1. Tính lũy thừa (0.5)² = 0.25, sau đó nhân với 3 rồi trừ đi 1 để tìm tung độ y. (Hoặc nhập hàm số vào Desmos và bấm vào chấm xám trên trục tung).",
-            "tier3_hint": "Phương án đúng là **[D]** (*(0, –0.25)*).\n\n**Phân tích chi tiết:**\nTại giao điểm với trục tung, x = 0:\ny = 3(0.5)^(0 + 2) – 1\ny = 3(0.5)² – 1\ny = 3(0.25) – 1\ny = 0.75 – 1 = –0.25.\nTọa độ giao điểm là (0, –0.25).\n\n• (A), (B), (C) đều là các bước tính toán chưa hoàn chỉnh hoặc quên trừ 1.",
-            "strategic_tip": "Mẹo Princeton Review: Mở máy tính Desmos, nhập trực tiếp 'y = 3(0.5)^(x+2) - 1'. Bấm vào giao điểm với trục tung trên màn hình đồ họa, Desmos sẽ hiện ngay tọa độ (0, -0.25) trong 3 giây.",
-            "pooe_breakdown": "• [D] ĐÚNG: y = 3(0.25) – 1 = –0.25.\n• [A] Loại vì chỉ lấy hệ số 3.\n• [B] Loại vì tính 3 – 1 = 2.\n• [C] Loại vì quên trừ 1 (chỉ tính 3 × 0.25 = 0.75).",
+            "tier1_hint": "Giao điểm của đồ thị hàm số với trục tung (y-intercept) luôn xảy ra tại điểm có hoành độ x = 0.",
+            "tier2_hint": "Thay x = 0 vào phương trình hàm số h(x): h(0) = 30 – (9)(–3)⁰. Lưu ý bất kỳ số thực khác không nào nâng lên lũy thừa 0 đều bằng 1: (–3)⁰ = 1.",
+            "tier3_hint": "Phương án đúng là **[D]** (*(0, 21)*).\n\n**Phân tích chi tiết (Princeton Review):**\nTại giao điểm với trục tung, x = 0:\nh(0) = 30 – (9)(–3)⁰\nh(0) = 30 – (9)(1) = 30 – 9 = 21.\nDo đó tọa độ giao điểm với trục tung là (0, 21).\n(Bạn cũng có thể nhập phương trình vào máy tính vẽ đồ thị tích hợp Desmos để xem ngay giao điểm trục tung).\n\n• (A) sai vì chỉ lấy số hạng đầu 30 mà bỏ quên –(9)(–3)⁰.\n• (B) sai vì chỉ lấy hệ số 9.\n• (C) sai vì lấy cơ số –3.",
+            "strategic_tip": "Mẹo Princeton Review: Mở máy tính Desmos, nhập 'h(x) = 30 - 9(-3)^x'. Bấm vào giao điểm với trục tung trên màn hình đồ họa, Desmos sẽ hiện ngay tọa độ (0, 21).",
+            "pooe_breakdown": "• [D] ĐÚNG: h(0) = 30 – 9(–3)⁰ = 30 – 9(1) = 21 => (0, 21).\n• [A] Loại vì chỉ lấy 30.\n• [B] Loại vì chỉ lấy 9.\n• [C] Loại vì nhầm cơ số –3 thành tung độ gốc.",
             "option_explanations": {
-                "A": "Loại A — chỉ lấy hệ số đứng trước hàm mũ.",
-                "B": "Loại B — lấy 3 trừ 1, bỏ qua phần số mũ.",
-                "C": "Loại C — tính được 3(0.25) = 0.75 nhưng quên trừ đi 1 ở đuôi.",
-                "D": "ĐÁP ÁN ĐÚNG. y = 3(0.25) – 1 = 0.75 – 1 = –0.25."
+                "A": "Loại A — (0, 30) là bẫy khi chỉ lấy hằng số đầu tiên mà quên trừ đi 9.",
+                "B": "Loại B — (0, 9) chỉ là hệ số đứng trước lũy thừa.",
+                "C": "Loại C — (0, –3) là nhầm lẫn cơ số với tung độ gốc.",
+                "D": "ĐÁP ÁN ĐÚNG. Giao điểm trục tung có x = 0: h(0) = 30 – 9(–3)⁰ = 30 – 9(1) = 21 => tọa độ (0, 21)."
             }
         },
         # --- Q8 (Global 35) ---
@@ -340,12 +340,12 @@ def get_math_questions():
             "passage": "",
             "prompt": "C(s) = 20(0.5)^(s/300). The function C models the blood plasma concentration, in micrograms per milliliter, of a certain drug s seconds after the drug is administered. According to the model, the blood plasma concentration is predicted to decrease by x% every 5 minutes. What is the value of x?",
             "options": [
-                {"key": "A", "text": "5"},
-                {"key": "B", "text": "10"},
-                {"key": "C", "text": "20"},
+                {"key": "A", "text": "0.5"},
+                {"key": "B", "text": "2.5"},
+                {"key": "C", "text": "5"},
                 {"key": "D", "text": "50"}
             ],
-            "options_raw": "A. 5\nB. 10\nC. 20\nD. 50",
+            "options_raw": "A. 0.5\nB. 2.5\nC. 5\nD. 50",
             "is_grid_in": False,
             "correct_answer": "D",
             "pdf_page": 18,
@@ -353,14 +353,14 @@ def get_math_questions():
             "princeton_strategy": "Exponential Decay - Half-Life & Time Units",
             "tier1_hint": "Hàm số C(s) = 20(0.5)^(s/300) mô tả nồng độ thuốc với s tính bằng GIÂY. Đề bài hỏi nồng độ giảm đi bao nhiêu phần trăm (x%) sau mỗi 5 PHÚT.",
             "tier2_hint": "Chú ý quy đổi đơn vị thời gian: 5 phút = 5 × 60 = 300 giây. Thay s = 300 vào hàm số để tìm nồng độ sau 5 phút: C(300) = 20 × (0.5)^(300/300) = 20 × 0.5 = 10. Tính phần trăm suy giảm từ 20 xuống 10.",
-            "tier3_hint": "Phương án đúng là **[D]** (*50*).\n\n**Phân tích chi tiết:**\nSau mỗi 5 phút (s = 300 giây), số mũ là 300/300 = 1, nồng độ còn lại bằng một nửa (0.5 hay 50% so với ban đầu). Tức là nồng độ giảm đi 50%. Do đó x = 50.\n\n• (A) và (C) là các con số trong đề bài nhằm đánh lạc hướng.",
+            "tier3_hint": "Phương án đúng là **[D]** (*50*).\n\n**Phân tích chi tiết:**\nSau mỗi 5 phút (s = 300 giây), số mũ là 300/300 = 1, nồng độ còn lại bằng một nửa (0.5 hay 50% so với ban đầu). Tức là nồng độ giảm đi 50%. Do đó x = 50.\n\n• (A) 0.5 là cơ số trong hàm mũ.\n• (B) 2.5 là số gây nhiễu.\n• (C) 5 là số phút (5 phút = 300 giây).",
             "strategic_tip": "Mẹo Princeton Review: Cơ số 0.5 trong hàm phân rã mũ đại diện cho 'chu kỳ bán rã' (half-life). Mẫu số của số mũ (300 giây = 5 phút) chính là khoảng thời gian để lượng chất giảm đi một nửa (50%).",
-            "pooe_breakdown": "• [D] ĐÚNG: Cơ số 0.5 nghĩa là giảm đi 50% sau mỗi 300 giây (5 phút).\n• [A], [B], [C] là các con số gây nhiễu.",
+            "pooe_breakdown": "• [D] ĐÚNG: Cơ số 0.5 nghĩa là giảm đi 50% sau mỗi 300 giây (5 phút).\n• [A] Loại 0.5 vì đó là cơ số hàm mũ.\n• [B] Loại 2.5 vì tính sai tỉ số.\n• [C] Loại 5 vì 5 là số phút trong đề bài.",
             "option_explanations": {
-                "A": "Loại A — lấy số 5 phút từ đề bài.",
-                "B": "Loại B — tính toán sai nồng độ.",
-                "C": "Loại C — lấy hệ số ban đầu 20.",
-                "D": "ĐÁP ÁN ĐÚNG. Cơ số 0.5 đồng nghĩa nồng độ giảm đi một nửa (50%) sau mỗi 300 giây."
+                "A": "Loại A — 0.5 là cơ số trong hàm phân rã mũ, không phải phần trăm suy giảm x%.",
+                "B": "Loại B — tính sai tỉ lệ đơn vị thời gian.",
+                "C": "Loại C — 5 là số phút (5 phút = 300 giây), không phải phần trăm suy giảm.",
+                "D": "ĐÁP ÁN ĐÚNG. Cơ số 0.5 đồng nghĩa nồng độ nhân với 0.5 (tức giảm đi 50%) sau mỗi 300 giây (5 phút)."
             }
         },
         # --- Q11 (Global 38) ---

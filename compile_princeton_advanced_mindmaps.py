@@ -86,26 +86,30 @@ MINDMAPS[6] = """flowchart TD
     F -->|Bắt trúng ý đồ văn bản| H["Chọn (B): Thể hiện mong muốn giấu kín danh tính người đã chu cấp tài sản cho Pip"]
     H --> I["Chốt đáp án chính xác: [B]"]"""
 
-MINDMAPS[7] = """flowchart TD
-    A["Dạng bài: Cấu trúc tổng thể của đoạn văn (Overall Structure)"] --> B["Đoạn văn về Nhà thiết kế Nhật Bản Yoshioka Tokujin"]
-    B --> C["Phần 1 (General Concept):<br>Giới thiệu triết lý sáng tạo kết hợp hiện tượng tự nhiên và tinh thể học"]
-    B --> D["Phần 2 (Specific Exemplification):<br>Minh họa chi tiết bằng tác phẩm ghế 'Venus' (nuôi dưỡng tinh thể tự nhiên trong bể nước)"]
-    C & D --> E{"Nhận diện quy luật cấu trúc văn bản"}
-    E --> F["Đi từ Khái quát triết lý thiết kế chung (General Approach)<br>➔ Đến Ví dụ tác phẩm cụ thể minh chứng (Specific Application)"]
-    F --> G{"Đối chiếu các phương án POOE"}
-    G -->|Không có tranh luận hay thương mại| H["Loại (A) Tranh cãi giữa hai nhà phê bình<br>Loại (C) Lịch sử nhiều nhà thiết kế khác nhau<br>Loại (D) Vấn đề môi trường và giải pháp thương mại"]
-    G -->|Khớp chuẩn khuôn mẫu| I["Chọn (B): Introduces an artist's general approach and then provides<br>a specific illustration of that approach in practice."]
-    I --> J["Chốt đáp án chính xác: [B]"]"""
+MINDMAPS[7] = """
+flowchart TD
+    A["Dạng bài: Cấu trúc tổng thể của đoạn văn (Overall Structure)"] --> B["Đoạn văn về nghệ sĩ Yoshioka Tokujin"]
+    B --> C["Câu 1 (General Approach):<br>Giới thiệu phương pháp chung: lồng ghép các quá trình tự nhiên vào nghệ thuật<br>(incorporates natural processes and innovative approaches)"]
+    B --> D["Các câu tiếp theo (Specific Instance):<br>Minh họa bằng dự án cụ thể 'Crystallized' năm 2008<br>(nuôi tinh thể kết hợp âm nhạc Swan Lake / Moonlight tạo tranh kết tinh)"]
+    C & D --> E{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    E -->|Half-Right: Bàn về tác phẩm nhưng không có lịch sử sự nghiệp| F["Loại (A) draws a conclusion about Tokujin's artistic history"]
+    E -->|Khớp chuẩn: Từ tiếp cận chung đến trường hợp cụ thể| G["Chọn (B) It introduces an artist's general approach, then describes a specific instance of that approach."]
+    E -->|Recycled Language: Nhạc không bị so sánh đối lập và không định hình phong cách| H["Loại (C) contrasts Swan Lake with Moonlight<br>Loại (D) explains how music influenced his work"]
+    G --> I["Chốt đáp án chính xác: [B]"]
+"""
 
-MINDMAPS[8] = """flowchart TD
-    A["Dạng bài: Chức năng câu gạch chân (Sentence Function)<br>Văn bản Sinh học về cá cần câu biển sâu (Anglerfish)"] --> B["Câu trước: Cá cần câu sở hữu mồi nhử phát sáng (esca) để thu hút con mồi trong bóng tối"]
-    B --> C["Câu gạch chân: Miêu tả vi khuẩn phát quang cộng sinh (symbiotic bioluminescent bacteria) sinh sống bên trong esca"]
-    C --> D{"Phân tích mối quan hệ logic giữa 2 câu"}
-    D --> E["Câu gạch chân giải thích CƠ CHẾ SINH HỌC (Physiological Mechanism)<br>tạo ra hiện tượng phát sáng đã được đề cập trước đó"]
-    E --> F{"Loại trừ các phương án gây nhiễu"}
-    F -->|Sai chức năng tu từ| G["Loại (A) Thách thức thuyết tiến hóa<br>Loại (B) Ngoại lệ của quy luật sinh học<br>Loại (C) Tóm tắt lịch sử tranh luận"]
-    F -->|Đúng cơ chế sinh học| H["Chọn (D): Details the physiological process responsible for the adaptation mentioned in the preceding sentence."]
-    H --> I["Chốt đáp án chính xác: [D]"]"""
+MINDMAPS[8] = """
+flowchart TD
+    A["Dạng bài: Chức năng của câu gạch chân (Sentence Function)<br>Nghiên cứu của GS Tim mạch Maciej Banach về số bước đi bộ hàng ngày"] --> B{"Phân tích cấu trúc & ngữ cảnh đoạn văn"}
+    B --> C["Câu 1: Giới thiệu phát hiện tổng quát: đi bộ nhiều hơn giúp giảm nguy cơ tử vong do tim mạch"]
+    B --> D["Câu gạch chân: 'The study, which evaluated 226,889 people across 17 different studies worldwide, examined individuals who had walked from 5,000 steps up to 20,000 steps a day.'"]
+    D --> E["Chức năng câu gạch chân:<br>Mô tả phạm vi dữ liệu và đối tượng mà nghiên cứu khảo sát<br>(Explain what the study looked at / sample size & methodology)"]
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Đoạn văn không nói về khó khăn/trở ngại nào| G["Loại (A) outlines an obstacle encountered by the research team"]
+    F -->|Right Answer, Wrong Question: Câu kết luận là câu cuối cùng, không phải câu gạch chân| H["Loại (B) summarizes the conclusions reached by the team<br>Loại (C) offers a specific example of the team's conclusions"]
+    F -->|Khớp chuẩn chức năng mô tả quy mô nghiên cứu| I["Chọn (D) It provides details about the scope and subjects of the team's study."]
+    I --> J["Chốt đáp án chính xác: [D]"]
+"""
 
 MINDMAPS[9] = """flowchart TD
     A["Dạng bài: Tổng hợp hai văn bản (Dual Texts Synthesis)<br>Về nguồn gốc tiến hóa của tế bào nhân thực (Eukaryotes)"] --> B["Text 1 (Gabaldón et al.):<br>Giả thuyết tế bào tổ tiên đơn giản đã trao đổi vật chất di truyền (Horizontal Gene Transfer) TRƯỚC KHI xảy ra nội cộng sinh"]
@@ -117,15 +121,18 @@ MINDMAPS[9] = """flowchart TD
     F -->|Đánh giá sắc thái cân bằng| H["Chọn (C): Thừa nhận đây là giả thuyết đáng chú ý nhưng bị lung lay bởi bằng chứng bộ gen mới về mốc thời gian nội cộng sinh."]
     H --> I["Chốt đáp án chính xác: [C]"]"""
 
-MINDMAPS[10] = """flowchart TD
-    A["Dạng bài: Phân tích bảng số liệu (Quantitative / Tables)<br>Tỉ lệ nảy mầm của các loài hạt thực vật sa mạc theo nhiệt độ"] --> B{"Mục tiêu đề bài yêu cầu"}
-    B --> C["Tìm dữ liệu chứng minh một loài thực vật bị sụt giảm mạnh tỉ lệ nảy mầm khi nhiệt độ vượt ngưỡng 35°C"]
-    C --> D["Tra cứu bảng số liệu tại các cột: 25°C, 30°C, 35°C, 40°C"]
-    D --> E["Quan sát hàng loài 'Echinocactus':<br>• Ở 30°C: Nảy mầm đạt 85%<br>• Ở 35°C: Nảy mầm duy trì 78%<br>• Ở 40°C: Nảy mầm tụt dốc thảm hại xuống 12%"]
-    E --> F{"Đối chiếu số liệu các phương án"}
-    F -->|Sai số liệu hoặc sai loài| G["Loại (B), (C), (D) do trích dẫn sai loài hoặc sai mốc phần trăm tụt giảm"]
-    F -->|Khớp chính xác bảng dữ liệu| H["Chọn (A): Trích dẫn chính xác số liệu sụt giảm từ trên 75% xuống dưới 15% của loài Echinocactus."]
-    H --> I["Chốt đáp án chính xác: [A]"]"""
+MINDMAPS[10] = """
+flowchart TD
+    A["Dạng bài: Phân tích bảng số liệu (Quantitative / Tables)<br>Doanh thu phòng vé & Số vé bán ra (1996–2000)"] --> B{"Luận điểm trong bài đọc cần minh họa"}
+    B --> C["'Box office profits continued to rise through the 1990s,<br>despite ticket sales decreasing towards the end of the decade.'<br>(Doanh thu tiếp tục tăng dù số lượng vé bán ra sụt giảm vào cuối thập kỷ)"]
+    C --> D{"Đối chiếu dữ liệu bảng số liệu 1996–2000"}
+    D --> E["Giai đoạn 1998 – 2000:<br>• Số vé bán ra: GIẢM từ 1.48 tỷ (1998) xuống 1.42 tỷ (2000)<br>• Doanh thu phòng vé: TĂNG từ $6.95 tỷ đô lên $7.66 tỷ đô!"]
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Khớp hoàn hảo cả 2 chiều: vé giảm nhưng doanh thu tăng| G["Chọn (A): The number of tickets sold dropped from 1.48 billion in 1998 to 1.42 billion in 2000, while box office revenue increased from $6.95 billion to $7.66 billion."]
+    F -->|Half-Right: Vé giữ nguyên không giảm| H["Loại (B): Vé 1997-1999 giữ nguyên ở 1.47 tỷ, không thể hiện xu hướng giảm"]
+    F -->|Irrelevant: Không đề cập đến doanh thu phòng vé| I["Loại (C) & (D): Chỉ nói về số vé bán ra mà bỏ quên doanh thu phòng vé"]
+    G --> J["Chốt đáp án chính xác: [A]"]
+"""
 
 MINDMAPS[11] = """flowchart TD
     A["Dạng bài: Bằng chứng củng cố luận điểm (Command of Evidence - Support)<br>Luận điểm của nhà cổ sinh vật học Tang"] --> B{"Luận điểm của Tang"}
@@ -137,57 +144,71 @@ MINDMAPS[11] = """flowchart TD
     F -->|Bằng chứng địa tầng biển 1 tỷ năm tuổi| H["Chọn (D): Vi hóa thạch tảo lục cổ nhất (1 tỷ năm) được khai quật tại phiến sét biển sâu không chứa khoáng vật nước ngọt."]
     H --> I["Chốt đáp án chính xác: [D]"]"""
 
-MINDMAPS[12] = """flowchart TD
-    A["Dạng bài: Bằng chứng từ biểu đồ (Quantitative / Graphs)<br>Biểu đồ tần số tiếng hót của chim thành thị vs chim rừng"] --> B{"Kết luận của nhà nghiên cứu cần chứng minh"}
-    B --> C["Chim thành thị hót ở tần số tối thiểu (Minimum Frequency) CAO HƠN chim rừng<br>để tránh bị lấn át bởi tiếng ồn giao thông tần số thấp."]
-    C --> D["Đọc các trục và chú giải của biểu đồ"]
-    D --> E["• Trục tung: Tần số tối thiểu (kHz)<br>• Cột Urban: Đạt xấp xỉ 2.2 kHz<br>• Cột Forest: Chỉ ở mức xấp xỉ 1.4 kHz"]
-    E --> F{"Đối chiếu số liệu các phương án"}
-    F -->|Đọc sai trục hoặc ngược xu hướng| G["Loại (B) Tần số tối đa (không phải trọng tâm)<br>Loại (C) Đảo ngược số liệu<br>Loại (D) Không có sự khác biệt"]
-    F -->|Khớp chuẩn xác số liệu so sánh| H["Chọn (A): Tần số tối thiểu của chim thành thị cao hơn đáng kể so với chim rừng tự nhiên."]
-    H --> I["Chốt đáp án chính xác: [A]"]"""
+MINDMAPS[12] = """
+flowchart TD
+    A["Dạng bài: Bằng chứng từ biểu đồ (Quantitative / Graphs)<br>Khả năng can thiệp dựa trên Tình trạng ASD & Số lượng người chứng kiến"] --> B{"Kết luận của nhà nghiên cứu cần củng cố"}
+    B --> C["'Autistic employees were more likely to speak up on workplace issues than non-autistic employees, regardless of the number of bystanders.'<br>(Nhân viên có phổ tự kỷ ASD sẵn sàng lên tiếng can thiệp hơn nhân viên không tự kỷ, bất kể số lượng người chứng kiến)"]
+    C --> D{"Đọc dữ liệu biểu đồ cột (Bar Graph)"}
+    D --> E["Cột nhân viên tự kỷ (ASD) luôn cao hơn cột nhân viên không tự kỷ (Non-ASD) ở TẤT CẢ các điều kiện người chứng kiến (1 người, 2 người, nhóm đông)!"]
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Khớp chuẩn kết luận và số liệu biểu đồ| G["Chọn (A): Across all bystander conditions, the likelihood of intervention was consistently higher for autistic participants than for non-autistic participants."]
+    F -->|Irrelevant: Không so sánh giữa 2 nhóm nhân viên| H["Loại (B): Chỉ nói về một nhóm mà không so sánh tự kỷ vs không tự kỷ"]
+    F -->|Ngược dữ liệu (Opposite): Tự kỷ và không tự kỷ có tỉ lệ bằng nhau| I["Loại (C) & (D): Sai lệch hoàn toàn so với các cột số liệu biểu đồ"]
+    G --> J["Chốt đáp án chính xác: [A]"]
+"""
 
-MINDMAPS[13] = """flowchart TD
-    A["Dạng bài: Bằng chứng làm suy yếu kết luận (Weaken Claims)<br>Sự kiện nổ Tunguska năm 1908 tại Siberia"] --> B{"Kết luận của Kulik cần làm suy yếu"}
-    B --> C["Vụ nổ là do một thiên thạch kim loại giàu sắt-niken (Iron Meteorite)<br>đã va chạm trực tiếp xuống mặt đất."]
-    C --> D{"Phát hiện nào nếu có thật sẽ bác bỏ kết luận của Kulik?"}
-    D --> E["Chứng minh vụ nổ là một vụ nổ trên không (Airburst) của thiên thể băng/sao chổi,<br>hoàn toàn KHÔNG để lại mảnh thiên thạch sắt hay miệng hố va chạm."]
-    E --> F{"Chiến thuật loại trừ POOE"}
-    F -->|Ủng hộ hoặc không liên quan| G["Loại (A) Cây cối đổ rạp hình cánh bướm (ủng hộ nổ)<br>Loại (B) Động đất ghi nhận toàn cầu<br>Loại (C) Lời kể của nhân chứng"]
-    F -->|Không tìm thấy tàn tích sắt-niken| H["Chọn (D): Mẫu đất tại tâm chấn chỉ chứa bụi silicate và dấu vết băng cometary, hoàn toàn không có mảnh thiên thạch sắt-niken."]
-    H --> I["Chốt đáp án chính xác: [D]"]"""
+MINDMAPS[13] = """
+flowchart TD
+    A["Dạng bài: Làm suy yếu kết luận (Weaken Claims)<br>Nghiên cứu của Kuwano và cộng sự về sự kiện va chạm thiên thạch"] --> B{"Kết luận của Kuwano cần làm suy yếu"}
+    B --> C["Kuwano cho rằng sự kiện nổ Tunguska 1908 là do một TIỂU HÀNH TINH (asteroid - chứa kim loại và đá) nổ tung trên không trung,<br>dựa trên đặc điểm biến dạng phẳng (planar deformation features) trong thạch anh bị sốc nhiệt (shocked quartz)."]
+    C --> D{"Tìm dữ kiện làm giảm độ tin cậy của kết luận"}
+    D --> E["Nếu SAO CHỔI (comet - bụi và băng) cũng có thể tạo ra các đặc điểm thạch anh bị sốc nhiệt tương tự,<br>thì sự hiện diện của thạch anh không thể chứng minh vật thể đó là tiểu hành tinh!"]
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Strengthen: Củng cố thêm cho kết luận tiểu hành tinh| G["Loại (A) & (B): Làm tăng khả năng là tiểu hành tinh chứ không làm suy yếu"]
+    F -->|Irrelevant: Hoàn cảnh vụ nổ không liên quan đến bản chất thiên thể| H["Loại (C): Cơ chế nổ không giúp phân biệt tiểu hành tinh hay sao chổi"]
+    F -->|Weaken chuẩn xác: Chỉ ra sao chổi cũng tạo ra shocked quartz| I["Chọn (D): Comets entering the atmosphere under high velocity can also generate temperatures and pressures sufficient to produce planar deformation features in quartz."]
+    I --> J["Chốt đáp án chính xác: [D]"]
+"""
 
-MINDMAPS[14] = """flowchart TD
-    A["Dạng bài: Bằng chứng ủng hộ sự đính chính (Support Clarification)"] --> B{"Lời đính chính của nhà báo"}
-    B --> C["Mặc dù mạng xã hội đồn rằng triển lãm sắp tới là lần đầu tiên bảo tàng trưng bày nghệ thuật bản địa,<br>nhưng thực tế bảo tàng ĐÃ TỪNG tổ chức các triển lãm nghệ thuật bản địa trong quá khứ."]
-    C --> D{"Tìm dữ kiện lịch sử chứng minh bảo tàng từng triển lãm trước đây"}
-    D --> E["Hồ sơ lưu trữ hoặc sự kiện thực tế trong quá khứ xác nhận các đợt trưng bày tranh/ảnh/hiện vật của nghệ sĩ bản địa."]
-    E --> F{"Chiến thuật loại trừ POOE"}
-    F -->|Chỉ nói về dự định tương lai hoặc bảo tàng khác| G["Loại (A) Bảo tàng dự định mua thêm tranh<br>Loại (B) Bảo tàng khác có bộ sưu tập lớn hơn<br>Loại (D) Du khách yêu thích nghệ thuật bản địa"]
-    F -->|Hồ sơ triển lãm năm 2014 & 2018| H["Chọn (C): Tài liệu lưu trữ xác nhận bảo tàng đã tổ chức các triển lãm cá nhân lớn cho nghệ sĩ khắc bản địa vào năm 2014 và 2018."]
-    H --> I["Chốt đáp án chính xác: [C]"]"""
+MINDMAPS[14] = """
+flowchart TD
+    A["Dạng bài: Bằng chứng ủng hộ lời đính chính (Support Clarification)"] --> B{"Lời đính chính của nhà báo trong đoạn văn"}
+    B --> C["Họa sĩ bản địa Jaune Quick-to-See Smith ngạc nhiên khi 'I See Red: Target' là bức TRANH VẼ TRÊN TOAN (painting on canvas) ĐẦU TIÊN của nghệ sĩ bản địa được đưa vào bộ sưu tập của National Gallery of Art."]
+    C --> D["Lời đính chính của nhà báo:<br>Bảo tàng TRƯỚC ĐÓ ĐÃ TỪNG trưng bày nghệ thuật bản địa ở CÁC HÌNH THỨC CHẤT LIỆU KHÁC<br>(Indigenous works in other forms of media)."]
+    D --> E{"Dữ kiện nào chứng minh trực tiếp lời đính chính này?"}
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Irrelevant: Nói về các bảo tàng khác (MoMA, Whitney, Met, Smithsonian...)| G["Loại (A): Tác phẩm của Smith ở các bảo tàng danh tiếng khác<br>Loại (B): Công trình công cộng của Smith ở sân bay Denver & Seattle"]
+    F -->|Beyond the Text: Bàn về hoạt động sau này của Smith| H["Loại (D): Smith tập hợp tác phẩm của các nghệ sĩ bản địa khác sau khi tranh được mua"]
+    F -->|Khớp chuẩn lời đính chính: Bảo tàng đã có tác phẩm trên giấy của người bản địa| I["Chọn (C): Phát ngôn viên National Gallery of Art xác nhận bảo tàng đã có hơn 24 tác phẩm trên giấy (works on paper) của các tác giả bản địa trước khi mua bức tranh toan của Smith."]
+    I --> J["Chốt đáp án chính xác: [C]"]
+"""
 
-MINDMAPS[15] = """flowchart TD
-    A["Dạng bài: Hoàn thành suy luận logic (Logical Completion / Inferences)"] --> B["Thí nghiệm tâm lý xã hội về việc phán đoán hệ tư tưởng/chính trị của người khác"]
-    B --> C["Manh mối 1: Khi người tham gia chỉ dựa vào tín hiệu thị giác bên ngoài (quần áo, diện mạo),<br>tỉ lệ đoán sai rất cao và chứa nhiều định kiến."]
-    B --> D["Manh mối 2: Khi được trò chuyện trực tiếp dù chỉ vài phút,<br>độ chính xác tăng vọt lên mức đáng kể."]
-    C & D --> E{"Suy luận kết luận hợp lý nhất (Logical Inference)"}
-    E --> F["Các tín hiệu thị giác đơn thuần KHÔNG THỂ thay thế cho đối thoại trực tiếp<br>nếu muốn đánh giá chính xác lập trường tư tưởng thực sự."]
-    F --> G{"Chiến thuật loại trừ POOE"}
-    G -->|Suy diễn quá đà hoặc sai trọng tâm| H["Loại (B) Con người không bao giờ hiểu được nhau<br>Loại (C) Trang phục luôn phản ánh trung thực tư tưởng<br>Loại (D) Đối thoại làm sai lệch ấn tượng ban đầu"]
-    G -->|Khớp chuẩn suy luận logic| I["Chọn (A): Visual cues alone are inadequate for accurately determining an individual's ideological orientation."]
-    I --> J["Chốt đáp án chính xác: [A]"]"""
+MINDMAPS[15] = """
+flowchart TD
+    A["Dạng bài: Hoàn thành suy luận logic (Logical Completion / Inferences)"] --> B{"Vấn đề được đặt ra trong bài đọc"}
+    B --> C["Nghiên cứu về cách con người đánh giá hệ tư tưởng của nhau khi gặp lần đầu gặp hạn chế vì tiến hành trong phòng thí nghiệm có kiểm soát (controlled settings with proscribed inputs)."]
+    C --> D["Các nhà khoa học cố gắng mô phỏng nhiều bối cảnh khác nhau, NHƯNG không thể tái hiện mọi tình huống giao tiếp tự phát ngoài đời thực (can't reasonably mimic every potential kind of social encounter)."]
+    D --> E{"Suy luận kết luận hợp lý mà các nhà khoa học phải thừa nhận"}
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Extreme Language: Cho rằng nghiên cứu hoàn toàn vô nghĩa| G["Loại (B) can't create a meaningful study without compromising rigorous conditions"]
+    F -->|Beyond the Text: Khuyên từ bỏ hướng nghiên cứu| H["Loại (C) should focus on other questions of behavioral research"]
+    F -->|Beyond the Text: Lạc sang các lần gặp tiếp theo thay vì cuộc gặp đầu tiên| I["Loại (D) need additional information about how impressions change after more interactions"]
+    F -->|Thận trọng, chuẩn mực khoa học: Chấp nhận biên độ sai số do môi trường kiểm soát| J["Chọn (A): must allow for a reasonable margin of error in their studies and understand that the controlled nature of the study may affect the authenticity of the interactions."]
+    J --> K["Chốt đáp án chính xác: [A]"]
+"""
 
-MINDMAPS[16] = """flowchart TD
-    A["Dạng bài: Hoàn thành suy luận logic (Logical Completion)<br>Nghệ thuật vẽ cát truyền thống (Sandroing) tại Vanuatu"] --> B{"Dữ kiện thực tế trong đoạn văn"}
-    B --> C["1. Tranh cát là phương tiện lưu giữ tri thức nghi lễ, phả hệ, hiệp ước xã hội phức tạp."]
-    B --> D["2. Tuy nhiên, do vẽ trên nền cát ven biển, các bức vẽ vật lý nhanh chóng bị sóng và gió xóa nhòa."]
-    C & D --> E{"Nghịch lý: Vật thể vật lý biến mất nhưng tri thức văn hóa vẫn trường tồn?"}
-    E --> F["Sự tồn tại lâu bền của truyền thống KHÔNG phụ thuộc vào việc bảo tồn vật thể cát,<br>mà phụ thuộc vào việc các thế hệ nghệ nhân liên tục học thuộc và tái hiện lại qua truyền khẩu."]
-    F --> G{"Chiến thuật loại trừ POOE"}
-    G -->|Mâu thuẫn với bản chất văn hóa phi vật thể| H["Loại (A) Người dân đã chuyển sang vẽ trên vải vĩnh cửu<br>Loại (C) Ý nghĩa của các hình vẽ đã bị lãng quên hoàn toàn<br>Loại (D) Tranh cát chỉ mang tính trang trí tức thời"]
-    G -->|Khớp chuẩn giá trị di sản sống| I["Chọn (B): Cultural continuity relies on living practitioners repeatedly recreating the designs and oral narratives."]
-    I --> J["Chốt đáp án chính xác: [B]"]"""
+MINDMAPS[16] = """
+flowchart TD
+    A["Dạng bài: Hoàn thành suy luận logic (Logical Completion)<br>Nghệ thuật vẽ cát truyền thống (Sand Drawing) tại đảo quốc Vanuatu"] --> B{"Chuỗi dữ kiện & Mối quan hệ tương phản"}
+    B --> C["1. Vai trò gốc: Tranh cát là phương tiện ghi chép và truyền đạt nghi lễ, lịch sử, văn hóa được UNESCO công nhận là di sản văn hóa phi vật thể."]
+    B --> D["2. Sự biến tướng gần đây (Contrast): Tranh cát bị thương mại hóa, sử dụng cho mục đích quảng cáo và du lịch (advertising and tourism)."]
+    B --> E["3. Phản ứng: Người dân phản đối việc trục lợi từ tranh cát ➔ UNESCO tài trợ thành lập Ủy ban 'Save Sand Drawings Action Committee'..."]
+    E --> F{"Động cơ thành lập Ủy ban bảo vệ di sản là gì?"}
+    F --> G{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Beyond the Text: Tự khen ngợi di sản hoặc nói về sự đổi mới| H["Loại (A) rich history celebrated by international art community<br>Loại (C) islanders recognize importance of change and progress<br>Loại (D) evolving to include modern cultural events"]
+    F -->|Khớp trực tiếp lý do phản đối: Lo ngại di sản bị dùng sai mục đích nguyên bản| I["Chọn (B): there is growing concern that an art form is being employed for reasons other than its original purpose."]
+    I --> J["Chốt đáp án chính xác: [B]"]
+"""
 
 MINDMAPS[17] = """flowchart TD
     A["Dạng bài: Quy tắc dấu câu & Mệnh đề (Boundaries - Clauses & Punctuation)"] --> B["Văn bản: '...hypothesized the existence of a Planet Nine that is affecting the ETNOs' orbits [ ? ] which...'"]
@@ -225,29 +246,35 @@ MINDMAPS[19] = """flowchart TD
     I -->|Chuẩn công thức ngữ pháp| K["Chọn (C) crystals; instead,"]
     K --> L["Chốt đáp án chính xác: [C]"]"""
 
-MINDMAPS[20] = """flowchart TD
-    A["Dạng bài: Hòa hợp thì & Thể động từ (Verb Tense & Aspect)"] --> B["Văn bản nghiên cứu lịch sử y tế của cựu chiến binh"]
-    B --> C{"Xác định mốc thời gian & Trình tự hành động"}
-    C --> D["Mốc quá khứ mỏ neo (Past Baseline):<br>Thời điểm các bác sĩ đánh giá bệnh án sau chiến tranh (Quá khứ đơn - Simple Past)"]
-    C --> E["Hành động cần điền:<br>Việc tham gia phục vụ trong quân ngũ ĐÃ DIỄN RA VÀ HOÀN TẤT TRƯỚC mốc mỏ neo đó!"]
-    D & E --> F{"Quy tắc thì Quá khứ hoàn thành (Past Perfect Rule)"}
-    F --> G["Hành động xảy ra trước một hành động khác trong quá khứ<br>BẮT BUỘC phải chia ở thì Quá khứ hoàn thành: HAD + V3/ed"]
-    G --> H{"Đối chiếu các phương án"}
-    H -->|Sai thì| I["Loại (B) took: Quá khứ đơn (không thể hiện được thứ tự trước-sau)<br>Loại (C) take: Hiện tại đơn (lệch hoàn toàn ngữ cảnh quá khứ)<br>Loại (D) will take: Tương lai (sai)"]
-    H -->|Đúng quá khứ hoàn thành| J["Chọn (A) had taken: Diễn tả chuẩn xác sự kiện xảy ra trước mốc quá khứ."]
-    J --> K["Chốt đáp án chính xác: [A]"]"""
+MINDMAPS[20] = """
+flowchart TD
+    A["Dạng bài: Hòa hợp thì & Thể động từ (Verb Tense & Aspect)"] --> B["Đạo luật G.I. Bill (1944) hỗ trợ cựu chiến binh Thế chiến II"]
+    B --> C["Câu cần điền: 'By 1951, about 8 million veterans ________ advantage of the bill's educational benefits...'"]
+    C --> D{"Manh mối thời gian mấu chốt (Time Clue)"}
+    D --> E["Cụm từ 'By 1951' (Trước mốc năm 1951 trong quá khứ):<br>Chỉ hành động đã xảy ra và hoàn tất TRƯỚC một thời điểm xác định trong quá khứ."]
+    E --> F{"Quy tắc thì Quá khứ hoàn thành (Past Perfect Rule)"}
+    F --> G["Hành động xảy ra trước mốc thời gian quá khứ BẮT BUỘC chia: HAD + V3/ed"]
+    G --> H{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    H -->|Quá khứ đơn: Không thể hiện được hành động hoàn tất trước mốc By 1951| I["Loại (B) took"]
+    H -->|Hiện tại đơn / Tương lai: Lệch hoàn toàn ngữ cảnh lịch sử 1951| J["Loại (C) take<br>Loại (D) will take"]
+    H -->|Đúng dạng Quá khứ hoàn thành| K["Chọn (A) had taken: Khớp hoàn hảo với mốc 'By 1951'."]
+    K --> L["Chốt đáp án chính xác: [A]"]
+"""
 
-MINDMAPS[21] = """flowchart TD
-    A["Dạng bài: Hòa hợp Chủ ngữ - Vị ngữ (Subject-Verb Agreement)"] --> B["Văn bản: 'A prominent non-profit organization that advocates for clean energy across several nations ________ government policy.'"]
-    B --> C{"Chiến thuật bóc tách thành phần câu (TPR Subject Isolation)"}
-    C --> D["Gạch bỏ cụm mệnh đề quan hệ chen giữa:<br>'that advocates for clean energy across several nations'"]
-    C --> E["Chủ ngữ cốt lõi (True Subject):<br>'organization' ➔ Danh từ số ít (Singular Noun)!"]
-    E --> F{"Quy tắc hòa hợp số ít"}
-    F --> G["Chủ ngữ số ít đi với Động từ số ít (thêm -s / -es ở hiện tại đơn)"]
-    G --> H{"Đối chiếu các lựa chọn"}
-    H -->|Động từ số nhiều| I["Loại (A) were influencing: Số nhiều (were)<br>Loại (B) have influenced: Số nhiều (have)<br>Loại (C) influence: Số nhiều (nguyên thể)"]
-    H -->|Động từ số ít duy nhất| J["Chọn (D) influences: Động từ số ít hòa hợp tuyệt đối với 'organization'."]
-    J --> K["Chốt đáp án chính xác: [D]"]"""
+MINDMAPS[21] = """
+flowchart TD
+    A["Dạng bài: Hòa hợp Chủ ngữ - Vị ngữ (Subject-Verb Agreement)"] --> B["Văn bản: 'The Organization of the Petroleum Exporting Countries (OPEC), a collective of countries founded in 1960 by Iran, Iraq, Kuwait, Saudi Arabia, and Venezuela, ________ the global oil market...'"]
+    B --> C{"Chiến thuật cô lập Chủ ngữ (TPR Subject Isolation)"}
+    C --> D["Gạch bỏ cụm đồng vị ngữ chen giữa 2 dấu phẩy:<br>', a collective of countries founded in 1960 by Iran, Iraq, Kuwait, Saudi Arabia, and Venezuela,'"]
+    C --> E["Gạch bỏ cụm giới từ phụ: 'of the Petroleum Exporting Countries (OPEC)'"]
+    D & E --> F["Chủ ngữ hạt nhân cốt lõi (True Subject):<br>'The Organization' ➔ Danh từ số ít (Singular Noun)!"]
+    F --> G{"Quy tắc hòa hợp số ít"}
+    G --> H["Chủ ngữ số ít bắt buộc đi với Động từ số ít (ngôi thứ 3 số ít thêm -s / -es)"]
+    H --> I{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    I -->|Các dạng động từ số nhiều| J["Loại (A) were influencing (were số nhiều)<br>Loại (B) have influenced (have số nhiều)<br>Loại (C) influence (động từ nguyên mẫu số nhiều)"]
+    I -->|Động từ số ít duy nhất| K["Chọn (D) influences: Hòa hợp hoàn hảo với danh từ số ít 'Organization'."]
+    K --> L["Chốt đáp án chính xác: [D]"]
+"""
 
 MINDMAPS[22] = """flowchart TD
     A["Dạng bài: Ranh giới cụm phân từ & Bổ ngữ (Boundaries & Participial Modifiers)"] --> B["Văn bản: '...a Korean musical notation system written on paper divided into regular boxes [ ? ] each of which represents...'"]
@@ -285,16 +312,18 @@ MINDMAPS[24] = """flowchart TD
     H -->|Khớp chuẩn quan hệ tương đồng| J["Chọn (A) Similarly,"]
     J --> K["Chốt đáp án chính xác: [A]"]"""
 
-MINDMAPS[25] = """flowchart TD
-    A["Dạng bài: Từ nối logic Khái quát ➔ Cụ thể (General to Specific Transition)"] --> B{"Phân tích mối quan hệ giữa 2 câu"}
-    B --> C["Câu 1 (Ý khái quát - General):<br>Kính hiển vi quang học truyền thống có những hạn chế nghiêm trọng khi quan sát các cấu trúc virus siêu vi."]
-    B --> D["Câu 2 (Minh họa kỹ thuật cụ thể - Specific):<br>Phương pháp cryo-electron tomography giải quyết nhược điểm này bằng cách chụp mẫu ở trạng thái đông lạnh với độ phân giải dưới 1 nanometer."]
-    C & D --> E{"Xác định bản chất logic"}
-    E --> F["Đi từ nhận định chung về hạn chế ➔ Đến giải pháp kỹ thuật cụ thể chi tiết.<br>Cần từ nối mang tính 'Cụ thể là / Đi vào chi tiết' (Specifically / In particular)."]
-    F --> G{"Chiến thuật loại trừ POOE"}
-    G -->|Sai mối quan hệ| H["Loại (A) Nevertheless: Quan hệ tương phản (sai)<br>Loại (C) Likewise: Quan hệ tương đồng 2 sự việc khác nhau (sai)<br>Loại (D) Still: Quan hệ nhượng bộ (sai)"]
-    G -->|Đúng bản chất minh họa chi tiết| I["Chọn (B) Specifically,"]
-    I --> J["Chốt đáp án chính xác: [B]"]"""
+MINDMAPS[25] = """
+flowchart TD
+    A["Dạng bài: Từ nối logic (Transitions - Cause and Effect)"] --> B{"Phân tích mối quan hệ ngữ nghĩa giữa 2 câu cuối"}
+    B --> C["Câu trước (Nguyên nhân - Cause):<br>'There are significant limitations in the microscopy and direct visual observation that have traditionally been the main ways scientists can watch bees work.'<br>(Có những hạn chế lớn trong phương pháp quan sát bằng kính hiển vi truyền thống)"]
+    B --> D["Câu sau (Kết quả - Effect):<br>'several key features of honeycomb structures... have been largely understudied and possibly even misrepresented.'<br>(Nhiều đặc tính cốt lõi của cấu trúc tổ ong chưa được nghiên cứu đầy đủ và có thể bị hiểu sai)"]
+    C & D --> E{"Hai câu cùng hướng, thể hiện mối quan hệ Nhân - Quả (Cause and Effect)"}
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Từ nối tương phản (Opposite-direction): Cùng nhóm tự triệt tiêu nhau| G["Loại (A) Nevertheless<br>Loại (D) Still"]
+    F -->|Từ nối so sánh tương đồng độc lập: Không chỉ kết quả| H["Loại (C) Likewise"]
+    F -->|Từ nối chỉ hệ quả logic trực tiếp (Result / Cause & Effect)| I["Chọn (B) Thus,: Do những hạn chế trong quan sát (nguyên nhân) nên cấu trúc tổ ong ít được nghiên cứu (kết quả)."]
+    I --> J["Chốt đáp án chính xác: [B]"]
+"""
 
 MINDMAPS[26] = """flowchart TD
     A["Dạng bài: Tổng hợp thông tin theo mục tiêu (Rhetorical Synthesis)"] --> B{"Mục tiêu đề bài yêu cầu (The Goal)"}
@@ -370,24 +399,35 @@ MINDMAPS[32] = """flowchart TD
     E & G --> H["Kết quả: sin(C) = √21 / 5"]
     H --> I["Chốt đáp án chính xác: [C]"]"""
 
-MINDMAPS[33] = """flowchart TD
-    A["Đề bài (Math #6):<br>Tỉ lệ đáy / chiều cao của tam giác DEF là 5 : 2.<br>Đáy gấp đôi, chiều cao gấp ba ➔ Tỉ lệ mới là bao nhiêu?"] --> B{"Chiến thuật thử số cụ thể (TPR Plugging In)"}
-    B --> C["Chọn giá trị ban đầu theo đúng tỉ lệ:<br>• Đáy ban đầu (b) = 5<br>• Chiều cao ban đầu (h) = 2"]
-    C --> D["Tính toán kích thước mới theo đề bài:<br>• Đáy mới (b') = 5 * 2 = 10<br>• Chiều cao mới (h') = 2 * 3 = 6"]
-    D --> E["Thiết lập tỉ lệ mới:<br>b' / h' = 10 / 6"]
-    E --> F["Rút gọn phân số tối giản:<br>10 / 6 = 5 / 3 (5 to 3)"]
-    F --> G{"Cảnh báo bẫy SAT"}
-    G -->|Bẫy chưa rút gọn| H["Phương án (D) 10 to 6 chưa rút gọn tối giản!"]
-    F --> I["Chốt đáp án chính xác: [A]"]"""
+MINDMAPS[33] = """
+flowchart TD
+    A["Đề bài (Math #6):<br>Tỉ lệ cạnh đáy / chiều cao của tam giác DEF là 64 : 80.<br>Chiều cao giảm 55 đơn vị. Hỏi cạnh đáy phải thay đổi thế nào để giữ nguyên tỉ lệ?"] --> B{"Chiến thuật thế số thực tế (TPR Plugging In)"}
+    B --> C["Sử dụng ngay số liệu trong tỉ lệ:<br>• Đáy ban đầu: b₁ = 64<br>• Chiều cao ban đầu: h₁ = 80"]
+    C --> D["Bước 1: Tính chiều cao mới sau khi giảm 55 đơn vị:<br>h₂ = 80 – 55 = 25 đơn vị"]
+    D --> E["Bước 2: Thiết lập phương trình tỉ lệ thức:<br>b₁ / h₁ = b₂ / h₂ ➔ 64 / 80 = x / 25"]
+    E --> F["Bước 3: Nhân chéo giải tìm đáy mới x:<br>80x = 64 × 25 = 1,600 ➔ x = 1,600 / 80 = 20 đơn vị"]
+    F --> G["Bước 4: Tính mức độ thay đổi của cạnh đáy:<br>Δb = 64 – 20 = 44 đơn vị (Đáy mới nhỏ hơn đáy cũ ➔ GIẢM 44 đơn vị)"]
+    G --> H{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    H -->|Sai chiều biến thiên (Tăng thay vì Giảm)| I["Loại (B) It must increase by 44 units"]
+    H -->|Bẫy nhầm lẫn: Lấy số giảm của chiều cao gán cho đáy| J["Loại (C) & (D): decrease / increase by 55 units"]
+    H -->|Khớp chuẩn tính toán| K["Chọn (A) It must decrease by 44 units."]
+    K --> L["Chốt đáp án chính xác: [A]"]
+"""
 
-MINDMAPS[34] = """flowchart TD
-    A["Đề bài (Math #7):<br>Tìm tọa độ giao điểm với trục tung (y-intercept)<br>của đồ thị y = 3(0.5)^(x+2) – 1"] --> B{"Định nghĩa giao điểm trục tung (y-intercept)"}
-    B --> C["Giao điểm trục tung luôn có hoành độ x = 0!"]
-    C --> D["Thay x = 0 vào hàm số để tìm tung độ y:<br>y = 3 * (0.5)^(0 + 2) – 1"]
-    D --> E["Tính toán lũy thừa & nhân:<br>y = 3 * (0.5)² – 1<br>y = 3 * 0.25 – 1<br>y = 0.75 – 1 = –0.25"]
-    E --> F["Tọa độ hoàn chỉnh: (0, –0.25)"]
-    B -->|Cách Desmos siêu tốc| G["Nhập biểu thức vào Desmos:<br>y = 3(0.5)^(x+2) – 1<br>Bấm vào chấm xám trên trục y ➔ Hiện ngay (0, –0.25)"]
-    F & G --> H["Chốt đáp án chính xác: [D]"]"""
+MINDMAPS[34] = """
+flowchart TD
+    A["Đề bài (Math #7):<br>Cho hàm số h(x) = 30 – (9)(–3)^x.<br>Tìm tọa độ giao điểm của đồ thị với trục tung (y-intercept) trong mặt phẳng xy?"] --> B{"Định nghĩa giao điểm trục tung (y-intercept)"}
+    B --> C["Giao điểm với trục tung luôn xảy ra khi hoành độ x = 0!"]
+    C --> D["Bước 1: Thay x = 0 vào phương trình h(x):<br>h(0) = 30 – (9)(–3)⁰"]
+    D --> E["Bước 2: Quy tắc lũy thừa cơ bản:<br>Mọi số thực khác không nâng lên lũy thừa 0 đều bằng 1:<br>(–3)⁰ = 1!"]
+    E --> F["Bước 3: Thực hiện phép tính:<br>h(0) = 30 – (9)(1) = 30 – 9 = 21"]
+    F --> G["Tọa độ giao điểm trục tung là (0, 21)"]
+    G --> H{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    H -->|Bẫy quên trừ cụm số mũ: chỉ lấy 30| I["Loại (A) (0, 30)"]
+    H -->|Bẫy chỉ lấy hệ số 9 hoặc cơ số –3| J["Loại (B) (0, 9)<br>Loại (C) (0, –3)"]
+    H -->|Tung độ gốc chuẩn xác| K["Chọn (D) (0, 21)"]
+    K --> L["Chốt đáp án chính xác: [D]"]
+"""
 
 MINDMAPS[35] = """flowchart TD
     A["Đề bài (Math #8 - Điền số Grid-in):<br>Tam giác vuông cân có cạnh huyền = 4√2 inch.<br>Chu vi viết dưới dạng 2c + 4√2. Tìm giá trị của c?"] --> B{"Công thức tam giác vuông cân 45°-45°-90° (Reference Sheet)"}
@@ -398,44 +438,56 @@ MINDMAPS[35] = """flowchart TD
     F --> G["Cân bằng hệ số:<br>2c = 8 ➔ c = 4"]
     G --> H["Chốt đáp án điền số chính xác: 4"]"""
 
-MINDMAPS[36] = """flowchart TD
-    A["Đề bài (Math #9 - Điền số Grid-in):<br>Đường tròn A: (x – 3)² + (y + 1)² = 81.<br>Đường tròn B có đường kính bằng bán kính của A. Tìm đường kính của B?"] --> B{"Phương trình đường tròn chuẩn (Circle Equation)"}
-    B --> C["Dạng chuẩn: (x – h)² + (y – k)² = R²"]
-    C --> D["Xác định bán kính đường tròn A (R_A):<br>R_A² = 81 ➔ R_A = √81 = 9"]
-    D --> E["Đọc kỹ giả thiết về Đường tròn B:<br>'Circle B has diameter equal to the radius of Circle A'<br>(Đường kính của B bằng bán kính của A)"]
-    E --> F["Tính đường kính của đường tròn B:<br>Diameter_B = R_A = 9"]
-    F --> G{"Cảnh báo bẫy SAT (RTFQ)"}
-    G -->|Đề bài hỏi Đường kính| H["Đề bài hỏi ĐƯỜNG KÍNH của B, không hỏi bán kính của B!<br>Không chia đôi thành 4.5."]
-    F --> I["Chốt đáp án điền số chính xác: 9"]"""
+MINDMAPS[36] = """
+flowchart TD
+    A["Đề bài (Math #9 - Điền số Grid-in):<br>Hai đường tròn cùng tâm. Đường tròn lớn: (x – 2)² + (y + 3)² = 81.<br>Bán kính đường tròn nhỏ bằng 1/3 bán kính lớn. Phương trình đường tròn nhỏ: (x – 2)² + (y + 3)² = c.<br>Tìm giá trị hằng số c?"] --> B{"Phương trình đường tròn chuẩn: (x – h)² + (y – k)² = R²"}
+    B --> C["Bước 1: Tìm bán kính đường tròn lớn (R):<br>R² = 81 ➔ R = √81 = 9"]
+    C --> D["Bước 2: Tìm bán kính đường tròn nhỏ (r):<br>r = (1/3) × R = (1/3) × 9 = 3"]
+    D --> E["Bước 3: Tìm hằng số c ở vế phải phương trình đường tròn nhỏ:<br>c = r² = 3² = 9!"]
+    E --> F{"Cảnh giác bẫy SAT"}
+    F -->|Bẫy quên bình phương bán kính| G["Bẫy: Nhiều học sinh điền c = 3 (là bán kính r) thay vì r² = 9"]
+    F -->|Điền số chuẩn xác| H["Điền số Grid-in: [9]"]
+    H --> I["Chốt đáp án chính xác: [9]"]
+"""
 
-MINDMAPS[37] = """flowchart TD
-    A["Đề bài (Math #10):<br>Nồng độ huyết tương C(t) = C₀(0.82)^(t/4) với t tính theo giờ.<br>Tìm phương trình tương đương mô tả tốc độ suy giảm theo từng giờ."] --> B{"Quy tắc biến đổi số mũ (Power of a Power Rule)"}
-    B --> C["Tách số mũ t/4 thành lũy thừa của lũy thừa:<br>(0.82)^(t/4) = [(0.82)^(1/4)]^t = [⁴√0.82]^t"]
-    C --> D["Tính toán giá trị cơ số mới bằng máy tính:<br>0.82^(0.25) ≈ 0.9515 ≈ 0.95"]
-    D --> E["Hàm số viết lại theo chu kỳ 1 giờ:<br>C(t) = C₀(0.95)^t"]
-    E --> F{"Ý nghĩa thực tế của cơ số 0.95"}
-    F --> G["Mỗi giờ trôi qua, nồng độ còn lại xấp xỉ 95% (tức giảm 5% mỗi giờ)."]
-    E & G --> H["Chốt đáp án chính xác: [D]"]"""
+MINDMAPS[37] = """
+flowchart TD
+    A["Đề bài (Math #10):<br>Nồng độ thuốc C(s) = 20(0.5)^(s/300) với s tính bằng GIÂY.<br>Nồng độ dự đoán giảm đi x% sau mỗi 5 PHÚT. Tìm giá trị của x?"] --> B{"Quy đổi đơn vị thời gian & Phân tích chu kỳ bán rã (Half-Life)"}
+    B --> C["Bước 1: Quy đổi đơn vị:<br>5 phút = 5 × 60 = 300 giây"]
+    C --> D["Bước 2: Thay s = 300 giây vào hàm số C(s):<br>C(300) = 20 × (0.5)^(300/300) = 20 × (0.5)¹ = 10 mcg/mL"]
+    D --> E["Bước 3: Tính phần trăm suy giảm (Decrease by x%):<br>• Lượng giảm = 20 – 10 = 10<br>• Phần trăm giảm = (10 / 20) × 100% = 50%!"]
+    E --> F{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    F -->|Cơ số 0.5 là hệ số giảm một nửa, không phải x = 0.5%| G["Loại (A) 0.5<br>Loại (B) 2.5"]
+    F -->|Bẫy số 5 phút trong đề bài| H["Loại (C) 5"]
+    F -->|Khớp chuẩn mức giảm 50%| I["Chọn (D) 50"]
+    I --> J["Chốt đáp án chính xác: [D]"]
+"""
 
-MINDMAPS[38] = """flowchart TD
-    A["Đề bài (Math #11):<br>Giải thích ý nghĩa của hệ số trong phương trình tuyến tính thực tế<br>P = 15.5 + 2.4t"] --> B{"Bản chất phương trình tuyến tính y = mx + b"}
-    B --> C["• Tung độ gốc b (15.5): Giá trị ban đầu tại thời điểm t = 0"]
-    B --> D["• Hệ số góc m (2.4): Tốc độ thay đổi (Rate of Change)<br>Mỗi đơn vị thời gian t tăng thêm 1, giá trị P tăng tương ứng 2.4 đơn vị!"]
-    C & D --> E{"Đối chiếu câu hỏi đề bài"}
-    E --> F["Đề bài hỏi ý nghĩa của con số 2.4 trong ngữ cảnh:<br>Đó chính là lượng tăng thêm trung bình mỗi năm/tháng của đại lượng P."]
-    F --> G{"Chiến thuật loại trừ POOE"}
-    G -->|Bẫy nhầm lẫn m và b| H["Loại các phương án coi 2.4 là giá trị khởi điểm ban đầu<br>hoặc nhầm sang tổng số lượng."]
-    F --> I["Chốt đáp án chính xác: [A]"]"""
+MINDMAPS[38] = """
+flowchart TD
+    A["Đề bài (Math #11):<br>Lô hàng 56 kèn gồm kèn bass và soprano: 10x + 6y = 56.<br>x là số hộp kèn bass, y là số hộp kèn soprano. Ý nghĩa tốt nhất của 10x là gì?"] --> B{"Phân tích ý nghĩa từng thành phần đại số trong ngữ cảnh thực tế"}
+    B --> C["• x = Số hộp kèn bass clarinet trong lô hàng<br>• Hệ số 10 = Số lượng kèn bass chứa trong MỖI HỘP (10 kèn/hộp)"]
+    C --> D["Phép nhân 10x = (10 chiếc kèn / hộp) × (x hộp kèn bass):<br>Đại diện cho TỔNG SỐ KÈN BASS CLARINET trong toàn bộ lô hàng!"]
+    D --> E{"Chiến thuật loại trừ POOE (Princeton Review)"}
+    E -->|Nhầm sang kèn soprano (là số hạng 6y)| F["Loại (B) The total number of soprano clarinets"]
+    E -->|Nhầm sang hệ số đơn chiếc 10 (chưa nhân x)| G["Loại (C) The number of clarinets in each box"]
+    E -->|Nhầm sang biến số x (số lượng hộp)| H["Loại (D) The number of boxes of bass clarinets"]
+    D --> I{"Đối chiếu các phương án"}
+    I -->|Khớp chuẩn ý nghĩa tích số 10x| J["Chọn (A) The total number of bass clarinets in the shipment"]
+    J --> K["Chốt đáp án chính xác: [A]"]
+"""
 
-MINDMAPS[39] = """flowchart TD
-    A["Đề bài (Math #12):<br>Tìm bảng giá trị thỏa mãn bất phương trình y > 2x – 5"] --> B{"Phương pháp kiểm tra điểm (Point Testing Strategy)"}
-    B --> C["Lần lượt thử các cặp tọa độ (x, y) từ mỗi bảng vào bất phương trình:<br>Kiểm tra xem y có THỰC SỰ LỚN HƠN (2x – 5) hay không!"]
-    C --> D{"Kiểm tra Bảng A"}
-    D -->|Có điểm vi phạm| E["Tại điểm (2, –1): 2(2) – 5 = –1 ➔ y = –1 không lớn hơn –1 (Sai!) ➔ Loại A"]
-    C --> F{"Kiểm tra Bảng B"}
-    F --> G["• Điểm 1: x = 0, y = 0 ➔ 0 > 2(0) – 5 = –5 (ĐÚNG)<br>• Điểm 2: x = 1, y = –1 ➔ –1 > 2(1) – 5 = –3 (ĐÚNG)<br>• Điểm 3: x = 3, y = 3 ➔ 3 > 2(3) – 5 = 1 (ĐÚNG)"]
-    G --> H["Tất cả các điểm trong Bảng B đều thỏa mãn bất phương trình!"]
-    H --> I["Chốt đáp án chính xác: [B]"]"""
+MINDMAPS[39] = """
+flowchart TD
+    A["Đề bài (Math #12):<br>Bảng số liệu nào gồm 3 cặp giá trị (x, y) là nghiệm của bất phương trình:<br>y > 3x – 4?"] --> B{"Chiến thuật thế điểm (TPR Plugging In Points)"}
+    B --> C["Tính giá trị đường biên 3x – 4 tại các hoành độ x = 2, 4, 6:<br>• Tại x = 2: 3(2) – 4 = 2 (yêu cầu y > 2)<br>• Tại x = 4: 3(4) – 4 = 8 (yêu cầu y > 8)<br>• Tại x = 6: 3(6) – 4 = 14 (yêu cầu y > 14)"]
+    C --> D{"Kiểm tra từng bảng số liệu"}
+    D -->|Bảng B: (2, 10), (4, 16), (6, 22)| E["• 10 > 2 (Thỏa mãn)<br>• 16 > 8 (Thỏa mãn)<br>• 22 > 14 (Thỏa mãn)<br>➔ Cả 3 điểm đều thỏa mãn dấu lớn hơn nghiêm ngặt!"]
+    D -->|Bảng A: (2, 2), (4, 8), (6, 14)| F["Loại (A): y = 3x – 4 (dấu bằng, nằm trên đường biên chứ không thỏa mãn dấu >)"]
+    D -->|Bảng C & D| G["Loại (C): Tại x = 4 thì y = 8 (không lớn hơn 8)<br>Loại (D): Tại x = 2 thì y = 0 (nhỏ hơn 2)"]
+    E --> H["Chọn (B) Bảng gồm các cặp (2, 10), (4, 16), (6, 22)"]
+    H --> I["Chốt đáp án chính xác: [B]"]
+"""
 
 MINDMAPS[40] = """flowchart TD
     A["Đề bài (Math #13):<br>Parabol đối xứng qua trục x = h và đi qua các điểm đã biết.<br>Tìm tọa độ điểm đối xứng hoặc giao điểm trục hoành."] --> B{"Tính chất đối xứng của Parabol (Parabola Symmetry)"}

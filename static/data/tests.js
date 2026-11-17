@@ -1,8 +1,9 @@
+// Auto-generated tests manifest
 window.TESTS_MANIFEST = [
   {
     "id": "oct-2026",
     "code": "oct2026",
-    "title": "Digital SAT Practice Test — October 2026 (INT-B)",
+    "title": "Digital SAT Practice Test - October 2026 (INT-B)",
     "short_title": "Tháng 10/2026 (INT-B)",
     "badge": "Mới nhất",
     "date": "2026-10",
@@ -22,7 +23,7 @@ window.TESTS_MANIFEST = [
   {
     "id": "sep-2026",
     "code": "sep2026",
-    "title": "Digital SAT Practice Test — September 2026 (INT-A)",
+    "title": "Digital SAT Practice Test - September 2026 (INT-A)",
     "short_title": "Tháng 09/2026 (INT-A)",
     "badge": "Chính thức",
     "date": "2026-09",
@@ -121,11 +122,7 @@ window.TESTS_MANIFEST = [
     "time_minutes": 67,
     "modules_count": 2,
     "storageKey": "bluebook_princeton_advanced_student_state_v1",
-    "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực.",
-    "category": "tests",
-    "category_name": "Đề thi phân hóa 1500+ (Tests)",
-    "category_badge": "🎯 Harder Modules",
-    "category_color": "amber"
+    "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực."
   },
   {
     "id": "princeton-book",
