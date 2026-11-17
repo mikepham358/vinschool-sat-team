@@ -65,25 +65,11 @@
     <main class="home-main">
       <div class="home-container">
         
-        <!-- Hero Section: Left Content & Right Poster -->
+        <!-- Hero Section: Left Student Form & Right Titles + Poster -->
         <section class="hero-grid">
           
-          <!-- Left: Hero Headline & Material Form -->
-          <div class="hero-content">
-            <div class="hero-eyebrow">
-              <span class="pill-sparkle">✨ DESIGNED FOR VINSCHOOL SAT TEAM</span>
-            </div>
-            
-            <h1 class="hero-title" id="hero-main-title">
-              Digital SAT Practice<br>
-              <span class="text-gradient" id="hero-title-gradient">Real Test October 2026</span>
-            </h1>
-            
-            <p class="hero-desc" id="hero-main-desc">
-              Hệ thống tương tác chuẩn College Board: Đọc đề thi gốc trên Google Drive, làm bài kèm máy tính Desmos, hỗ trợ câu hỏi Grid-in và hệ thống gợi ý Socratic 3 cấp độ.
-            </p>
-
-            <!-- Material 3 Student Profile Card -->
+          <!-- Left: Material 3 Student Profile Card -->
+          <div class="hero-form-column">
             <div class="material-card hero-form-card">
               <div class="card-header-clean">
                 <h3>Thông Tin Thí Sinh</h3>
@@ -98,15 +84,15 @@
                   </div>
                   <div class="m3-input-field">
                     <label for="home-input-email">Địa chỉ Email <span class="req">*</span></label>
-                    <input type="email" id="home-input-email" placeholder="Ví dụ: an.nguyen@gmail.com" autocomplete="email" required>
+                    <input type="email" id="home-input-email" placeholder="Ví dụ: an.nguyen@vinschool.edu.vn" autocomplete="email" required>
                   </div>
                 </div>
 
                 <div class="m3-target-selector">
-                  <label class="target-label">Mục tiêu điểm số:</label>
+                  <label class="target-label">Mục tiêu điểm số kỳ vọng <span class="req">*</span></label>
                   <div class="target-chips" id="target-chips-container">
                     <button type="button" class="target-chip" data-val="1300+">🎯 1300+</button>
-                    <button type="button" class="target-chip active" data-val="1400+">🎯 1400+ Top 50</button>
+                    <button type="button" class="target-chip" data-val="1400+">🎯 1400+ Top 50</button>
                     <button type="button" class="target-chip" data-val="1500+">🎯 1500+ Ivy League</button>
                   </div>
                 </div>
@@ -120,19 +106,23 @@
 
                   <div class="form-row home-anticipation-meta-row">
                     <div class="m3-input-field">
-                      <label for="home-aar-session">Buổi # <span class="req">*</span></label>
+                      <label for="home-aar-session">Buổi # (Ngày học) <span class="req">*</span></label>
                       <input type="date" id="home-aar-session" title="Chọn ngày thực tập cho buổi học" required>
                     </div>
                     <div class="m3-input-field">
                       <label for="home-aar-sat-module">Mô-đun SAT dự kiến <span class="req">*</span></label>
-                      <select id="home-aar-sat-module"></select>
+                      <select id="home-aar-sat-module">
+                        <option value="" disabled selected>-- Chọn Mô-đun SAT dự kiến --</option>
+                      </select>
                       <input type="text" id="home-aar-sat-module-custom" class="hidden" style="margin-top: 6px;" placeholder="Nhập tên mô-đun / chủ đề / sách sẽ luyện...">
                     </div>
                   </div>
 
                   <div class="m3-input-field home-anticipation-iste-wrap">
                     <label for="home-aar-iste">Tiêu chuẩn ISTE áp dụng <span class="req">*</span></label>
-                    <select id="home-aar-iste"></select>
+                    <select id="home-aar-iste">
+                      <option value="" disabled selected>-- Chọn Tiêu chuẩn ISTE áp dụng --</option>
+                    </select>
                     <div class="aar-iste-hint home-aar-iste-hint" id="home-aar-iste-hint"></div>
                   </div>
 
@@ -156,18 +146,31 @@
                     <span>Bắt Đầu Làm Bài Ngay 🚀</span>
                   </button>
                   <button type="button" class="btn-google-tonal btn-large" id="btn-home-view-guide">
-                    <span>📖 Quy Tắc & Hướng Dẫn</span>
+                    <span>📖 Quy Tắc &amp; Hướng Dẫn</span>
                   </button>
                 </div>
               </form>
             </div>
           </div>
 
-          <!-- Right: Hero Poster Showcase -->
+          <!-- Right: Hero Headline & Poster Showcase -->
           <div class="hero-poster-wrapper">
+            <div class="hero-eyebrow">
+              <span class="pill-sparkle">✨ DESIGNED FOR VINSCHOOL SAT TEAM</span>
+            </div>
+            
+            <h1 class="hero-title" id="hero-main-title">
+              Digital SAT Practice<br>
+              <span class="text-gradient" id="hero-title-gradient">Real Test October 2026</span>
+            </h1>
+            
+            <p class="hero-desc" id="hero-main-desc">
+              Hệ thống tương tác chuẩn College Board: Đọc đề thi gốc trên Google Drive, làm bài kèm máy tính Desmos, hỗ trợ câu hỏi Grid-in và hệ thống gợi ý Socratic 3 cấp độ.
+            </p>
+
             <div class="poster-card">
               <div class="poster-img-container">
-                <img id="hero-poster-img" src="poster.png" alt="Digital SAT Poster" class="hero-poster-img" onerror="this.src='poster_sep.png'">
+                <img id="hero-poster-img" src="poster.png" alt="Khung phát triển năng lực số & tư duy phản biện - Digital SAT Poster" class="hero-poster-img" onerror="this.src='poster_sep.png'">
               </div>
               <div class="poster-caption">
                 <div class="caption-info">
@@ -1480,6 +1483,7 @@
               <div class="aar-field">
                 <label for="aar-select-sat-module">Mô-đun SAT <span class="req">*</span></label>
                 <select id="aar-select-sat-module">
+                  <option value="" disabled selected>-- Chọn Mô-đun SAT dự kiến --</option>
                   <option value="Reading: Craft &amp; Structure">Reading: Craft &amp; Structure</option>
                   <option value="Reading: Information &amp; Ideas">Reading: Information &amp; Ideas</option>
                   <option value="Writing: Standard English">Writing: Standard English</option>
@@ -1506,6 +1510,7 @@
             <div class="aar-field">
               <label for="aar-select-iste">Tiêu chuẩn ISTE áp dụng <span class="req">*</span></label>
               <select id="aar-select-iste">
+                <option value="" disabled selected>-- Chọn Tiêu chuẩn ISTE áp dụng --</option>
                 <option value="Empowered Learner &#10;(Học sinh Chủ động)">1. Empowered Learner (Học sinh Chủ động)</option>
                 <option value="Digital Citizen &#10;(Công dân Số)">2. Digital Citizen (Công dân Số)</option>
                 <option value="Knowledge Constructor &#10;(Nhà xây dựng Kiến thức)">3. Knowledge Constructor (Nhà xây dựng Kiến thức)</option>

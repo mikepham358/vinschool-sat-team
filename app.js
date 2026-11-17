@@ -666,7 +666,7 @@ function loadLocalState() {
     if (globalProfile) {
       App.studentState.student_name = globalProfile.student_name || "";
       App.studentState.student_email = globalProfile.student_email || "";
-      App.studentState.student_target = globalProfile.student_target || "1400+";
+      App.studentState.student_target = ""; // Reset on reload to require explicit target selection
     }
 
     // 2. Load Scoped Test Progress
@@ -811,7 +811,7 @@ function showView(viewName) {
 function syncHomeProfile() {
   const name = App.studentState.student_name || "";
   const email = App.studentState.student_email || "";
-  const target = App.studentState.student_target || "1400+";
+  const target = App.studentState.student_target || "";
 
   if (DOM.homeInputName) DOM.homeInputName.value = name;
   if (DOM.homeInputEmail) DOM.homeInputEmail.value = email;
@@ -829,7 +829,7 @@ function syncHomeProfile() {
   if (DOM.targetChipsContainer) {
     const chips = DOM.targetChipsContainer.querySelectorAll(".target-chip");
     chips.forEach(chip => {
-      if (chip.getAttribute("data-val") === target) {
+      if (target && chip.getAttribute("data-val") === target) {
         chip.classList.add("active");
       } else {
         chip.classList.remove("active");
@@ -1040,46 +1040,67 @@ function startPracticeFromHome(targetModule) {
     }
   }
 
-  if (!name || !email) {
-    const missingEl = (!DOM.homeInputName || !DOM.homeInputName.value.trim()) ? DOM.homeInputName : DOM.homeInputEmail;
-    flagHomeFieldError(missingEl, "Vui lòng điền đầy đủ Họ và tên cùng Địa chỉ email của em để bắt đầu bài làm!");
+  // 1. Validate Họ và tên thí sinh *
+  if (!name) {
+    flagHomeFieldError(DOM.homeInputName, "Vui lòng điền Họ và tên thí sinh!");
     return;
   }
 
-  // Validate & auto-save Stage 1 Anticipation (ARR) before entering practice
-  if (DOM.homeAarSession && !isValidIsoDate(DOM.homeAarSession.value)) {
+  // 2. Validate Địa chỉ Email *
+  if (!email || !email.includes("@")) {
+    flagHomeFieldError(DOM.homeInputEmail, "Vui lòng điền chính xác Địa chỉ Email thí sinh!");
+    return;
+  }
+
+  // 3. Validate Mục tiêu điểm số kỳ vọng *
+  const activeChip = DOM.targetChipsContainer ? DOM.targetChipsContainer.querySelector(".target-chip.active") : null;
+  if (!activeChip) {
+    flagHomeFieldError(DOM.targetChipsContainer, "Vui lòng chọn Mục tiêu điểm số kỳ vọng (1300+, 1400+ hoặc 1500+)!");
+    return;
+  }
+
+  // 4. Validate Buổi # / Ngày thực tập *
+  if (!DOM.homeAarSession || !DOM.homeAarSession.value || !isValidIsoDate(DOM.homeAarSession.value)) {
     flagHomeFieldError(DOM.homeAarSession, "Vui lòng chọn ngày thực tập ở mục Buổi # trước khi bắt đầu làm bài!");
     return;
   }
-  if (DOM.homeAarGoal && DOM.homeAarChallenge) {
-    const draftGoal = DOM.homeAarGoal.value.trim();
-    const draftChallenge = DOM.homeAarChallenge.value.trim();
-    const draftMod = DOM.homeAarSatModule ? DOM.homeAarSatModule.value : "";
-    const draftModCustom = DOM.homeAarSatModuleCustom ? DOM.homeAarSatModuleCustom.value.trim() : "";
 
-    if (draftMod === "Khác (Tự nhập...)" && !draftModCustom) {
-      flagHomeFieldError(DOM.homeAarSatModuleCustom, "Vui lòng nhập tên Mô-đun SAT / chủ đề em dự kiến luyện tập!");
-      return;
-    }
-    if (!draftGoal) {
-      flagHomeFieldError(DOM.homeAarGoal, "Vui lòng điền Mục tiêu bài học & Điểm kỳ vọng (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
-      return;
-    }
-    if (!draftChallenge) {
-      flagHomeFieldError(DOM.homeAarChallenge, "Vui lòng điền Thách thức dự kiến (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
-      return;
-    }
+  // 5. Validate Mô-đun SAT dự kiến *
+  const draftMod = DOM.homeAarSatModule ? DOM.homeAarSatModule.value : "";
+  const draftModCustom = DOM.homeAarSatModuleCustom ? DOM.homeAarSatModuleCustom.value.trim() : "";
+  if (!draftMod || draftMod.startsWith("--")) {
+    flagHomeFieldError(DOM.homeAarSatModule, "Vui lòng chọn Mô-đun SAT dự kiến luyện tập!");
+    return;
+  }
+  if (draftMod === "Khác (Tự nhập...)" && !draftModCustom) {
+    flagHomeFieldError(DOM.homeAarSatModuleCustom, "Vui lòng nhập tên Mô-đun SAT / chủ đề em dự kiến luyện tập!");
+    return;
+  }
+
+  // 6. Validate Tiêu chuẩn ISTE áp dụng *
+  const draftIste = DOM.homeAarIste ? DOM.homeAarIste.value : "";
+  if (!draftIste || draftIste.startsWith("--")) {
+    flagHomeFieldError(DOM.homeAarIste, "Vui lòng chọn Tiêu chuẩn ISTE áp dụng cho buổi học!");
+    return;
+  }
+
+  // 7. Validate Mục tiêu bài học & Điểm kỳ vọng *
+  const draftGoal = DOM.homeAarGoal ? DOM.homeAarGoal.value.trim() : "";
+  if (!draftGoal) {
+    flagHomeFieldError(DOM.homeAarGoal, "Vui lòng điền Mục tiêu bài học & Điểm kỳ vọng (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
+    return;
+  }
+
+  // 8. Validate Thách thức dự kiến *
+  const draftChallenge = DOM.homeAarChallenge ? DOM.homeAarChallenge.value.trim() : "";
+  if (!draftChallenge) {
+    flagHomeFieldError(DOM.homeAarChallenge, "Vui lòng điền Thách thức dự kiến (phần Dự đoán trước buổi học - ARR) trước khi bắt đầu làm bài!");
+    return;
   }
 
   App.studentState.student_name = name;
   App.studentState.student_email = email;
-
-  if (DOM.targetChipsContainer) {
-    const activeChip = DOM.targetChipsContainer.querySelector(".target-chip.active");
-    if (activeChip) {
-      App.studentState.student_target = activeChip.getAttribute("data-val");
-    }
-  }
+  App.studentState.student_target = activeChip.getAttribute("data-val") || "1400+";
 
   saveLocalState();
 
@@ -5721,6 +5742,8 @@ function populateMirroredSelect(sourceSel, targetSel) {
     const clone = document.createElement("option");
     clone.value = opt.value;
     clone.textContent = opt.textContent;
+    if (opt.disabled) clone.disabled = true;
+    if (opt.selected) clone.selected = true;
     targetSel.appendChild(clone);
   });
 }
@@ -5756,21 +5779,19 @@ function loadGlobalAARState() {
     App.lastAarReportAt = null;
   }
 
+  // Reset Anticipation draft on every page open/reload:
+  // Only student_name and student_email are preserved; all other fields are reset
+  App.aarDraft = createEmptyAarDraft();
+  App.aarDraft.session_date = "";
+  App.aarDraft.session_label = "";
+  App.aarDraft.sat_module = "";
+  App.aarDraft.sat_module_custom = "";
+  App.aarDraft.iste_standard = "";
+  App.aarDraft.goal = "";
+  App.aarDraft.challenge = "";
   try {
-    const rawDraft = localStorage.getItem(GLOBAL_AAR_DRAFT_KEY);
-    if (rawDraft) {
-      const parsedDraft = JSON.parse(rawDraft);
-      App.aarDraft = Object.assign(createEmptyAarDraft(), parsedDraft || {});
-      if (!isValidIsoDate(App.aarDraft.session_date)) {
-        App.aarDraft.session_date = isValidIsoDate(App.aarDraft.session_label) ? App.aarDraft.session_label.trim() : getTodayIsoLocal();
-      }
-      delete App.aarDraft.session_date_cleared;
-    } else {
-      App.aarDraft = createEmptyAarDraft();
-    }
-  } catch (e) {
-    App.aarDraft = createEmptyAarDraft();
-  }
+    localStorage.removeItem(GLOBAL_AAR_DRAFT_KEY);
+  } catch(e) {}
 
   updateAARHistoryBadge();
 }
@@ -5824,20 +5845,16 @@ function getEffectiveModuleForIste(satModule, customModule) {
 
 function resolveAnticipationState() {
   const d = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
-  const sessionDate = d.session_date_cleared
-    ? ""
-    : (isValidIsoDate(d.session_date)
-      ? d.session_date.trim()
-      : (isValidIsoDate(d.session_label) ? d.session_label.trim() : getTodayIsoLocal()));
-  const dateDisplay = formatDateViFromIso(sessionDate || getTodayIsoLocal());
+  const sessionDate = (d.session_date_user_set && isValidIsoDate(d.session_date)) ? d.session_date.trim() : "";
+  const dateDisplay = sessionDate ? formatDateViFromIso(sessionDate) : "";
   const sessionLabel = (d.session_label_user_set && d.session_label && d.session_label.trim())
     ? d.session_label.trim()
-    : `Buổi ${dateDisplay}`;
-  const satModule = (d.sat_module_user_set && d.sat_module) ? d.sat_module : detectDefaultAarModule();
+    : (sessionDate ? `Buổi ${dateDisplay}` : "");
+  const satModule = (d.sat_module_user_set && d.sat_module) ? d.sat_module : "";
   const effectiveModForIste = getEffectiveModuleForIste(satModule, d.sat_module_custom);
   const isteStandard = (d.iste_user_set && d.iste_standard)
     ? d.iste_standard
-    : (getDefaultIsteForModule(effectiveModForIste) || d.iste_standard);
+    : "";
   return {
     session_date: sessionDate,
     session_label: sessionLabel,
@@ -5855,21 +5872,21 @@ function applyAnticipationFieldsToElements(resolved, targets) {
       dateEl.value = isValidIsoDate(resolved.session_date) ? resolved.session_date : "";
     }
     if (sessionEl && document.activeElement !== sessionEl) {
-      sessionEl.value = resolved.session_label;
+      sessionEl.value = resolved.session_label || "";
     }
     if (modEl && modEl.options.length > 0 && document.activeElement !== modEl) {
-      modEl.value = resolved.sat_module;
+      modEl.value = resolved.sat_module || "";
     }
     if (modCustomEl) {
-      if (document.activeElement !== modCustomEl) modCustomEl.value = resolved.sat_module_custom;
+      if (document.activeElement !== modCustomEl) modCustomEl.value = resolved.sat_module_custom || "";
       toggleCustomModuleField(modEl, modCustomEl, false);
     }
-    if (isteEl && isteEl.options.length > 0 && resolved.iste_standard && document.activeElement !== isteEl) {
-      isteEl.value = resolved.iste_standard;
+    if (isteEl && isteEl.options.length > 0 && document.activeElement !== isteEl) {
+      isteEl.value = resolved.iste_standard || "";
     }
     updateIsteHintFor(isteEl, hintEl);
-    if (goalEl && document.activeElement !== goalEl) goalEl.value = resolved.goal;
-    if (challengeEl && document.activeElement !== challengeEl) challengeEl.value = resolved.challenge;
+    if (goalEl && document.activeElement !== goalEl) goalEl.value = resolved.goal || "";
+    if (challengeEl && document.activeElement !== challengeEl) challengeEl.value = resolved.challenge || "";
   });
 }
 
