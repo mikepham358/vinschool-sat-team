@@ -16,7 +16,7 @@ const TESTS_MANIFEST_DEFAULT = [
   {
     "id": "oct-2026",
     "code": "oct2026",
-    "title": "Digital SAT Practice Test — October 2026 (INT-B)",
+    "title": "Digital SAT Practice Test - October 2026 (INT-B)",
     "short_title": "Tháng 10/2026 (INT-B)",
     "badge": "Mới nhất",
     "date": "2026-10",
@@ -36,7 +36,7 @@ const TESTS_MANIFEST_DEFAULT = [
   {
     "id": "sep-2026",
     "code": "sep2026",
-    "title": "Digital SAT Practice Test — September 2026 (INT-A)",
+    "title": "Digital SAT Practice Test - September 2026 (INT-A)",
     "short_title": "Tháng 09/2026 (INT-A)",
     "badge": "Chính thức",
     "date": "2026-09",
@@ -1189,7 +1189,7 @@ function startPracticeFromHome(targetModule) {
   });
   saveGlobalAARDraft();
 
-  // Pre-fill and populate all corresponding elements in 📝 Báo Cáo Phản Tư Sau Buổi Học — Chu Trình AAR
+  // Pre-fill and populate all corresponding elements in 📝 Báo Cáo Phản Tư Sau Buổi Học - Chu Trình AAR
   if (DOM.aarInputStudentName) DOM.aarInputStudentName.value = name;
   if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.value = email;
   if (DOM.aarPreviewCcEmail) DOM.aarPreviewCcEmail.textContent = email;
@@ -1332,7 +1332,7 @@ function updateActiveTestUI() {
   const test = App.activeTest;
 
   // Document Title
-  document.title = `Bluebook Digital SAT — ${test.short_title}`;
+  document.title = `Bluebook Digital SAT - ${test.short_title}`;
 
   // Nav brand badge
   if (DOM.homeBrandBadge) {
@@ -1852,31 +1852,31 @@ function renderCurrentQuestion() {
     const isEricaWriting = (App.activeTestId === "erica-writing" || App.activeTestId === "ericawriting");
     const bookPg = q.book_page || (q.pdf_page ? q.pdf_page - 2 : null);
     const labelMeta = isEricaWriting && q.q_label
-      ? ` — <span style="color:#1e40af; font-weight:700;">${escapeHtml(q.q_label)}</span>${bookPg ? ` <span style="opacity:0.78;">(Sách tr. ${bookPg})</span>` : ""}`
+      ? ` - <span style="color:#1e40af; font-weight:700;">${escapeHtml(q.q_label)}</span>${bookPg ? ` <span style="opacity:0.78;">(Sách tr. ${bookPg})</span>` : ""}`
       : "";
     const isPrincetonPrep2025 = (App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025");
     const isPrincetonBook = (App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook");
     const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
     if (App.activeTestId === "panda-math") {
-      DOM.responseInstruction.innerHTML = '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> — Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
+      DOM.responseInstruction.innerHTML = '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> - Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
     } else if (isPrincetonPrep2025) {
       if (q.category === "example") {
-        DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (PRINCETON SAT PREP 2025)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Crack It:`;
+        DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (PRINCETON SAT PREP 2025)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Crack It:`;
       } else {
-        DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
+        DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
       }
     } else if (isPrincetonBook) {
       if (q.category === "example") {
-        DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (THE PRINCETON REVIEW)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Ace It:`;
+        DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (THE PRINCETON REVIEW)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Ace It:`;
       } else {
-        DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> — Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
+        DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
       }
     } else if (isPrinceton) {
-      DOM.responseInstruction.innerHTML = '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> — Đọc đề bài &amp; các lựa chọn trên PDF Viewer bên trái, sau đó chọn đáp án A, B, C, D bên dưới:';
+      DOM.responseInstruction.innerHTML = '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> - Đọc đề bài &amp; các lựa chọn trên PDF Viewer bên trái, sau đó chọn đáp án A, B, C, D bên dưới:';
     } else if (q.category === "example") {
-      DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong>${labelMeta} — Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:`;
+      DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong>${labelMeta} - Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:`;
     } else if (q.category === "practice") {
-      DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH</strong>${labelMeta} — Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:`;
+      DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH</strong>${labelMeta} - Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:`;
     } else {
       DOM.responseInstruction.textContent = 'Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
     }
@@ -3429,7 +3429,7 @@ function parseSocraticVocabEntries(vocabText) {
   if (!vocabText) return [];
   const lines = String(vocabText).split(/[\n;]+/).map(s => s.trim()).filter(Boolean);
   return lines.map(line => {
-    const m = line.match(/^(.*?)\s*(?:[:=–—]|\s+-\s+)\s*(.+)$/);
+    const m = line.match(/^(.*?)\s*(?:[:=–-]|\s+-\s+)\s*(.+)$/);
     if (m && m[1].trim() && m[2].trim()) {
       return { term: m[1].trim(), meaning: m[2].trim() };
     }
@@ -3912,7 +3912,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
     "Thời gian thực hành"
   ];
   const qAoa = [
-    [`DANH SÁCH CÂU HỎI ĐÃ THỰC HÀNH & PHẢN HỒI ĐA TẦNG — ${(st.name || "HỌC SINH").toUpperCase()}`],
+    [`DANH SÁCH CÂU HỎI ĐÃ THỰC HÀNH & PHẢN HỒI ĐA TẦNG - ${(st.name || "HỌC SINH").toUpperCase()}`],
     qHeaders
   ];
   const pQuestions = exportData.practiced_questions || [];
@@ -3967,7 +3967,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
     "Ngày ghi chép"
   ];
   const errAoa = [
-    [`SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ — ${(st.name || "HỌC SINH").toUpperCase()}`],
+    [`SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ - ${(st.name || "HỌC SINH").toUpperCase()}`],
     errHeaders
   ];
   const eLogs = exportData.error_logs || [];
@@ -4010,7 +4010,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
     "Ngày ghi chép"
   ];
   const vocabAoa = [
-    [`TỪ VỰNG & THUẬT NGỮ SOCRATIC ĐÃ GHI CHÉP — ${(st.name || "HỌC SINH").toUpperCase()}`],
+    [`TỪ VỰNG & THUẬT NGỮ SOCRATIC ĐÃ GHI CHÉP - ${(st.name || "HỌC SINH").toUpperCase()}`],
     vocabHeaders
   ];
   const vEntries = exportData.vocab_entries || [];
@@ -6872,7 +6872,7 @@ function updateGlobalSessionCounterUI() {
     const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
     DOM.headerSessionCounter.title = total > 0
       ? `Đã thực hành ${total} câu xuyên suốt buổi học (Đúng: ${correct}/${total} - ${pct}%) • Bấm để mở AAR Report`
-      : "Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) — Bấm để mở AAR Report";
+      : "Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) - Bấm để mở AAR Report";
   }
 }
 
@@ -7149,7 +7149,7 @@ function refreshAARPerformanceUI(updateFormFields = false) {
   if (updateFormFields) {
     if (DOM.aarInputEvidence) {
       if (s.practicedCount > 0) {
-        DOM.aarInputEvidence.value = `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%) — Đúng Lần 1: ${s.l1Correct}, Lần 2: ${s.l2Correct}, Lần 3: ${s.l3Correct}, Chưa đúng/Đang thử: ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
+        DOM.aarInputEvidence.value = `Đúng ${s.correctCount}/${s.practicedCount} câu thực hành (${s.accuracyPct}%) - Đúng Lần 1: ${s.l1Correct}, Lần 2: ${s.l2Correct}, Lần 3: ${s.l3Correct}, Chưa đúng/Đang thử: ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
       } else {
         DOM.aarInputEvidence.value = `Đã hoàn thành buổi học trên ${s.activeTestShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
       }

@@ -94,8 +94,8 @@ def save_feedbacks_and_update_log(feedbacks):
 
     md = f"""# 📋 Nhật Ký Phản Hồi & Đóng Góp Ý Kiến (Feedback Logbook)
 
-> **Dự án:** Digital SAT Practice Based on Learning Science — Vinschool SAT Team  
-> **Giáo viên phụ trách:** Mike Pham Bá Hong Son (Google for Education Innovator) — `mikepham358@gmail.com`  
+> **Dự án:** Digital SAT Practice Based on Learning Science - Vinschool SAT Team  
+> **Giáo viên phụ trách:** Mike Pham Bá Hong Son (Google for Education Innovator) - `mikepham358@gmail.com`  
 > **Trang làm bài trực tuyến:** [https://mikepham358.github.io/vinschool-sat-team/](https://mikepham358.github.io/vinschool-sat-team/)  
 > **Cập nhật tự động lần cuối:** `{now_str}`  
 > **Mô tả:** Mọi phản hồi từ học sinh và giáo viên gửi qua nút **`💬 Góp ý & Báo lỗi`** thông minh trên ứng dụng sẽ được tự động lưu trữ và đồng bộ tức thời lên kho mã nguồn GitHub này.
@@ -181,7 +181,7 @@ def _parse_socratic_vocab_entries(vocab_text):
     lines = [ln.strip() for ln in re.split(r"[\n;]+", str(vocab_text)) if ln.strip()]
     parsed = []
     for ln in lines:
-        m = re.match(r"^(.*?)\s*(?:[:=–—]|\s+-\s+)\s*(.+)$", ln)
+        m = re.match(r"^(.*?)\s*(?:[:=–-]|\s+-\s+)\s*(.+)$", ln)
         if m and m.group(1).strip() and m.group(2).strip():
             parsed.append({"term": m.group(1).strip(), "meaning": m.group(2).strip()})
         else:
@@ -804,7 +804,7 @@ def generate_student_excel(payload):
         ]
     _populate_table_sheet(
         ws_q,
-        f"DANH SÁCH CÂU HỎI ĐÃ THỰC HÀNH & PHẢN HỒI ĐA TẦNG — {student_name.upper()}",
+        f"DANH SÁCH CÂU HỎI ĐÃ THỰC HÀNH & PHẢN HỒI ĐA TẦNG - {student_name.upper()}",
         q_headers,
         q_matrix,
         [6, 24, 30, 14, 28, 18, 12, 52, 10, 10, 10, 12, 22, 13, 44, 46, 54, 48, 40, 20],
@@ -851,7 +851,7 @@ def generate_student_excel(payload):
         ]
     _populate_table_sheet(
         ws_err,
-        f"SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ — {student_name.upper()}",
+        f"SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ - {student_name.upper()}",
         err_headers,
         err_matrix,
         [6, 24, 14, 28, 26, 16, 12, 32, 46, 36, 36, 40, 18, 14],
@@ -889,7 +889,7 @@ def generate_student_excel(payload):
         ]
     _populate_table_sheet(
         ws_vocab,
-        f"TỪ VỰNG & THUẬT NGỮ SOCRATIC ĐÃ GHI CHÉP — {student_name.upper()}",
+        f"TỪ VỰNG & THUẬT NGỮ SOCRATIC ĐÃ GHI CHÉP - {student_name.upper()}",
         vocab_headers,
         vocab_matrix,
         [6, 24, 16, 30, 28, 44, 42, 14],
@@ -989,7 +989,7 @@ def send_submission_email(student_name, student_email, summary, excel_bytes, exc
             </p>
         </div>
         <div style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 16px;">
-            Hệ thống Luyện thi Digital SAT Bluebook — Lớp học Thầy Mike Pham Bá Hong Son (Google for Education Innovator)
+            Hệ thống Luyện thi Digital SAT Bluebook - Lớp học Thầy Mike Pham Bá Hong Son (Google for Education Innovator)
         </div>
     </body>
     </html>

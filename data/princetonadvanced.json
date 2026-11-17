@@ -140,10 +140,10 @@
       "strategic_tip": "Mẹo Princeton Review (Vocabulary): Luôn gạch chân manh mối ngữ cảnh (contextual clue) trong câu trước khi nhìn các lựa chọn. Dự đoán một từ đồng nghĩa đơn giản (như 'reduce') rồi dùng POOE loại trừ các từ trái nghĩa.",
       "pooe_breakdown": "• [B] ĐÚNG: hinder (cản trở/làm giảm) phản ánh chính xác việc ít sẵn lòng giúp đỡ người khác.\n• [A] Loại elevate (nâng cao) vì mang nghĩa tích cực ngược chiều.\n• [C] Loại develop (phát triển) vì không hợp logic bị thiếu ngủ.\n• [D] Loại assist (hỗ trợ) vì mang sắc thái tích cực.",
       "option_explanations": {
-        "A": "Loại A — elevate (nâng cao) mang nghĩa tích cực, ngược với dẫn chứng 'less willing to help'.",
+        "A": "Loại A - elevate (nâng cao) mang nghĩa tích cực, ngược với dẫn chứng 'less willing to help'.",
         "B": "ĐÁP ÁN ĐÚNG. hinder (cản trở/làm suy giảm) khớp hoàn hảo với dẫn chứng người thiếu ngủ ít sẵn lòng giúp đỡ người khác.",
-        "C": "Loại C — develop (phát triển) mang nghĩa tăng cường, ngược với logic thực nghiệm.",
-        "D": "Loại D — assist (hỗ trợ/giúp đỡ) mang nghĩa tích cực, trái ngược hoàn toàn với ngữ cảnh thiếu ngủ gây hại."
+        "C": "Loại C - develop (phát triển) mang nghĩa tăng cường, ngược với logic thực nghiệm.",
+        "D": "Loại D - assist (hỗ trợ/giúp đỡ) mang nghĩa tích cực, trái ngược hoàn toàn với ngữ cảnh thiếu ngủ gây hại."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Xác định vai trò của động từ cần điền mô tả mối tương quan giữa tình trạng thiếu ngủ và xu hướng hành động vị tha (altruistic behavior). Đọc kỹ câu văn tiếp theo để tìm dẫn chứng trực tiếp về thái độ của người thiếu ngủ.",
@@ -194,10 +194,10 @@
       "strategic_tip": "Mẹo Princeton Review: Cảnh giác với bẫy 'Extreme Language' (như unprecedented, never, always) khi bài đọc chỉ là một nghiên cứu thực nghiệm thông thường.",
       "pooe_breakdown": "• [C] ĐÚNG: paradoxical (nghịch lý) mô tả kết quả mâu thuẫn giữa kỳ vọng và thực tế.\n• [A] Loại unprecedented vì quá cực đoan (Extreme Language).\n• [B] Loại ambivalent vì dùng sai nghĩa từ indifference.\n• [D] Loại vague vì số liệu rất rõ ràng, không mơ hồ.",
       "option_explanations": {
-        "A": "Loại A — unprecedented là Extreme Language; bài đọc không khẳng định trước đây chưa từng có nghiên cứu nào tìm ra kết quả tương tự.",
-        "B": "Loại B — ambivalent là Recycled Language; từ này lạm dụng chữ 'indifference' nhưng sai chủ thể miêu tả kết quả.",
+        "A": "Loại A - unprecedented là Extreme Language; bài đọc không khẳng định trước đây chưa từng có nghiên cứu nào tìm ra kết quả tương tự.",
+        "B": "Loại B - ambivalent là Recycled Language; từ này lạm dụng chữ 'indifference' nhưng sai chủ thể miêu tả kết quả.",
         "C": "ĐÁP ÁN ĐÚNG. paradoxical (nghịch lý) miêu tả hoàn hảo kết quả 'càng tò mò thì càng ít bấm xem trước'.",
-        "D": "Loại D — vague (mơ hồ) sai vì số liệu thực nghiệm đưa ra rất rõ ràng và chuẩn xác."
+        "D": "Loại D - vague (mơ hồ) sai vì số liệu thực nghiệm đưa ra rất rõ ràng và chuẩn xác."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Câu hỏi từ vựng yêu cầu tìm tính từ miêu tả bản chất kết quả nghiên cứu của Đại học Duke. Hãy đối chiếu kỳ vọng ban đầu của các nhà nghiên cứu với hành vi thực tế của đối tượng tham gia.",
@@ -244,19 +244,19 @@
       "princeton_strategy": "POOE - Technical Precision in Domain",
       "tier1_hint": "Câu hỏi từ vựng yêu cầu điền một động từ diễn tả hành động pháp lý của các cơ quan tư pháp (judicial bodies) đối với các vụ án/vụ việc (cases) tranh chấp nguồn nước hoặc tưới tiêu.",
       "tier2_hint": "Chú ý các từ khóa mang tính chuyên ngành tư pháp: 'court' (tòa án), 'judicial bodies' (cơ quan xét xử), 'cases' (vụ án). Cần một thuật ngữ pháp lý chuẩn chỉ việc 'xét xử/phân xử' các vụ kiện.",
-      "tier3_hint": "Phương án đúng là **[D]** (*adjudicated*).\n\n**Phân tích chi tiết:**\nTòa án Nước của Tây Ban Nha là cơ quan tư pháp lâu đời nhất xử lý các tranh chấp về nước. Động từ pháp lý 'adjudicate' có nghĩa là chính thức xét xử/phân xử một vụ kiện.\n\n• (A) *dismissed* (bác bỏ) — quá hẹp, tòa án không chỉ bác bỏ mà còn thụ lý xét xử.\n• (B) *validated* (chứng thực/phê chuẩn) — không dùng cho xét xử tranh chấp.\n• (C) *registered* (đăng ký) — không phản ánh thẩm quyền phán quyết của tòa án.",
+      "tier3_hint": "Phương án đúng là **[D]** (*adjudicated*).\n\n**Phân tích chi tiết:**\nTòa án Nước của Tây Ban Nha là cơ quan tư pháp lâu đời nhất xử lý các tranh chấp về nước. Động từ pháp lý 'adjudicate' có nghĩa là chính thức xét xử/phân xử một vụ kiện.\n\n• (A) *dismissed* (bác bỏ) - quá hẹp, tòa án không chỉ bác bỏ mà còn thụ lý xét xử.\n• (B) *validated* (chứng thực/phê chuẩn) - không dùng cho xét xử tranh chấp.\n• (C) *registered* (đăng ký) - không phản ánh thẩm quyền phán quyết của tòa án.",
       "strategic_tip": "Mẹo Princeton Review: Khi văn bản mang chủ đề chuyên ngành (luật pháp, khoa học), College Board thường kiểm tra các thuật ngữ chuẩn xác (Precise Language) tương ứng với chức năng của chủ thể.",
       "pooe_breakdown": "• [D] ĐÚNG: adjudicated (phân xử/xét xử vụ án) là thuật ngữ tư pháp chuẩn xác khi đi với judicial bodies và cases.\n• [A] Loại dismissed vì quá hạn hẹp.\n• [B] Loại validated vì không đúng tính chất xét xử.\n• [C] Loại registered vì đăng ký không mang quyền lực phán quyết.",
       "option_explanations": {
-        "A": "Loại A — dismissed (bác bỏ) quá hẹp; tòa án không chỉ bác bỏ đơn kiện mà mục đích chính là phân xử.",
-        "B": "Loại B — validated (phê chuẩn) không phù hợp với chức năng thụ lý tranh chấp giữa các bên.",
-        "C": "Loại C — registered (đăng ký) không phản ánh quyền lực phán quyết tư pháp của tòa án.",
+        "A": "Loại A - dismissed (bác bỏ) quá hẹp; tòa án không chỉ bác bỏ đơn kiện mà mục đích chính là phân xử.",
+        "B": "Loại B - validated (phê chuẩn) không phù hợp với chức năng thụ lý tranh chấp giữa các bên.",
+        "C": "Loại C - registered (đăng ký) không phản ánh quyền lực phán quyết tư pháp của tòa án.",
         "D": "ĐÁP ÁN ĐÚNG. adjudicated (phân xử/xét xử theo luật định) là thuật ngữ tư pháp chuẩn xác khi đi với 'cases'."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Câu hỏi từ vựng yêu cầu điền một động từ diễn tả hành động pháp lý của các cơ quan tư pháp (judicial bodies) đối với các vụ án/vụ việc (cases) tranh chấp nguồn nước hoặc tưới tiêu.",
       "level2_hint": "Chú ý các từ khóa mang tính chuyên ngành tư pháp: 'court' (tòa án), 'judicial bodies' (cơ quan xét xử), 'cases' (vụ án). Cần một thuật ngữ pháp lý chuẩn chỉ việc 'xét xử/phân xử' các vụ kiện.",
-      "level3_solution": "Phương án đúng là **[D]** (*adjudicated*).\n\n**Phân tích chi tiết:**\nTòa án Nước của Tây Ban Nha là cơ quan tư pháp lâu đời nhất xử lý các tranh chấp về nước. Động từ pháp lý 'adjudicate' có nghĩa là chính thức xét xử/phân xử một vụ kiện.\n\n• (A) *dismissed* (bác bỏ) — quá hẹp, tòa án không chỉ bác bỏ mà còn thụ lý xét xử.\n• (B) *validated* (chứng thực/phê chuẩn) — không dùng cho xét xử tranh chấp.\n• (C) *registered* (đăng ký) — không phản ánh thẩm quyền phán quyết của tòa án.",
+      "level3_solution": "Phương án đúng là **[D]** (*adjudicated*).\n\n**Phân tích chi tiết:**\nTòa án Nước của Tây Ban Nha là cơ quan tư pháp lâu đời nhất xử lý các tranh chấp về nước. Động từ pháp lý 'adjudicate' có nghĩa là chính thức xét xử/phân xử một vụ kiện.\n\n• (A) *dismissed* (bác bỏ) - quá hẹp, tòa án không chỉ bác bỏ mà còn thụ lý xét xử.\n• (B) *validated* (chứng thực/phê chuẩn) - không dùng cho xét xử tranh chấp.\n• (C) *registered* (đăng ký) - không phản ánh thẩm quyền phán quyết của tòa án.",
       "pro_tip": "Mẹo Princeton Review: Khi văn bản mang chủ đề chuyên ngành (luật pháp, khoa học), College Board thường kiểm tra các thuật ngữ chuẩn xác (Precise Language) tương ứng với chức năng của chủ thể.",
       "mermaid_diagram": "flowchart TD\n    A[\"Ngữ cảnh (Context):<br>Tòa án Nước Tây Ban Nha (Water Tribunal of Spain / Tribunal de las Aguas)\"] --> B{\"Manh mối lĩnh vực pháp lý (Legal Domain Clues)\"}\n    B --> C[\"'world's oldest continually operating court'<br>(Tòa án hoạt động liên tục lâu đời nhất thế giới)\"]\n    B --> D[\"'legal disputes regarding water distribution and land rights were ______'<br>(Các tranh chấp pháp lý về phân phối nước và quyền đất đai được ______)\"]\n    C & D --> E[\"Dự đoán từ cần điền (Prediction):<br>Thuật ngữ pháp lý chỉ việc 'xét xử / phân xử chính thức tại tòa'<br>(judged / settled legally)\"]\n    E --> F{\"Chiến thuật loại trừ POOE\"}\n    F -->|Sai bản chất tòa án| G[\"Loại (A) dismissed: Bác bỏ đơn kiện<br>Loại (B) validated: Phê chuẩn hợp lệ (chưa phản ánh tranh chấp)<br>Loại (C) registered: Đăng ký hành chính đơn thuần\"]\n    F -->|Chuẩn thuật ngữ tư pháp| H[\"Chọn (D) adjudicated:<br>Nghĩa là xét xử và ra phán quyết chính thức cho các tranh chấp pháp lý\"]\n    H --> I[\"Chốt đáp án chính xác: [D]\"]"
     },
@@ -298,19 +298,19 @@
       "princeton_strategy": "POOE - Grammatical Collocation & Negative Reversal",
       "tier1_hint": "Xác định động từ cần điền đi với tân ngữ 'the comprehensive and numerous experiments' (các thí nghiệm toàn diện và quy mô lớn). Lưu ý từ phủ định 'not' đứng trước ô trống.",
       "tier2_hint": "Các nhà nghiên cứu trước đây 'chưa từng tiến hành/thực hiện' các thí nghiệm cần thiết trong điều kiện phòng thí nghiệm được kiểm soát. Cần một từ mang nghĩa 'thực hiện/tiến hành' (conducted/carried out).",
-      "tier3_hint": "Phương án đúng là **[B]** (*executed*).\n\n**Phân tích chi tiết:**\nĐi với 'experiments', động từ 'execute' mang nghĩa là 'tiến hành/thực thi' (perform/carry out). Các nhà khoa học trước đó chưa từng thực hiện các thí nghiệm này.\n\n• (A) *halted* (tạm dừng) — họ chưa từng bắt đầu nên không thể nói là tạm dừng.\n• (C) *dissimulated* (che đậy/ngụy trang) — sai nét nghĩa hoàn toàn.\n• (D) *decried* (lên án/chỉ trích) — không hợp lý trong nghiên cứu khoa học.",
+      "tier3_hint": "Phương án đúng là **[B]** (*executed*).\n\n**Phân tích chi tiết:**\nĐi với 'experiments', động từ 'execute' mang nghĩa là 'tiến hành/thực thi' (perform/carry out). Các nhà khoa học trước đó chưa từng thực hiện các thí nghiệm này.\n\n• (A) *halted* (tạm dừng) - họ chưa từng bắt đầu nên không thể nói là tạm dừng.\n• (C) *dissimulated* (che đậy/ngụy trang) - sai nét nghĩa hoàn toàn.\n• (D) *decried* (lên án/chỉ trích) - không hợp lý trong nghiên cứu khoa học.",
       "strategic_tip": "Mẹo Princeton Review: Chú ý từ phủ định 'not' hoặc 'hardly' trước ô trống. Thiếu từ 'not' sẽ khiến học sinh dễ bị chọn nhầm từ trái nghĩa.",
       "pooe_breakdown": "• [B] ĐÚNG: executed mang nghĩa tiến hành/thực thi thí nghiệm.\n• [A] Loại halted vì họ chưa làm nên không thể dừng.\n• [C] Loại dissimulated vì không ai ngụy trang thí nghiệm.\n• [D] Loại decried vì không có ai chỉ trích nghiên cứu này.",
       "option_explanations": {
-        "A": "Loại A — halted (đình chỉ/dừng lại) ngụ ý đã làm rồi phải dừng, trái với thực tế chưa ai làm quy mô này.",
+        "A": "Loại A - halted (đình chỉ/dừng lại) ngụ ý đã làm rồi phải dừng, trái với thực tế chưa ai làm quy mô này.",
         "B": "ĐÁP ÁN ĐÚNG. executed (tiến hành/thực thi) kết hợp tự nhiên với 'experiments' để chỉ việc triển khai nghiên cứu.",
-        "C": "Loại C — dissimulated (che giấu cảm xúc/ngụy trang) hoàn toàn không phù hợp ngữ cảnh khoa học.",
-        "D": "Loại D — decried (chỉ trích công khai) sai nghĩa khi nói về việc làm thí nghiệm."
+        "C": "Loại C - dissimulated (che giấu cảm xúc/ngụy trang) hoàn toàn không phù hợp ngữ cảnh khoa học.",
+        "D": "Loại D - decried (chỉ trích công khai) sai nghĩa khi nói về việc làm thí nghiệm."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Xác định động từ cần điền đi với tân ngữ 'the comprehensive and numerous experiments' (các thí nghiệm toàn diện và quy mô lớn). Lưu ý từ phủ định 'not' đứng trước ô trống.",
       "level2_hint": "Các nhà nghiên cứu trước đây 'chưa từng tiến hành/thực hiện' các thí nghiệm cần thiết trong điều kiện phòng thí nghiệm được kiểm soát. Cần một từ mang nghĩa 'thực hiện/tiến hành' (conducted/carried out).",
-      "level3_solution": "Phương án đúng là **[B]** (*executed*).\n\n**Phân tích chi tiết:**\nĐi với 'experiments', động từ 'execute' mang nghĩa là 'tiến hành/thực thi' (perform/carry out). Các nhà khoa học trước đó chưa từng thực hiện các thí nghiệm này.\n\n• (A) *halted* (tạm dừng) — họ chưa từng bắt đầu nên không thể nói là tạm dừng.\n• (C) *dissimulated* (che đậy/ngụy trang) — sai nét nghĩa hoàn toàn.\n• (D) *decried* (lên án/chỉ trích) — không hợp lý trong nghiên cứu khoa học.",
+      "level3_solution": "Phương án đúng là **[B]** (*executed*).\n\n**Phân tích chi tiết:**\nĐi với 'experiments', động từ 'execute' mang nghĩa là 'tiến hành/thực thi' (perform/carry out). Các nhà khoa học trước đó chưa từng thực hiện các thí nghiệm này.\n\n• (A) *halted* (tạm dừng) - họ chưa từng bắt đầu nên không thể nói là tạm dừng.\n• (C) *dissimulated* (che đậy/ngụy trang) - sai nét nghĩa hoàn toàn.\n• (D) *decried* (lên án/chỉ trích) - không hợp lý trong nghiên cứu khoa học.",
       "pro_tip": "Mẹo Princeton Review: Chú ý từ phủ định 'not' hoặc 'hardly' trước ô trống. Thiếu từ 'not' sẽ khiến học sinh dễ bị chọn nhầm từ trái nghĩa.",
       "mermaid_diagram": "flowchart TD\n    A[\"Ngữ cảnh (Context):<br>Nghiên cứu của Jakob Wikström & Etty Bachar-Wikström về khả năng lành vết thương của cá mập\"] --> B{\"Manh mối điều kiện phủ định (Negative Constraint Clues)\"}\n    B --> C[\"Các nhà khoa học trước đây không tin vào các báo cáo ban đầu...\"]\n    B --> D[\"'prior to Wikström's work, comprehensive and numerous experiments<br>had NOT been ______'<br>(Trước công trình này, các thí nghiệm toàn diện CHƯA TỪNG được ______)\"]\n    C & D --> E[\"Dự đoán từ cần điền (Prediction):<br>Cần động từ mang nghĩa 'thực hiện / tiến hành thí nghiệm'<br>(conducted / carried out / performed)\"]\n    E --> F{\"Chiến thuật loại trừ POOE\"}\n    F -->|Sai ngữ cảnh| G[\"Loại (A) halted: Bị đình chỉ<br>Loại (C) dissimulated: Ngụy trang, che giấu<br>Loại (D) decried: Lên án công khai\"]\n    F -->|Khớp chuẩn xác| H[\"Chọn (B) executed:<br>Đồng nghĩa với 'carried out / conducted' (được thực thi/tiến hành)\"]\n    H --> I[\"Chốt đáp án chính xác: [B]\"]"
     },
@@ -357,9 +357,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: emphasizes the competence miêu tả hoàn hảo sự thuần thục tuyệt đỉnh trong tay nghề của người thợ.\n• [B] Loại vì so sánh làm xì gà với tác phẩm nghệ thuật là suy diễn vượt văn bản.\n• [C] Loại vì ý xì gà rẻ nằm ở cuối đoạn.\n• [D] Loại vì không nhắc đến điều kiện làm việc tiêu cực.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. emphasizes the competence (nhấn mạnh năng lực/tay nghề vượt trội) khớp chuẩn xác với sự hoàn hảo của 100 điếu xì gà không tì vết.",
-        "B": "Loại B — so sánh kỹ thuật làm xì gà với tạo tác phẩm nghệ thuật là suy diễn vượt văn bản (Beyond the Text).",
-        "C": "Loại C — chi tiết về xì gà rẻ tiền nằm ở cuối đoạn văn, không phải chức năng của câu gạch chân này.",
-        "D": "Loại D — đoạn văn không nói về điều kiện làm việc khắc nghiệt ảnh hưởng đến thợ."
+        "B": "Loại B - so sánh kỹ thuật làm xì gà với tạo tác phẩm nghệ thuật là suy diễn vượt văn bản (Beyond the Text).",
+        "C": "Loại C - chi tiết về xì gà rẻ tiền nằm ở cuối đoạn văn, không phải chức năng của câu gạch chân này.",
+        "D": "Loại D - đoạn văn không nói về điều kiện làm việc khắc nghiệt ảnh hưởng đến thợ."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Câu hỏi yêu cầu xác định vai trò của câu được gạch chân trong toàn bộ đoạn trích. Hãy đọc kỹ câu gạch chân và xác định đối tượng mà tác giả đang ca ngợi.",
@@ -410,10 +410,10 @@
       "strategic_tip": "Mẹo Princeton Review: Với câu hỏi Main Purpose trong văn học, hãy bám sát hành động cốt lõi của nhân vật (gạch chân các động từ chính: 'know nothing and say nothing'). Tránh chọn các phương án gán cảm xúc quá đà không có trong bài.",
       "pooe_breakdown": "• [B] ĐÚNG: Pip's resolve to not discuss the identity of his benefactor phản ánh chính xác mệnh lệnh 'know nothing and say nothing'.\n• [A] Loại vì không có cảm xúc stressful/rejuvenating.\n• [C] Loại vì không có xung đột nội tâm.\n• [D] Loại vì Pip muốn giữ bí mật chứ không phải khoe mẽ.",
       "option_explanations": {
-        "A": "Loại A — bài đọc không hề nhắc đến việc Pip cảm thấy 'stressful' hay 'rejuvenated'.",
+        "A": "Loại A - bài đọc không hề nhắc đến việc Pip cảm thấy 'stressful' hay 'rejuvenated'.",
         "B": "ĐÁP ÁN ĐÚNG. To describe Pip’s resolve to not discuss the identity of his benefactor miêu tả chuẩn xác yêu cầu 'know nothing and say nothing'.",
-        "C": "Loại C — Pip không trải qua xung đột nội tâm (conflict) nào trong đoạn trích này.",
-        "D": "Loại D — Pip dặn bạn bè giữ im lặng về ân nhân chứ không phải khoe khoang của cải."
+        "C": "Loại C - Pip không trải qua xung đột nội tâm (conflict) nào trong đoạn trích này.",
+        "D": "Loại D - Pip dặn bạn bè giữ im lặng về ân nhân chứ không phải khoe khoang của cải."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Xác định mục đích chính của nhân vật Pip trong đoạn trích tiểu thuyết Great Expectations. Pip đang dặn dò Biddy và Joe điều gì về số tài sản mới nhận?",
@@ -464,10 +464,10 @@
       "strategic_tip": "Mẹo Princeton Review (Overall Structure): Đọc lướt và xác định 'nhịp điệu' của đoạn văn: General Rule/Approach -> Specific Examples/Instances. Đây là cấu trúc kinh điển của College Board.",
       "pooe_breakdown": "• [B] ĐÚNG: introduces general approach -> describes specific instances thể hiện chuẩn xác bố cục từ khái quát đến chi tiết.\n• [A] Loại vì không có kết luận về sự tiếp nhận của giới nghệ thuật.\n• [C] Loại vì bài không so sánh đối lập.\n• [D] Loại vì âm nhạc không phải nguồn cảm hứng sinh ra triết lý.",
       "option_explanations": {
-        "A": "Loại A — bài đọc không hề rút ra kết luận về sự đón nhận của công chúng (conclusion about reception).",
+        "A": "Loại A - bài đọc không hề rút ra kết luận về sự đón nhận của công chúng (conclusion about reception).",
         "B": "ĐÁP ÁN ĐÚNG. introduces an artist's general approach, then describes a specific instance phản ánh hoàn hảo cấu trúc từ triết lý chung đến tác phẩm cụ thể.",
-        "C": "Loại C — bài đọc liệt kê hai tác phẩm chứ không hề tạo ra sự tương phản (contrasts) giữa chúng.",
-        "D": "Loại D — bài đọc nói về rung động vật lý tạo tinh thể chứ không giải thích âm nhạc truyền cảm hứng cho triết lý chung như thế nào."
+        "C": "Loại C - bài đọc liệt kê hai tác phẩm chứ không hề tạo ra sự tương phản (contrasts) giữa chúng.",
+        "D": "Loại D - bài đọc nói về rung động vật lý tạo tinh thể chứ không giải thích âm nhạc truyền cảm hứng cho triết lý chung như thế nào."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Xác định cấu trúc chuyển dịch ý tưởng của toàn đoạn văn: Câu đầu tiên nêu điều gì về phong cách nghệ thuật của Yoshioka Tokujin? Các câu tiếp theo đóng vai trò gì?",
@@ -518,9 +518,9 @@
       "strategic_tip": "Mẹo Princeton Review: Khi một câu trong bài đọc khoa học chứa đầy những con số về cỡ mẫu (sample size) và phạm vi khảo sát, chức năng của nó luôn là cung cấp thông tin chi tiết về dữ liệu/phương pháp nghiên cứu.",
       "pooe_breakdown": "• [D] ĐÚNG: detail the data utilized in the analysis phản ánh hoàn hảo việc trình bày quy mô 226.889 người và 17 nghiên cứu.\n• [A] Loại vì không có khó khăn trở ngại.\n• [B] Loại vì kết luận nằm ở câu đầu và câu cuối.\n• [C] Loại vì đây là tập dữ liệu tổng quát chứ không phải ví dụ đơn lẻ.",
       "option_explanations": {
-        "A": "Loại A — câu văn mô tả quy mô nghiên cứu, không nói về bất kỳ trở ngại (obstacle) nào.",
-        "B": "Loại B — kết luận của nghiên cứu nằm ở câu đầu và câu cuối, câu gạch chân là dữ liệu.",
-        "C": "Loại C — đây là toàn bộ tập dữ liệu mẫu chứ không phải một ví dụ cá biệt (specific example).",
+        "A": "Loại A - câu văn mô tả quy mô nghiên cứu, không nói về bất kỳ trở ngại (obstacle) nào.",
+        "B": "Loại B - kết luận của nghiên cứu nằm ở câu đầu và câu cuối, câu gạch chân là dữ liệu.",
+        "C": "Loại C - đây là toàn bộ tập dữ liệu mẫu chứ không phải một ví dụ cá biệt (specific example).",
         "D": "ĐÁP ÁN ĐÚNG. detail the data utilized in the team’s analysis mô tả chính xác mục đích liệt kê số lượng người và nghiên cứu tham gia."
       },
       "domain": "Reading and Writing",
@@ -572,10 +572,10 @@
       "strategic_tip": "Mẹo Princeton Review (Dual Texts): Luôn gạch chân câu chốt ở cuối Đoạn 2 ('may therefore not reveal as much about the behavior of ancestral prokaryotes'). Đáp án đúng phải là sự diễn đạt lại (paraphrase) trực tiếp câu kết luận đó.",
       "pooe_breakdown": "• [C] ĐÚNG: may not accurately depict the nature of the organism paraphrase chuẩn xác kết luận ở cuối Đoạn 2.\n• [A] Loại vì không đề cập đến công nghệ lần đầu tiên.\n• [B] Loại bẫy Half-Right.\n• [D] Loại vì không chỉ trích là overly simplistic.",
       "option_explanations": {
-        "A": "Loại A — Đoạn 2 không nói công nghệ giải trình tự này là lần đầu tiên được sử dụng.",
-        "B": "Loại B — bẫy Half-Right; Đoạn 2 phản bác dựa trên cấu trúc tế bào chứ không phải vì nó mâu thuẫn quan điểm truyền thống.",
+        "A": "Loại A - Đoạn 2 không nói công nghệ giải trình tự này là lần đầu tiên được sử dụng.",
+        "B": "Loại B - bẫy Half-Right; Đoạn 2 phản bác dựa trên cấu trúc tế bào chứ không phải vì nó mâu thuẫn quan điểm truyền thống.",
         "C": "ĐÁP ÁN ĐÚNG. It may not accurately depict the nature of the organism paraphrase chuẩn xác câu kết Đoạn 2 về việc không phản ánh đúng sinh vật tổ tiên.",
-        "D": "Loại D — Đoạn 2 không chỉ trích lý thuyết của Gabaldón là quá đơn giản hóa."
+        "D": "Loại D - Đoạn 2 không chỉ trích lý thuyết của Gabaldón là quá đơn giản hóa."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Câu hỏi yêu cầu xác định quan điểm của tác giả Đoạn 2 về giả thuyết của nhóm Gabaldón trong Đoạn 1. Đoạn 2 đánh giá thế nào về việc suy luận từ tế bào nhân thực hiện đại sang tế bào nhân sơ cổ đại?",
@@ -627,9 +627,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: So sánh 1998 và 2000: vé giảm (1.5 -> 1.4) trong khi doanh thu tăng (6.8 -> 7.5), khớp 100% luận điểm.\n• [B] Loại so sánh 1997 và 1999 vì lượng vé không đổi (đều 1.4 tỉ).\n• [C] Loại vì lượng vé tăng từ 1.4 lên 1.5 tỉ.\n• [D] Loại vì cả vé lẫn doanh thu đều tăng.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. So sánh 1998 và 2000: vé giảm (1.5 -> 1.4) trong khi doanh thu tăng (6.8 -> 7.5), khớp 100% luận điểm.",
-        "B": "Loại B — so sánh 1997 và 1999: lượng vé không đổi (đều là 1.4 tỉ), không chứng minh được xu hướng giảm.",
-        "C": "Loại C — từ 1997 sang 1998 lượng vé tăng từ 1.4 lên 1.5 tỉ, đi ngược lại luận điểm vé giảm.",
-        "D": "Loại D — từ 1996 sang 1997 cả vé lẫn doanh thu đều tăng, không thể hiện việc vé giảm."
+        "B": "Loại B - so sánh 1997 và 1999: lượng vé không đổi (đều là 1.4 tỉ), không chứng minh được xu hướng giảm.",
+        "C": "Loại C - từ 1997 sang 1998 lượng vé tăng từ 1.4 lên 1.5 tỉ, đi ngược lại luận điểm vé giảm.",
+        "D": "Loại D - từ 1996 sang 1997 cả vé lẫn doanh thu đều tăng, không thể hiện việc vé giảm."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Đọc kỹ câu chứa ô trống: Cần tìm một phép so sánh giữa 2 mốc thời gian thể hiện đúng 2 điều kiện đồng thời: (1) Doanh thu phòng vé (Box office revenue) TIẾP TỤC TĂNG, và (2) Lượng vé bán ra (Tickets sold) GIẢM đi.",
@@ -648,7 +648,7 @@
       "section": "Reading and Writing",
       "module_num": 1,
       "topic": "Information and Ideas • Command of Evidence (Textual Claims)",
-      "passage": "Recently discovered in China, Proterocladus antique is the scientific name for an algae fossil approximately a billion years old. Using samples from the well-preserved Nanfen formation (an ancient seabed), Qing Tang, Ke Pang, Xunlai Yuan and Shuhai Xiao found that P. antique was a green alga that could, like its modern relative seaweed, photosynthesize—that is, manufacture sugars and oxygen from light and carbon dioxide. Tang maintains that P. antique indicates that green algae first evolved in the oceans instead of in freshwater environments such as lakes and rivers.",
+      "passage": "Recently discovered in China, Proterocladus antique is the scientific name for an algae fossil approximately a billion years old. Using samples from the well-preserved Nanfen formation (an ancient seabed), Qing Tang, Ke Pang, Xunlai Yuan and Shuhai Xiao found that P. antique was a green alga that could, like its modern relative seaweed, photosynthesize-that is, manufacture sugars and oxygen from light and carbon dioxide. Tang maintains that P. antique indicates that green algae first evolved in the oceans instead of in freshwater environments such as lakes and rivers.",
       "prompt": "Which of the following, if true, would most directly support Tang’s claim?",
       "options": [
         {
@@ -680,9 +680,9 @@
       "strategic_tip": "Mẹo Princeton Review (Claims): Khi một giả thuyết khẳng định A xuất hiện trước B trong lịch sử tiến hóa, bằng chứng củng cố mạnh nhất là niên đại hóa thạch của A cổ hơn niên đại sớm nhất của B.",
       "pooe_breakdown": "• [D] ĐÚNG: Hóa thạch nước ngọt cổ nhất chỉ 800 triệu năm (trẻ hơn 1 tỷ năm của tảo biển) chứng minh tảo biển có trước.\n• [A] Loại vì kích thước không liên quan đến nguồn gốc tiến hóa.\n• [B] Loại vì xuất hiện cùng thời với tảo nước ngọt sẽ phản bác Tang.\n• [C] Loại vì tỉ lệ quang hợp hiện tại không nói lên lịch sử tiến hóa.",
       "option_explanations": {
-        "A": "Loại A — kích thước hóa thạch không chứng minh được sinh vật xuất hiện ở biển trước hay nước ngọt trước.",
-        "B": "Loại B — nếu có hóa thạch tảo nước ngọt cùng niên đại 1 tỷ năm thì tuyên bố của Tang sẽ bị phản bác.",
-        "C": "Loại C — tỷ lệ quang hợp của thực vật hiện nay không liên quan đến thứ tự tiến hóa cách đây 1 tỷ năm.",
+        "A": "Loại A - kích thước hóa thạch không chứng minh được sinh vật xuất hiện ở biển trước hay nước ngọt trước.",
+        "B": "Loại B - nếu có hóa thạch tảo nước ngọt cùng niên đại 1 tỷ năm thì tuyên bố của Tang sẽ bị phản bác.",
+        "C": "Loại C - tỷ lệ quang hợp của thực vật hiện nay không liên quan đến thứ tự tiến hóa cách đây 1 tỷ năm.",
         "D": "ĐÁP ÁN ĐÚNG. Hóa thạch tảo nước ngọt cổ nhất chỉ 800 triệu năm chứng minh tảo biển 1 tỷ năm đã xuất hiện trước."
       },
       "domain": "Reading and Writing",
@@ -735,9 +735,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: Khả năng can thiệp của nhóm autistic cao hơn nhóm non-autistic trong tất cả các kịch bản.\n• [B] Loại vì chỉ nói về nhóm non-autistic, không so sánh.\n• [C] Loại vì số liệu không hề tương đồng (nearly identical).\n• [D] Loại vì xu hướng giảm không chứng minh được sự vượt trội.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. Nhóm autistic có điểm can thiệp cao hơn nhóm non-autistic ở tất cả các trường hợp (1, 2, 6, 10 người).",
-        "B": "Loại B — lựa chọn này chỉ nhìn vào nhóm không tự kỷ, không hỗ trợ việc so sánh giữa hai nhóm.",
-        "C": "Loại C — số liệu ở mốc 6 người không hề giống nhau (cột autistic cao hơn rõ ràng).",
-        "D": "Loại D — việc điểm số giảm không trực tiếp hỗ trợ kết luận rằng nhóm autistic can thiệp nhiều hơn nhóm non-autistic."
+        "B": "Loại B - lựa chọn này chỉ nhìn vào nhóm không tự kỷ, không hỗ trợ việc so sánh giữa hai nhóm.",
+        "C": "Loại C - số liệu ở mốc 6 người không hề giống nhau (cột autistic cao hơn rõ ràng).",
+        "D": "Loại D - việc điểm số giảm không trực tiếp hỗ trợ kết luận rằng nhóm autistic can thiệp nhiều hơn nhóm non-autistic."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Câu hỏi yêu cầu tìm dữ liệu từ biểu đồ củng cố kết luận của Hartman: nhân viên tự kỷ (autistic) có xu hướng can thiệp / lên tiếng về vấn đề nơi làm việc cao hơn nhân viên không tự kỷ (non-autistic), bất kể số lượng người đứng xem (bystanders).",
@@ -788,9 +788,9 @@
       "strategic_tip": "Mẹo Princeton Review (Weaken): Để làm suy yếu một kết luận loại trừ (A chứ không phải B), hãy tìm bằng chứng mâu thuẫn trực tiếp với đặc tính vật lý cốt lõi của A.",
       "pooe_breakdown": "• [D] ĐÚNG: Không tìm thấy mảnh đá chứa kim loại làm suy yếu kết luận về tiểu hành tinh kim loại.\n• [A] Loại vì củng cố (support) kết luận của Kulik.\n• [B] Loại vì cũng củng cố giả thuyết tiểu hành tinh.\n• [C] Loại vì cơ chế nổ không chứng minh thiên thể là loại nào.",
       "option_explanations": {
-        "A": "Loại A — tìm thấy khoáng chất đặc trưng của tiểu hành tinh trong thân cây củng cố chứ không làm suy yếu kết luận.",
-        "B": "Loại B — vật thể không bị vỡ vụn sớm củng cố tính bền vững của tiểu hành tinh so với sao chổi.",
-        "C": "Loại C — áp suất và nhiệt độ làm nổ vật thể xảy ra với cả sao chổi lẫn tiểu hành tinh, không làm suy yếu luận điểm.",
+        "A": "Loại A - tìm thấy khoáng chất đặc trưng của tiểu hành tinh trong thân cây củng cố chứ không làm suy yếu kết luận.",
+        "B": "Loại B - vật thể không bị vỡ vụn sớm củng cố tính bền vững của tiểu hành tinh so với sao chổi.",
+        "C": "Loại C - áp suất và nhiệt độ làm nổ vật thể xảy ra với cả sao chổi lẫn tiểu hành tinh, không làm suy yếu luận điểm.",
         "D": "ĐÁP ÁN ĐÚNG. Không tìm thấy bất kỳ mảnh vụn kim loại nào chứng minh thiên thể không phải tiểu hành tinh chứa kim loại."
       },
       "domain": "Reading and Writing",
@@ -842,10 +842,10 @@
       "strategic_tip": "Mẹo Princeton Review: Phân biệt rõ sự khác nhau giữa 'sở hữu/thuộc bộ sưu tập' (in the collection) và 'mượn để triển lãm' (on loan / exhibited).",
       "pooe_breakdown": "• [C] ĐÚNG: Các tác phẩm bản địa trước đây chỉ là đồ mượn (on loan) giải thích vì sao bảo tàng đã từng trưng bày nhưng chưa từng sở hữu trong bộ sưu tập.\n• [A] Loại vì mâu thuẫn với thông tin Smith lần đầu vào bảo tàng.\n• [B] Loại vì đồ gốm không làm rõ được sự việc.\n• [D] Loại vì quan điểm cá nhân không chứng minh được sự việc.",
       "option_explanations": {
-        "A": "Loại A — mâu thuẫn trực tiếp với thông tin rằng đây là tác phẩm đầu tiên của Smith xuất hiện ở bảo tàng.",
-        "B": "Loại B — triển lãm đồ gốm lưu động không giải thích rõ tại sao tranh bản địa chưa từng nằm trong bộ sưu tập vĩnh viễn.",
+        "A": "Loại A - mâu thuẫn trực tiếp với thông tin rằng đây là tác phẩm đầu tiên của Smith xuất hiện ở bảo tàng.",
+        "B": "Loại B - triển lãm đồ gốm lưu động không giải thích rõ tại sao tranh bản địa chưa từng nằm trong bộ sưu tập vĩnh viễn.",
         "C": "ĐÁP ÁN ĐÚNG. Các triển lãm trước chỉ mượn hiện vật từ nơi khác (on loan) giải thích hoàn hảo vì sao bảo tàng từng trưng bày nhưng bộ sưu tập chưa từng sở hữu.",
-        "D": "Loại D — niềm tin của cá nhân Smith không cung cấp dữ liệu khách quan để chứng minh lời nhà báo."
+        "D": "Loại D - niềm tin của cá nhân Smith không cung cấp dữ liệu khách quan để chứng minh lời nhà báo."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Câu hỏi tìm thông tin củng cố lời giải thích của nhà báo: bảo tàng trước đây ĐÃ TỪNG trưng bày nghệ thuật của người bản địa (Indigenous art), dù bức tranh của Smith mới là bức tranh sơn dầu trên toan đầu tiên ĐƯỢC MUA VÀO BỘ SƯU TẬP (entered the museum's collection).",
@@ -897,9 +897,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: Chấp nhận biên độ sai số (margin of error) là hệ quả logic khi không thể mô phỏng toàn bộ đời thực.\n• [B] Loại vì Extreme Language (khẳng định không thể làm nghiên cứu ý nghĩa).\n• [C] Loại vì khuyên từ bỏ đề tài là vô lý.\n• [D] Loại vì bài chỉ tập trung vào lần gặp đầu tiên.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. Chấp nhận biên sai số (margin of error) và nhận thức được giới hạn của phòng thí nghiệm là kết luận thận trọng và chuẩn xác.",
-        "B": "Loại B — cực đoan quá mức khi cho rằng không thể thực hiện một nghiên cứu có ý nghĩa nếu không làm hỏng phương pháp khoa học.",
-        "C": "Loại C — văn bản không hề khuyến nghị các nhà nghiên cứu nên bỏ cuộc và chuyển sang hướng nghiên cứu khác.",
-        "D": "Loại D — bài đọc tập trung vào ấn tượng đầu tiên (first impressions) chứ không mở rộng ra các lần tương tác sau này."
+        "B": "Loại B - cực đoan quá mức khi cho rằng không thể thực hiện một nghiên cứu có ý nghĩa nếu không làm hỏng phương pháp khoa học.",
+        "C": "Loại C - văn bản không hề khuyến nghị các nhà nghiên cứu nên bỏ cuộc và chuyển sang hướng nghiên cứu khác.",
+        "D": "Loại D - bài đọc tập trung vào ấn tượng đầu tiên (first impressions) chứ không mở rộng ra các lần tương tác sau này."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Đọc kỹ câu dẫn trước ô trống: Các nhà nghiên cứu không thể mô phỏng mọi tình huống giao tiếp xã hội trong đời thực. Từ nối 'therefore' đòi hỏi một kết luận thực tế và hợp lý về thái độ của họ đối với kết quả nghiên cứu.",
@@ -950,10 +950,10 @@
       "strategic_tip": "Mẹo Princeton Review: Khi mệnh đề kết quả là 'phản ứng lại sự phản đối' (in response to protests), mệnh đề nguyên nhân bắt buộc phải giải thích mối lo ngại hay vấn đề tiêu cực đang diễn ra.",
       "pooe_breakdown": "• [B] ĐÚNG: growing concern that art is employed for reasons other than original purpose khớp hoàn hảo với lý do người dân biểu tình chống thương mại hóa.\n• [A] Loại vì việc tôn vinh không giải thích lý do biểu tình.\n• [C] Loại vì người dân phản đối chứ không ủng hộ thay đổi.\n• [D] Loại vì không nhắc đến khía cạnh trục lợi thương mại.",
       "option_explanations": {
-        "A": "Loại A — lịch sử phong phú được quốc tế tôn vinh không giải thích được tại sao UNESCO phải lập ban bảo vệ trước sự thương mại hóa.",
+        "A": "Loại A - lịch sử phong phú được quốc tế tôn vinh không giải thích được tại sao UNESCO phải lập ban bảo vệ trước sự thương mại hóa.",
         "B": "ĐÁP ÁN ĐÚNG. Mối lo ngại ngày càng tăng về việc nghệ thuật bị dùng sai mục đích ban đầu giải thích hoàn hảo việc thành lập ủy ban bảo vệ.",
-        "C": "Loại C — cư dân biểu tình phản đối việc thương mại hóa, họ không coi đó là sự tiến bộ được hoan nghênh.",
-        "D": "Loại D — phương án này né tránh vấn đề thương mại hóa vì lợi nhuận vốn là nguyên nhân dẫn đến biểu tình."
+        "C": "Loại C - cư dân biểu tình phản đối việc thương mại hóa, họ không coi đó là sự tiến bộ được hoan nghênh.",
+        "D": "Loại D - phương án này né tránh vấn đề thương mại hóa vì lợi nhuận vốn là nguyên nhân dẫn đến biểu tình."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Chú ý lý do dẫn đến hành động của UNESCO: 'In response to formal protests against the use of sand drawing for profit...' (Để đáp lại các cuộc biểu tình chính thức chống lại việc thương mại hóa tranh cát). Ô trống bắt đầu bằng 'as...' (bởi vì...), yêu cầu giải thích nguyên nhân UNESCO thành lập Ủy ban hành động bảo vệ tranh cát.",
@@ -1004,9 +1004,9 @@
       "strategic_tip": "Mẹo Princeton Review (Punctuation): Dấu chấm phẩy (;) chỉ được nối hai mệnh đề độc lập (Independent Clauses). Nếu mệnh đề sau có liên từ phụ thuộc như 'though, although, because, since', tuyệt đối KHÔNG dùng dấu chấm phẩy.",
       "pooe_breakdown": "• [D] ĐÚNG: Dấu phẩy phân tách mệnh đề chính và mệnh đề phụ thuộc tương phản mở đầu bằng 'though'.\n• [A] Loại dấu hai chấm vì vế sau không giải thích định nghĩa.\n• [B] Loại dấu chấm phẩy vì vế sau có though nên không độc lập.\n• [C] Loại vì thiếu dấu câu ngăn cách.",
       "option_explanations": {
-        "A": "Loại A — dấu hai chấm dùng để báo hiệu danh sách hoặc giải thích, không dùng trước mệnh đề nhượng bộ 'though'.",
-        "B": "Loại B — dấu chấm phẩy bắt buộc phải nối 2 mệnh đề độc lập; vế sau có 'though' là mệnh đề phụ thuộc.",
-        "C": "Loại C — không có dấu phẩy sẽ khiến câu bị dính liền và ngắt nhịp sai cú pháp.",
+        "A": "Loại A - dấu hai chấm dùng để báo hiệu danh sách hoặc giải thích, không dùng trước mệnh đề nhượng bộ 'though'.",
+        "B": "Loại B - dấu chấm phẩy bắt buộc phải nối 2 mệnh đề độc lập; vế sau có 'though' là mệnh đề phụ thuộc.",
+        "C": "Loại C - không có dấu phẩy sẽ khiến câu bị dính liền và ngắt nhịp sai cú pháp.",
         "D": "ĐÁP ÁN ĐÚNG. Dấu phẩy ngăn cách mệnh đề chính với mệnh đề phụ thuộc trạng ngữ chỉ sự tương phản mở đầu bằng 'though'."
       },
       "domain": "Reading and Writing",
@@ -1026,7 +1026,7 @@
       "section": "Reading and Writing",
       "module_num": 1,
       "topic": "Standard English Conventions • Boundaries (Compound Sentences & FANBOYS)",
-      "passage": "By monitoring the gases that are emitted from the regions surrounding volcanoes, scientists can make predictions about what volcanic activity—or inactivity—can be expected. For example, a volcano releases sulfur dioxide (SO2) when magma is close to the surface, indicating that an eruption might occur soon. In other instances, magma releases sulfur gases, which interact with the groundwater to produce hydrogen sulfide ________ the presence of this compound signifies that the volcano is stable.",
+      "passage": "By monitoring the gases that are emitted from the regions surrounding volcanoes, scientists can make predictions about what volcanic activity-or inactivity-can be expected. For example, a volcano releases sulfur dioxide (SO2) when magma is close to the surface, indicating that an eruption might occur soon. In other instances, magma releases sulfur gases, which interact with the groundwater to produce hydrogen sulfide ________ the presence of this compound signifies that the volcano is stable.",
       "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
       "options": [
         {
@@ -1058,9 +1058,9 @@
       "strategic_tip": "Mẹo Princeton Review (FANBOYS): Công thức vàng của College Board: Independent Clause + `, + FANBOYS` + Independent Clause. Thiếu dấu phẩy (phương án B) hay thiếu liên từ (phương án C - Comma Splice) đều là các lỗi ngữ pháp nghiêm trọng.",
       "pooe_breakdown": "• [D] ĐÚNG: , but kết nối chuẩn xác hai mệnh đề độc lập.\n• [A] Loại vì lỗi Run-on (không dấu câu).\n• [B] Loại vì thiếu dấu phẩy trước liên từ but.\n• [C] Loại vì lỗi Comma Splice (chỉ có dấu phẩy đơn độc).",
       "option_explanations": {
-        "A": "Loại A — lỗi Run-on sentence: hai mệnh đề độc lập dính liền vào nhau không có dấu câu hay liên từ.",
-        "B": "Loại B — khi nối 2 mệnh đề độc lập bằng FANBOYS (but), bắt buộc phải có dấu phẩy đứng trước.",
-        "C": "Loại C — lỗi kinh điển Comma Splice: dùng một dấu phẩy đơn lẻ để nối hai mệnh đề độc lập là sai quy tắc.",
+        "A": "Loại A - lỗi Run-on sentence: hai mệnh đề độc lập dính liền vào nhau không có dấu câu hay liên từ.",
+        "B": "Loại B - khi nối 2 mệnh đề độc lập bằng FANBOYS (but), bắt buộc phải có dấu phẩy đứng trước.",
+        "C": "Loại C - lỗi kinh điển Comma Splice: dùng một dấu phẩy đơn lẻ để nối hai mệnh đề độc lập là sai quy tắc.",
         "D": "ĐÁP ÁN ĐÚNG. Cấu trúc chuẩn mực: dấu phẩy kết hợp liên từ đẳng lập ', but' kết nối 2 mệnh đề độc lập."
       },
       "domain": "Reading and Writing",
@@ -1112,10 +1112,10 @@
       "strategic_tip": "Mẹo Princeton Review: Nhớ quy tắc kinh điển cho Conjunctive Adverbs nối 2 mệnh đề độc lập: `; however,` | `; therefore,` | `; instead,` | `; furthermore,`.",
       "pooe_breakdown": "• [C] ĐÚNG: ; instead, chuẩn mực cú pháp nối 2 mệnh đề độc lập bằng trạng từ liên kết.\n• [A] Loại vì lỗi Comma Splice.\n• [B] Loại vì đảo ngược vị trí dấu câu.\n• [D] Loại vì dấu phẩy không thể nối 2 câu độc lập.",
       "option_explanations": {
-        "A": "Loại A — thiếu dấu chấm phẩy để ngắt hai mệnh đề độc lập, tạo thành lỗi Comma Splice.",
-        "B": "Loại B — dấu phẩy đặt trước 'instead' và dấu chấm phẩy đặt sau là sai trật tự cú pháp tiếng Anh.",
+        "A": "Loại A - thiếu dấu chấm phẩy để ngắt hai mệnh đề độc lập, tạo thành lỗi Comma Splice.",
+        "B": "Loại B - dấu phẩy đặt trước 'instead' và dấu chấm phẩy đặt sau là sai trật tự cú pháp tiếng Anh.",
         "C": "ĐÁP ÁN ĐÚNG. Quy tắc chuẩn mực nối 2 câu độc lập bằng trạng từ liên kết: '; instead,'.",
-        "D": "Loại D — hai dấu phẩy kẹp 'instead' không thể thay thế dấu chấm phẩy để nối hai mệnh đề độc lập."
+        "D": "Loại D - hai dấu phẩy kẹp 'instead' không thể thay thế dấu chấm phẩy để nối hai mệnh đề độc lập."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Xác định hai mệnh đề độc lập trong câu:\nMệnh đề 1: 'The ghost catfish, a transparent aquatic species, doesn't have those crystals'.\nMệnh đề 2: 'its muscles have microscopic striped structures that bend light'.\nTừ nối ở đây là trạng từ liên kết 'instead'.",
@@ -1167,9 +1167,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: had taken (Quá khứ hoàn thành) khớp hoàn hảo với cấu trúc 'By 1951'.\n• [B] Loại took vì Quá khứ đơn không thể hiện tính hoàn tất trước mốc thời gian.\n• [C] Loại hiện tại đơn.\n• [D] Loại tương lai đơn.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. Cấu trúc 'By + mốc quá khứ' (By 1951) bắt buộc dùng thì Quá khứ hoàn thành 'had taken'.",
-        "B": "Loại B — thì quá khứ đơn 'took' chỉ dùng cho mốc thời gian xác định (In 1951), không dùng với giới từ 'By'.",
-        "C": "Loại C — sự việc xảy ra từ thập niên 1950, không thể dùng thì hiện tại đơn 'take'.",
-        "D": "Loại D — thì tương lai đơn 'will take' hoàn toàn sai lệch niên đại lịch sử."
+        "B": "Loại B - thì quá khứ đơn 'took' chỉ dùng cho mốc thời gian xác định (In 1951), không dùng với giới từ 'By'.",
+        "C": "Loại C - sự việc xảy ra từ thập niên 1950, không thể dùng thì hiện tại đơn 'take'.",
+        "D": "Loại D - thì tương lai đơn 'will take' hoàn toàn sai lệch niên đại lịch sử."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Quan sát trạng từ chỉ thời gian ở đầu câu: 'By 1951' (Tính đến trước năm 1951). Cần xác định thì của động từ diễn tả hành động hoàn tất trước một thời điểm cụ thể trong quá khứ.",
@@ -1220,9 +1220,9 @@
       "strategic_tip": "Mẹo Princeton Review (Subject-Verb Agreement): Khi có cụm giới từ dài chèn giữa (ví dụ: 'The fluctuation of temperatures'), hãy lấy bút gạch tạm cụm giới từ đó đi để nhìn thấy ngay Chủ ngữ hạt nhân: 'The fluctuation [influences]'.",
       "pooe_breakdown": "• [D] ĐÚNG: influences (động từ số ít) hòa hợp chuẩn xác với chủ ngữ số ít 'the seasonal fluctuation'.\n• [A] Loại were số nhiều.\n• [B] Loại have số nhiều.\n• [C] Loại influence số nhiều.",
       "option_explanations": {
-        "A": "Loại A — 'were influencing' là dạng số nhiều, trong khi chủ ngữ chính là danh từ số ít 'fluctuation'.",
-        "B": "Loại B — 'have influenced' là dạng số nhiều, không hòa hợp với chủ ngữ số ít.",
-        "C": "Loại C — 'influence' là động từ nguyên mẫu số nhiều, không hòa hợp với 'fluctuation'.",
+        "A": "Loại A - 'were influencing' là dạng số nhiều, trong khi chủ ngữ chính là danh từ số ít 'fluctuation'.",
+        "B": "Loại B - 'have influenced' là dạng số nhiều, không hòa hợp với chủ ngữ số ít.",
+        "C": "Loại C - 'influence' là động từ nguyên mẫu số nhiều, không hòa hợp với 'fluctuation'.",
         "D": "ĐÁP ÁN ĐÚNG. 'influences' (ngôi thứ 3 số ít) hòa hợp hoàn hảo với danh từ trung tâm 'the seasonal fluctuation'."
       },
       "domain": "Reading and Writing",
@@ -1274,10 +1274,10 @@
       "strategic_tip": "Mẹo Princeton Review: Trong cấu trúc 'ranging from X, [appositive modifier], to Y', luôn cần cặp dấu phẩy bao quanh thành phần đồng vị bổ nghĩa. Không bao giờ đặt dấu phẩy tùy tiện giữa danh từ và cụm phân từ hạn định (essential participle).",
       "pooe_breakdown": "• [C] ĐÚNG: paper divided into regular boxes, đóng chuẩn xác cụm đồng vị trước khi chuyển sang 'to Y'.\n• [A] Loại vì thiếu dấu phẩy đóng cụm đồng vị.\n• [B] Loại vì ngắt dấu phẩy sai trước divided và thiếu dấu phẩy sau boxes.\n• [D] Loại vì thừa dấu phẩy sau paper.",
       "option_explanations": {
-        "A": "Loại A — thiếu dấu phẩy sau 'boxes' để đóng cụm danh từ đồng vị bổ nghĩa cho Jeongganbo trước từ 'to'.",
-        "B": "Loại B — ngắt dấu phẩy sau 'paper' làm gián đoạn cụm phân từ hạn định, lại thiếu dấu phẩy đóng cụm.",
+        "A": "Loại A - thiếu dấu phẩy sau 'boxes' để đóng cụm danh từ đồng vị bổ nghĩa cho Jeongganbo trước từ 'to'.",
+        "B": "Loại B - ngắt dấu phẩy sau 'paper' làm gián đoạn cụm phân từ hạn định, lại thiếu dấu phẩy đóng cụm.",
         "C": "ĐÁP ÁN ĐÚNG. 'divided into regular boxes' không có dấu phẩy sau paper (hạn định) và có dấu phẩy sau boxes để đóng cụm đồng vị.",
-        "D": "Loại D — thừa dấu phẩy sau 'paper', làm sai quy tắc bổ ngữ hạn định."
+        "D": "Loại D - thừa dấu phẩy sau 'paper', làm sai quy tắc bổ ngữ hạn định."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Nhận diện cấu trúc song hành của thành ngữ: 'with influences ranging from X to Y' (với những ảnh hưởng trải dài từ X đến Y). Ở đây X là 'Jeongganbo, a Korean musical notation system written on paper divided into regular boxes', còn Y là 'woven reed mats'.",
@@ -1328,9 +1328,9 @@
       "strategic_tip": "Mẹo Princeton Review (Colons): Dấu hai chấm (:) chỉ có thể đứng sau một mệnh đề độc lập hoàn chỉnh (Independent Clause). Khi vế sau giải thích hoặc chứng minh cho vế trước, dấu hai chấm là lựa chọn số 1 của College Board.",
       "pooe_breakdown": "• [D] ĐÚNG: Asia: dấu hai chấm phân cách hoàn hảo giữa câu độc lập và phần giải thích chi tiết đằng sau.\n• [A] Loại vì lỗi Comma Splice.\n• [B] Loại vì lỗi Run-on.\n• [C] Loại vì liên từ 'and' làm hỏng cấu trúc câu.",
       "option_explanations": {
-        "A": "Loại A — dùng dấu phẩy tạo thành lỗi Comma Splice vì nối hai mệnh đề độc lập mà không có liên từ FANBOYS.",
-        "B": "Loại B — không có dấu câu tạo thành lỗi Run-on sentence nghiêm trọng.",
-        "C": "Loại C — 'Asia and' biến vế sau thành một cụm lộn xộn không thể kết nối mạch lạc.",
+        "A": "Loại A - dùng dấu phẩy tạo thành lỗi Comma Splice vì nối hai mệnh đề độc lập mà không có liên từ FANBOYS.",
+        "B": "Loại B - không có dấu câu tạo thành lỗi Run-on sentence nghiêm trọng.",
+        "C": "Loại C - 'Asia and' biến vế sau thành một cụm lộn xộn không thể kết nối mạch lạc.",
         "D": "ĐÁP ÁN ĐÚNG. Dấu hai chấm (:) đứng sau mệnh đề độc lập để mở ra lời giải thích chi tiết ở vế sau."
       },
       "domain": "Reading and Writing",
@@ -1350,7 +1350,7 @@
       "section": "Reading and Writing",
       "module_num": 1,
       "topic": "Expression of Ideas • Transitions (Logical Direction)",
-      "passage": "In 1872, French archaeologists began excavating a body of ancient Greek mosaics on the island of Delos, which is now known to contain more surviving Hellenistic Greek mosaics than nearly any other site. ________ nearly half of all surviving tessellated Greek mosaics—a style of mosaic in which all tiles are uniform in shape and arranged to have no overlap—from this time period are from Delos.",
+      "passage": "In 1872, French archaeologists began excavating a body of ancient Greek mosaics on the island of Delos, which is now known to contain more surviving Hellenistic Greek mosaics than nearly any other site. ________ nearly half of all surviving tessellated Greek mosaics-a style of mosaic in which all tiles are uniform in shape and arranged to have no overlap-from this time period are from Delos.",
       "prompt": "Which choice completes the text with the most logical transition?",
       "options": [
         {
@@ -1383,9 +1383,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: 'In fact' đào sâu và nhấn mạnh chi tiết cụ thể bổ trợ hoàn hảo cho ý trước.\n• [B] Loại Thus: Không phải quan hệ nguyên nhân - kết quả.\n• [C] Loại In addition: Câu 2 cụ thể hóa ý trước chứ không thêm một ý tách rời độc lập.\n• [D] Loại Despite this: Không có sự đối lập tương phản.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. 'In fact,' đào sâu và nhấn mạnh chi tiết số liệu cụ thể (gần một nửa) để chứng minh và làm rõ cho nhận định về mật độ tranh khảm ở câu trước.",
-        "B": "Loại B — 'Thus,' biểu thị quan hệ nguyên nhân - kết quả, trong khi câu 2 không phải hệ quả phát sinh từ câu 1.",
-        "C": "Loại C — 'In addition,' dùng khi liệt kê thêm một ý tưởng mới tách rời; ở đây câu 2 đang phát triển sâu hơn cho chính ý của câu 1.",
-        "D": "Loại D — 'Despite this,' biểu thị sự nhượng bộ/đối lập trái ngược, trong khi hai câu cùng hướng đồng thuận."
+        "B": "Loại B - 'Thus,' biểu thị quan hệ nguyên nhân - kết quả, trong khi câu 2 không phải hệ quả phát sinh từ câu 1.",
+        "C": "Loại C - 'In addition,' dùng khi liệt kê thêm một ý tưởng mới tách rời; ở đây câu 2 đang phát triển sâu hơn cho chính ý của câu 1.",
+        "D": "Loại D - 'Despite this,' biểu thị sự nhượng bộ/đối lập trái ngược, trong khi hai câu cùng hướng đồng thuận."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Xác định mối quan hệ logic giữa hai câu: Câu 1 nêu đảo Delos được biết là nơi lưu giữ nhiều tranh khảm Hy Lạp thời kỳ Hellenistic còn tồn tại hơn gần như bất kỳ địa điểm nào khác. Câu 2 bổ sung chi tiết cụ thể: gần một nửa tổng số tranh khảm Hy Lạp dạng tessellated thời kỳ này là từ Delos.",
@@ -1436,10 +1436,10 @@
       "strategic_tip": "Mẹo Princeton Review (Transitions): Khi gặp câu hỏi từ nối, hãy phân loại ngay 4 nhóm logic: Tiếp nối/Cụ thể hóa (Continuer/Specifically), Tương phản (Contradictor/However), Nguyên nhân-Kết quả (Cause/Thus). Ở đây 2 đáp án (A) và (D) cùng nhóm tương phản sẽ tự triệt tiêu nhau.",
       "pooe_breakdown": "• [B] ĐÚNG: Specifically (cụ thể là) dẫn dắt từ nhận định chung sang ví dụ cụ thể về điều chưa biết.\n• [A] Loại Nevertheless vì là từ nối tương phản.\n• [C] Loại Likewise vì không so sánh sự tương đương.\n• [D] Loại Still vì cùng nghĩa tương phản với A.",
       "option_explanations": {
-        "A": "Loại A — 'Nevertheless,' là từ nối tương phản, trong khi câu sau đi cùng hướng giải thích chi tiết cho câu trước.",
+        "A": "Loại A - 'Nevertheless,' là từ nối tương phản, trong khi câu sau đi cùng hướng giải thích chi tiết cho câu trước.",
         "B": "ĐÁP ÁN ĐÚNG. 'Specifically,' làm rõ chính xác bí ẩn chưa biết được đề cập ở câu trước là gì.",
-        "C": "Loại C — 'Likewise,' dùng để so sánh hai sự vật tương đương, không dùng để nêu chi tiết cụ thể hóa.",
-        "D": "Loại D — 'Still,' mang nghĩa tương phản giống Nevertheless, cả hai từ cùng nhóm tự triệt tiêu nhau."
+        "C": "Loại C - 'Likewise,' dùng để so sánh hai sự vật tương đương, không dùng để nêu chi tiết cụ thể hóa.",
+        "D": "Loại D - 'Still,' mang nghĩa tương phản giống Nevertheless, cả hai từ cùng nhóm tự triệt tiêu nhau."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Xác định mối quan hệ giữa hai câu cuối: Câu trước nêu nhận định khái quát rằng 'much about the process that bees use to create the combs remains unknown' (nhiều điều về quá trình ong xây tổ vẫn còn là bí ẩn chưa được biết tới). Câu sau nêu chi tiết: 'researchers have yet to determine whether bees rely on genetic instincts or learned behaviors...'.",
@@ -1490,10 +1490,10 @@
       "strategic_tip": "Mẹo Princeton Review (Rhetorical Synthesis): Khi đề bài yêu cầu giới thiệu cho 'a new audience', câu trả lời BẮT BUỘC phải chứa thông tin nền tảng (background info, như: 'a musical group from Bolivia'). Bất kỳ câu nào bỏ quên thông tin xuất xứ đều bị loại ngay.",
       "pooe_breakdown": "• [C] ĐÚNG: Nêu rõ xuất xứ (Bolivia) và đặc trưng âm nhạc (romance, loss, Andean instruments) cho khán giả mới.\n• [A] Loại vì thiếu thông tin xuất xứ nhóm nhạc cho khán giả mới.\n• [B] Loại vì chỉ nói về một bài hát đơn lẻ và Lambada.\n• [D] Loại vì quá hẹp, thiếu bức tranh âm nhạc tổng thể.",
       "option_explanations": {
-        "A": "Loại A — thiếu thông tin cơ bản cho khán giả mới: không nêu Los Kjarkas là một nhóm nhạc đến từ Bolivia.",
-        "B": "Loại B — tập trung vào vụ dịch lời bài hát 'Lambada' thay vì giới thiệu tổng quan phong cách âm nhạc.",
+        "A": "Loại A - thiếu thông tin cơ bản cho khán giả mới: không nêu Los Kjarkas là một nhóm nhạc đến từ Bolivia.",
+        "B": "Loại B - tập trung vào vụ dịch lời bài hát 'Lambada' thay vì giới thiệu tổng quan phong cách âm nhạc.",
         "C": "ĐÁP ÁN ĐÚNG. Giới thiệu trọn vẹn nhóm nhạc Bolivia, phong cách chủ đề bài hát và nhạc cụ vùng Andes cho khán giả mới.",
-        "D": "Loại D — quá sơ sài, chỉ liệt kê tên 2 nhạc cụ mà không làm nổi bật được bản sắc âm nhạc của nhóm."
+        "D": "Loại D - quá sơ sài, chỉ liệt kê tên 2 nhạc cụ mà không làm nổi bật được bản sắc âm nhạc của nhóm."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Đọc kỹ mục tiêu của học sinh trong câu hỏi: 'introduce the music of Los Kjarkas to a new audience' (giới thiệu âm nhạc của nhóm Los Kjarkas cho đối tượng khán giả mới chưa biết đến họ).",
@@ -1544,10 +1544,10 @@
       "strategic_tip": "Mẹo Princeton Review: Phân biệt rõ giữa 'Giả thuyết' (hypothesis) và 'Phát hiện thực nghiệm' (findings). Khi đề bài yêu cầu trình bày findings, hãy tìm các câu tóm tắt dữ liệu đo lường cụ thể được tìm thấy trong thí nghiệm.",
       "pooe_breakdown": "• [C] ĐÚNG: Trình bày chính xác nghiên cứu về râu trên mắt và 2 phát hiện thực nghiệm then chốt.\n• [A] Loại vì không nhắc đến nghiên cứu của Clemens.\n• [B] Loại vì chỉ nêu giả thuyết về kẻ săn mồi.\n• [D] Loại vì nói về nghiên cứu cũ đối với râu mặt.",
       "option_explanations": {
-        "A": "Loại A — chỉ giới thiệu cấu tạo chung của hai loại râu chuột, hoàn toàn bỏ qua nghiên cứu và phát hiện của Clemens.",
-        "B": "Loại B — đây chỉ là giả thuyết về kẻ săn mồi (hypothesized), không phải phát hiện thực nghiệm chứng minh.",
+        "A": "Loại A - chỉ giới thiệu cấu tạo chung của hai loại râu chuột, hoàn toàn bỏ qua nghiên cứu và phát hiện của Clemens.",
+        "B": "Loại B - đây chỉ là giả thuyết về kẻ săn mồi (hypothesized), không phải phát hiện thực nghiệm chứng minh.",
         "C": "ĐÁP ÁN ĐÚNG. Nêu bật trọn vẹn nghiên cứu về râu trên mắt và cả hai phát hiện khoa học cụ thể của nhóm.",
-        "D": "Loại D — nói về nghiên cứu trước đó (previous research) về râu quanh mõm, lạc đề hoàn toàn."
+        "D": "Loại D - nói về nghiên cứu trước đó (previous research) về râu quanh mõm, lạc đề hoàn toàn."
       },
       "domain": "Reading and Writing",
       "level1_tip": "Đọc kỹ mục tiêu của học sinh: 'present Clemens and colleagues’ study and their findings' (trình bày nghiên cứu của nhóm Clemens và các phát hiện thực nghiệm của họ).",
@@ -1599,9 +1599,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: –18x² kết hợp đúng hệ số (–6 – 12 = –18) và giữ nguyên biến x².\n• [B] Loại vì sai hệ số.\n• [C] Loại vì sai cả hệ số và tự ý cộng số mũ.\n• [D] Loại vì cộng số mũ lên bậc 4.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. –6x² – 12x² = (–6 – 12)x² = –18x².",
-        "B": "Loại B — sai hệ số do nhầm dấu.",
-        "C": "Loại C — số mũ không thay đổi trong phép cộng trừ đơn thức đồng dạng.",
-        "D": "Loại D — cộng số mũ thành x⁴ là sai quy tắc lũy thừa cơ bản."
+        "B": "Loại B - sai hệ số do nhầm dấu.",
+        "C": "Loại C - số mũ không thay đổi trong phép cộng trừ đơn thức đồng dạng.",
+        "D": "Loại D - cộng số mũ thành x⁴ là sai quy tắc lũy thừa cơ bản."
       },
       "domain": "Math",
       "level1_tip": "Xác định yêu cầu của câu hỏi: Tìm biểu thức tương đương với biểu thức –6x² – 12x². Nhận diện các đơn thức đồng dạng (like terms) trong biểu thức.",
@@ -1652,9 +1652,9 @@
       "strategic_tip": "Mẹo Princeton Review: Dịch đề từng mẩu nhỏ (Bite-Sized Pieces). Gạch chân giá tiền đi kèm từng biến số để tránh bẫy đảo ngược hệ số (như ở phương án C).",
       "pooe_breakdown": "• [D] ĐÚNG: 4h + 3s = 123 thể hiện chuẩn xác đơn giá 4 cho h và 3 cho s.\n• [A] Loại vì nhân tổng số lượng với tổng giá tiền.\n• [B] Loại vì cộng giá với số lượng.\n• [C] Loại vì đảo ngược hệ số (3h + 4s).",
       "option_explanations": {
-        "A": "Loại A — công thức nhân tổng số lượng với 7 là sai logic kinh tế.",
-        "B": "Loại B — phép nhân (4+h)(3+s) tạo ra các số hạng chéo vô nghĩa.",
-        "C": "Loại C — đảo ngược hệ số: gán $3 cho hotdog và $4 cho nước ngọt.",
+        "A": "Loại A - công thức nhân tổng số lượng với 7 là sai logic kinh tế.",
+        "B": "Loại B - phép nhân (4+h)(3+s) tạo ra các số hạng chéo vô nghĩa.",
+        "C": "Loại C - đảo ngược hệ số: gán $3 cho hotdog và $4 cho nước ngọt.",
         "D": "ĐÁP ÁN ĐÚNG. 4h là tiền bán hotdog, 3s là tiền bán nước ngọt, tổng là 123."
       },
       "domain": "Math",
@@ -1706,10 +1706,10 @@
       "strategic_tip": "Mẹo Princeton Review: Đừng nhầm lẫn giữa 'nghiệm bằng 0' (x = 0) và 'vô nghiệm' (zero solutions). x = 0 là một nghiệm duy nhất hoàn toàn hợp lệ.",
       "pooe_breakdown": "• [B] ĐÚNG: Exactly one vì x = 0 là nghiệm duy nhất.\n• [A] Loại vì x = 0 là nghiệm, không phải vô nghiệm.\n• [C] Loại vì phương trình bậc nhất không có 2 nghiệm.\n• [D] Loại vì chỉ có một nghiệm x = 0.",
       "option_explanations": {
-        "A": "Loại A — nhầm lẫn x = 0 thành phương trình vô nghiệm.",
+        "A": "Loại A - nhầm lẫn x = 0 thành phương trình vô nghiệm.",
         "B": "ĐÁP ÁN ĐÚNG. Phương trình có duy nhất một nghiệm là x = 0.",
-        "C": "Loại C — phương trình bậc nhất một ẩn chỉ có tối đa một nghiệm.",
-        "D": "Loại D — phương trình chỉ thỏa mãn khi x = 0, không có vô số nghiệm."
+        "C": "Loại C - phương trình bậc nhất một ẩn chỉ có tối đa một nghiệm.",
+        "D": "Loại D - phương trình chỉ thỏa mãn khi x = 0, không có vô số nghiệm."
       },
       "domain": "Math",
       "level1_tip": "Câu hỏi yêu cầu xác định số nghiệm của phương trình bậc nhất 93x = 92x.",
@@ -1760,9 +1760,9 @@
       "strategic_tip": "Mẹo Princeton Review: Luôn khoanh tròn cụm biểu thức đề bài hỏi ('m – 5'). Kỹ thuật đặt ẩn phụ cho cả cụm giúp giải nhanh trong 5 giây và tránh bẫy tính m.",
       "pooe_breakdown": "• [D] ĐÚNG: m – 5 = 19 trực tiếp sau khi trừ 5(m – 5) từ cả hai vế.\n• [A], [B], [C] đều là kết quả tính toán sai lệch.",
       "option_explanations": {
-        "A": "Loại A — nhầm lẫn với số trừ trong biểu thức.",
-        "B": "Loại B — tính toán sai dấu khi chuyển vế.",
-        "C": "Loại C — tính toán sai số.",
+        "A": "Loại A - nhầm lẫn với số trừ trong biểu thức.",
+        "B": "Loại B - tính toán sai dấu khi chuyển vế.",
+        "C": "Loại C - tính toán sai số.",
         "D": "ĐÁP ÁN ĐÚNG. 6(m – 5) – 5(m – 5) = 1(m – 5) = 19."
       },
       "domain": "Math",
@@ -1814,10 +1814,10 @@
       "strategic_tip": "Mẹo Princeton Review: Công thức đồng góc thần tốc của College Board: Trong tam giác vuông, sin(C) = cos(B) hoặc sin(x) = cos(90° – x). Khi thấy tam giác vuông và hỏi sin góc này khi biết cos góc kia, đáp án luôn là CÙNG MỘT GIÁ TRỊ.",
       "pooe_breakdown": "• [C] ĐÚNG: sin(C) = cos(B) = sqrt(21)/5 theo định lý góc phụ nhau.\n• [A], [B], [D] sai do tính toán sai tỉ số.",
       "option_explanations": {
-        "A": "Loại A — trục căn thức sai mẫu số.",
-        "B": "Loại B — bình phương mẫu số sai quy tắc.",
+        "A": "Loại A - trục căn thức sai mẫu số.",
+        "B": "Loại B - bình phương mẫu số sai quy tắc.",
         "C": "ĐÁP ÁN ĐÚNG. Hai góc nhọn phụ nhau thì sin(C) = cos(B) = sqrt(21)/5.",
-        "D": "Loại D — đảo ngược phân số của cotang/tang."
+        "D": "Loại D - đảo ngược phân số của cotang/tang."
       },
       "domain": "Math",
       "level1_tip": "Tam giác ABC vuông tại A (góc A = 90°). Biết giá trị cos(B), yêu cầu tìm sin(C). Hãy vẽ phác thảo tam giác vuông ABC lên bảng nháp Scratchpad.",
@@ -1869,9 +1869,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: 10/6 rút gọn thành 5 to 3.\n• [B] Loại vì tính nhầm thành 5/6.\n• [C] Loại vì nhân sai hệ số.\n• [D] Bẫy: chưa rút gọn phân số (10 to 6 = 5 to 3).",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. (5 × 2) / (2 × 3) = 10 / 6 = 5 to 3.",
-        "B": "Loại B — tính sai mẫu số.",
-        "C": "Loại C — không nhân hệ số 2 vào chiều cao.",
-        "D": "Loại D — bẫy chưa rút gọn phân số tối giản của College Board."
+        "B": "Loại B - tính sai mẫu số.",
+        "C": "Loại C - không nhân hệ số 2 vào chiều cao.",
+        "D": "Loại D - bẫy chưa rút gọn phân số tối giản của College Board."
       },
       "domain": "Math",
       "level1_tip": "Câu hỏi yêu cầu tìm tỉ số giữa cạnh đáy mới và chiều cao mới của tam giác DEF sau khi thay đổi kích thước.",
@@ -1922,9 +1922,9 @@
       "strategic_tip": "Mẹo Princeton Review: Mở máy tính Desmos, nhập trực tiếp 'y = 3(0.5)^(x+2) - 1'. Bấm vào giao điểm với trục tung trên màn hình đồ họa, Desmos sẽ hiện ngay tọa độ (0, -0.25) trong 3 giây.",
       "pooe_breakdown": "• [D] ĐÚNG: y = 3(0.25) – 1 = –0.25.\n• [A] Loại vì chỉ lấy hệ số 3.\n• [B] Loại vì tính 3 – 1 = 2.\n• [C] Loại vì quên trừ 1 (chỉ tính 3 × 0.25 = 0.75).",
       "option_explanations": {
-        "A": "Loại A — chỉ lấy hệ số đứng trước hàm mũ.",
-        "B": "Loại B — lấy 3 trừ 1, bỏ qua phần số mũ.",
-        "C": "Loại C — tính được 3(0.25) = 0.75 nhưng quên trừ đi 1 ở đuôi.",
+        "A": "Loại A - chỉ lấy hệ số đứng trước hàm mũ.",
+        "B": "Loại B - lấy 3 trừ 1, bỏ qua phần số mũ.",
+        "C": "Loại C - tính được 3(0.25) = 0.75 nhưng quên trừ đi 1 ở đuôi.",
         "D": "ĐÁP ÁN ĐÚNG. y = 3(0.25) – 1 = 0.75 – 1 = –0.25."
       },
       "domain": "Math",
@@ -2052,9 +2052,9 @@
       "strategic_tip": "Mẹo Princeton Review: Cơ số 0.5 trong hàm phân rã mũ đại diện cho 'chu kỳ bán rã' (half-life). Mẫu số của số mũ (300 giây = 5 phút) chính là khoảng thời gian để lượng chất giảm đi một nửa (50%).",
       "pooe_breakdown": "• [D] ĐÚNG: Cơ số 0.5 nghĩa là giảm đi 50% sau mỗi 300 giây (5 phút).\n• [A], [B], [C] là các con số gây nhiễu.",
       "option_explanations": {
-        "A": "Loại A — lấy số 5 phút từ đề bài.",
-        "B": "Loại B — tính toán sai nồng độ.",
-        "C": "Loại C — lấy hệ số ban đầu 20.",
+        "A": "Loại A - lấy số 5 phút từ đề bài.",
+        "B": "Loại B - tính toán sai nồng độ.",
+        "C": "Loại C - lấy hệ số ban đầu 20.",
         "D": "ĐÁP ÁN ĐÚNG. Cơ số 0.5 đồng nghĩa nồng độ giảm đi một nửa (50%) sau mỗi 300 giây."
       },
       "domain": "Math",
@@ -2107,9 +2107,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: 10x = tổng số kèn bass clarinet trong lô hàng.\n• [B] Loại vì soprano là 6y.\n• [C] Loại vì kèn mỗi hộp chỉ là 10.\n• [D] Loại vì số hộp chỉ là x.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. 10x = (10 kèn/hộp) × (x hộp) = tổng số kèn bass clarinet.",
-        "B": "Loại B — kèn soprano được đại diện bởi số hạng 6y.",
-        "C": "Loại C — số kèn trong mỗi hộp chỉ là hệ số 10.",
-        "D": "Loại D — số hộp kèn chỉ là biến số x."
+        "B": "Loại B - kèn soprano được đại diện bởi số hạng 6y.",
+        "C": "Loại C - số kèn trong mỗi hộp chỉ là hệ số 10.",
+        "D": "Loại D - số hộp kèn chỉ là biến số x."
       },
       "domain": "Math",
       "level1_tip": "Đề bài yêu cầu giải thích ý nghĩa thực tế của cả số hạng 10x trong phương trình 10x + 6y = 56, biết tổng số kèn là 56.",
@@ -2160,10 +2160,10 @@
       "strategic_tip": "Mẹo Princeton Review: Chú ý dấu bất đẳng thức: '>' là lớn hơn nghiêm ngặt (Strict Inequality). Nếu y bằng đúng vế phải (như ở Bảng A) thì điểm đó nằm trên đường biên chứ không thuộc miền nghiệm.",
       "pooe_breakdown": "• [B] ĐÚNG: 10 > 2, 16 > 8, 22 > 14 đều thỏa mãn y > 3x – 4.\n• [A] Loại vì y = 3x – 4 (dấu bằng).\n• [C] Loại vì tại x = 4, y = 8 không lớn hơn 8.\n• [D] Loại vì tại x = 2, 0 không lớn hơn 2.",
       "option_explanations": {
-        "A": "Loại A — tại x = 2, 4, 6 thì y bằng đúng 2, 8, 14 (nằm trên đường biên, không thỏa mãn dấu >).",
+        "A": "Loại A - tại x = 2, 4, 6 thì y bằng đúng 2, 8, 14 (nằm trên đường biên, không thỏa mãn dấu >).",
         "B": "ĐÁP ÁN ĐÚNG. Cả 3 điểm đều thỏa mãn: 10 > 2, 16 > 8, 22 > 14.",
-        "C": "Loại C — tại x = 4, giá trị y = 8 không lớn hơn 8.",
-        "D": "Loại D — tại x = 2, giá trị y = 0 nhỏ hơn 2."
+        "C": "Loại C - tại x = 4, giá trị y = 8 không lớn hơn 8.",
+        "D": "Loại D - tại x = 2, giá trị y = 0 nhỏ hơn 2."
       },
       "domain": "Math",
       "level1_tip": "Tìm bảng số liệu mà CẢ 3 cặp điểm (x, y) đều thỏa mãn bất phương trình y > 3x – 4.",
@@ -2214,10 +2214,10 @@
       "strategic_tip": "Mẹo Princeton Review: Mọi parabol đều có tính đối xứng trục hoàn hảo: Hoành độ đỉnh = (x₁ + x₂) / 2. Luôn dùng công thức trung điểm để tìm giao điểm còn lại trong 10 giây.",
       "pooe_breakdown": "• [C] ĐÚNG: a = 14 – 47/3 = –5/3 theo tính chất đối xứng qua x = 7.\n• [A] Loại vì chỉ đổi dấu 47/3.\n• [B], [D] sai do tính toán mẫu số.",
       "option_explanations": {
-        "A": "Loại A — chỉ đơn giản đổi dấu hoành độ giao điểm thứ nhất.",
-        "B": "Loại B — tính toán sai quy đồng mẫu số.",
+        "A": "Loại A - chỉ đơn giản đổi dấu hoành độ giao điểm thứ nhất.",
+        "B": "Loại B - tính toán sai quy đồng mẫu số.",
         "C": "ĐÁP ÁN ĐÚNG. (47/3 + a) / 2 = 7 => a = 14 – 47/3 = –5/3.",
-        "D": "Loại D — lấy 47/3 trừ bớt nhưng tính sai hệ số."
+        "D": "Loại D - lấy 47/3 trừ bớt nhưng tính sai hệ số."
       },
       "domain": "Math",
       "level1_tip": "Nhận diện tính đối xứng của parabol: Trục đối xứng của parabol đi qua đỉnh (vertex). Hoành độ của đỉnh chính là trung điểm giữa hai giao điểm với trục hoành (x-intercepts).",
@@ -2268,10 +2268,10 @@
       "strategic_tip": "Mẹo Princeton Review: Đọc kỹ tên đồ thị! Đề bài ghi 'The graph of y = g(x) – 16', đừng nhầm đây là đồ thị của g(x). Bẫy kinh điển là chọn ngay phương án A.",
       "pooe_breakdown": "• [B] ĐÚNG: g(x) = (3x + 3) + 16 = 3x + 19.\n• [A] Bẫy: mới là phương trình của g(x) – 16.\n• [C] Loại vì trừ 16 thay vì cộng 16.\n• [D] Loại vì sai tung độ gốc.",
       "option_explanations": {
-        "A": "Loại A — đây là phương trình của g(x) – 16 trên hình, chưa chuyển vế tìm g(x).",
+        "A": "Loại A - đây là phương trình của g(x) – 16 trên hình, chưa chuyển vế tìm g(x).",
         "B": "ĐÁP ÁN ĐÚNG. g(x) – 16 = 3x + 3 => g(x) = 3x + 19.",
-        "C": "Loại C — chuyển vế sai dấu: lấy 3 – 16 = –13 thay vì 3 + 16.",
-        "D": "Loại D — sai hoàn toàn tung độ gốc."
+        "C": "Loại C - chuyển vế sai dấu: lấy 3 – 16 = –13 thay vì 3 + 16.",
+        "D": "Loại D - sai hoàn toàn tung độ gốc."
       },
       "domain": "Math",
       "level1_tip": "Quan sát đồ thị trên đề bài: Đây là đồ thị của hàm số y = g(x) – 16. Hãy tìm phương trình của đường thẳng xuất hiện trên hình.",
@@ -2360,10 +2360,10 @@
       "strategic_tip": "Mẹo Princeton Review: Quy tắc vô số nghiệm: A₁/A₂ = B₁/B₂ = C₁/C₂. Ở đây hệ số tự do –5/–15 = 1/3, do đó 4/k = 1/3 => k = 12 trong tích tắc.",
       "pooe_breakdown": "• [C] ĐÚNG: 3 × (4x – y = –5) => 12x – 3y = –15 => k = 12.\n• [A], [B], [D] sai tỉ lệ hệ số.",
       "option_explanations": {
-        "A": "Loại A — sai tỉ số hệ số.",
-        "B": "Loại B — lấy trực tiếp hệ số 4 mà chưa nhân với 3.",
+        "A": "Loại A - sai tỉ số hệ số.",
+        "B": "Loại B - lấy trực tiếp hệ số 4 mà chưa nhân với 3.",
         "C": "ĐÁP ÁN ĐÚNG. 4x – y = –5 nhân 3 thành 12x – 3y = –15 => k = 12.",
-        "D": "Loại D — nhân nhầm với hệ số 4."
+        "D": "Loại D - nhân nhầm với hệ số 4."
       },
       "domain": "Math",
       "level1_tip": "Hệ phương trình bậc nhất hai ẩn có vô số nghiệm (infinitely many solutions) khi hai phương trình thực chất là một (hai đường thẳng trùng nhau hoàn toàn, các hệ số tương ứng tỉ lệ bằng nhau).",
@@ -2452,10 +2452,10 @@
       "strategic_tip": "Mẹo Princeton Review: Luôn nhớ quy tắc đổi đơn vị không gian:\n- Diện tích (Area): bình phương hệ số (3.28²)\n- Thể tích (Volume): lập phương hệ số (3.28³ = 35.29).\nKhông bao giờ chia cho 3.28 đơn thuần khi đổi m³.",
       "pooe_breakdown": "• [C] ĐÚNG: 79978 / (3.28³) ≈ 2,266.46 m³.\n• [D] Bẫy: chỉ chia cho 3.28 (24383.54).\n• [A], [B] tính toán sai bậc lũy thừa.",
       "option_explanations": {
-        "A": "Loại A — chia thừa số lũy thừa quá lớn.",
-        "B": "Loại B — tính sai lũy thừa.",
+        "A": "Loại A - chia thừa số lũy thừa quá lớn.",
+        "B": "Loại B - tính sai lũy thừa.",
         "C": "ĐÁP ÁN ĐÚNG. 1 m³ = 3.28³ = 35.288 ft³. 79978 / 35.288 ≈ 2266.46 m³.",
-        "D": "Loại D — bẫy kinh điển: chỉ chia cho 3.28 độ dài thay vì 3.28³ thể tích."
+        "D": "Loại D - bẫy kinh điển: chỉ chia cho 3.28 độ dài thay vì 3.28³ thể tích."
       },
       "domain": "Math",
       "level1_tip": "Câu hỏi yêu cầu đổi thể tích bể bơi từ feet khối (cubic feet, ft³) sang mét khối (cubic meters, m³). Đề bài cho tỉ lệ độ dài 1 m ≈ 3.28 ft.",
@@ -2507,9 +2507,9 @@
       "pooe_breakdown": "• [A] ĐÚNG: Tiệm cận x = 2 dịch sang phải 3 đơn vị thành x = 5 => h(x) = 8 / (x – 5).\n• [B] Loại vì tiệm cận ở x = 3.\n• [C], [D] Loại vì tử số không chứa biến x.",
       "option_explanations": {
         "A": "ĐÁP ÁN ĐÚNG. g(x) = 8/(x – 2) => h(x) = g(x – 3) = 8/((x – 3) – 2) = 8/(x – 5).",
-        "B": "Loại B — sai tiệm cận đứng mới.",
-        "C": "Loại C — tự ý nhân (x – 3) vào tử số.",
-        "D": "Loại D — tự ý nhân (x – 3) vào tử số của phân thức."
+        "B": "Loại B - sai tiệm cận đứng mới.",
+        "C": "Loại C - tự ý nhân (x – 3) vào tử số.",
+        "D": "Loại D - tự ý nhân (x – 3) vào tử số của phân thức."
       },
       "domain": "Math",
       "level1_tip": "Quan sát đồ thị hàm phân thức g(x) = c/(x – d): Xác định vị trí của đường tiệm cận đứng (vertical asymptote) và một điểm nguyên trên đồ thị để tìm các hằng số c và d.",
@@ -2598,10 +2598,10 @@
       "strategic_tip": "Mẹo Princeton Review: Khi phương trình chứa hằng số trừu tượng k trong cả đề bài lẫn đáp án, hãy gán k = 2 và dùng Desmos vẽ đồ thị để tìm nghiệm số thực tế. Phương pháp này giúp tránh 100% sai sót biến đổi đại số.",
       "pooe_breakdown": "• [C] ĐÚNG: x = –sqrt(26² – k²) là nghiệm âm chính xác.\n• [A] sai dạng căn thức.\n• [B] sai dấu trong căn (phải là trừ, không phải cộng).\n• [D] sai hoàn toàn.",
       "option_explanations": {
-        "A": "Loại A — sai dạng căn thức của nghiệm bậc hai.",
-        "B": "Loại B — sai dấu cộng dưới căn thức thay vì dấu trừ.",
+        "A": "Loại A - sai dạng căn thức của nghiệm bậc hai.",
+        "B": "Loại B - sai dấu cộng dưới căn thức thay vì dấu trừ.",
         "C": "ĐÁP ÁN ĐÚNG. x² = 26² – k² => x = –sqrt(26² – k²).",
-        "D": "Loại D — x = –k không phải là nghiệm của phương trình."
+        "D": "Loại D - x = –k không phải là nghiệm của phương trình."
       },
       "domain": "Math",
       "level1_tip": "Câu hỏi tìm một nghiệm x của phương trình chứa biến x và hằng số dương k.",
@@ -2652,10 +2652,10 @@
       "strategic_tip": "Mẹo Princeton Review: CẢNH BÁO BẪY: Đề bài hỏi 'What is the value of y?', KHÔNG PHẢI hỏi k (k = 5) và cũng không phải hỏi x (x = 1). Luôn tính đến bước cuối cùng thay x vào để ra y = –1.",
       "pooe_breakdown": "• [B] ĐÚNG: Δ = 0 => k = 5 => x = 1 => y = 4(1) – 5 = –1.\n• [D] Bẫy: 5 là giá trị của k.\n• [A], [C] tính toán sai bước thế.",
       "option_explanations": {
-        "A": "Loại A — –5 là tung độ gốc khi x = 0, không phải tung độ tiếp điểm.",
+        "A": "Loại A - –5 là tung độ gốc khi x = 0, không phải tung độ tiếp điểm.",
         "B": "ĐÁP ÁN ĐÚNG. Δ = 0 => k = 5 => x = 1 => y = 4(1) – 5 = –1.",
-        "C": "Loại C — tính nhầm dấu khi trừ.",
-        "D": "Loại D — bẫy kinh điển: 5 là giá trị của hằng số k, không phải giá trị của y."
+        "C": "Loại C - tính nhầm dấu khi trừ.",
+        "D": "Loại D - bẫy kinh điển: 5 là giá trị của hằng số k, không phải giá trị của y."
       },
       "domain": "Math",
       "level1_tip": "Hệ gồm đường thẳng y = 4x – k và parabol y = –3x² + 10x – 8. Đề bài cho biết hai đồ thị chỉ cắt nhau tại ĐÚNG 1 ĐIỂM duy nhất. Yêu cầu tìm tung độ y của tiếp điểm đó.",

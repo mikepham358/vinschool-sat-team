@@ -603,7 +603,7 @@
       "chapter": "Chương 2: Vocabulary in Context (Nghĩa Từ Trong Ngữ Cảnh)",
       "chapter_num": 2,
       "topic": "Chương 2: Vocabulary in Context • Sentence Completion (Historical Context)",
-      "passage": "The camera obscura—a darkened room with a small hole or lens through which an image is projected—was perhaps the earliest known imaging device. First referred to in a fourth-century Chinese text known as Mozi, it was _____ of the modern-day photographic camera.",
+      "passage": "The camera obscura-a darkened room with a small hole or lens through which an image is projected-was perhaps the earliest known imaging device. First referred to in a fourth-century Chinese text known as Mozi, it was _____ of the modern-day photographic camera.",
       "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
       "options": [
         {
@@ -1191,7 +1191,7 @@
       "chapter": "Chương 2: Vocabulary in Context (Nghĩa Từ Trong Ngữ Cảnh)",
       "chapter_num": 2,
       "topic": "Chương 2: Vocabulary in Context • Meaning in Context (Refine)",
-      "passage": "Neuroscientists and humanists are tackling similar questions—by joining forces, they might vastly refine our understanding of the role that narrative plays in human cognition, for example, or explore with empirical precision the power of literature to represent consciousness.",
+      "passage": "Neuroscientists and humanists are tackling similar questions-by joining forces, they might vastly refine our understanding of the role that narrative plays in human cognition, for example, or explore with empirical precision the power of literature to represent consciousness.",
       "prompt": "As used in the text, what does 'refine' mean?",
       "options": [
         {
@@ -2024,7 +2024,7 @@
       "chapter": "Chương 4: The Big Picture / Main Idea (Ý chính & Đại ý)",
       "chapter_num": 4,
       "topic": "Ch. 4: Big Picture • Focus on Topic + Unique Qualities",
-      "passage": "Admired primarily for her exquisite calligraphy, Otagaki Rengetsu (1791-1875) was among Japan's most celebrated artists. She was also a writer and ceramicist, often inscribing her poems in her own calligraphy onto clay vessels—a distinctive blending of art forms not replicated by any other artist in Japanese history. Her work was in such great demand during the nineteenth century that every household in Kyoto was said to own her pottery, and today scrolls and ceramics bearing her calligraphy are sought after by collectors.",
+      "passage": "Admired primarily for her exquisite calligraphy, Otagaki Rengetsu (1791-1875) was among Japan's most celebrated artists. She was also a writer and ceramicist, often inscribing her poems in her own calligraphy onto clay vessels-a distinctive blending of art forms not replicated by any other artist in Japanese history. Her work was in such great demand during the nineteenth century that every household in Kyoto was said to own her pottery, and today scrolls and ceramics bearing her calligraphy are sought after by collectors.",
       "prompt": "Which choice best states the main idea of the passage?",
       "options": [
         {
@@ -2073,7 +2073,7 @@
       "chapter": "Chương 4: The Big Picture / Main Idea (Ý chính & Đại ý)",
       "chapter_num": 4,
       "topic": "Ch. 4: Big Picture • Same Idea, Different Words & Punctuation Clues",
-      "passage": "Kente, the traditional fabric of Ghana's Asante people, has evolved into a symbol of many meanings—political and cultural, African and American, honorary and everyday. \"What is called kente is many things,\" says Doran H. Ross, director of the Fowler Museum of Cultural History, though he notes its origin is Ghana's strip-woven cloth. But Ross says kente appears just as widely today in Western-style tailored clothing, and in other ways that make it the most recognizably African textile.",
+      "passage": "Kente, the traditional fabric of Ghana's Asante people, has evolved into a symbol of many meanings-political and cultural, African and American, honorary and everyday. \"What is called kente is many things,\" says Doran H. Ross, director of the Fowler Museum of Cultural History, though he notes its origin is Ghana's strip-woven cloth. But Ross says kente appears just as widely today in Western-style tailored clothing, and in other ways that make it the most recognizably African textile.",
       "prompt": "Which choice best states the main idea of the text?",
       "options": [
         {
@@ -2100,10 +2100,10 @@
         "D"
       ],
       "tier1_hint": "Đọc kỹ đoạn trích ví dụ và xác định ngữ cảnh trọng tâm: Ch. 4: Big Picture • Same Idea, Different Words & Punctuation Clues. Chú ý mối liên hệ logic và các từ khóa dẫn hướng.",
-      "tier2_hint": "Chiến thuật sư phạm Erica Meltzer: Dấu gạch ngang giải thích (—): 'has evolved into a symbol of many meanings' tương đương với 'acquired a wide range of associations'. Phân tích phương án nhiễu và loại trừ các lựa chọn ngoài phạm vi bài.",
-      "tier3_hint": "Đáp án chính xác là **D** (Kente has acquired a wide range of associations.).\n\n**Bài giảng chi tiết của Erica Meltzer:**\nNgay câu đầu tiên, tác giả nêu rõ vải Kente đã trở thành biểu tượng của nhiều tầng ý nghĩa: chính trị, văn hóa, danh dự và đời thường. Dấu gạch ngang báo hiệu thông tin trọng tâm. Cụm 'symbol of many meanings' được diễn đạt lại (paraphrased) trong phương án (D) thành 'acquired a wide range of associations'. Các phương án (A), (B), (C) hoặc quá hẹp, hoặc mang tính suy diễn không có trong bài.\n\n• **Quy tắc vàng:** Dấu gạch ngang giải thích (—): 'has evolved into a symbol of many meanings' tương đương với 'acquired a wide range of associations'.",
-      "strategic_tip": "Dấu gạch ngang giải thích (—): 'has evolved into a symbol of many meanings' tương đương với 'acquired a wide range of associations'.",
-      "mermaid_diagram": "flowchart TD\n    A[\"Ví dụ minh họa Ch.4<br>Ch. 4: Big Picture • Same Idea, Differen\"] --> B{\"Manh mối cốt lõi\"}\n    B --> C[\"Dấu gạch ngang giải thích (—): 'has evolved into a symb\"]\n    C --> D[\"Đáp án chính xác: D\"]",
+      "tier2_hint": "Chiến thuật sư phạm Erica Meltzer: Dấu gạch ngang giải thích (-): 'has evolved into a symbol of many meanings' tương đương với 'acquired a wide range of associations'. Phân tích phương án nhiễu và loại trừ các lựa chọn ngoài phạm vi bài.",
+      "tier3_hint": "Đáp án chính xác là **D** (Kente has acquired a wide range of associations.).\n\n**Bài giảng chi tiết của Erica Meltzer:**\nNgay câu đầu tiên, tác giả nêu rõ vải Kente đã trở thành biểu tượng của nhiều tầng ý nghĩa: chính trị, văn hóa, danh dự và đời thường. Dấu gạch ngang báo hiệu thông tin trọng tâm. Cụm 'symbol of many meanings' được diễn đạt lại (paraphrased) trong phương án (D) thành 'acquired a wide range of associations'. Các phương án (A), (B), (C) hoặc quá hẹp, hoặc mang tính suy diễn không có trong bài.\n\n• **Quy tắc vàng:** Dấu gạch ngang giải thích (-): 'has evolved into a symbol of many meanings' tương đương với 'acquired a wide range of associations'.",
+      "strategic_tip": "Dấu gạch ngang giải thích (-): 'has evolved into a symbol of many meanings' tương đương với 'acquired a wide range of associations'.",
+      "mermaid_diagram": "flowchart TD\n    A[\"Ví dụ minh họa Ch.4<br>Ch. 4: Big Picture • Same Idea, Differen\"] --> B{\"Manh mối cốt lõi\"}\n    B --> C[\"Dấu gạch ngang giải thích (-): 'has evolved into a symb\"]\n    C --> D[\"Đáp án chính xác: D\"]",
       "pdf_page": 80,
       "book_page": 79,
       "difficulty": "Foundation",
@@ -2122,7 +2122,7 @@
       "chapter": "Chương 4: The Big Picture / Main Idea (Ý chính & Đại ý)",
       "chapter_num": 4,
       "topic": "Ch. 4: Big Picture • Key Information at the End",
-      "passage": "In our family, the women made the ink. We stayed home. We all worked—me, GaoLing, my aunts and girl cousins, everybody. Even the babies and Great-Granny had a job of picking out stones from the dried millet we boiled for breakfast. We gathered each day in the ink-making studio. According to Great-Granny, the studio began as a grain shed that sat along the front wall of the courtyard house. Over the years, one generation of sons added brick walls and a tile roof. Another strengthened the beams and lengthened it by two pillars. The next tiled the floors and dug pits for storing the ingredients. Then other descendants made a cellar for keeping the inksticks away from the heat and cold. \"And now look,\" Great-Granny often bragged. \"Our studio is an ink palace.\"",
+      "passage": "In our family, the women made the ink. We stayed home. We all worked-me, GaoLing, my aunts and girl cousins, everybody. Even the babies and Great-Granny had a job of picking out stones from the dried millet we boiled for breakfast. We gathered each day in the ink-making studio. According to Great-Granny, the studio began as a grain shed that sat along the front wall of the courtyard house. Over the years, one generation of sons added brick walls and a tile roof. Another strengthened the beams and lengthened it by two pillars. The next tiled the floors and dug pits for storing the ingredients. Then other descendants made a cellar for keeping the inksticks away from the heat and cold. \"And now look,\" Great-Granny often bragged. \"Our studio is an ink palace.\"",
       "prompt": "Which choice best states the main idea of the text?",
       "options": [
         {
@@ -2220,7 +2220,7 @@
       "chapter": "Chương 4: The Big Picture / Main Idea (Ý chính & Đại ý)",
       "chapter_num": 4,
       "topic": "Chương 4: The Big Picture • Main Idea (Fiction Character)",
-      "passage": "Mrs. Penniman was a tall, thin, fair, rather faded woman, with a perfectly amiable disposition, a high standard of gentility, a taste for light literature, and a certain foolish indirectness and obliquity of character. She had a passion for little secrets and mysteries—a very innocent passion, for her secrets had hitherto always been as unpractical as addled eggs...",
+      "passage": "Mrs. Penniman was a tall, thin, fair, rather faded woman, with a perfectly amiable disposition, a high standard of gentility, a taste for light literature, and a certain foolish indirectness and obliquity of character. She had a passion for little secrets and mysteries-a very innocent passion, for her secrets had hitherto always been as unpractical as addled eggs...",
       "prompt": "Which choice best states the main idea of the text?",
       "options": [
         {
@@ -2416,7 +2416,7 @@
       "chapter": "Chương 4: The Big Picture / Main Idea (Ý chính & Đại ý)",
       "chapter_num": 4,
       "topic": "Chương 4: The Big Picture • Overall Structure (Octavia Butler)",
-      "passage": "Although publishers and critics classified Octavia Butler's novels as science fiction—a genre that Butler enjoyed deeply and referred to as 'potentially the freest genre in existence'—her works attracted a diverse readership, and Butler resisted being associated exclusively with that form. Indeed, she was also the author of a number of essays, and her book Parable of the Sower was adapted into an opera...",
+      "passage": "Although publishers and critics classified Octavia Butler's novels as science fiction-a genre that Butler enjoyed deeply and referred to as 'potentially the freest genre in existence'-her works attracted a diverse readership, and Butler resisted being associated exclusively with that form. Indeed, she was also the author of a number of essays, and her book Parable of the Sower was adapted into an opera...",
       "prompt": "Which choice best describes the overall structure of the text?",
       "options": [
         {
@@ -2465,7 +2465,7 @@
       "chapter": "Chương 5: Literal Comprehension (Đọc hiểu Trực tiếp)",
       "chapter_num": 5,
       "topic": "Ch. 5: Literal • Same Idea, Different Words & Sentence Boundaries",
-      "passage": "According to new research, viral DNA embedded in human genomes during ancient infections protects human cells against certain modern-day viruses. Earlier studies have shown that fragments of ancient viral DNA—known as endogenous retroviruses—in the genomes of mice, chickens, cats and sheep provide immunity against modern viruses that originate outside the body by preventing them from entering host cells. Though the new study, conducted by researchers at Cornell University, was performed with cultured human cells in a laboratory, it shows that the antiviral effect of endogenous retroviruses likely also exists for humans.",
+      "passage": "According to new research, viral DNA embedded in human genomes during ancient infections protects human cells against certain modern-day viruses. Earlier studies have shown that fragments of ancient viral DNA-known as endogenous retroviruses-in the genomes of mice, chickens, cats and sheep provide immunity against modern viruses that originate outside the body by preventing them from entering host cells. Though the new study, conducted by researchers at Cornell University, was performed with cultured human cells in a laboratory, it shows that the antiviral effect of endogenous retroviruses likely also exists for humans.",
       "prompt": "Based on the text, what is true about the study conducted by Cornell researchers?",
       "options": [
         {
@@ -2514,7 +2514,7 @@
       "chapter": "Chương 5: Literal Comprehension (Đọc hiểu Trực tiếp)",
       "chapter_num": 5,
       "topic": "Ch. 5: Literal • Direct Evidence in Fiction",
-      "passage": "A family of ten children will be always called a fine family, where there are heads and arms and legs enough for the number; but the Morlands had little other right to the word, for they were in general very plain, and Catherine, for many years of her life, as plain as any. She had a thin awkward figure, a sallow skin without colour, dark lank hair, and strong features—so much for her person; and not less propitious for heroism seemed her mind.",
+      "passage": "A family of ten children will be always called a fine family, where there are heads and arms and legs enough for the number; but the Morlands had little other right to the word, for they were in general very plain, and Catherine, for many years of her life, as plain as any. She had a thin awkward figure, a sallow skin without colour, dark lank hair, and strong features-so much for her person; and not less propitious for heroism seemed her mind.",
       "prompt": "According to the passage, what is true about Catherine Morland?",
       "options": [
         {
@@ -2563,7 +2563,7 @@
       "chapter": "Chương 5: Literal Comprehension (Đọc hiểu Trực tiếp)",
       "chapter_num": 5,
       "topic": "Ch. 5: Literal • Cause and Effect in Scientific Text",
-      "passage": "Much of what we know about the physical and mental toll of chronic stress stems from seminal work by Robert Sapolsky beginning in the late 1970s. Sapolsky, a neuroendocrinologist, was among the first to make the connection that the hormones released during the fight-or-flight response—the ones that helped our ancestors avoid becoming dinner—have deleterious effects when the stress is severe and sustained. Especially insidious, chronic exposure to one of these hormones, cortisol, causes brain changes that make it increasingly difficult to shut the stress response down.",
+      "passage": "Much of what we know about the physical and mental toll of chronic stress stems from seminal work by Robert Sapolsky beginning in the late 1970s. Sapolsky, a neuroendocrinologist, was among the first to make the connection that the hormones released during the fight-or-flight response-the ones that helped our ancestors avoid becoming dinner-have deleterious effects when the stress is severe and sustained. Especially insidious, chronic exposure to one of these hormones, cortisol, causes brain changes that make it increasingly difficult to shut the stress response down.",
       "prompt": "According to the passage, what is significant about sustained stress?",
       "options": [
         {
@@ -2808,7 +2808,7 @@
       "chapter": "Chương 5: Literal Comprehension (Đọc hiểu Trực tiếp)",
       "chapter_num": 5,
       "topic": "Chương 5: Literal Comprehension • Undersea Volcanoes & Mid-Ocean Ridges",
-      "passage": "Geophysicists first began to appreciate the smoldering origins of the land under the sea, known formally as ocean crust, in the early 1960s. Sonar surveys revealed that volcanoes form nearly continuous ridges that wind around the globe like seams on a baseball. Later, the same scientists strove to explain what fuels these erupting mountain ranges, called mid-ocean ridges. Basic theories suggest that because shifting tectonic plates pull the ocean floor apart along the ridges, molten rock deep within the earth's interior must rise to fill the gap. This material is produced in the second layer of the Earth's interior - the mostly solid upper mantle — and makes its way up through the crust. The collision of two plates can also result in a volcano.",
+      "passage": "Geophysicists first began to appreciate the smoldering origins of the land under the sea, known formally as ocean crust, in the early 1960s. Sonar surveys revealed that volcanoes form nearly continuous ridges that wind around the globe like seams on a baseball. Later, the same scientists strove to explain what fuels these erupting mountain ranges, called mid-ocean ridges. Basic theories suggest that because shifting tectonic plates pull the ocean floor apart along the ridges, molten rock deep within the earth's interior must rise to fill the gap. This material is produced in the second layer of the Earth's interior - the mostly solid upper mantle - and makes its way up through the crust. The collision of two plates can also result in a volcano.",
       "prompt": "Based on the passage, why do undersea volcanoes develop?",
       "options": [
         {
@@ -2955,7 +2955,7 @@
       "chapter": "Chương 6: Reading for Function (Đọc theo Chức năng Diễn ngôn)",
       "chapter_num": 6,
       "topic": "Ch. 6: Function • What It Says vs. Why It Is Written",
-      "passage": "To drivers, the color red means stop, but on a map it tells traffic engineers to leap into action. Traffic control centers like the one on the seventh floor of Boston's City Hall—a room cluttered with computer terminals and live video feeds of urban intersections—represent the brain of a traffic system. The city's network of sensors, cables and signals are the nerves connected to the rest of the body. \"Most people don't think there are eyes and ears keeping track of all this stuff,\" says John DeBenedictis, the center's engineering director. But in reality, engineers literally watch our every move, making subtle changes that relieve and redirect traffic.",
+      "passage": "To drivers, the color red means stop, but on a map it tells traffic engineers to leap into action. Traffic control centers like the one on the seventh floor of Boston's City Hall-a room cluttered with computer terminals and live video feeds of urban intersections-represent the brain of a traffic system. The city's network of sensors, cables and signals are the nerves connected to the rest of the body. \"Most people don't think there are eyes and ears keeping track of all this stuff,\" says John DeBenedictis, the center's engineering director. But in reality, engineers literally watch our every move, making subtle changes that relieve and redirect traffic.",
       "prompt": "Which choice best describes the function of the underlined portion in the text as a whole? (Underlined: 'The city's network of sensors, cables and signals are the nerves connected to the rest of the body.')",
       "options": [
         {
@@ -3053,7 +3053,7 @@
       "chapter": "Chương 6: Reading for Function (Đọc theo Chức năng Diễn ngôn)",
       "chapter_num": 6,
       "topic": "Ch. 6: Function • Shift from Murky to Clear Waters",
-      "passage": "Scientists have long known that color plays a role in warning animals about danger. Only recently, however, have they begun to understand how wavelengths of light (and thus color) appear at different depths and how various marine creatures' eyes perceive this light and each other—far differently than humans see them. Where waters are murky, the majority of creatures employ nonvisual forms of communication such as smell, taste, touch, and sound. But in the clear waters of coral reefs, which make up less than 1% of the world's oceans, light abounds, vision predominates, and animals drape themselves in blazing color—not only to menace potential enemies but also to evade predators, hunt for prey, and even hide in plain sight.",
+      "passage": "Scientists have long known that color plays a role in warning animals about danger. Only recently, however, have they begun to understand how wavelengths of light (and thus color) appear at different depths and how various marine creatures' eyes perceive this light and each other-far differently than humans see them. Where waters are murky, the majority of creatures employ nonvisual forms of communication such as smell, taste, touch, and sound. But in the clear waters of coral reefs, which make up less than 1% of the world's oceans, light abounds, vision predominates, and animals drape themselves in blazing color-not only to menace potential enemies but also to evade predators, hunt for prey, and even hide in plain sight.",
       "prompt": "Which choice best describes the function of the underlined portion in the text as a whole? (Underlined: 'But in the clear waters of coral reefs, which make up less than 1% of the world's oceans, light abounds, vision predominates...')",
       "options": [
         {
@@ -3102,7 +3102,7 @@
       "chapter": "Chương 6: Reading for Function (Đọc theo Chức năng Diễn ngôn)",
       "chapter_num": 6,
       "topic": "Ch. 6: Function • Purpose of First Sentence & Questioning Hypotheses",
-      "passage": "Throughout the dinosaurs' time on Earth, there was an amplification of boniness and spikiness; however, the advantage of skull frills and back plates is hardly self-evident. The solid-domed skull of Pachycephalosaurus seems made for butting—but for butting what? The skull would be all but useless against a predator with the size and power of Tyrannosaurus Rex. The skulls of some Pachycephalosaurs, moreover, were flat and thin—a bad design for contact sports—and the spikes protruding from them were most probably blunt rather than sharp.",
+      "passage": "Throughout the dinosaurs' time on Earth, there was an amplification of boniness and spikiness; however, the advantage of skull frills and back plates is hardly self-evident. The solid-domed skull of Pachycephalosaurus seems made for butting-but for butting what? The skull would be all but useless against a predator with the size and power of Tyrannosaurus Rex. The skulls of some Pachycephalosaurs, moreover, were flat and thin-a bad design for contact sports-and the spikes protruding from them were most probably blunt rather than sharp.",
       "prompt": "Which choice best states the main purpose of the text?",
       "options": [
         {
@@ -3151,7 +3151,7 @@
       "chapter": "Chương 6: Reading for Function (Đọc theo Chức năng Diễn ngôn)",
       "chapter_num": 6,
       "topic": "Ch. 6: Function • Primary Purpose in Fiction",
-      "passage": "In our family, the women made the ink. We stayed home. We all worked—me, GaoLing, my aunts and girl cousins, everybody. Even the babies and Great-Granny had a job of picking out stones from the dried millet we boiled for breakfast. We gathered each day in the ink-making studio. According to Great-Granny, the studio began as a grain shed that sat along the front wall of the courtyard house. Over the years, one generation of sons added brick walls and a tile roof. Another strengthened the beams and lengthened it by two pillars. The next tiled the floors and dug pits for storing the ingredients. Then other descendants made a cellar for keeping the inksticks away from the heat and cold. \"And now look,\" Great-Granny often bragged. \"Our studio is an ink palace.\"",
+      "passage": "In our family, the women made the ink. We stayed home. We all worked-me, GaoLing, my aunts and girl cousins, everybody. Even the babies and Great-Granny had a job of picking out stones from the dried millet we boiled for breakfast. We gathered each day in the ink-making studio. According to Great-Granny, the studio began as a grain shed that sat along the front wall of the courtyard house. Over the years, one generation of sons added brick walls and a tile roof. Another strengthened the beams and lengthened it by two pillars. The next tiled the floors and dug pits for storing the ingredients. Then other descendants made a cellar for keeping the inksticks away from the heat and cold. \"And now look,\" Great-Granny often bragged. \"Our studio is an ink palace.\"",
       "prompt": "Which choice best states the main purpose of the text?",
       "options": [
         {
@@ -3200,7 +3200,7 @@
       "chapter": "Chương 6: Reading for Function (Đọc theo Chức năng Diễn ngôn)",
       "chapter_num": 6,
       "topic": "Ch. 6: Function • Second Meaning of 'Novel' in Positive Tone",
-      "passage": "On what seems like a monthly basis, scientific teams announce the results of new experiments, adding to a preponderance of evidence that we've been underestimating animal minds, even those of us who have rated them fairly highly. New animal behaviors and capacities are observed in the wild, often involving tool use—or at least object manipulation—the very kinds of activity that led the distinguished zoologist Donald R. Griffin to found the field of cognitive ethology (animal thinking) in 1978: octopuses piling stones in front of their hideyholes, to name one recent example; or dolphins fitting marine sponges to their beaks in order to dig for food on the seabed; or wasps using small stones to smooth the sand around their egg chambers, concealing them from predators.",
+      "passage": "On what seems like a monthly basis, scientific teams announce the results of new experiments, adding to a preponderance of evidence that we've been underestimating animal minds, even those of us who have rated them fairly highly. New animal behaviors and capacities are observed in the wild, often involving tool use-or at least object manipulation-the very kinds of activity that led the distinguished zoologist Donald R. Griffin to found the field of cognitive ethology (animal thinking) in 1978: octopuses piling stones in front of their hideyholes, to name one recent example; or dolphins fitting marine sponges to their beaks in order to dig for food on the seabed; or wasps using small stones to smooth the sand around their egg chambers, concealing them from predators.",
       "prompt": "Which choice best describes the function of the underlined portion in the text as a whole? (Underlined: 'octopuses piling stones in front of their hideyholes... or dolphins fitting marine sponges... or wasps using small stones...')",
       "options": [
         {
@@ -3494,7 +3494,7 @@
       "chapter": "Chương 6: Reading for Function (Đọc theo Chức năng Diễn ngôn)",
       "chapter_num": 6,
       "topic": "Chương 6: Reading for Function • Primary Purpose (Motivated Reasoning)",
-      "passage": "One of the most persistent and problematic biases in science involves motivated reasoning—that is, the tendency to interpret observations to fit preconceived notions. According to Professor Brian Nosek... psychologists have demonstrated that 'most of our reasoning is in fact rationalization.' In other words, people begin by making decisions about what to think or do...",
+      "passage": "One of the most persistent and problematic biases in science involves motivated reasoning-that is, the tendency to interpret observations to fit preconceived notions. According to Professor Brian Nosek... psychologists have demonstrated that 'most of our reasoning is in fact rationalization.' In other words, people begin by making decisions about what to think or do...",
       "prompt": "Which choice best states the primary purpose of the text?",
       "options": [
         {
@@ -3641,7 +3641,7 @@
       "chapter": "Chương 7: Text Completions (Hoàn thành Văn bản / Suy luận)",
       "chapter_num": 7,
       "topic": "Ch. 7: Text Completions • Problem of Fragmentary Language in Olfaction",
-      "passage": "Fully one-third of the human brain is devoted to processing visual information; in contrast, only five percent involves smell. As a result, modern neuroscience has focused most intensely on deciphering sight, with olfaction often treated as a bonus sense. That is reflected in the paucity of language to describe it, a situation that poses a problem for scientific investigation. There are countless adjectives to describe what things look—and sound—like, but humans' vocabulary for olfactory perception is fragmentary and highly inconsistent. Therefore, __",
+      "passage": "Fully one-third of the human brain is devoted to processing visual information; in contrast, only five percent involves smell. As a result, modern neuroscience has focused most intensely on deciphering sight, with olfaction often treated as a bonus sense. That is reflected in the paucity of language to describe it, a situation that poses a problem for scientific investigation. There are countless adjectives to describe what things look-and sound-like, but humans' vocabulary for olfactory perception is fragmentary and highly inconsistent. Therefore, __",
       "prompt": "Which choice most logically completes the text?",
       "options": [
         {
@@ -4082,7 +4082,7 @@
       "chapter": "Chương 8: Supporting & Undermining (Củng cố & Làm suy yếu)",
       "chapter_num": 8,
       "topic": "Ch. 8: Support/Undermine • Supporting a Neurological Theory",
-      "passage": "As a person sleeps, the motor cortex—the part of the brain that controls movements—replays skills that it learned during the day. In a recent experiment run by the BrainGate consortium, researchers observed that the pattern of firing neurons sped up during sleep, echoing findings from previous animal studies. The scientists were also interested to note that replay took place not during REM sleep, which is when people normally dream, but during deep, slow-wave sleep, which occurs in the first three or four hours of the night. They theorize that replay during this period helps the brain consolidate new information, moving it from short-term to long-term memory.",
+      "passage": "As a person sleeps, the motor cortex-the part of the brain that controls movements-replays skills that it learned during the day. In a recent experiment run by the BrainGate consortium, researchers observed that the pattern of firing neurons sped up during sleep, echoing findings from previous animal studies. The scientists were also interested to note that replay took place not during REM sleep, which is when people normally dream, but during deep, slow-wave sleep, which occurs in the first three or four hours of the night. They theorize that replay during this period helps the brain consolidate new information, moving it from short-term to long-term memory.",
       "prompt": "Which finding, if true, would most strongly support the scientists' theory?",
       "options": [
         {
@@ -4670,7 +4670,7 @@
       "chapter": "Chương 9: Graphs & Charts (Biểu đồ & Bảng số liệu)",
       "chapter_num": 9,
       "topic": "Ch. 9: Graphs • Interpreting Antibiotic Effectiveness Discrepancy",
-      "passage": "MRSA—Methicillin-resistant Staphylococcus aureus—is a type of bacteria that is frequently responsible for hospital-acquired infections and is known for being exceptionally resistant to common antibiotics. When a group of these medications were compared in terms of their ability to cure MRSA infections versus a variety of other infections, researchers found that an antibiotic could demonstrate a high level of general effectiveness but that the same medication could be significantly less effective in combatting MRSA. For example, __",
+      "passage": "MRSA-Methicillin-resistant Staphylococcus aureus-is a type of bacteria that is frequently responsible for hospital-acquired infections and is known for being exceptionally resistant to common antibiotics. When a group of these medications were compared in terms of their ability to cure MRSA infections versus a variety of other infections, researchers found that an antibiotic could demonstrate a high level of general effectiveness but that the same medication could be significantly less effective in combatting MRSA. For example, __",
       "prompt": "Which choice most effectively uses data from the table to logically complete the text? (Data: Erythromycin 31.94% vs 26.92%, Vancomycin 100% vs 100%, Mupirocin 90.28% vs 73.08%, Penicillin 5% vs 0%, Clindamycin 83.33% vs 69.23%, Rifampicin 86.11% vs 61.54%)",
       "options": [
         {
