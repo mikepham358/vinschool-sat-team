@@ -1484,14 +1484,17 @@ class BluebookAppHandler(BaseHTTPRequestHandler):
                 f.write(content)
 
             sent, msg, recipients = send_aar_email(student_name, student_email, entry, content, export_filename)
-            self.send_json({
+            email_only = bool(payload.get("email_only", False))
+            resp_data = {
                 "success": True,
                 "email_sent": sent,
                 "message": msg,
-                "recipients": recipients,
-                "filename": export_filename,
-                "download_url": f"/api/download-submission?file={urllib.parse.quote(export_filename)}"
-            })
+                "recipients": recipients
+            }
+            if not email_only:
+                resp_data["filename"] = export_filename
+                resp_data["download_url"] = f"/api/download-submission?file={urllib.parse.quote(export_filename)}"
+            self.send_json(resp_data)
         except Exception as e:
             self.send_json({"success": False, "error": f"Failed to submit ARR report: {str(e)}"}, 500)
 

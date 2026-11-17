@@ -549,11 +549,9 @@ const DOM = {
   modalSubmitSuccess: document.getElementById("modal-submit-success"),
   successModalTitle: document.getElementById("success-modal-title"),
   successStatusText: document.getElementById("success-status-text"),
-  successFilename: document.getElementById("success-filename"),
   successRecipientText: document.getElementById("success-recipient-text"),
   btnRelaunchMail: document.getElementById("btn-relaunch-mail"),
   btnCopyMailBody: document.getElementById("btn-copy-mail-body"),
-  btnDownloadSubmittedFile: document.getElementById("btn-download-submitted-file"),
   btnCloseSuccess: document.getElementById("btn-close-success"),
 
   // AAR / ARR Cycle Modal
