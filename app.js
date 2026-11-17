@@ -14,145 +14,177 @@ const AAR_TEACHER_RECIPIENTS = "v.sonpbh1@vinschool.edu.vn,mikepham@baoan.ai.vn"
 
 const TESTS_MANIFEST_DEFAULT = [
   {
-    id: "oct-2026",
-    code: "oct2026",
-    title: "Digital SAT Practice Test — October 2026 (INT-B)",
-    short_title: "Tháng 10/2026 (INT-B)",
-    badge: "Mới nhất",
-    date: "2026-10",
-    dataFile: "data/oct2026.json",
-    pdfDriveId: "1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b",
-    pdfPreviewUrl: "https://drive.google.com/file/d/1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b/view?usp=drive_link",
-    poster: "poster.png",
-    total_questions: 98,
-    storageKey: "bluebook_oct2026_student_state_v1",
-    description: "Đề thi Real Test Digital SAT quốc tế tháng 10/2026 kèm giải thích chi tiết 4 tầng Socratic."
+    "id": "oct-2026",
+    "code": "oct2026",
+    "title": "Digital SAT Practice Test — October 2026 (INT-B)",
+    "short_title": "Tháng 10/2026 (INT-B)",
+    "badge": "Mới nhất",
+    "date": "2026-10",
+    "dataFile": "data/oct2026.json",
+    "pdfDriveId": "1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b/view?usp=drive_link",
+    "poster": "poster.png",
+    "total_questions": 98,
+    "storageKey": "bluebook_oct2026_student_state_v1",
+    "description": "Đề thi Real Test Digital SAT quốc tế tháng 10/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "category": "tests",
+    "category_name": "Đề thi thực chiến (Tests)",
+    "category_badge": "📝 Real Test",
+    "category_color": "blue"
   },
   {
-    id: "sep-2026",
-    code: "sep2026",
-    title: "Digital SAT Practice Test — September 2026 (INT-A)",
-    short_title: "Tháng 09/2026 (INT-A)",
-    badge: "Chính thức",
-    date: "2026-09",
-    dataFile: "data/sep2026.json",
-    pdfDriveId: "1dt6Up_Tz-B_h48JVLeIPF8vMwWWPxVSL",
-    pdfPreviewUrl: "https://drive.google.com/file/d/1dt6Up_Tz-B_h48JVLeIPF8vMwWWPxVSL/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/1dt6Up_Tz-B_h48JVLeIPF8vMwWWPxVSL/view",
-    poster: "poster_sep.png",
-    total_questions: 98,
-    storageKey: "bluebook_sep2026_student_state_v1",
-    description: "Đề thi Real Test Digital SAT quốc tế tháng 09/2026 kèm giải thích chi tiết 4 tầng Socratic."
+    "id": "sep-2026",
+    "code": "sep2026",
+    "title": "Digital SAT Practice Test — September 2026 (INT-A)",
+    "short_title": "Tháng 09/2026 (INT-A)",
+    "badge": "Chính thức",
+    "date": "2026-09",
+    "dataFile": "data/sep2026.json",
+    "pdfDriveId": "1dt6Up_Tz-B_h48JVLeIPF8vMwWWPxVSL",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1dt6Up_Tz-B_h48JVLeIPF8vMwWWPxVSL/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1dt6Up_Tz-B_h48JVLeIPF8vMwWWPxVSL/view",
+    "poster": "poster_sep.png",
+    "total_questions": 98,
+    "storageKey": "bluebook_sep2026_student_state_v1",
+    "description": "Đề thi Real Test Digital SAT quốc tế tháng 09/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "category": "tests",
+    "category_name": "Đề thi thực chiến (Tests)",
+    "category_badge": "📝 Real Test",
+    "category_color": "blue"
   },
   {
-    id: "erica-reading",
-    code: "ericareading",
-    title: "The Critical Reader: Complete Guide to SAT Reading (Erica Meltzer)",
-    short_title: "Erica Meltzer Reading",
-    badge: "9 Chương Chuyên Sâu",
-    date: "2026-Reading",
-    dataFile: "data/erica_reading.json",
-    pdfDriveId: "10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z",
-    pdfPreviewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
-    poster: "poster.png",
-    total_questions: 101,
-    time_minutes: 129,
-    modules_count: 9,
-    storageKey: "bluebook_erica_reading_student_state_v1",
-    description: "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+    "id": "erica-reading",
+    "code": "ericareading",
+    "title": "The Critical Reader: Complete Guide to SAT Reading (Erica Meltzer)",
+    "short_title": "Erica Meltzer Reading",
+    "badge": "9 Chương Chuyên Sâu",
+    "date": "2026-Reading",
+    "dataFile": "data/erica_reading.json",
+    "pdfDriveId": "10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z/view",
+    "poster": "poster.png",
+    "total_questions": 101,
+    "time_minutes": 129,
+    "modules_count": 9,
+    "storageKey": "bluebook_erica_reading_student_state_v1",
+    "description": "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Reading",
+    "category_color": "purple"
   },
   {
-    id: "panda-math",
-    code: "pandamath",
-    title: "The College Panda: SAT Math Advanced Guide & Workbook (Nielson Phu)",
-    short_title: "College Panda Math",
-    badge: "27 Chương Chuyên Sâu",
-    date: "2026-Math",
-    dataFile: "data/panda_math.json",
-    pdfDriveId: "1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb",
-    pdfPreviewUrl: "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/view?usp=drive_open",
-    poster: "poster.png",
-    total_questions: 330,
-    time_minutes: 360,
-    modules_count: 27,
-    storageKey: "bluebook_panda_math_student_state_v1",
-    description: "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng."
+    "id": "panda-math",
+    "code": "pandamath",
+    "title": "The College Panda: SAT Math Advanced Guide & Workbook (Nielson Phu)",
+    "short_title": "College Panda Math",
+    "badge": "27 Chương Chuyên Sâu",
+    "date": "2026-Math",
+    "dataFile": "data/panda_math.json",
+    "pdfDriveId": "1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb/view?usp=drive_open",
+    "poster": "poster.png",
+    "total_questions": 330,
+    "time_minutes": 360,
+    "modules_count": 27,
+    "storageKey": "bluebook_panda_math_student_state_v1",
+    "description": "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Math",
+    "category_color": "emerald"
   },
   {
-    id: "erica-writing",
-    code: "ericawriting",
-    title: "The Ultimate Guide to SAT Grammar (Erica Meltzer - 6th Edition)",
-    short_title: "Erica Meltzer Writing",
-    badge: "17 Chuyên Đề Grammar",
-    date: "2026-Writing",
-    dataFile: "data/erica_writing.json",
-    pdfDriveId: "1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s",
-    pdfPreviewUrl: "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/view",
-    poster: "poster.png",
-    total_questions: 334,
-    time_minutes: 352,
-    modules_count: 17,
-    storageKey: "bluebook_erica_writing_student_state_v1",
-    description: "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc."
+    "id": "erica-writing",
+    "code": "ericawriting",
+    "title": "The Ultimate Guide to SAT Grammar (Erica Meltzer - 6th Edition)",
+    "short_title": "Erica Meltzer Writing",
+    "badge": "17 Chuyên Đề Grammar",
+    "date": "2026-Writing",
+    "dataFile": "data/erica_writing.json",
+    "pdfDriveId": "1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s/view",
+    "poster": "poster.png",
+    "total_questions": 334,
+    "time_minutes": 352,
+    "modules_count": 17,
+    "storageKey": "bluebook_erica_writing_student_state_v1",
+    "description": "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Grammar",
+    "category_color": "purple"
   },
   {
-    id: "princeton-advanced",
-    code: "princetonadvanced",
-    title: "Digital SAT Advanced: Harder Modules Practice Test (Princeton Review)",
-    short_title: "Princeton Harder Modules",
-    badge: "Thử Thách 1500+",
-    date: "2026-Advanced",
-    dataFile: "data/princeton_advanced.json",
-    pdfDriveId: "1KCJfZeXPf9rBVAAnY28vR6uH47enOq57",
-    pdfPreviewUrl: "https://drive.google.com/file/d/1KCJfZeXPf9rBVAAnY28vR6uH47enOq57/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/1KCJfZeXPf9rBVAAnY28vR6uH47enOq57/view",
-    poster: "poster.png",
-    total_questions: 49,
-    time_minutes: 67,
-    modules_count: 2,
-    storageKey: "bluebook_princeton_advanced_student_state_v1",
-    description: "Bộ đề 2 Modules phân hóa đỉnh cao (27 câu Reading & Writing + 22 câu Harder Math) trích từ The Princeton Review Digital SAT Advanced kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
+    "id": "princeton-advanced",
+    "code": "princetonadvanced",
+    "title": "Digital SAT Advanced: Harder Modules Practice Test (Princeton Review)",
+    "short_title": "Princeton Harder Modules",
+    "badge": "Thử Thách 1500+",
+    "date": "2026-Advanced",
+    "dataFile": "data/princeton_advanced.json",
+    "pdfDriveId": "1KCJfZeXPf9rBVAAnY28vR6uH47enOq57",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1KCJfZeXPf9rBVAAnY28vR6uH47enOq57/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1KCJfZeXPf9rBVAAnY28vR6uH47enOq57/view",
+    "poster": "poster.png",
+    "total_questions": 49,
+    "time_minutes": 67,
+    "modules_count": 2,
+    "storageKey": "bluebook_princeton_advanced_student_state_v1",
+    "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực.",
+    "category": "tests",
+    "category_name": "Đề thi phân hóa 1500+ (Tests)",
+    "category_badge": "🎯 Harder Modules",
+    "category_color": "amber"
   },
   {
-    id: "princeton-book",
-    code: "princetonbook",
-    title: "The Princeton Review: Digital SAT Advanced Comprehensive Guide (All Chapters & Drills)",
-    short_title: "Princeton SAT Advanced Book",
-    badge: "17 Chương Chuyên Sâu",
-    date: "2026-Advanced",
-    dataFile: "data/princeton_book.json",
-    pdfDriveId: "10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd",
-    pdfPreviewUrl: "https://drive.google.com/file/d/10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd/view",
-    poster: "poster.png",
-    total_questions: 233,
-    time_minutes: 320,
-    modules_count: 17,
-    storageKey: "bluebook_princeton_book_student_state_v1",
-    description: "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
+    "id": "princeton-book",
+    "code": "princetonbook",
+    "title": "The Princeton Review: Digital SAT Advanced Comprehensive Guide (All Chapters & Drills)",
+    "short_title": "Princeton SAT Advanced Book",
+    "badge": "17 Chương Chuyên Sâu",
+    "date": "2026-Advanced",
+    "dataFile": "data/princeton_book.json",
+    "pdfDriveId": "10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd/view",
+    "poster": "poster.png",
+    "total_questions": 233,
+    "time_minutes": 320,
+    "modules_count": 17,
+    "storageKey": "bluebook_princeton_book_student_state_v1",
+    "description": "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Advanced",
+    "category_color": "indigo"
   },
   {
-    id: "princeton-prep-2025",
-    code: "princeton2025",
-    title: "The Princeton Review: Digital SAT Premium Prep 2025 (All Chapters & Drills)",
-    short_title: "Princeton SAT Prep 2025",
-    badge: "21 Chương Toàn Diện",
-    date: "2025-Premium",
-    dataFile: "data/princeton_2025.json",
-    pdfDriveId: "1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe",
-    pdfPreviewUrl: "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/preview",
-    pdfViewUrl: "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/view",
-    pdfFolderUrl: "https://drive.google.com/drive/folders/19qrbozV5u6ZxnAwDmemIKCMnnst7s5Wg",
-    poster: "poster.png",
-    total_questions: 277,
-    time_minutes: 380,
-    modules_count: 21,
-    storageKey: "bluebook_princeton_2025_student_state_v1",
-    description: "Bộ toàn bộ 277 câu hỏi và ví dụ minh họa (kèm bài giảng Here's How to Crack It và bài tập thực hành Drills) trích từ sách The Princeton Review Digital SAT Premium Prep 2025 phân theo 21 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
+    "id": "princeton-prep-2025",
+    "code": "princeton2025",
+    "title": "The Princeton Review: Digital SAT Premium Prep 2025 (All Chapters & Drills)",
+    "short_title": "Princeton SAT Prep 2025",
+    "badge": "21 Chương Toàn Diện",
+    "date": "2025-Premium",
+    "dataFile": "data/princeton_2025.json",
+    "pdfDriveId": "1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe/view",
+    "pdfFolderUrl": "https://drive.google.com/drive/folders/19qrbozV5u6ZxnAwDmemIKCMnnst7s5Wg",
+    "poster": "poster.png",
+    "total_questions": 277,
+    "time_minutes": 380,
+    "modules_count": 21,
+    "storageKey": "bluebook_princeton_2025_student_state_v1",
+    "description": "Bộ toàn bộ câu hỏi và ví dụ minh họa (kèm bài giảng Here's How to Crack It và bài tập thực hành Drills) trích từ sách The Princeton Review Digital SAT Premium Prep 2025 phân theo 21 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Prep 2025",
+    "category_color": "indigo"
   }
 ];
 
@@ -1299,39 +1331,72 @@ function updateActiveTestUI() {
 function renderExamSelectors() {
   const manifest = App.testsManifest || [];
 
+  const groupTests = manifest.filter(t => t.category === "tests" || (!t.category && (t.id.includes("2026") || t.id.includes("advanced"))));
+  const groupBooks = manifest.filter(t => t.category === "books" || (!t.category && !(t.id.includes("2026") || t.id.includes("advanced"))));
+
+  // Helper to populate grouped dropdowns with <optgroup>
+  const populateGroupedSelect = (selectEl, prefix = "") => {
+    if (!selectEl) return;
+    selectEl.innerHTML = "";
+
+    if (groupTests.length > 0) {
+      const ogTests = document.createElement("optgroup");
+      ogTests.label = "📝 ĐỀ THI & MOCK TESTS THỰC CHIẾN (3 BỘ)";
+      groupTests.forEach(test => {
+        const opt = document.createElement("option");
+        opt.value = test.id;
+        opt.textContent = `${prefix}${test.short_title} (${test.badge || "Chính thức"})`;
+        if (test.id === App.activeTestId || test.code === App.activeTestId) opt.selected = true;
+        ogTests.appendChild(opt);
+      });
+      selectEl.appendChild(ogTests);
+    }
+
+    if (groupBooks.length > 0) {
+      const ogBooks = document.createElement("optgroup");
+      ogBooks.label = "📚 SÁCH & GIÁO TRÌNH CHUYÊN SÂU (5 BỘ)";
+      groupBooks.forEach(test => {
+        const opt = document.createElement("option");
+        opt.value = test.id;
+        opt.textContent = `${prefix}${test.short_title} (${test.badge || "Chính thức"})`;
+        if (test.id === App.activeTestId || test.code === App.activeTestId) opt.selected = true;
+        ogBooks.appendChild(opt);
+      });
+      selectEl.appendChild(ogBooks);
+    }
+  };
+
   // 1. Populate Nav dropdown
   if (DOM.selectActiveExam) {
-    DOM.selectActiveExam.innerHTML = "";
-    manifest.forEach(test => {
-      const opt = document.createElement("option");
-      opt.value = test.id;
-      opt.textContent = `${test.short_title} (${test.badge || "Chính thức"})`;
-      if (test.id === App.activeTestId || test.code === App.activeTestId) {
-        opt.selected = true;
-      }
-      DOM.selectActiveExam.appendChild(opt);
-    });
+    populateGroupedSelect(DOM.selectActiveExam, "");
   }
 
   // 2. Populate Practice Header dropdown
   if (DOM.selectPracticeExam) {
-    DOM.selectPracticeExam.innerHTML = "";
-    manifest.forEach(test => {
-      const opt = document.createElement("option");
-      opt.value = test.id;
-      opt.textContent = `🗓️ ${test.short_title}`;
-      if (test.id === App.activeTestId || test.code === App.activeTestId) {
-        opt.selected = true;
-      }
-      DOM.selectPracticeExam.appendChild(opt);
-    });
+    populateGroupedSelect(DOM.selectPracticeExam, "🗓️ ");
   }
 
-  // 3. Render Exam Hub Cards in Home
+  // 3. Update Category Filter Counts
+  const countAll = manifest.length;
+  const countBooks = groupBooks.length;
+  const countTests = groupTests.length;
+
+  const countAllEl = document.getElementById("filter-count-all");
+  const countBooksEl = document.getElementById("filter-count-books");
+  const countTestsEl = document.getElementById("filter-count-tests");
+  if (countAllEl) countAllEl.textContent = countAll;
+  if (countBooksEl) countBooksEl.textContent = countBooks;
+  if (countTestsEl) countTestsEl.textContent = countTests;
+
+  // 4. Render Exam Hub Cards in Home
   if (DOM.examsGrid) {
     DOM.examsGrid.innerHTML = "";
     manifest.forEach(test => {
       const isActive = (test.id === App.activeTestId || test.code === App.activeTestId);
+      const isBook = test.category === "books" || (!test.category && !(test.id.includes("2026") || test.id.includes("advanced")));
+      const catType = isBook ? "books" : "tests";
+      const catLabel = test.category_badge || (isBook ? "📚 SÁCH GIÁO TRÌNH" : (test.id.includes("advanced") ? "🎯 THỬ THÁCH 1500+" : "📝 ĐỀ THI REAL TEST"));
+      const catClass = isBook ? "pill-book" : (test.id.includes("advanced") ? "pill-advanced" : "pill-test");
 
       // Calculate progress from localStorage for this test
       let answeredCount = 0;
@@ -1357,9 +1422,13 @@ function renderExamSelectors() {
       const card = document.createElement("div");
       card.className = `exam-card ${isActive ? "active" : ""}`;
       card.dataset.testId = test.id;
+      card.dataset.category = catType;
       card.innerHTML = `
         <div class="exam-card-header">
-          <span class="exam-badge-tag">${test.badge || "Official Test"}</span>
+          <div class="exam-badges-left">
+            <span class="exam-cat-pill ${catClass}">${catLabel}</span>
+            <span class="exam-badge-tag">${test.badge || "Official Test"}</span>
+          </div>
           ${isActive ? '<span class="exam-active-indicator">● Đang luyện tập</span>' : ""}
         </div>
         <h3 class="exam-card-title">${test.title}</h3>
@@ -1391,7 +1460,42 @@ function renderExamSelectors() {
 
       DOM.examsGrid.appendChild(card);
     });
+
+    // 5. Initialize or re-apply category filter
+    initExamCategoryFilter();
   }
+}
+
+function initExamCategoryFilter() {
+  const filterBar = document.getElementById("exams-filter-bar");
+  if (!filterBar) return;
+
+  const buttons = filterBar.querySelectorAll(".btn-filter-tag");
+  const savedFilter = localStorage.getItem("bluebook_exam_filter") || "all";
+
+  const applyFilter = (filterType) => {
+    buttons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.filter === filterType);
+    });
+
+    const cards = DOM.examsGrid ? DOM.examsGrid.querySelectorAll(".exam-card") : [];
+    cards.forEach(card => {
+      const cardCat = card.dataset.category;
+      const isVisible = (filterType === "all" || cardCat === filterType);
+      card.classList.toggle("is-hidden", !isVisible);
+    });
+
+    try { localStorage.setItem("bluebook_exam_filter", filterType); } catch(e) {}
+  };
+
+  buttons.forEach(btn => {
+    btn.onclick = () => {
+      applyFilter(btn.dataset.filter);
+    };
+  });
+
+  // Apply active or saved filter
+  applyFilter(savedFilter);
 }
 
 async function switchTest(targetTestId) {

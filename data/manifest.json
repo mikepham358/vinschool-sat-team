@@ -13,7 +13,11 @@
     "poster": "poster.png",
     "total_questions": 98,
     "storageKey": "bluebook_oct2026_student_state_v1",
-    "description": "Đề thi Real Test Digital SAT quốc tế tháng 10/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi."
+    "description": "Đề thi Real Test Digital SAT quốc tế tháng 10/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "category": "tests",
+    "category_name": "Đề thi thực chiến (Tests)",
+    "category_badge": "📝 Real Test",
+    "category_color": "blue"
   },
   {
     "id": "sep-2026",
@@ -29,7 +33,11 @@
     "poster": "poster_sep.png",
     "total_questions": 98,
     "storageKey": "bluebook_sep2026_student_state_v1",
-    "description": "Đề thi Real Test Digital SAT quốc tế tháng 09/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi."
+    "description": "Đề thi Real Test Digital SAT quốc tế tháng 09/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "category": "tests",
+    "category_name": "Đề thi thực chiến (Tests)",
+    "category_badge": "📝 Real Test",
+    "category_color": "blue"
   },
   {
     "id": "erica-reading",
@@ -47,7 +55,11 @@
     "time_minutes": 129,
     "modules_count": 9,
     "storageKey": "bluebook_erica_reading_student_state_v1",
-    "description": "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng."
+    "description": "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Reading",
+    "category_color": "purple"
   },
   {
     "id": "panda-math",
@@ -65,7 +77,11 @@
     "time_minutes": 360,
     "modules_count": 27,
     "storageKey": "bluebook_panda_math_student_state_v1",
-    "description": "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng."
+    "description": "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Math",
+    "category_color": "emerald"
   },
   {
     "id": "erica-writing",
@@ -83,7 +99,11 @@
     "time_minutes": 352,
     "modules_count": 17,
     "storageKey": "bluebook_erica_writing_student_state_v1",
-    "description": "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc."
+    "description": "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Grammar",
+    "category_color": "purple"
   },
   {
     "id": "princeton-advanced",
@@ -101,7 +121,11 @@
     "time_minutes": 67,
     "modules_count": 2,
     "storageKey": "bluebook_princeton_advanced_student_state_v1",
-    "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực."
+    "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực.",
+    "category": "tests",
+    "category_name": "Đề thi phân hóa 1500+ (Tests)",
+    "category_badge": "🎯 Harder Modules",
+    "category_color": "amber"
   },
   {
     "id": "princeton-book",
@@ -119,7 +143,11 @@
     "time_minutes": 320,
     "modules_count": 17,
     "storageKey": "bluebook_princeton_book_student_state_v1",
-    "description": "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
+    "description": "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Advanced",
+    "category_color": "indigo"
   },
   {
     "id": "princeton-prep-2025",
@@ -138,6 +166,10 @@
     "time_minutes": 380,
     "modules_count": 21,
     "storageKey": "bluebook_princeton_2025_student_state_v1",
-    "description": "Bộ toàn bộ câu hỏi và ví dụ minh họa (kèm bài giảng Here's How to Crack It và bài tập thực hành Drills) trích từ sách The Princeton Review Digital SAT Premium Prep 2025 phân theo 21 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng."
+    "description": "Bộ toàn bộ câu hỏi và ví dụ minh họa (kèm bài giảng Here's How to Crack It và bài tập thực hành Drills) trích từ sách The Princeton Review Digital SAT Premium Prep 2025 phân theo 21 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.",
+    "category": "books",
+    "category_name": "Sách giáo trình chuyên sâu (Books)",
+    "category_badge": "📚 Sách Prep 2025",
+    "category_color": "indigo"
   }
 ]
