@@ -347,6 +347,7 @@ const DOM = {
   btnTimerToggleView: document.getElementById("btn-timer-toggle-view"),
   btnTimerPause: document.getElementById("btn-timer-pause"),
   btnOpenCalc: document.getElementById("btn-open-calc"),
+  btnOpenDict: document.getElementById("btn-open-dict"),
   btnOpenRef: document.getElementById("btn-open-ref"),
   btnToggleScratchpad: document.getElementById("btn-toggle-scratchpad"),
   btnOpenErrorLog: document.getElementById("btn-open-error-log"),
@@ -475,6 +476,21 @@ const DOM = {
   modalCalculator: document.getElementById("modal-calculator"),
   calcModalHeader: document.getElementById("calc-modal-header"),
   btnCloseCalculator: document.getElementById("btn-close-calculator"),
+  modalDictionary: document.getElementById("modal-dictionary"),
+  dictModalHeader: document.getElementById("dict-modal-header"),
+  btnCloseDictionary: document.getElementById("btn-close-dictionary"),
+  dictSearchInput: document.getElementById("dict-search-input"),
+  dictBtnSearch: document.getElementById("dict-btn-search"),
+  dictBtnClear: document.getElementById("dict-btn-clear"),
+  dictBtnCambridgeDirect: document.getElementById("dict-btn-cambridge-direct"),
+  dictChipsContainer: document.getElementById("dict-chips-container"),
+  dictContentArea: document.getElementById("dict-content-area"),
+  dictWelcomeState: document.getElementById("dict-welcome-state"),
+  dictResultContainer: document.getElementById("dict-result-container"),
+  dictLoadingState: document.getElementById("dict-loading-state"),
+  dictErrorState: document.getElementById("dict-error-state"),
+  dictCambridgeFallbackLink: document.getElementById("dict-cambridge-fallback-link"),
+  zenBtnDict: document.getElementById("zen-btn-dict"),
   modalReference: document.getElementById("modal-reference"),
   btnCloseReference: document.getElementById("btn-close-reference"),
   refFilterChips: document.getElementById("ref-filter-chips"),
@@ -1209,6 +1225,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadFeedbacksList();
   initSplitResizer();
   initDraggableDesmos();
+  initDraggableDictionary();
   initScratchpad();
   initTabletSupport();
   initZenMode();
@@ -4639,6 +4656,296 @@ function initDraggableDesmos() {
   });
 }
 
+// ================= DRAGGABLE CAMBRIDGE DICTIONARY =================
+function initDraggableDictionary() {
+  const modal = DOM.modalDictionary;
+  const header = DOM.dictModalHeader || document.getElementById("dict-modal-header");
+  if (!modal || !header) return;
+
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let initialLeft = 0;
+  let initialTop = 0;
+
+  modal.addEventListener("mousedown", () => {
+    modal.style.zIndex = "1002";
+  });
+
+  function onPointerDown(e) {
+    if (e.target.closest("#btn-close-dictionary") || e.target.closest("button") || e.target.closest("a") || e.target.closest("input")) {
+      return;
+    }
+
+    isDragging = true;
+    modal.classList.add("is-dragging");
+    modal.style.zIndex = "1002";
+
+    const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+    const clientY = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+
+    startX = clientX;
+    startY = clientY;
+
+    const rect = modal.getBoundingClientRect();
+    initialLeft = rect.left;
+    initialTop = rect.top;
+
+    modal.style.right = "auto";
+    modal.style.bottom = "auto";
+    modal.style.left = `${initialLeft}px`;
+    modal.style.top = `${initialTop}px`;
+    modal.style.margin = "0";
+
+    document.addEventListener("mousemove", onPointerMove, { passive: false });
+    document.addEventListener("mouseup", onPointerUp);
+    document.addEventListener("touchmove", onPointerMove, { passive: false });
+    document.addEventListener("touchend", onPointerUp);
+    document.addEventListener("touchcancel", onPointerUp);
+
+    e.preventDefault();
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging) return;
+    if (e.cancelable) e.preventDefault();
+
+    const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+    const clientY = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+
+    const deltaX = clientX - startX;
+    const deltaY = clientY - startY;
+
+    let newLeft = initialLeft + deltaX;
+    let newTop = initialTop + deltaY;
+
+    const modalWidth = modal.offsetWidth;
+    const winWidth = window.innerWidth;
+    const winHeight = window.innerHeight;
+
+    const minLeft = -(modalWidth - 80);
+    const maxLeft = winWidth - 80;
+    const minTop = 0;
+    const maxTop = winHeight - 44;
+
+    newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
+    newTop = Math.max(minTop, Math.min(newTop, maxTop));
+
+    modal.style.left = `${newLeft}px`;
+    modal.style.top = `${newTop}px`;
+  }
+
+  function onPointerUp() {
+    if (!isDragging) return;
+    isDragging = false;
+    modal.classList.remove("is-dragging");
+
+    document.removeEventListener("mousemove", onPointerMove);
+    document.removeEventListener("mouseup", onPointerUp);
+    document.removeEventListener("touchmove", onPointerMove);
+    document.removeEventListener("touchend", onPointerUp);
+    document.removeEventListener("touchcancel", onPointerUp);
+  }
+
+  header.addEventListener("mousedown", onPointerDown);
+  header.addEventListener("touchstart", onPointerDown, { passive: false });
+
+  // Double click header to reset back to top-right
+  header.addEventListener("dblclick", (e) => {
+    if (e.target.closest("button")) return;
+    modal.style.left = "auto";
+    modal.style.top = "90px";
+    modal.style.right = "50px";
+  });
+}
+
+function openDictionary(word) {
+  if (!DOM.modalDictionary) return;
+  DOM.modalDictionary.classList.remove("hidden");
+  DOM.modalDictionary.style.zIndex = "1002";
+
+  // Ensure within viewport
+  const rect = DOM.modalDictionary.getBoundingClientRect();
+  if (rect.right < 80 || rect.left > window.innerWidth - 80 || rect.top > window.innerHeight - 44) {
+    DOM.modalDictionary.style.left = "auto";
+    DOM.modalDictionary.style.top = "90px";
+    DOM.modalDictionary.style.right = "50px";
+  }
+
+  if (word && typeof word === "string" && word.trim()) {
+    if (DOM.dictSearchInput) DOM.dictSearchInput.value = word.trim();
+    searchDictionary(word.trim());
+  } else if (DOM.dictSearchInput) {
+    DOM.dictSearchInput.focus();
+  }
+}
+
+function closeDictionary() {
+  if (DOM.modalDictionary) {
+    DOM.modalDictionary.classList.add("hidden");
+  }
+}
+
+function toggleDictionary(word) {
+  if (!DOM.modalDictionary) return;
+  if (DOM.modalDictionary.classList.contains("hidden")) {
+    openDictionary(word);
+  } else {
+    if (word && typeof word === "string" && word.trim()) {
+      openDictionary(word);
+    } else {
+      closeDictionary();
+    }
+  }
+}
+
+async function searchDictionary(rawWord) {
+  const word = String(rawWord || "").trim().toLowerCase();
+  if (!word) {
+    if (DOM.dictWelcomeState) DOM.dictWelcomeState.classList.remove("hidden");
+    if (DOM.dictResultContainer) DOM.dictResultContainer.classList.add("hidden");
+    if (DOM.dictLoadingState) DOM.dictLoadingState.classList.add("hidden");
+    if (DOM.dictErrorState) DOM.dictErrorState.classList.add("hidden");
+    return;
+  }
+
+  if (DOM.dictSearchInput) {
+    DOM.dictSearchInput.value = word;
+    if (DOM.dictBtnClear) DOM.dictBtnClear.classList.remove("hidden");
+  }
+
+  // Update Cambridge Direct links
+  const cambridgeSearchUrl = `https://dictionary.cambridge.org/search/english/direct/?q=${encodeURIComponent(word)}`;
+  if (DOM.dictBtnCambridgeDirect) {
+    DOM.dictBtnCambridgeDirect.href = cambridgeSearchUrl;
+  }
+  if (DOM.dictCambridgeFallbackLink) {
+    DOM.dictCambridgeFallbackLink.href = cambridgeSearchUrl;
+    DOM.dictCambridgeFallbackLink.textContent = `Mở "${word}" trên Cambridge Dictionary ↗`;
+  }
+
+  // Highlight active chip if present
+  if (DOM.dictChipsContainer) {
+    DOM.dictChipsContainer.querySelectorAll(".dict-chip").forEach(chip => {
+      chip.classList.toggle("active", chip.getAttribute("data-word") === word);
+    });
+  }
+
+  // Show loading state
+  if (DOM.dictWelcomeState) DOM.dictWelcomeState.classList.add("hidden");
+  if (DOM.dictResultContainer) DOM.dictResultContainer.classList.add("hidden");
+  if (DOM.dictErrorState) DOM.dictErrorState.classList.add("hidden");
+  if (DOM.dictLoadingState) DOM.dictLoadingState.classList.remove("hidden");
+
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+    if (!res.ok) {
+      throw new Error(`Word not found (${res.status})`);
+    }
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error("Empty response");
+    }
+
+    renderDictionaryResult(data[0], word);
+
+    if (DOM.dictLoadingState) DOM.dictLoadingState.classList.add("hidden");
+    if (DOM.dictResultContainer) DOM.dictResultContainer.classList.remove("hidden");
+  } catch (err) {
+    if (DOM.dictLoadingState) DOM.dictLoadingState.classList.add("hidden");
+    if (DOM.dictErrorState) {
+      const errTitle = document.getElementById("dict-error-title");
+      const errDesc = document.getElementById("dict-error-desc");
+      if (errTitle) errTitle.textContent = `Chưa có dữ liệu API cho "${escapeHtmlSafe(word)}"`;
+      if (errDesc) errDesc.textContent = `Bạn có thể bấm nút bên dưới để tra cứu trực tiếp trên Cambridge Dictionary chính thức.`;
+      DOM.dictErrorState.classList.remove("hidden");
+    }
+  }
+}
+
+function renderDictionaryResult(entry, word) {
+  if (!DOM.dictResultContainer) return;
+  const wordTitle = entry.word || word;
+  const phoneticText = entry.phonetic || (entry.phonetics && entry.phonetics.find(p => p.text)?.text) || "";
+
+  // Extract valid audio pronunciations
+  const audioList = [];
+  if (Array.isArray(entry.phonetics)) {
+    entry.phonetics.forEach(p => {
+      if (p.audio && typeof p.audio === "string" && p.audio.trim().length > 0) {
+        const isUk = /uk/i.test(p.audio) || /uk/i.test(p.text || "");
+        const isUs = /us/i.test(p.audio) || /us/i.test(p.text || "");
+        const label = isUk ? "🔊 UK" : (isUs ? "🔊 US" : "🔊 Audio");
+        if (!audioList.some(a => a.audio === p.audio)) {
+          audioList.push({ label, audio: p.audio, text: p.text || "" });
+        }
+      }
+    });
+  }
+
+  const cambridgeWordUrl = `https://dictionary.cambridge.org/dictionary/english/${encodeURIComponent(wordTitle.toLowerCase())}`;
+
+  let html = `
+    <div class="dict-word-header">
+      <div class="dict-word-title-wrap">
+        <h3>${escapeHtmlSafe(wordTitle)}</h3>
+        <div class="dict-phonetics-row">
+          ${phoneticText ? `<span class="dict-phonetic-pill">${escapeHtmlSafe(phoneticText)}</span>` : ""}
+          ${audioList.map(a => `
+            <button type="button" class="dict-audio-btn" data-audio-url="${escapeHtmlSafe(a.audio)}" title="Nghe phát âm chuẩn">
+              ${escapeHtmlSafe(a.label)}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+      <a href="${escapeHtmlSafe(cambridgeWordUrl)}" target="_blank" rel="noopener noreferrer" class="dict-cambridge-badge-link" title="Xem mục từ gốc trên Cambridge Dictionary">
+        <span>Cambridge ↗</span>
+      </a>
+    </div>
+  `;
+
+  // Render meanings by part of speech
+  if (Array.isArray(entry.meanings)) {
+    entry.meanings.forEach(m => {
+      const pos = m.partOfSpeech || "general";
+      html += `
+        <div class="dict-meaning-block">
+          <div class="dict-pos-header">
+            <span class="dict-pos-badge">${escapeHtmlSafe(pos)}</span>
+          </div>
+          <div class="dict-defs-list">
+      `;
+
+      if (Array.isArray(m.definitions)) {
+        m.definitions.slice(0, 5).forEach((def, dIdx) => {
+          html += `
+            <div class="dict-def-item">
+              <div class="dict-def-text">
+                <span class="dict-def-num">${dIdx + 1}.</span>
+                ${escapeHtmlSafe(def.definition || "")}
+              </div>
+              ${def.example ? `<div class="dict-example">"${escapeHtmlSafe(def.example)}"</div>` : ""}
+              ${Array.isArray(def.synonyms) && def.synonyms.length > 0 ? `
+                <div class="dict-synonyms-wrap">
+                  <span class="dict-syn-label">Đồng nghĩa:</span>
+                  ${def.synonyms.slice(0, 5).map(s => `<button type="button" class="dict-syn-pill" data-word="${escapeHtmlSafe(s)}">${escapeHtmlSafe(s)}</button>`).join(" ")}
+                </div>
+              ` : ""}
+            </div>
+          `;
+        });
+      }
+
+      html += `
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  DOM.dictResultContainer.innerHTML = html;
+}
+
 // ================= SMART FEEDBACK & GITHUB LOG SYSTEM =================
 async function loadFeedbacksList() {
   try {
@@ -5110,6 +5417,80 @@ function setupEventListeners() {
     syncTimerState();
   });
 
+  // Dictionary Modal (Cambridge & SAT Vocabulary)
+  if (DOM.btnOpenDict) {
+    DOM.btnOpenDict.addEventListener("click", () => toggleDictionary());
+  }
+  if (DOM.zenBtnDict) {
+    DOM.zenBtnDict.addEventListener("click", () => toggleDictionary());
+  }
+  if (DOM.btnCloseDictionary) {
+    DOM.btnCloseDictionary.addEventListener("click", () => closeDictionary());
+  }
+  if (DOM.dictBtnSearch && DOM.dictSearchInput) {
+    DOM.dictBtnSearch.addEventListener("click", () => searchDictionary(DOM.dictSearchInput.value));
+    DOM.dictSearchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchDictionary(DOM.dictSearchInput.value);
+      }
+    });
+    DOM.dictSearchInput.addEventListener("input", () => {
+      if (DOM.dictBtnClear) {
+        DOM.dictBtnClear.classList.toggle("hidden", !DOM.dictSearchInput.value.trim());
+      }
+    });
+  }
+  if (DOM.dictBtnClear && DOM.dictSearchInput) {
+    DOM.dictBtnClear.addEventListener("click", () => {
+      DOM.dictSearchInput.value = "";
+      DOM.dictBtnClear.classList.add("hidden");
+      DOM.dictSearchInput.focus();
+      searchDictionary("");
+    });
+  }
+  if (DOM.dictChipsContainer) {
+    DOM.dictChipsContainer.addEventListener("click", (e) => {
+      const chip = e.target.closest(".dict-chip");
+      if (!chip) return;
+      const w = chip.getAttribute("data-word");
+      if (w) searchDictionary(w);
+    });
+  }
+  if (DOM.dictResultContainer) {
+    DOM.dictResultContainer.addEventListener("click", (e) => {
+      const audioBtn = e.target.closest(".dict-audio-btn");
+      if (audioBtn) {
+        const url = audioBtn.getAttribute("data-audio-url");
+        if (url) {
+          try {
+            const audio = new Audio(url);
+            audio.play().catch(err => console.warn("Audio play prevented:", err));
+          } catch (err) {}
+        }
+        return;
+      }
+      const synBtn = e.target.closest(".dict-syn-pill");
+      if (synBtn) {
+        const synWord = synBtn.getAttribute("data-word");
+        if (synWord) searchDictionary(synWord);
+      }
+    });
+  }
+
+  // Quick Double-Click to Look Up Word in Question Passage/Text
+  document.addEventListener("dblclick", (e) => {
+    if (e.target.closest("input, textarea, select, button, a, #modal-dictionary, #modal-calculator")) return;
+    const selection = window.getSelection();
+    if (!selection) return;
+    const selectedText = selection.toString().trim();
+    if (/^[a-zA-Z]{2,35}$/.test(selectedText)) {
+      if (e.target.closest("#pane-left, #pane-right, .reading-passage, .question-card, .q-text, .passage-text")) {
+        openDictionary(selectedText);
+      }
+    }
+  });
+
   if (DOM.btnOpenRef) DOM.btnOpenRef.addEventListener("click", openReferenceModal);
   if (DOM.btnCloseReference) DOM.btnCloseReference.addEventListener("click", closeReferenceModal);
   if (DOM.modalReference) {
@@ -5556,6 +5937,11 @@ function setupEventListeners() {
 
   // Keyboard Shortcuts
   window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && DOM.modalDictionary && !DOM.modalDictionary.classList.contains("hidden")) {
+      closeDictionary();
+      e.preventDefault();
+      return;
+    }
     if (e.key === "Escape" && DOM.modalReference && !DOM.modalReference.classList.contains("hidden")) {
       closeReferenceModal();
       e.preventDefault();

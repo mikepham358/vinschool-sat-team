@@ -456,6 +456,10 @@
         <span class="tool-icon">🧮</span>
         <span class="tool-text">Calculator</span>
       </button>
+      <button class="tool-btn" id="btn-open-dict" title="Từ điển Cambridge &amp; Tra cứu từ vựng SAT (Khung nổi như Desmos)">
+        <span class="tool-icon">📖</span>
+        <span class="tool-text">Từ điển</span>
+      </button>
       <button class="tool-btn" id="btn-open-ref" title="Mở bảng công thức Toán SAT">
         <span class="tool-icon">📐</span>
         <span class="tool-text">Reference</span>
@@ -493,6 +497,7 @@
       <span class="zen-timer-display" id="zen-timer-display">32:00</span>
     </div>
     <button type="button" class="zen-btn-calc" id="zen-btn-calc" title="Mở nhanh máy tính Desmos">🧮 Calc</button>
+    <button type="button" class="zen-btn-calc zen-btn-dict" id="zen-btn-dict" title="Mở nhanh từ điển Cambridge">📖 Dict</button>
     <button type="button" class="btn-exit-zen" id="btn-exit-zen" title="Thoát Chế độ Tập trung (Phím Z)">✕ Thoát (Z)</button>
   </div>
 
@@ -733,6 +738,83 @@
     </div>
     <div class="calc-modal-body">
       <iframe src="https://www.desmos.com/calculator" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CAMBRIDGE DICTIONARY (DRAGGABLE & RESIZABLE) ================= -->
+  <div class="draggable-calc-modal draggable-dict-modal hidden" id="modal-dictionary" role="dialog" aria-label="Từ điển Cambridge">
+    <div class="calc-modal-header dict-modal-header" id="dict-modal-header" title="Kéo thanh tiêu đề để di chuyển khung từ điển (Nhấp đúp để đặt lại góc trên bên phải)">
+      <div class="calc-header-title">
+        <span class="calc-drag-handle" title="Kéo để di chuyển">⠿</span>
+        <span class="dict-header-badge">CAMBRIDGE</span>
+        <span>📖 Cambridge Dictionary | Tra Cứu Từ Vựng SAT</span>
+      </div>
+      <div class="dict-header-actions">
+        <button type="button" class="btn-close-modal" id="btn-close-dictionary" title="Đóng từ điển (Esc)">✕</button>
+      </div>
+    </div>
+    <div class="dict-modal-body" id="dict-modal-body">
+      <!-- Search Bar -->
+      <div class="dict-search-bar">
+        <div class="dict-search-input-wrap">
+          <span class="dict-search-icon">🔍</span>
+          <input type="text" id="dict-search-input" placeholder="Nhập từ tiếng Anh cần tra (ví dụ: bolster, ambiguous)..." autocomplete="off" spellcheck="false">
+          <button type="button" class="dict-clear-btn hidden" id="dict-btn-clear" title="Xóa">✕</button>
+        </div>
+        <button type="button" class="dict-search-submit" id="dict-btn-search">Tra từ</button>
+        <a href="https://dictionary.cambridge.org/" target="_blank" rel="noopener noreferrer" class="dict-cambridge-link-btn" id="dict-btn-cambridge-direct" title="Mở trực tiếp trên Cambridge Dictionary chính thức">
+          <span>Cambridge ↗</span>
+        </a>
+      </div>
+
+      <!-- Quick SAT Vocab Chips -->
+      <div class="dict-chips-scroll" id="dict-chips-container">
+        <span class="dict-chips-label">🎯 Từ SAT hay gặp:</span>
+        <button type="button" class="dict-chip" data-word="bolster">bolster</button>
+        <button type="button" class="dict-chip" data-word="ambiguous">ambiguous</button>
+        <button type="button" class="dict-chip" data-word="mitigate">mitigate</button>
+        <button type="button" class="dict-chip" data-word="substantiate">substantiate</button>
+        <button type="button" class="dict-chip" data-word="pragmatic">pragmatic</button>
+        <button type="button" class="dict-chip" data-word="paradox">paradox</button>
+        <button type="button" class="dict-chip" data-word="lucid">lucid</button>
+        <button type="button" class="dict-chip" data-word="scrutinize">scrutinize</button>
+        <button type="button" class="dict-chip" data-word="ephemeral">ephemeral</button>
+        <button type="button" class="dict-chip" data-word="tenuous">tenuous</button>
+        <button type="button" class="dict-chip" data-word="candid">candid</button>
+        <button type="button" class="dict-chip" data-word="comprehensive">comprehensive</button>
+      </div>
+
+      <!-- Content Output Area -->
+      <div class="dict-content-scroll" id="dict-content-area">
+        <!-- Initial Welcome State -->
+        <div class="dict-welcome-state" id="dict-welcome-state">
+          <div class="dict-welcome-icon">📚</div>
+          <h4>Tra cứu từ vựng chuẩn Cambridge Dictionary</h4>
+          <p>Nhập từ vào ô tìm kiếm hoặc bấm vào các từ vựng SAT thường gặp ở trên để tra nghĩa, phát âm audio, từ loại và ví dụ ngữ cảnh.</p>
+          <div class="dict-welcome-tip">
+            💡 <strong>Mẹo:</strong> Bạn có thể kéo thả khung từ điển này đến bất kỳ vị trí nào trên màn hình, tương tự như máy tính Desmos!
+          </div>
+        </div>
+
+        <!-- Dynamic Results Container -->
+        <div class="dict-result-container hidden" id="dict-result-container"></div>
+
+        <!-- Loading State -->
+        <div class="dict-loading-state hidden" id="dict-loading-state">
+          <div class="spinner"></div>
+          <span>Đang tra cứu từ điển Cambridge...</span>
+        </div>
+
+        <!-- Error / Fallback State -->
+        <div class="dict-error-state hidden" id="dict-error-state">
+          <div class="dict-error-icon">🔍</div>
+          <h4 id="dict-error-title">Không tìm thấy từ này</h4>
+          <p id="dict-error-desc">Vui lòng kiểm tra lại chính tả hoặc mở trực tiếp trên từ điển Cambridge để tìm các từ phái sinh.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-cambridge-fallback" id="dict-cambridge-fallback-link">
+            Mở trên Cambridge Dictionary ↗
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
