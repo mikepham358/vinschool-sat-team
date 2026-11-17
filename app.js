@@ -727,6 +727,21 @@ function loadLocalState() {
     DOM.homeInputEmail.value = App.studentState.student_email;
   }
 
+  // On fresh page open / reload: Reset Home form session fields so student fills them before starting practice
+  if (DOM.homeAarSession) DOM.homeAarSession.value = "";
+  if (DOM.homeAarSatModule) DOM.homeAarSatModule.selectedIndex = 0;
+  if (DOM.homeAarSatModuleCustom) {
+    DOM.homeAarSatModuleCustom.value = "";
+    DOM.homeAarSatModuleCustom.classList.add("hidden");
+  }
+  if (DOM.homeAarIste) DOM.homeAarIste.selectedIndex = 0;
+  if (DOM.homeAarIsteHint) DOM.homeAarIsteHint.textContent = "";
+  if (DOM.homeAarGoal) DOM.homeAarGoal.value = "";
+  if (DOM.homeAarChallenge) DOM.homeAarChallenge.value = "";
+  if (DOM.targetChipsContainer) {
+    DOM.targetChipsContainer.querySelectorAll(".target-chip").forEach(c => c.classList.remove("active"));
+  }
+
   loadGlobalAARState();
   loadGlobalSessionTracker();
 }
@@ -1096,14 +1111,59 @@ function startPracticeFromHome(targetModule) {
     return;
   }
 
+  const chosenTarget = activeChip.getAttribute("data-val") || "1400+";
   App.studentState.student_name = name;
   App.studentState.student_email = email;
-  App.studentState.student_target = activeChip.getAttribute("data-val") || "1400+";
+  App.studentState.student_target = chosenTarget;
 
   saveLocalState();
 
   if (DOM.headerStudentName) DOM.headerStudentName.textContent = name;
   if (DOM.inputStudentName) DOM.inputStudentName.value = name;
+
+  // Format date and session label
+  const dateVal = (DOM.homeAarSession ? DOM.homeAarSession.value.trim() : "") || getTodayIsoLocal();
+  const dateDisplay = isValidIsoDate(dateVal) ? formatDateViFromIso(dateVal) : "";
+  const sessionLabel = dateDisplay ? `Buổi ${dateDisplay}` : `Buổi ${dateVal}`;
+
+  // Automatically commit and save all student info and pre-session anticipation fields into AAR Draft
+  App.aarDraft = Object.assign(createEmptyAarDraft(), App.aarDraft || {}, {
+    student_name: name,
+    student_email: email,
+    student_target: chosenTarget,
+    session_date: dateVal,
+    session_date_user_set: true,
+    session_date_cleared: false,
+    session_label: sessionLabel,
+    session_label_user_set: true,
+    sat_module: draftMod,
+    sat_module_custom: draftModCustom,
+    sat_module_user_set: true,
+    iste_standard: draftIste,
+    iste_user_set: true,
+    goal: draftGoal,
+    challenge: draftChallenge,
+    saved_from_home_at: new Date().toISOString()
+  });
+  saveGlobalAARDraft();
+
+  // Pre-fill and populate all corresponding elements in 📝 Báo Cáo Phản Tư Sau Buổi Học — Chu Trình AAR
+  if (DOM.aarInputStudentName) DOM.aarInputStudentName.value = name;
+  if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.value = email;
+  if (DOM.aarPreviewCcEmail) DOM.aarPreviewCcEmail.textContent = email;
+  if (DOM.aarInputDate) DOM.aarInputDate.value = dateVal;
+  if (DOM.aarInputSessionLabel) DOM.aarInputSessionLabel.value = sessionLabel;
+  if (DOM.aarSelectSatModule) DOM.aarSelectSatModule.value = draftMod;
+  if (DOM.aarInputSatModuleCustom) {
+    DOM.aarInputSatModuleCustom.value = draftModCustom;
+    toggleCustomModuleField(DOM.aarSelectSatModule, DOM.aarInputSatModuleCustom, false);
+  }
+  if (DOM.aarSelectIste) DOM.aarSelectIste.value = draftIste;
+  updateIsteHintFor(DOM.aarSelectIste, DOM.aarIsteHint);
+  if (DOM.aarInputGoal) DOM.aarInputGoal.value = draftGoal;
+  if (DOM.aarInputChallenge) DOM.aarInputChallenge.value = draftChallenge;
+  syncAarTargetPills();
+  updateHomeAarSyncBadge();
 
   if (targetModule && targetModule !== App.activeModuleCode) {
     App.activeModuleCode = targetModule;
@@ -1112,10 +1172,6 @@ function startPracticeFromHome(targetModule) {
     if (DOM.selectModule) DOM.selectModule.value = targetModule;
     setupModuleQuestions();
     startModuleTimer();
-  }
-
-  if (typeof captureHomeAarDraftFromInputs === "function") {
-    captureHomeAarDraftFromInputs();
   }
 
   showView("practice");
@@ -5777,19 +5833,22 @@ function loadGlobalAARState() {
     App.lastAarReportAt = null;
   }
 
-  // Reset Anticipation draft on every page open/reload:
-  // Only student_name and student_email are preserved; all other fields are reset
-  App.aarDraft = createEmptyAarDraft();
-  App.aarDraft.session_date = "";
-  App.aarDraft.session_label = "";
-  App.aarDraft.sat_module = "";
-  App.aarDraft.sat_module_custom = "";
-  App.aarDraft.iste_standard = "";
-  App.aarDraft.goal = "";
-  App.aarDraft.challenge = "";
+  // Restore active Anticipation draft from localStorage if present
   try {
-    localStorage.removeItem(GLOBAL_AAR_DRAFT_KEY);
-  } catch(e) {}
+    const rawDraft = localStorage.getItem(GLOBAL_AAR_DRAFT_KEY);
+    if (rawDraft) {
+      const parsedDraft = JSON.parse(rawDraft);
+      if (parsedDraft && typeof parsedDraft === "object") {
+        App.aarDraft = Object.assign(createEmptyAarDraft(), parsedDraft);
+      }
+    }
+  } catch (e) {
+    console.warn("Could not load global AAR draft:", e);
+  }
+
+  if (!App.aarDraft) {
+    App.aarDraft = createEmptyAarDraft();
+  }
 
   updateAARHistoryBadge();
 }
@@ -5843,16 +5902,14 @@ function getEffectiveModuleForIste(satModule, customModule) {
 
 function resolveAnticipationState() {
   const d = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
-  const sessionDate = (d.session_date_user_set && isValidIsoDate(d.session_date)) ? d.session_date.trim() : "";
+  const sessionDate = (isValidIsoDate(d.session_date)) ? d.session_date.trim() : "";
   const dateDisplay = sessionDate ? formatDateViFromIso(sessionDate) : "";
-  const sessionLabel = (d.session_label_user_set && d.session_label && d.session_label.trim())
+  const sessionLabel = (d.session_label && d.session_label.trim())
     ? d.session_label.trim()
     : (sessionDate ? `Buổi ${dateDisplay}` : "");
-  const satModule = (d.sat_module_user_set && d.sat_module) ? d.sat_module : "";
+  const satModule = d.sat_module || "";
   const effectiveModForIste = getEffectiveModuleForIste(satModule, d.sat_module_custom);
-  const isteStandard = (d.iste_user_set && d.iste_standard)
-    ? d.iste_standard
-    : "";
+  const isteStandard = d.iste_standard || "";
   return {
     session_date: sessionDate,
     session_label: sessionLabel,
@@ -6415,8 +6472,8 @@ function openAARModal() {
   loadGlobalAARState();
   loadGlobalSessionTracker();
 
-  const name = App.studentState.student_name || (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") || "";
-  const email = App.studentState.student_email || (DOM.homeInputEmail ? DOM.homeInputEmail.value.trim() : "") || "";
+  const name = App.studentState.student_name || (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") || (App.aarDraft && App.aarDraft.student_name) || "";
+  const email = App.studentState.student_email || (DOM.homeInputEmail ? DOM.homeInputEmail.value.trim() : "") || (App.aarDraft && App.aarDraft.student_email) || "";
   if (DOM.aarInputStudentName) DOM.aarInputStudentName.value = name;
   if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.value = email;
   if (DOM.aarPreviewCcEmail) DOM.aarPreviewCcEmail.textContent = email || "Chưa nhập email học sinh";
@@ -6435,14 +6492,37 @@ function openAARModal() {
   }
   App.aarScope = initialScope;
 
-  if (App.aarDraft && !isValidIsoDate(App.aarDraft.session_date)) {
-    App.aarDraft.session_date = getTodayIsoLocal();
-    delete App.aarDraft.session_date_cleared;
-  }
-
   // Restore saved pre-session Anticipation values (Session date/label, Module, ISTE, Goal, Challenge) & SAT Target
   syncAarAnticipationUI();
 
+  // Explicitly ensure all AAR modal fields are filled from App.aarDraft so student does not have to re-enter
+  if (App.aarDraft) {
+    if (App.aarDraft.session_date && DOM.aarInputDate && isValidIsoDate(App.aarDraft.session_date)) {
+      DOM.aarInputDate.value = App.aarDraft.session_date;
+    }
+    if (App.aarDraft.session_label && DOM.aarInputSessionLabel) {
+      DOM.aarInputSessionLabel.value = App.aarDraft.session_label;
+    }
+    if (App.aarDraft.sat_module && DOM.aarSelectSatModule) {
+      DOM.aarSelectSatModule.value = App.aarDraft.sat_module;
+    }
+    if (DOM.aarInputSatModuleCustom) {
+      DOM.aarInputSatModuleCustom.value = App.aarDraft.sat_module_custom || "";
+      toggleCustomModuleField(DOM.aarSelectSatModule, DOM.aarInputSatModuleCustom, false);
+    }
+    if (App.aarDraft.iste_standard && DOM.aarSelectIste) {
+      DOM.aarSelectIste.value = App.aarDraft.iste_standard;
+      updateIsteHintFor(DOM.aarSelectIste, DOM.aarIsteHint);
+    }
+    if (App.aarDraft.goal && DOM.aarInputGoal) {
+      DOM.aarInputGoal.value = App.aarDraft.goal;
+    }
+    if (App.aarDraft.challenge && DOM.aarInputChallenge) {
+      DOM.aarInputChallenge.value = App.aarDraft.challenge;
+    }
+  }
+
+  syncAarTargetPills();
   refreshAARPerformanceUI(true);
 
   switchAARTab("form");
