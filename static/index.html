@@ -784,90 +784,96 @@
         <button type="button" class="dict-chip" data-word="comprehensive">comprehensive</button>
       </div>
 
-      <!-- Content Output Area -->
-      <div class="dict-content-scroll" id="dict-content-area">
-        <!-- Initial Welcome State -->
-        <div class="dict-welcome-state" id="dict-welcome-state">
-          <div class="dict-welcome-icon">📚</div>
-          <h4>Tra cứu từ vựng chuẩn Cambridge Dictionary</h4>
-          <p>Nhập từ vào ô tìm kiếm hoặc bấm vào các từ vựng SAT thường gặp ở trên để tra nghĩa, phát âm audio, từ loại và ví dụ ngữ cảnh.</p>
-          <div class="dict-welcome-tip">
-            💡 <strong>Mẹo:</strong> Bạn có thể kéo thả khung từ điển này đến bất kỳ vị trí nào trên màn hình, tương tự như máy tính Desmos!
-          </div>
-          <div class="dict-welcome-notes-shortcut">
-            <button type="button" class="btn-welcome-open-notes" id="btn-welcome-open-notes">
-              <span>📝 Mở Sổ Từ Mới Của Em (<span id="welcome-saved-count">0</span> từ đã ghi)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Dynamic Results Container -->
-        <div class="dict-result-container hidden" id="dict-result-container"></div>
-
-        <!-- Loading State -->
-        <div class="dict-loading-state hidden" id="dict-loading-state">
-          <div class="spinner"></div>
-          <span>Đang tra cứu từ điển Cambridge...</span>
-        </div>
-
-        <!-- Error / Fallback State -->
-        <div class="dict-error-state hidden" id="dict-error-state">
-          <div class="dict-error-icon">🔍</div>
-          <h4 id="dict-error-title">Không tìm thấy từ này</h4>
-          <p id="dict-error-desc">Vui lòng kiểm tra lại chính tả hoặc mở trực tiếp trên từ điển Cambridge để tìm các từ phái sinh.</p>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-cambridge-fallback" id="dict-cambridge-fallback-link">
-            Mở trên Cambridge Dictionary ↗
-          </a>
-        </div>
-
-        <!-- Note Taking Section (Appears after looking up a word or in manual mode) -->
-        <div class="dict-note-box hidden" id="dict-note-box">
-          <div class="dict-note-header">
-            <div class="dict-note-title">
-              <span class="dict-note-icon">📝</span>
-              <strong>Ghi Chép Từ Mới Vào Sổ Tay</strong>
+      <!-- Split Layout: Left Column (Dictionary) | Right Column (Notebook) -->
+      <div class="dict-split-layout">
+        <!-- LEFT COLUMN: Dictionary Search & Content Output Area -->
+        <div class="dict-content-scroll dict-main-pane" id="dict-content-area">
+          <!-- Initial Welcome State -->
+          <div class="dict-welcome-state" id="dict-welcome-state">
+            <div class="dict-welcome-icon">📚</div>
+            <h4>Tra cứu từ vựng chuẩn Cambridge Dictionary</h4>
+            <p>Nhập từ vào ô tìm kiếm hoặc bấm vào các từ vựng SAT thường gặp ở trên để tra nghĩa, phát âm audio, từ loại và ví dụ ngữ cảnh.</p>
+            <div class="dict-welcome-tip">
+              💡 <strong>Mẹo:</strong> Định nghĩa hiện bên trái, em có thể ghi chép nhanh từ mới vào sổ tay ở khung bên phải ngay lập tức!
             </div>
-            <button type="button" class="btn-toggle-saved-notes" id="btn-toggle-saved-notes" title="Mở danh sách từ đã ghi chép">
-              <span>📚 Sổ từ đã lưu (<span id="dict-saved-count">0</span>)</span>
-            </button>
-          </div>
-          <div class="dict-note-form" id="dict-note-form">
-            <div class="dict-note-inputs-row">
-              <div class="dict-note-field dict-field-word">
-                <label for="dict-input-note-word">Từ vựng (Word) <span class="req">*</span></label>
-                <input type="text" id="dict-input-note-word" class="dict-note-input" placeholder="Ví dụ: bolster" autocomplete="off">
-              </div>
-              <div class="dict-note-field dict-field-pos">
-                <label for="dict-input-note-pos">Từ loại &amp; Phát âm</label>
-                <input type="text" id="dict-input-note-pos" class="dict-note-input" placeholder="Ví dụ: verb • /ˈboʊl.stɚ/" autocomplete="off">
-              </div>
-            </div>
-            <div class="dict-note-field">
-              <label for="dict-input-note-meaning">Ghi chú nghĩa &amp; Ngữ cảnh SAT <span class="req">*</span></label>
-              <textarea id="dict-input-note-meaning" class="dict-note-textarea" rows="2" placeholder="Nhập nghĩa tiếng Việt, bẫy từ vựng SAT, collocations hoặc câu ví dụ của em..."></textarea>
-            </div>
-            <div class="dict-note-actions">
-              <button type="button" class="btn-save-vocab-note" id="btn-save-vocab-note">
-                <span>💾 Lưu Vào Sổ Từ Mới</span>
+            <div class="dict-welcome-notes-shortcut">
+              <button type="button" class="btn-welcome-open-notes" id="btn-welcome-open-notes">
+                <span>📝 Mở Sổ Từ Mới Của Em (<span id="welcome-saved-count">0</span> từ đã ghi)</span>
               </button>
-              <span class="dict-note-toast hidden" id="dict-note-toast">✓ Đã lưu từ vựng vào sổ tay cá nhân!</span>
             </div>
+          </div>
+
+          <!-- Dynamic Results Container -->
+          <div class="dict-result-container hidden" id="dict-result-container"></div>
+
+          <!-- Loading State -->
+          <div class="dict-loading-state hidden" id="dict-loading-state">
+            <div class="spinner"></div>
+            <span>Đang tra cứu từ điển Cambridge...</span>
+          </div>
+
+          <!-- Error / Fallback State -->
+          <div class="dict-error-state hidden" id="dict-error-state">
+            <div class="dict-error-icon">🔍</div>
+            <h4 id="dict-error-title">Không tìm thấy từ này</h4>
+            <p id="dict-error-desc">Vui lòng kiểm tra lại chính tả hoặc mở trực tiếp trên từ điển Cambridge để tìm các từ phái sinh.</p>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-cambridge-fallback" id="dict-cambridge-fallback-link">
+              Mở trên Cambridge Dictionary ↗
+            </a>
           </div>
         </div>
 
-        <!-- Saved Vocabulary Notes Drawer -->
-        <div class="dict-saved-notes-drawer hidden" id="dict-saved-notes-drawer">
-          <div class="dict-saved-drawer-header">
-            <div class="dict-drawer-title">
-              <span>📖 Sổ Từ Mới Của Em (<span id="dict-drawer-count">0</span> từ)</span>
+        <!-- RIGHT COLUMN: Vocabulary Note Taking & Saved Drawer -->
+        <div class="dict-side-notes-pane" id="dict-side-notes-pane">
+          <!-- Note Taking Section -->
+          <div class="dict-note-box" id="dict-note-box">
+            <div class="dict-note-header">
+              <div class="dict-note-title">
+                <span class="dict-note-icon">📝</span>
+                <strong>Ghi Chép Từ Mới Vào Sổ Tay</strong>
+              </div>
+              <button type="button" class="btn-toggle-saved-notes" id="btn-toggle-saved-notes" title="Mở danh sách từ đã ghi chép">
+                <span>📚 Sổ từ đã lưu (<span id="dict-saved-count">0</span>)</span>
+              </button>
             </div>
-            <div class="dict-drawer-actions">
-              <button type="button" class="btn-export-vocab-notes" id="btn-export-vocab-notes" title="Tải file danh sách từ mới (Excel/CSV)">📥 Xuất Excel</button>
-              <button type="button" class="btn-close-saved-drawer" id="btn-close-saved-drawer" title="Đóng danh sách">✕ Đóng</button>
+            <div class="dict-note-form" id="dict-note-form">
+              <div class="dict-note-inputs-row">
+                <div class="dict-note-field dict-field-word">
+                  <label for="dict-input-note-word">Từ vựng (Word) <span class="req">*</span></label>
+                  <input type="text" id="dict-input-note-word" class="dict-note-input" placeholder="Ví dụ: bolster" autocomplete="off">
+                </div>
+                <div class="dict-note-field dict-field-pos">
+                  <label for="dict-input-note-pos">Từ loại &amp; Phát âm</label>
+                  <input type="text" id="dict-input-note-pos" class="dict-note-input" placeholder="Ví dụ: verb • /ˈboʊl.stɚ/" autocomplete="off">
+                </div>
+              </div>
+              <div class="dict-note-field">
+                <label for="dict-input-note-meaning">Ghi chú nghĩa &amp; Ngữ cảnh SAT <span class="req">*</span></label>
+                <textarea id="dict-input-note-meaning" class="dict-note-textarea" rows="3" placeholder="Nhập nghĩa tiếng Việt, bẫy từ vựng SAT, collocations hoặc câu ví dụ của em..."></textarea>
+              </div>
+              <div class="dict-note-actions">
+                <button type="button" class="btn-save-vocab-note" id="btn-save-vocab-note">
+                  <span>💾 Lưu Vào Sổ Từ Mới</span>
+                </button>
+                <span class="dict-note-toast hidden" id="dict-note-toast">✓ Đã lưu vào sổ tay cá nhân!</span>
+              </div>
             </div>
           </div>
-          <div class="dict-saved-notes-list" id="dict-saved-notes-list">
-            <!-- Dynamically populated saved words -->
+
+          <!-- Saved Vocabulary Notes Drawer -->
+          <div class="dict-saved-notes-drawer hidden" id="dict-saved-notes-drawer">
+            <div class="dict-saved-drawer-header">
+              <div class="dict-drawer-title">
+                <span>📖 Sổ Từ Mới Của Em (<span id="dict-drawer-count">0</span> từ)</span>
+              </div>
+              <div class="dict-drawer-actions">
+                <button type="button" class="btn-export-vocab-notes" id="btn-export-vocab-notes" title="Tải file danh sách từ mới (Excel/CSV)">📥 Xuất Excel</button>
+                <button type="button" class="btn-close-saved-drawer" id="btn-close-saved-drawer" title="Đóng danh sách">✕ Đóng</button>
+              </div>
+            </div>
+            <div class="dict-saved-notes-list" id="dict-saved-notes-list">
+              <!-- Dynamically populated saved words -->
+            </div>
           </div>
         </div>
       </div>

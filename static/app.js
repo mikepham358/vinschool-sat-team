@@ -4842,7 +4842,8 @@ async function searchDictionary(rawWord) {
     if (DOM.dictResultContainer) DOM.dictResultContainer.classList.add("hidden");
     if (DOM.dictLoadingState) DOM.dictLoadingState.classList.add("hidden");
     if (DOM.dictErrorState) DOM.dictErrorState.classList.add("hidden");
-    if (DOM.dictNoteBox) DOM.dictNoteBox.classList.add("hidden");
+    // Right panel: keep dictNoteBox visible so students can take notes anytime
+    if (DOM.dictNoteBox) DOM.dictNoteBox.classList.remove("hidden");
     return;
   }
 
