@@ -1590,15 +1590,27 @@
       </div>
 
       <div class="success-actions">
-        <button class="btn-primary-ob" id="btn-relaunch-mail">
-          ✉️ Mở Lại Ứng Dụng Email
-        </button>
-        <button class="btn-sub-ob" id="btn-copy-mail-body">
-          📋 Copy Nội Dung Báo Cáo
-        </button>
-        <button class="btn-sub-ob" id="btn-close-success">
-          Đóng &amp; Tiếp Tục Luyện Tập
-        </button>
+        <div class="email-client-options">
+          <button type="button" class="btn-primary-ob" id="btn-relaunch-mail" title="Mở ứng dụng Email mặc định của máy (Apple Mail, Outlook, Windows Mail)">
+            ✉️ Mở Lại Email Mặc Định
+          </button>
+          <button type="button" class="btn-webmail-gmail" id="btn-open-gmail-web" title="Mở trực tiếp trên trình duyệt Gmail Web (soạn sẵn người nhận và nội dung)">
+            <span class="webmail-icon">🔴</span>
+            <span>Mở Bằng Gmail Web</span>
+          </button>
+          <button type="button" class="btn-webmail-outlook" id="btn-open-outlook-web" title="Mở trực tiếp trên Vinschool / Microsoft 365 Outlook Web">
+            <span class="webmail-icon">🔵</span>
+            <span>Mở Bằng Vinschool (Outlook 365)</span>
+          </button>
+        </div>
+        <div class="success-sub-actions">
+          <button type="button" class="btn-sub-ob" id="btn-copy-mail-body">
+            📋 Copy Toàn Bộ Báo Cáo
+          </button>
+          <button type="button" class="btn-sub-ob" id="btn-close-success">
+            ✕ Đóng &amp; Tiếp Tục Luyện Tập
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -588,6 +588,8 @@ const DOM = {
   successStatusText: document.getElementById("success-status-text"),
   successRecipientText: document.getElementById("success-recipient-text"),
   btnRelaunchMail: document.getElementById("btn-relaunch-mail"),
+  btnOpenGmailWeb: document.getElementById("btn-open-gmail-web"),
+  btnOpenOutlookWeb: document.getElementById("btn-open-outlook-web"),
   btnCopyMailBody: document.getElementById("btn-copy-mail-body"),
   btnCloseSuccess: document.getElementById("btn-close-success"),
 
@@ -6188,7 +6190,27 @@ function setupEventListeners() {
   DOM.btnCloseSuccess.addEventListener("click", () => DOM.modalSubmitSuccess.classList.add("hidden"));
   if (DOM.btnRelaunchMail) {
     DOM.btnRelaunchMail.addEventListener("click", () => {
-      if (App.lastMailtoUrl) window.location.href = App.lastMailtoUrl;
+      if (App.lastMailtoUrl) launchMailClient(App.lastMailtoUrl);
+    });
+  }
+  if (DOM.btnOpenGmailWeb) {
+    DOM.btnOpenGmailWeb.addEventListener("click", () => {
+      const to = AAR_TEACHER_RECIPIENTS;
+      const cc = App.lastStudentEmail || (DOM.aarInputStudentEmail ? DOM.aarInputStudentEmail.value.trim() : "");
+      const subject = App.lastAarSubject || "[SAT AAR Report]";
+      const body = App.lastReportText || "";
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&cc=${encodeURIComponent(cc)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    });
+  }
+  if (DOM.btnOpenOutlookWeb) {
+    DOM.btnOpenOutlookWeb.addEventListener("click", () => {
+      const to = AAR_TEACHER_RECIPIENTS;
+      const cc = App.lastStudentEmail || (DOM.aarInputStudentEmail ? DOM.aarInputStudentEmail.value.trim() : "");
+      const subject = App.lastAarSubject || "[SAT AAR Report]";
+      const body = App.lastReportText || "";
+      const outlookUrl = `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(to)}&cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(outlookUrl, "_blank", "noopener,noreferrer");
     });
   }
   if (DOM.btnCopyMailBody) {
@@ -7757,6 +7779,112 @@ ${entry.student_name}`;
   return { subject, bodyText };
 }
 
+function launchMailClient(mailtoUrl) {
+  if (!mailtoUrl) return;
+
+  // 1. Direct invisible link click (highest priority for modern browser user-activation)
+  try {
+    const a = document.createElement("a");
+    a.href = mailtoUrl;
+    a.target = "_self";
+    a.rel = "noopener noreferrer";
+    a.style.position = "fixed";
+    a.style.top = "-9999px";
+    a.style.left = "-9999px";
+    a.style.opacity = "0";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      try { a.remove(); } catch (e) {}
+    }, 1000);
+  } catch (err) {
+    console.warn("Anchor dispatch error:", err);
+  }
+
+  // 2. Hidden iframe dispatch (essential for desktop Chrome / Firefox / Edge to trigger protocol handler without unloading page)
+  try {
+    let iframe = document.getElementById("aar-mailto-dispatch-frame");
+    if (!iframe) {
+      iframe = document.createElement("iframe");
+      iframe.id = "aar-mailto-dispatch-frame";
+      iframe.style.position = "fixed";
+      iframe.style.top = "-9999px";
+      iframe.style.left = "-9999px";
+      iframe.style.width = "1px";
+      iframe.style.height = "1px";
+      iframe.style.opacity = "0";
+      iframe.style.border = "none";
+      document.body.appendChild(iframe);
+    }
+    iframe.src = mailtoUrl;
+  } catch (err) {
+    console.warn("Iframe dispatch error:", err);
+  }
+
+  // 3. Fallback direct window location
+  try {
+    window.location.href = mailtoUrl;
+  } catch (err) {}
+}
+
+function buildSafeMailtoUrl(to, cc, subject, fullBodyText, entry) {
+  const encTo = to;
+  const encCc = encodeURIComponent(cc || "");
+  const encSubject = encodeURIComponent(subject || "");
+
+  // If full body fits comfortably under 1850 chars total, use it directly
+  const fullMailto = `mailto:${encTo}?cc=${encCc}&subject=${encSubject}&body=${encodeURIComponent(fullBodyText)}`;
+  if (fullMailto.length <= 1850) {
+    return fullMailto;
+  }
+
+  const truncateField = (str, maxChars = 100) => {
+    if (!str) return "(Chưa nhập)";
+    const clean = String(str).trim();
+    return clean.length > maxChars ? clean.slice(0, maxChars) + "..." : clean;
+  };
+
+  const weightedStr = entry.weighted_pct_display || formatWeightedPct(entry.weighted_pct);
+  const conciseBody = `Kính gửi thầy Mike Phạm,
+
+Báo cáo Phản tư AAR Buổi học SAT (OECD 2030):
+• Học sinh: ${entry.student_name} (${entry.student_email})
+• ${entry.session_label} | Ngày: ${entry.date_display} | Đề: ${entry.test_title} | ${entry.sat_module}
+• HIỆU SUẤT TRUNG BÌNH: ${weightedStr} (Đúng ${entry.correct_count}/${entry.practiced_count} câu)
+• Chi tiết: L1 (100%): ${entry.l1_correct} | L2 (66,7%): ${entry.l2_correct} | L3 (33,3%): ${entry.l3_correct} | Chưa đúng: ${entry.missed_count} | Sổ thử sai: ${entry.error_log_count} thẻ
+
+[1. DỰ ĐOÁN] Mục tiêu: ${truncateField(entry.goal, 90)} | Thách thức: ${truncateField(entry.challenge, 90)}
+[2. HÀNH ĐỘNG] Minh chứng: ${truncateField(entry.evidence, 100)}
+[3. PHẢN TƯ] Gap/Bẫy: ${truncateField(entry.gap, 100)}
+• Bài học: ${truncateField(entry.feedforward, 100)}
+• Cảm xúc: ${entry.emotion || "Tập trung"} | Trạng thái: ${entry.status || "Hoàn thành"}
+
+(Toàn bộ nội dung chi tiết đã được tự động lưu vào bộ nhớ tạm của em).
+
+Trân trọng,
+${entry.student_name}`;
+
+  const conciseMailto = `mailto:${encTo}?cc=${encCc}&subject=${encSubject}&body=${encodeURIComponent(conciseBody)}`;
+  if (conciseMailto.length <= 1850) {
+    return conciseMailto;
+  }
+
+  // Ultra-compact fallback if strings are exceptionally long:
+  const ultraCompactBody = `Kính gửi thầy Mike Phạm,
+
+Báo cáo Phản tư AAR SAT:
+• Học sinh: ${entry.student_name} (${entry.student_email})
+• ${entry.session_label} (${entry.date_display}) | ${entry.sat_module}
+• HIỆU SUẤT: ${weightedStr} (Đúng ${entry.correct_count}/${entry.practiced_count} câu: L1 ${entry.l1_correct}, L2 ${entry.l2_correct}, L3 ${entry.l3_correct}, Sai ${entry.missed_count})
+• Gap: ${truncateField(entry.gap, 60)}
+• Feedforward: ${truncateField(entry.feedforward, 60)}
+
+(Chi tiết đầy đủ đã được copy vào bộ nhớ tạm).
+Trân trọng, ${entry.student_name}`;
+
+  return `mailto:${encTo}?cc=${encCc}&subject=${encSubject}&body=${encodeURIComponent(ultraCompactBody)}`;
+}
+
 function triggerBlobDownload(blobUrl, filename) {
   if (!blobUrl) return;
   const a = document.createElement("a");
@@ -7767,7 +7895,7 @@ function triggerBlobDownload(blobUrl, filename) {
   a.remove();
 }
 
-async function submitAARReport() {
+function submitAARReport() {
   const entry = collectAARFormEntry(true);
   if (!entry) return;
 
@@ -7784,9 +7912,25 @@ async function submitAARReport() {
     saveGlobalAARState();
     saveGlobalSessionTracker();
 
-    // 2. Optional local server dispatch (if running server.py)
+    // 2. Build email payload & safe URL
+    const { subject, bodyText } = buildAAREmailPayload(entry);
+    const safeMailtoUrl = buildSafeMailtoUrl(AAR_TEACHER_RECIPIENTS, entry.student_email, subject, bodyText, entry);
+    App.lastMailtoUrl = safeMailtoUrl;
+    App.lastReportText = bodyText;
+    App.lastAarSubject = subject;
+    App.lastStudentEmail = entry.student_email;
+
+    // 3. Automatically copy full report to clipboard immediately (synchronous user gesture!)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(bodyText).catch(() => {});
+    }
+
+    // 4. SYNCHRONOUSLY launch mail client right now (preserving user activation!)
+    launchMailClient(safeMailtoUrl);
+
+    // 5. Fire-and-forget server sync in background without blocking or awaiting
     try {
-      await fetch("/api/submit-aar", {
+      fetch("/api/submit-aar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -7795,22 +7939,12 @@ async function submitAARReport() {
           entry,
           logs: App.aarLogs,
           email_only: true
-        })
-      });
+        }),
+        keepalive: true
+      }).catch(() => {});
     } catch (err) {}
 
-    // 3. Build Mailto link (To both teacher emails, CC student) - PURE EMAIL ONLY (No automatic Excel download)
-    const { subject, bodyText } = buildAAREmailPayload(entry);
-    const mailtoUrl = `mailto:${AAR_TEACHER_RECIPIENTS}?cc=${encodeURIComponent(entry.student_email)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-    App.lastMailtoUrl = mailtoUrl;
-    App.lastReportText = bodyText;
-
-    // 4. Launch Mail client directly without file download
-    setTimeout(() => {
-      window.location.href = mailtoUrl;
-    }, 350);
-
-    // 5. Reset session inputs for the next AAR cycle & switch to Success Modal
+    // 6. Reset session draft inputs
     App.aarDraft = createEmptyAarDraft();
     saveGlobalAARDraft();
     if (DOM.aarInputGoal) DOM.aarInputGoal.value = "";
@@ -7823,13 +7957,14 @@ async function submitAARReport() {
     if (DOM.aarSelectStatus) DOM.aarSelectStatus.value = "";
     syncAarAnticipationUI();
 
+    // 7. Show Enhanced Success Modal with 1-click Webmail fallbacks
     closeAARModal();
-    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Mở Email Báo Cáo AAR!";
+    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Kích Hoạt Ứng Dụng Email!";
     if (DOM.successStatusText) {
-      DOM.successStatusText.textContent = `Hiệu suất buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.accuracy_pct}%) và nội dung chu trình AAR đã được chuẩn bị sẵn trong ứng dụng Email.`;
+      DOM.successStatusText.textContent = `Báo cáo buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.weighted_pct_display || entry.accuracy_pct + '%'}) đã được chuẩn bị sẵn. Nếu ứng dụng Email chưa tự mở trên thiết bị của em, hãy chọn một trong các cách mở nhanh bên dưới:`;
     }
     if (DOM.successRecipientText) {
-      DOM.successRecipientText.innerHTML = `Bấm <strong>Gửi (Send)</strong> trong ứng dụng Email tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>) để hoàn tất!`;
+      DOM.successRecipientText.innerHTML = `Gửi tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>)`;
     }
     if (DOM.modalSubmitSuccess) DOM.modalSubmitSuccess.classList.remove("hidden");
   } finally {
