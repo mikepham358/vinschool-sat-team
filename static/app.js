@@ -3414,8 +3414,6 @@ function saveMandatoryReflection(advanceToNext = true) {
     if (hintSec) {
       hintSec.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
-
-    alert("💡 Đã lưu vào Sổ Thử Sai! Tất cả các tầng gợi ý & chiến thuật của câu này đã được mở khóa hoàn toàn để em nghiên cứu kỹ lưỡng.");
   }
 }
 
