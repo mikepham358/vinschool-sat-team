@@ -3391,8 +3391,7 @@ function saveMandatoryReflection(advanceToNext = true) {
   DOM.modalMandatoryReflection.classList.add("hidden");
 
   if (advanceToNext) {
-    // Show a brief success alert & auto advance
-    alert("✅ Ghi chép sổ thử sai thành công! Em đã mở khóa và có thể tiếp tục làm câu tiếp theo.");
+    // Auto advance to next question smoothly without blocking alert
     if (App.currentIndex < App.questions.length - 1) {
       App.currentIndex++;
       renderCurrentQuestion();
