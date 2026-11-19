@@ -9,6 +9,7 @@ const GLOBAL_PROFILE_KEY = "bluebook_global_student_profile_v1";
 const GLOBAL_AAR_STORAGE_KEY = "bluebook_global_aar_tracker_v1";
 const GLOBAL_AAR_DRAFT_KEY = "bluebook_global_aar_draft_v1";
 const GLOBAL_SESSION_TRACKER_KEY = "bluebook_global_session_tracker_v1";
+const GLOBAL_BADGES_STORAGE_KEY = "bluebook_global_badges_v1";
 const LEGACY_STORAGE_KEY = "bluebook_oct2026_student_state_v1";
 const AAR_TEACHER_RECIPIENTS = "v.sonpbh1@vinschool.edu.vn,mikepham@baoan.ai.vn";
 
@@ -287,6 +288,21 @@ const App = {
     updated_at: null
   },
 
+  // Badges & Micro-Credentials System
+  badgesDefinitions: (window.BADGES_DEFINITIONS && window.BADGES_DEFINITIONS.length) ? window.BADGES_DEFINITIONS : [],
+  badgesState: {
+    unlocked: {},
+    counters: {
+      desmos_count: 0,
+      dict_count: 0,
+      scratchpad_count: 0,
+      hint_correct_count: 0,
+      aar_completed_count: 0,
+      target_achieved_count: 0
+    }
+  },
+  badgesFilterCat: "all",
+
   // Student Personal State (Loaded from localStorage)
   studentState: {
     student_name: "",
@@ -361,6 +377,10 @@ const DOM = {
   homeAarChallenge: document.getElementById("home-aar-challenge"),
   btnHomeReviewErrors: document.getElementById("btn-home-review-errors"),
   homeErrorBadgeCount: document.getElementById("home-error-badge-count"),
+  homeBadgesBanner: document.getElementById("home-badges-banner"),
+  homeBadgesSummary: document.getElementById("home-badges-summary"),
+  homeBadgesRankPill: document.getElementById("home-badges-rank-pill"),
+  btnHomeBadgesView: document.getElementById("btn-home-badges-view"),
   btnHomeStartPractice: document.getElementById("btn-home-start-practice"),
   btnHomeViewGuide: document.getElementById("btn-home-view-guide"),
 
@@ -376,6 +396,8 @@ const DOM = {
   btnToggleScratchpad: document.getElementById("btn-toggle-scratchpad"),
   btnOpenErrorLog: document.getElementById("btn-open-error-log"),
   badgeErrorCount: document.getElementById("badge-error-count"),
+  btnOpenBadges: document.getElementById("btn-open-badges"),
+  badgeBadgesCount: document.getElementById("badge-badges-count"),
   btnOpenVocab: document.getElementById("btn-open-vocab"),
   btnOpenStrategies: document.getElementById("btn-open-strategies"),
   btnExportExcel: document.getElementById("btn-aar-download-combined") || document.getElementById("btn-export-excel"),
@@ -569,6 +591,27 @@ const DOM = {
   inputNewVocab: document.getElementById("input-new-vocab"),
   btnSaveNewError: document.getElementById("btn-save-new-error"),
   btnCancelAddError: document.getElementById("btn-cancel-add-error"),
+
+  // Badges Showcase & Celebration Modals
+  modalBadgesShowcase: document.getElementById("modal-badges-showcase"),
+  btnCloseBadgesModal: document.getElementById("btn-close-badges-modal"),
+  badgeShowcaseTotalUnlocked: document.getElementById("badge-showcase-total-unlocked"),
+  badgesRankAvatar: document.getElementById("badges-rank-avatar"),
+  badgesRankTitle: document.getElementById("badges-rank-title"),
+  badgesRankStats: document.getElementById("badges-rank-stats"),
+  badgesTotalProgressBar: document.getElementById("badges-total-progress-bar"),
+  badgesFilterChips: document.getElementById("badges-filter-chips"),
+  badgesGridContainer: document.getElementById("badges-grid-container"),
+  modalBadgeUnlocked: document.getElementById("modal-badge-unlocked"),
+  unlockedBadgeIconWrap: document.getElementById("unlocked-badge-icon-wrap"),
+  unlockedBadgeIcon: document.getElementById("unlocked-badge-icon"),
+  unlockedTierPill: document.getElementById("unlocked-tier-pill"),
+  unlockedBadgeTitle: document.getElementById("unlocked-badge-title"),
+  unlockedBadgeTierTitle: document.getElementById("unlocked-badge-tier-title"),
+  unlockedBadgeDesc: document.getElementById("unlocked-badge-desc"),
+  unlockedBadgeQuote: document.getElementById("unlocked-badge-quote"),
+  btnUnlockedOpenShowcase: document.getElementById("btn-unlocked-open-showcase"),
+  btnUnlockedContinue: document.getElementById("btn-unlocked-continue"),
 
   modalStrategies: document.getElementById("modal-strategies"),
   btnCloseStrategies: document.getElementById("btn-close-strategies"),
@@ -821,6 +864,9 @@ function loadLocalState() {
 
   loadGlobalAARState();
   loadGlobalSessionTracker();
+  loadBadgesState();
+  evaluateBadges(false);
+  updateBadgesUI();
   updateErrorBadge();
 }
 
@@ -2782,9 +2828,11 @@ function checkAnswer() {
     } else if (attemptCount === 2) {
       qState.status = "mastered_l2";
       qState.efficiency = 0.667;
+      incrementBadgeCounter("hint_correct_count");
     } else {
       qState.status = "mastered_l3";
       qState.efficiency = 0.333;
+      incrementBadgeCounter("hint_correct_count");
     }
 
     // Did the student make any mistake prior to getting it right?
@@ -2793,6 +2841,7 @@ function checkAnswer() {
         qState.needs_error_log = true;
       }
     }
+    evaluateBadges(true);
   } else {
     qState.had_mistake = true;
     if (attemptCount >= 3) {
@@ -2977,6 +3026,382 @@ function updateErrorBadge() {
     const allCrossLogs = getAllErrorLogsAcrossTests();
     DOM.homeErrorBadgeCount.textContent = allCrossLogs.length;
   }
+}
+
+/* ==========================================================================
+   MICRO-CREDENTIALS & GAMIFICATION BADGES ENGINE
+   ========================================================================== */
+
+function loadBadgesState() {
+  try {
+    const raw = localStorage.getItem(GLOBAL_BADGES_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      App.badgesState = {
+        unlocked: parsed.unlocked || {},
+        counters: Object.assign({
+          desmos_count: 0,
+          dict_count: 0,
+          scratchpad_count: 0,
+          hint_correct_count: 0,
+          aar_completed_count: 0,
+          target_achieved_count: 0,
+          session_count: 1
+        }, parsed.counters || {})
+      };
+    } else {
+      App.badgesState = {
+        unlocked: {},
+        counters: {
+          desmos_count: 0,
+          dict_count: 0,
+          scratchpad_count: 0,
+          hint_correct_count: 0,
+          aar_completed_count: 0,
+          target_achieved_count: 0,
+          session_count: 1
+        }
+      };
+    }
+  } catch (e) {
+    console.warn("Could not load badges state:", e);
+  }
+}
+
+function saveBadgesState() {
+  try {
+    localStorage.setItem(GLOBAL_BADGES_STORAGE_KEY, JSON.stringify(App.badgesState));
+  } catch (e) {
+    console.warn("Could not save badges state:", e);
+  }
+}
+
+function playCelebrationSound() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Major Arpeggio)
+    notes.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.09);
+      gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.09);
+      gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + idx * 0.09 + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.09 + 0.32);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + idx * 0.09);
+      osc.stop(ctx.currentTime + idx * 0.09 + 0.35);
+    });
+  } catch (e) {}
+}
+
+function triggerConfetti() {
+  if (typeof window.confetti === "function") {
+    window.confetti({
+      particleCount: 90,
+      spread: 75,
+      origin: { y: 0.6 },
+      colors: ["#1a73e8", "#34a853", "#fbbc05", "#ea4335", "#9333ea"]
+    });
+    setTimeout(() => {
+      window.confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } });
+      window.confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } });
+    }, 250);
+  }
+}
+
+function calculateAllFirstTryCorrectCount() {
+  let count = 0;
+  // Current active test attempts
+  Object.values(App.studentState?.attempts || {}).forEach(att => {
+    if (att && att.status === "correct" && Array.isArray(att.attempts) && att.attempts.length === 1) {
+      count++;
+    }
+  });
+
+  // Other tests in localStorage
+  (App.testsManifest || []).forEach(t => {
+    if (t.id === App.activeTestId || t.code === App.activeTestId) return;
+    try {
+      const storageKey = getStorageKeyForTest(t.id);
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.attempts) {
+          Object.values(parsed.attempts).forEach(att => {
+            if (att && att.status === "correct" && Array.isArray(att.attempts) && att.attempts.length === 1) {
+              count++;
+            }
+          });
+        }
+      }
+    } catch (e) {}
+  });
+  return count;
+}
+
+function calculateAllRwCorrectCount() {
+  let count = 0;
+  // Current active test
+  if (App.db && App.db.questions) {
+    App.db.questions.forEach(q => {
+      if (q.module_code && q.module_code.startsWith("RW_")) {
+        const att = App.studentState?.attempts?.[q.id];
+        if (att && att.status === "correct") count++;
+      }
+    });
+  }
+  // Other tests in localStorage
+  (App.testsManifest || []).forEach(t => {
+    if (t.id === App.activeTestId || t.code === App.activeTestId) return;
+    try {
+      const storageKey = getStorageKeyForTest(t.id);
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.attempts) {
+          Object.keys(parsed.attempts).forEach(qid => {
+            if (String(qid).startsWith("rw") || String(qid).includes("reading") || String(qid).includes("writing")) {
+              const att = parsed.attempts[qid];
+              if (att && att.status === "correct") count++;
+            }
+          });
+        }
+      }
+    } catch (e) {}
+  });
+  return count;
+}
+
+function getBadgesStatValue(criteriaType) {
+  const allLogs = typeof getAllErrorLogsAcrossTests === "function" ? getAllErrorLogsAcrossTests() : (App.studentState?.error_logs || []);
+  switch (criteriaType) {
+    case "COUNT_ERROR_LOGS":
+      return allLogs.length;
+    case "COUNT_RESOLVED_LOGS":
+      return allLogs.filter(e => e.status === "Đã triệt tiêu").length;
+    case "VOCAB_COUNT":
+      return allLogs.filter(e => e.vocabulary && e.vocabulary.trim()).length;
+    case "SESSION_COUNT": {
+      const sessions = (App.globalSessionTracker && App.globalSessionTracker.sessions) ? App.globalSessionTracker.sessions : [];
+      return Math.max(sessions.length, (App.badgesState?.counters?.session_count || 1));
+    }
+    case "AAR_COMPLETED_COUNT": {
+      const sessionsWithAar = (App.globalSessionTracker?.sessions || []).filter(s => s.has_aar).length;
+      return Math.max(sessionsWithAar, (App.badgesState?.counters?.aar_completed_count || 0));
+    }
+    case "FIRST_TRY_CORRECT_COUNT":
+      return calculateAllFirstTryCorrectCount();
+    case "RW_CORRECT_COUNT":
+      return calculateAllRwCorrectCount();
+    case "DESMOS_COUNT":
+      return App.badgesState?.counters?.desmos_count || 0;
+    case "DICT_COUNT":
+      return App.badgesState?.counters?.dict_count || 0;
+    case "SCRATCHPAD_COUNT":
+      return App.badgesState?.counters?.scratchpad_count || 0;
+    case "HINT_CORRECT_COUNT":
+      return App.badgesState?.counters?.hint_correct_count || 0;
+    case "TARGET_ACHIEVED_COUNT":
+      return App.badgesState?.counters?.target_achieved_count || 0;
+    default:
+      return 0;
+  }
+}
+
+function getStudentRankInfo(totalUnlockedCount) {
+  if (totalUnlockedCount >= 10) return { rank: "Huyền Thoại Ivy League", avatar: "👑" };
+  if (totalUnlockedCount >= 7) return { rank: "Đại Sư SAT", avatar: "🏆" };
+  if (totalUnlockedCount >= 4) return { rank: "Chuyên Gia Đột Phá", avatar: "⚡" };
+  if (totalUnlockedCount >= 2) return { rank: "Chiến Binh Socratic", avatar: "🛡️" };
+  return { rank: "Học Viên Khởi Đầu", avatar: "🌱" };
+}
+
+function updateBadgesUI() {
+  const defs = (App.badgesDefinitions && App.badgesDefinitions.length) ? App.badgesDefinitions : (window.BADGES_DEFINITIONS || []);
+  const totalBadges = defs.length || 12;
+  const unlockedBadges = Object.keys(App.badgesState?.unlocked || {});
+  const unlockedCount = unlockedBadges.length;
+  const rankInfo = getStudentRankInfo(unlockedCount);
+
+  if (DOM.homeBadgesSummary) {
+    DOM.homeBadgesSummary.textContent = `Đã mở khóa ${unlockedCount}/${totalBadges} huy hiệu micro-credentials`;
+  }
+  if (DOM.homeBadgesRankPill) {
+    DOM.homeBadgesRankPill.textContent = rankInfo.rank;
+  }
+  if (DOM.badgeBadgesCount) {
+    DOM.badgeBadgesCount.textContent = unlockedCount;
+  }
+  if (DOM.badgeShowcaseTotalUnlocked) {
+    DOM.badgeShowcaseTotalUnlocked.textContent = `${unlockedCount}/${totalBadges} Mở khóa`;
+  }
+  if (DOM.badgesRankTitle) {
+    DOM.badgesRankTitle.textContent = rankInfo.rank;
+  }
+  if (DOM.badgesRankAvatar) {
+    DOM.badgesRankAvatar.textContent = rankInfo.avatar;
+  }
+  if (DOM.badgesRankStats) {
+    const goldCount = Object.values(App.badgesState?.unlocked || {}).filter(u => u.tier === "gold" || u.tier === "diamond").length;
+    DOM.badgesRankStats.textContent = `Đã chinh phục: ${unlockedCount} danh hiệu • ${goldCount} cấp Vàng / Kim Cương`;
+  }
+  if (DOM.badgesTotalProgressBar) {
+    const pct = Math.round((unlockedCount / totalBadges) * 100);
+    DOM.badgesTotalProgressBar.style.width = `${pct}%`;
+  }
+}
+
+function evaluateBadges(showModalOnNewUnlock = true) {
+  if (!App.badgesDefinitions || !App.badgesDefinitions.length) {
+    App.badgesDefinitions = (window.BADGES_DEFINITIONS && window.BADGES_DEFINITIONS.length) ? window.BADGES_DEFINITIONS : [];
+  }
+  if (!App.badgesState || !App.badgesState.unlocked) loadBadgesState();
+
+  const newlyUnlocked = [];
+
+  App.badgesDefinitions.forEach(badge => {
+    const currentVal = getBadgesStatValue(badge.criteria_type);
+    let highestTier = null;
+
+    badge.tiers.forEach(tier => {
+      if (currentVal >= tier.target) {
+        highestTier = tier;
+      }
+    });
+
+    const currentUnlocked = App.badgesState.unlocked[badge.id];
+    const currentLevel = currentUnlocked ? currentUnlocked.level : 0;
+
+    if (highestTier && highestTier.level > currentLevel) {
+      App.badgesState.unlocked[badge.id] = {
+        level: highestTier.level,
+        tier: highestTier.tier,
+        name: highestTier.name,
+        target: highestTier.target,
+        color: highestTier.color,
+        bg: highestTier.bg,
+        unlocked_at: new Date().toISOString()
+      };
+      newlyUnlocked.push({
+        badge: badge,
+        tier: highestTier
+      });
+    }
+  });
+
+  saveBadgesState();
+  updateBadgesUI();
+
+  if (newlyUnlocked.length > 0 && showModalOnNewUnlock) {
+    playCelebrationSound();
+    triggerConfetti();
+    const topUnlock = newlyUnlocked[newlyUnlocked.length - 1];
+    showBadgeUnlockedModal(topUnlock.badge, topUnlock.tier);
+  }
+}
+
+function incrementBadgeCounter(counterKey, amount = 1) {
+  if (!App.badgesState || !App.badgesState.counters) loadBadgesState();
+  if (!App.badgesState.counters) App.badgesState.counters = {};
+  App.badgesState.counters[counterKey] = (App.badgesState.counters[counterKey] || 0) + amount;
+  saveBadgesState();
+  evaluateBadges(true);
+}
+
+function showBadgeUnlockedModal(badge, tier) {
+  if (!DOM.modalBadgeUnlocked) return;
+  if (DOM.unlockedBadgeIcon) DOM.unlockedBadgeIcon.textContent = badge.icon;
+  if (DOM.unlockedTierPill) {
+    DOM.unlockedTierPill.textContent = `Cấp ${tier.name} (${tier.tier.toUpperCase()})`;
+    DOM.unlockedTierPill.style.background = tier.color || "#d97706";
+  }
+  if (DOM.unlockedBadgeTitle) DOM.unlockedBadgeTitle.textContent = badge.title;
+  if (DOM.unlockedBadgeTierTitle) {
+    DOM.unlockedBadgeTierTitle.textContent = `Hạng ${tier.name} • Mục tiêu hoàn thành: ${tier.target}`;
+  }
+  if (DOM.unlockedBadgeDesc) DOM.unlockedBadgeDesc.textContent = badge.description;
+  if (DOM.unlockedBadgeQuote) DOM.unlockedBadgeQuote.textContent = `"${badge.quote}"`;
+
+  DOM.modalBadgeUnlocked.classList.remove("hidden");
+}
+
+function renderBadgesShowcase() {
+  if (!App.badgesDefinitions || !App.badgesDefinitions.length) {
+    App.badgesDefinitions = (window.BADGES_DEFINITIONS && window.BADGES_DEFINITIONS.length) ? window.BADGES_DEFINITIONS : [];
+  }
+  updateBadgesUI();
+
+  if (!DOM.badgesGridContainer) return;
+  DOM.badgesGridContainer.innerHTML = "";
+
+  const filterCat = App.badgesFilterCat || "all";
+  const badgesToList = App.badgesDefinitions.filter(b => filterCat === "all" || b.category === filterCat);
+
+  badgesToList.forEach(badge => {
+    const unlockedInfo = App.badgesState?.unlocked?.[badge.id];
+    const currentVal = getBadgesStatValue(badge.criteria_type);
+
+    let nextTier = badge.tiers[0];
+    let isMaxLevel = false;
+
+    if (unlockedInfo) {
+      const nextIdx = badge.tiers.findIndex(t => t.level > unlockedInfo.level);
+      if (nextIdx !== -1) {
+        nextTier = badge.tiers[nextIdx];
+      } else {
+        nextTier = badge.tiers[badge.tiers.length - 1];
+        isMaxLevel = true;
+      }
+    }
+
+    const currentTierName = unlockedInfo ? `${unlockedInfo.name} (${unlockedInfo.tier.toUpperCase()})` : "Chưa mở khóa";
+    const tierClass = unlockedInfo ? `tier-${unlockedInfo.tier}` : "tier-locked";
+
+    const targetVal = nextTier.target;
+    const progressPct = isMaxLevel ? 100 : Math.min(100, Math.round((currentVal / targetVal) * 100));
+
+    const card = document.createElement("div");
+    card.className = `badge-card ${tierClass}`;
+    card.innerHTML = `
+      <div class="badge-card-top">
+        <div class="badge-card-icon-box">
+          <span>${badge.icon}</span>
+        </div>
+        <div class="badge-card-info">
+          <div class="badge-card-title-row">
+            <span class="badge-card-title">${escapeHtml(badge.title)}</span>
+            <span class="badge-card-tier-pill">${escapeHtml(currentTierName)}</span>
+          </div>
+          <p class="badge-card-desc">${escapeHtml(badge.description)}</p>
+        </div>
+      </div>
+
+      <div class="badge-card-progress-section">
+        <div class="badge-card-progress-meta">
+          <span>${isMaxLevel ? "🏆 Đã đạt cấp tối đa!" : `Tiến độ lên cấp ${escapeHtml(nextTier.name)}:`}</span>
+          <span>${currentVal} / ${targetVal} (${progressPct}%)</span>
+        </div>
+        <div class="badge-card-progress-track">
+          <div class="badge-card-progress-fill" style="width: ${progressPct}%;"></div>
+        </div>
+      </div>
+
+      <div class="badge-card-quote">
+        "${escapeHtml(badge.quote)}"
+      </div>
+
+      <div class="badge-card-footer">
+        <span>🏷️ ${escapeHtml(badge.category_name)}</span>
+        <span>${unlockedInfo ? `Mở khóa: ${new Date(unlockedInfo.unlocked_at).toLocaleDateString("vi-VN")}` : "Cần rèn luyện thêm"}</span>
+      </div>
+    `;
+
+    DOM.badgesGridContainer.appendChild(card);
+  });
 }
 
 function renderErrorLogs() {
@@ -4718,6 +5143,7 @@ function initScratchpad() {
     DOM.btnToggleScratchpad.addEventListener("click", () => {
       drawer.classList.toggle("hidden");
       if (!drawer.classList.contains("hidden")) {
+        incrementBadgeCounter("scratchpad_count");
         drawer.style.zIndex = "1002";
         setTimeout(resizeCanvas, 50);
       }
@@ -5128,6 +5554,7 @@ function openDictionary(word) {
   if (!DOM.modalDictionary) return;
   DOM.modalDictionary.classList.remove("hidden");
   DOM.modalDictionary.style.zIndex = "1002";
+  incrementBadgeCounter("dict_count");
 
   // Ensure within viewport
   const rect = DOM.modalDictionary.getBoundingClientRect();
@@ -5964,6 +6391,7 @@ function setupEventListeners() {
     const isHidden = DOM.modalCalculator.classList.contains("hidden");
     DOM.modalCalculator.classList.toggle("hidden");
     if (isHidden) {
+      incrementBadgeCounter("desmos_count");
       DOM.modalCalculator.style.zIndex = "1000";
       // Ensure calculator is positioned nicely within viewport
       const rect = DOM.modalCalculator.getBoundingClientRect();
@@ -5979,6 +6407,71 @@ function setupEventListeners() {
     DOM.modalCalculator.classList.add("hidden");
     syncTimerState();
   });
+
+  // Badges Showcase & Unlocked Modals
+  if (DOM.btnHomeBadgesView) {
+    DOM.btnHomeBadgesView.addEventListener("click", () => {
+      renderBadgesShowcase();
+      DOM.modalBadgesShowcase.classList.remove("hidden");
+    });
+  }
+  if (DOM.homeBadgesBanner) {
+    DOM.homeBadgesBanner.addEventListener("click", (e) => {
+      if (e.target.closest("#btn-home-badges-view")) return;
+      renderBadgesShowcase();
+      DOM.modalBadgesShowcase.classList.remove("hidden");
+    });
+  }
+  if (DOM.btnOpenBadges) {
+    DOM.btnOpenBadges.addEventListener("click", () => {
+      pauseTimer();
+      renderBadgesShowcase();
+      DOM.modalBadgesShowcase.classList.remove("hidden");
+    });
+  }
+  if (DOM.btnCloseBadgesModal) {
+    DOM.btnCloseBadgesModal.addEventListener("click", () => {
+      DOM.modalBadgesShowcase.classList.add("hidden");
+      syncTimerState();
+    });
+  }
+  if (DOM.modalBadgesShowcase) {
+    DOM.modalBadgesShowcase.addEventListener("click", (e) => {
+      if (e.target === DOM.modalBadgesShowcase) {
+        DOM.modalBadgesShowcase.classList.add("hidden");
+        syncTimerState();
+      }
+    });
+  }
+  if (DOM.badgesFilterChips) {
+    DOM.badgesFilterChips.addEventListener("click", (e) => {
+      const chip = e.target.closest(".filter-chip");
+      if (!chip) return;
+      DOM.badgesFilterChips.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      App.badgesFilterCat = chip.getAttribute("data-cat") || "all";
+      renderBadgesShowcase();
+    });
+  }
+  if (DOM.btnUnlockedContinue) {
+    DOM.btnUnlockedContinue.addEventListener("click", () => {
+      DOM.modalBadgeUnlocked.classList.add("hidden");
+    });
+  }
+  if (DOM.btnUnlockedOpenShowcase) {
+    DOM.btnUnlockedOpenShowcase.addEventListener("click", () => {
+      DOM.modalBadgeUnlocked.classList.add("hidden");
+      renderBadgesShowcase();
+      DOM.modalBadgesShowcase.classList.remove("hidden");
+    });
+  }
+  if (DOM.modalBadgeUnlocked) {
+    DOM.modalBadgeUnlocked.addEventListener("click", (e) => {
+      if (e.target === DOM.modalBadgeUnlocked) {
+        DOM.modalBadgeUnlocked.classList.add("hidden");
+      }
+    });
+  }
 
   // Dictionary Modal (Cambridge & SAT Vocabulary)
   if (DOM.btnOpenDict) {
@@ -7999,6 +8492,13 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 - Bài học chuyển hóa (Feed-forward): ${entry.feedforward}
 - Cảm xúc & Tập trung: ${entry.emotion || "(Chưa chọn)"} | Trạng thái AAR: ${entry.status || "(Chưa chọn)"}
 
+[CHỨNG CHỈ VI MÔ & HUY HIỆU ĐÃ ĐẠT (MICRO-CREDENTIALS)]
+${Object.keys(App.badgesState?.unlocked || {}).map(id => {
+  const b = (App.badgesDefinitions || []).find(x => x.id === id);
+  const u = App.badgesState?.unlocked[id];
+  return b ? `• ${b.icon} ${b.title}: Hạng ${u.name} (${u.tier.toUpperCase()})` : null;
+}).filter(Boolean).join("\n") || "• Đang rèn luyện mở khóa các huy hiệu tiếp theo"}
+
 (Báo cáo chu trình AAR & Hiệu suất thực hành SAT chi tiết chuẩn OECD Learning Compass 2030).
 
 Trân trọng,
@@ -8139,6 +8639,7 @@ function submitAARReport() {
     App.globalSessionItems = {};
     saveGlobalAARState();
     saveGlobalSessionTracker();
+    incrementBadgeCounter("aar_completed_count");
 
     // 2. Build email payload & safe URL
     const { subject, bodyText } = buildAAREmailPayload(entry);
