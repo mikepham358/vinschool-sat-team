@@ -149,21 +149,29 @@
                   </div>
 
                   <div class="form-row home-anticipation-grid">
-                    <div class="m3-input-field">
-                      <label for="home-aar-goal">
-                        Mục tiêu bài học &amp; Điểm kỳ vọng <span class="req">*</span>
-                        <span class="home-goal-target-pill" id="home-goal-target-pill">🎯 1400+ Top 50</span>
-                      </label>
+                    <div class="m3-input-field anticipation-col">
+                      <div class="anticipation-col-header">
+                        <label for="home-aar-goal" class="anticipation-label">
+                          Mục tiêu bài học &amp; Điểm kỳ vọng <span class="req">*</span>
+                        </label>
+                        <div class="anticipation-pill-wrap">
+                          <span class="home-goal-target-pill" id="home-goal-target-pill" title="Mục tiêu điểm số kỳ vọng">🎯 1400+ Top 50</span>
+                        </div>
+                      </div>
                       <textarea id="home-aar-goal" rows="2" placeholder="Ví dụ: Đạt ≥ 85% câu đúng; nắm chắc phương pháp bẫy từ khóa &amp; loại đáp án sai." required></textarea>
                     </div>
-                    <div class="m3-input-field">
-                      <div class="challenge-label-header">
-                        <label for="home-aar-challenge">Thách thức dự kiến <span class="req">*</span></label>
-                        <button type="button" class="btn-home-review-errors" id="btn-home-review-errors" title="Xem lại Sổ thử sai để nắm bắt các bẫy thường gặp và dễ dàng viết thách thức">
-                          <span class="btn-icon">📓</span>
-                          <span>Xem lại Sổ thử sai</span>
-                          <span class="home-error-badge-count" id="home-error-badge-count">0</span>
-                        </button>
+                    <div class="m3-input-field anticipation-col">
+                      <div class="anticipation-col-header">
+                        <label for="home-aar-challenge" class="anticipation-label">
+                          Thách thức dự kiến <span class="req">*</span>
+                        </label>
+                        <div class="anticipation-pill-wrap">
+                          <button type="button" class="btn-home-review-errors" id="btn-home-review-errors" title="Xem lại Sổ thử sai để nắm bắt các bẫy thường gặp và dễ dàng viết thách thức">
+                            <span class="btn-icon">📓</span>
+                            <span class="btn-text">Xem lại Sổ thử sai</span>
+                            <span class="home-error-badge-count" id="home-error-badge-count">0</span>
+                          </button>
+                        </div>
                       </div>
                       <textarea id="home-aar-challenge" rows="2" placeholder="Ví dụ: Câu suy luận dài, áp lực thời gian hoặc thao tác đồ thị Desmos." required></textarea>
                     </div>
