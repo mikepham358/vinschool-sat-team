@@ -19,7 +19,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "nov2026",
     "title": "Digital SAT Practice Test - November 2026 (INT-A)",
     "short_title": "Tháng 11/2026 (INT-A)",
+    "short_title_en": "November 2026 (INT-A)",
     "badge": "Mới nhất",
+    "badge_en": "Latest",
     "date": "2026-11",
     "dataFile": "data/nov2026.json",
     "pdfDriveId": "1OCnVgziQ2ZxoYzUZD9oF_warcJYTGppi",
@@ -29,6 +31,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "total_questions": 98,
     "storageKey": "bluebook_nov2026_student_state_v1",
     "description": "Đề thi Real Test Digital SAT quốc tế tháng 11/2026 (INT-A) kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "description_en": "Official Digital SAT International Real Test - November 2026 (INT-A) with 4-tier Socratic explanations and SAT trap analysis.",
     "category": "tests",
     "category_name": "Đề thi thực chiến (Tests)",
     "category_badge": "📝 Real Test",
@@ -39,7 +42,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "oct2026",
     "title": "Digital SAT Practice Test - October 2026 (INT-B)",
     "short_title": "Tháng 10/2026 (INT-B)",
+    "short_title_en": "October 2026 (INT-B)",
     "badge": "Chính thức",
+    "badge_en": "Official",
     "date": "2026-10",
     "dataFile": "data/oct2026.json",
     "pdfDriveId": "1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b",
@@ -49,6 +54,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "total_questions": 98,
     "storageKey": "bluebook_oct2026_student_state_v1",
     "description": "Đề thi Real Test Digital SAT quốc tế tháng 10/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "description_en": "Official Digital SAT International Real Test - October 2026 with 4-tier Socratic explanations and SAT trap analysis.",
     "category": "tests",
     "category_name": "Đề thi thực chiến (Tests)",
     "category_badge": "📝 Real Test",
@@ -59,7 +65,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "sep2026",
     "title": "Digital SAT Practice Test - September 2026 (INT-A)",
     "short_title": "Tháng 09/2026 (INT-A)",
+    "short_title_en": "September 2026 (INT-A)",
     "badge": "Chính thức",
+    "badge_en": "Official",
     "date": "2026-09",
     "dataFile": "data/sep2026.json",
     "pdfDriveId": "1dt6Up_Tz-B_h48JVLeIPF8vMwWWPxVSL",
@@ -69,6 +77,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "total_questions": 98,
     "storageKey": "bluebook_sep2026_student_state_v1",
     "description": "Đề thi Real Test Digital SAT quốc tế tháng 09/2026 kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "description_en": "Official Digital SAT International Real Test - September 2026 with 4-tier Socratic explanations and SAT trap analysis.",
     "category": "tests",
     "category_name": "Đề thi thực chiến (Tests)",
     "category_badge": "📝 Real Test",
@@ -79,7 +88,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "ericareading",
     "title": "The Critical Reader: Complete Guide to SAT Reading (Erica Meltzer)",
     "short_title": "Erica Meltzer Reading",
+    "short_title_en": "Erica Meltzer Reading",
     "badge": "9 Chương Chuyên Sâu",
+    "badge_en": "9 In-Depth Chapters",
     "date": "2026-Reading",
     "dataFile": "data/erica_reading.json",
     "pdfDriveId": "10d5oocFy5VfhLfP1ZB88xAGRe-5TFl7Z",
@@ -91,6 +102,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "modules_count": 9,
     "storageKey": "bluebook_erica_reading_student_state_v1",
     "description": "Bộ câu hỏi toàn diện 9 chương sách The Critical Reader: The Complete Guide to SAT Reading (Erica Meltzer) gồm 101 câu (27 ví dụ minh họa kèm bài giảng + 74 câu thực hành) phân tách chi tiết theo từng chương kèm chiến thuật cốt lõi, bẫy SAT và gợi ý Socratic đa tầng.",
+    "description_en": "Comprehensive 9 chapters from The Critical Reader (Erica Meltzer) featuring 101 questions (27 lecture walkthroughs + 74 practice drills) with core strategies, SAT traps, and 4-tier Socratic hints.",
     "category": "books",
     "category_name": "Sách giáo trình chuyên sâu (Books)",
     "category_badge": "📚 Sách Reading",
@@ -101,7 +113,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "pandamath",
     "title": "The College Panda: SAT Math Advanced Guide & Workbook (Nielson Phu)",
     "short_title": "College Panda Math",
+    "short_title_en": "College Panda Math",
     "badge": "27 Chương Chuyên Sâu",
+    "badge_en": "27 In-Depth Chapters",
     "date": "2026-Math",
     "dataFile": "data/panda_math.json",
     "pdfDriveId": "1z4CC7X-L3e3XZr04uc7RgMZBK5lYs8Gb",
@@ -113,6 +127,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "modules_count": 27,
     "storageKey": "bluebook_panda_math_student_state_v1",
     "description": "Bộ 330 câu hỏi luyện tập chuyên sâu 27 chương sách The College Panda SAT Math (Nielson Phu) kèm chiến thuật cốt lõi, công thức then chốt, bẫy SAT và gợi ý Socratic đa tầng.",
+    "description_en": "330 intensive SAT Math practice questions across 27 chapters from The College Panda (Nielson Phu) with key formulas, core strategies, Desmos integration, and 4-tier Socratic hints.",
     "category": "books",
     "category_name": "Sách giáo trình chuyên sâu (Books)",
     "category_badge": "📚 Sách Math",
@@ -123,7 +138,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "ericawriting",
     "title": "The Ultimate Guide to SAT Grammar (Erica Meltzer - 6th Edition)",
     "short_title": "Erica Meltzer Writing",
+    "short_title_en": "Erica Meltzer Writing",
     "badge": "17 Chuyên Đề Grammar",
+    "badge_en": "17 Grammar Topics",
     "date": "2026-Writing",
     "dataFile": "data/erica_writing.json",
     "pdfDriveId": "1RRTBIfpSDD6AyaPJNmfK54fyoXmvNu-s",
@@ -135,6 +152,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "modules_count": 17,
     "storageKey": "bluebook_erica_writing_student_state_v1",
     "description": "Bộ câu hỏi toàn diện sách The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) gồm 334 câu (62 ví dụ minh họa + 272 bài tập thực hành, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) kèm gợi ý Socratic 4 tầng và Answer Key chính xác từ sách gốc.",
+    "description_en": "Comprehensive practice from The Ultimate Guide to SAT Grammar 6th Edition (Erica Meltzer) featuring 334 questions (62 examples + 272 drills, Practice Sets 1–5, Cumulative Reviews & Parts of Speech) with 4-tier Socratic hints.",
     "category": "books",
     "category_name": "Sách giáo trình chuyên sâu (Books)",
     "category_badge": "📚 Sách Grammar",
@@ -145,7 +163,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "princetonadvanced",
     "title": "Digital SAT Advanced: Harder Modules Practice Test (Princeton Review)",
     "short_title": "Princeton Harder Modules",
+    "short_title_en": "Princeton Harder Modules",
     "badge": "Thử Thách 1500+",
+    "badge_en": "1500+ Challenge",
     "date": "2026-Advanced",
     "dataFile": "data/princeton_advanced.json",
     "pdfDriveId": "1KCJfZeXPf9rBVAAnY28vR6uH47enOq57",
@@ -157,6 +177,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "modules_count": 2,
     "storageKey": "bluebook_princeton_advanced_student_state_v1",
     "description": "Bộ đề thi thực chiến nâng cao phân hóa điểm số Digital SAT Advanced (The Princeton Review) gồm 2 Modules khó nhất (Harder Reading & Writing 27 câu và Harder Math 22 câu) kết nối trực tiếp PDF Drive Viewer 22 trang, bảng tính Desmos, Grid-in và hệ thống phản hồi 4 tầng Socratic chuẩn mực.",
+    "description_en": "Advanced score-differentiating practice test from The Princeton Review SAT Advanced featuring the 2 hardest modules (Harder RW 27 Qs and Harder Math 22 Qs) with Desmos, Grid-in, and 4-tier Socratic hints.",
     "category": "tests",
     "category_name": "Đề thi phân hóa 1500+ (Tests)",
     "category_badge": "🎯 Harder Modules",
@@ -167,7 +188,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "princetonbook",
     "title": "The Princeton Review: Digital SAT Advanced Comprehensive Guide (All Chapters & Drills)",
     "short_title": "Princeton SAT Advanced Book",
+    "short_title_en": "Princeton SAT Advanced Book",
     "badge": "17 Chương Chuyên Sâu",
+    "badge_en": "17 In-Depth Chapters",
     "date": "2026-Advanced",
     "dataFile": "data/princeton_book.json",
     "pdfDriveId": "10hR7mzMPcVJriTNbsRL9KIvgwOgBCixd",
@@ -179,6 +202,7 @@ const TESTS_MANIFEST_DEFAULT = [
     "modules_count": 17,
     "storageKey": "bluebook_princeton_book_student_state_v1",
     "description": "Bộ toàn bộ 233 câu hỏi (bao gồm tất cả ví dụ minh họa kèm bài giảng Here's How to Ace It và toàn bộ bài tập thực hành Drills) trích từ sách The Princeton Review SAT Advanced phân theo 17 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.",
+    "description_en": "Full collection of 233 questions (all lecture examples with Here's How to Ace It + drills) from The Princeton Review SAT Advanced across 17 chapters with 4-tier Socratic hints.",
     "category": "books",
     "category_name": "Sách giáo trình chuyên sâu (Books)",
     "category_badge": "📚 Sách Advanced",
@@ -189,7 +213,9 @@ const TESTS_MANIFEST_DEFAULT = [
     "code": "princeton2025",
     "title": "The Princeton Review: Digital SAT Premium Prep 2025 (All Chapters & Drills)",
     "short_title": "Princeton SAT Prep 2025",
+    "short_title_en": "Princeton SAT Prep 2025",
     "badge": "21 Chương Toàn Diện",
+    "badge_en": "21 Comprehensive Chapters",
     "date": "2025-Premium",
     "dataFile": "data/princeton_2025.json",
     "pdfDriveId": "1olh3i7jGLGXV2VaIdQ9_qYm1yaXOSmpe",
@@ -202,12 +228,22 @@ const TESTS_MANIFEST_DEFAULT = [
     "modules_count": 21,
     "storageKey": "bluebook_princeton_2025_student_state_v1",
     "description": "Bộ toàn bộ câu hỏi và ví dụ minh họa (kèm bài giảng Here's How to Crack It và bài tập thực hành Drills) trích từ sách The Princeton Review Digital SAT Premium Prep 2025 phân theo 21 chương chuyên sâu kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.",
+    "description_en": "Complete question bank (examples with Here's How to Crack It + drills) from The Princeton Review Digital SAT Premium Prep 2025 across 21 chapters with 4-tier Socratic hints.",
     "category": "books",
     "category_name": "Sách giáo trình chuyên sâu (Books)",
     "category_badge": "📚 Sách Prep 2025",
     "category_color": "indigo"
   }
 ];
+
+function getTestField(test, field) {
+  if (!test) return "";
+  const isEn = (window.App && window.App.currentLang) ? (window.App.currentLang === "en") : ((localStorage.getItem("bluebook_lang") || "en") === "en");
+  if (isEn && test[field + "_en"]) return test[field + "_en"];
+  if (!isEn && test[field + "_vi"]) return test[field + "_vi"];
+  return test[field] || "";
+}
+
 
 // Determine initial test ID from URL params or local preference
 function detectInitialTestId() {
@@ -957,12 +993,13 @@ function syncHomeProfile() {
   if (DOM.homeInputEmail) DOM.homeInputEmail.value = email;
 
   if (DOM.homeStudentNameChip) {
+    const isEn = (App.currentLang === "en");
     if (name) {
       DOM.homeStudentNameChip.textContent = name;
-      if (DOM.homeUserChip) DOM.homeUserChip.title = `Học sinh: ${name} (${email || "Chưa có email"})`;
+      if (DOM.homeUserChip) DOM.homeUserChip.title = isEn ? `Student: ${name} (${email || "No email"})` : `Học sinh: ${name} (${email || "Chưa có email"})`;
     } else {
-      DOM.homeStudentNameChip.textContent = "Chưa đăng ký";
-      if (DOM.homeUserChip) DOM.homeUserChip.title = "Học sinh đang tham gia";
+      DOM.homeStudentNameChip.textContent = isEn ? "Guest" : "Chưa đăng ký";
+      if (DOM.homeUserChip) DOM.homeUserChip.title = isEn ? "Guest student participating" : "Học sinh đang tham gia";
     }
   }
 
@@ -981,6 +1018,7 @@ function syncHomeProfile() {
     syncAarAnticipationUI();
   }
 }
+window.syncHomeProfile = syncHomeProfile;
 
 function updateModuleCardStats() {
   renderModuleCards();
@@ -996,32 +1034,69 @@ function renderModuleCards() {
   const isPrincetonBook = App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook";
   const isPrincetonPrep2025 = App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025";
   const isChapterBased = isErica || isEricaWriting || isPanda || isPrinceton || isPrincetonBook || isPrincetonPrep2025 || (App.db && App.db.modules && App.db.modules.length !== 4);
+  const isEn = (App.currentLang === "en");
 
   if (isChapterBased) {
     if (isPrincetonPrep2025) {
-      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "21 CHƯƠNG TOÀN DIỆN THE PRINCETON REVIEW (PREMIUM PREP 2025)";
-      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Toàn Diện 21 Chương Sách SAT Premium Prep 2025";
-      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt từ Orientation, Reading, Rules/Writing đến Math (tổng 277 câu: ví dụ minh họa kèm bài giảng Here's How to Crack It + bài tập thực hành Drills) kèm gợi ý phản tư Socratic 4 tầng và link PDF gốc 1,094 trang.";
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = isEn
+        ? "21 COMPREHENSIVE CHAPTERS - THE PRINCETON REVIEW (PREMIUM PREP 2025)"
+        : "21 CHƯƠNG TOÀN DIỆN THE PRINCETON REVIEW (PREMIUM PREP 2025)";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = isEn
+        ? "Practice 21 In-Depth Chapters: SAT Premium Prep 2025"
+        : "Luyện Tập Toàn Diện 21 Chương Sách SAT Premium Prep 2025";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn
+        ? "Practice specific chapters across Orientation, Reading, Writing/Rules, and Math (277 total questions: lecture examples with Here's How to Crack It + practice drills) with 4-tier Socratic reflection and authentic 1,094-page PDF booklet."
+        : "Em có thể chọn luyện tập từng chuyên đề riêng biệt từ Orientation, Reading, Rules/Writing đến Math (tổng 277 câu: ví dụ minh họa kèm bài giảng Here's How to Crack It + bài tập thực hành Drills) kèm gợi ý phản tư Socratic 4 tầng và link PDF gốc 1,094 trang.";
     } else if (isPrincetonBook) {
-      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "17 CHƯƠNG CHUYÊN SÂU THE PRINCETON REVIEW (SAT ADVANCED)";
-      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Toàn Diện 17 Chương Sách SAT Advanced";
-      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt từ Orientation, Reading, Writing đến Math (tổng 233 câu: ví dụ minh họa kèm bài giảng Here's How to Ace It + bài tập thực hành Drills) kèm gợi ý phản tư Socratic 4 tầng và link PDF gốc 599 trang.";
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = isEn
+        ? "17 IN-DEPTH CHAPTERS - THE PRINCETON REVIEW (SAT ADVANCED)"
+        : "17 CHƯƠNG CHUYÊN SÂU THE PRINCETON REVIEW (SAT ADVANCED)";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = isEn
+        ? "Practice 17 Comprehensive Chapters: SAT Advanced Book"
+        : "Luyện Tập Toàn Diện 17 Chương Sách SAT Advanced";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn
+        ? "Practice specific chapters across Orientation, Reading, Writing, and Math (233 total questions: lecture examples + drills) with 4-tier Socratic reflection and authentic 599-page PDF booklet."
+        : "Em có thể chọn luyện tập từng chuyên đề riêng biệt từ Orientation, Reading, Writing đến Math (tổng 233 câu: ví dụ minh họa kèm bài giảng Here's How to Ace It + bài tập thực hành Drills) kèm gợi ý phản tư Socratic 4 tầng và link PDF gốc 599 trang.";
     } else if (isPrinceton) {
-      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "BỘ ĐỀ PHÂN HÓA ĐIỂM SỐ 1500+ (THE PRINCETON REVIEW)";
-      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "2 Modules Nâng Cao (Digital SAT Advanced)";
-      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập Reading & Writing (27 câu • 32 phút) hoặc Math (22 câu • 35 phút) kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.";
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = isEn
+        ? "1500+ ADVANCED TIMED EXAMS (THE PRINCETON REVIEW)"
+        : "BỘ ĐỀ PHÂN HÓA ĐIỂM SỐ 1500+ (THE PRINCETON REVIEW)";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = isEn
+        ? "2 Advanced Modules (Digital SAT Advanced)"
+        : "2 Modules Nâng Cao (Digital SAT Advanced)";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn
+        ? "Practice Harder Reading & Writing (27 Qs • 32 mins) or Harder Math (22 Qs • 35 mins) with detailed explanations, trap analysis, and 4-tier Socratic feedback."
+        : "Em có thể chọn luyện tập Reading & Writing (27 câu • 32 phút) hoặc Math (22 câu • 35 phút) kèm giải thích chi tiết, bẫy SAT và gợi ý phản tư Socratic 4 tầng.";
     } else if (isErica) {
-      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
-      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chương Sách The Critical Reader";
-      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 101 câu (27 ví dụ minh họa kèm bài giảng + 74 bài tập thực hành).";
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = isEn
+        ? "9 STRATEGIC CHAPTERS - ERICA MELTZER"
+        : "9 CHƯƠNG CHIẾN THUẬT ERICA MELTZER";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = isEn
+        ? "Chapter-by-Chapter Practice: The Critical Reader"
+        : "Luyện Tập Từng Chương Sách The Critical Reader";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn
+        ? "Practice each chapter following Erica Meltzer's reading methodology or complete all 101 questions (27 lecture examples + 74 practice questions)."
+        : "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Erica Meltzer hoặc làm toàn bộ 101 câu (27 ví dụ minh họa kèm bài giảng + 74 bài tập thực hành).";
     } else if (isEricaWriting) {
-      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "17 CHUYÊN ĐỀ GRAMMAR ERICA MELTZER (6TH ED.)";
-      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Toàn Diện SAT Grammar & Writing";
-      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn từng chuyên đề từ Chương 1–12, Parts of Speech, Cumulative Reviews hay 5 Practice Sets (tổng 334 câu: 62 ví dụ minh họa + 272 câu thực hành) kèm Answer Key chuẩn sách gốc.";
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = isEn
+        ? "17 GRAMMAR TOPICS - ERICA MELTZER (6TH ED.)"
+        : "17 CHUYÊN ĐỀ GRAMMAR ERICA MELTZER (6TH ED.)";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = isEn
+        ? "Comprehensive Practice: SAT Grammar & Writing"
+        : "Luyện Tập Toàn Diện SAT Grammar & Writing";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn
+        ? "Practice Chapters 1–12, Parts of Speech, Cumulative Reviews, or 5 Practice Sets (334 total questions: 62 examples + 272 practice items)."
+        : "Em có thể chọn từng chuyên đề từ Chương 1–12, Parts of Speech, Cumulative Reviews hay 5 Practice Sets (tổng 334 câu: 62 ví dụ minh họa + 272 câu thực hành) kèm Answer Key chuẩn sách gốc.";
     } else {
-      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "27 CHƯƠNG CHUYÊN SÂU THE COLLEGE PANDA";
-      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Luyện Tập Từng Chuyên Đề SAT Math (Nielson Phu)";
-      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Nielson Phu hoặc làm toàn bộ 330 câu hỏi SAT Math kèm máy tính Desmos, công thức chuẩn và Sổ thử sai.";
+      if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = isEn
+        ? "27 IN-DEPTH CHAPTERS - THE COLLEGE PANDA"
+        : "27 CHƯƠNG CHUYÊN SÂU THE COLLEGE PANDA";
+      if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = isEn
+        ? "Chapter-by-Chapter Practice: SAT Math (Nielson Phu)"
+        : "Luyện Tập Từng Chuyên Đề SAT Math (Nielson Phu)";
+      if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn
+        ? "Practice each math topic with Nielson Phu's proven techniques or master all 330 SAT Math questions with Desmos, formula reference, and error logging."
+        : "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Nielson Phu hoặc làm toàn bộ 330 câu hỏi SAT Math kèm máy tính Desmos, công thức chuẩn và Sổ thử sai.";
     }
     DOM.modulesGrid.classList.add("grid-chapters");
 
@@ -1046,9 +1121,14 @@ function renderModuleCards() {
       card.className = "module-card";
       card.dataset.module = m.code;
 
-      const titleClean = (m.short_title || m.title || "").replace(/^Chương \d+:\s*/, "");
-      const headingText = m.card_heading || (m.chapter_num ? `Chương ${m.chapter_num}: ${titleClean}` : titleClean);
-      const btnText = m.btn_label || (m.chapter_num ? `Luyện Tập Chương ${m.chapter_num} ➔` : `Luyện Tập ${titleClean} ➔`);
+      const titleClean = (m.short_title || m.title || "").replace(/^(Chương|Chapter)\s+\d+:\s*/i, "");
+      const headingText = isEn
+        ? (m.chapter_num ? `Chapter ${m.chapter_num}: ${titleClean}` : titleClean)
+        : (m.card_heading || (m.chapter_num ? `Chương ${m.chapter_num}: ${titleClean}` : titleClean));
+      const btnText = isEn
+        ? (m.chapter_num ? `Practice Chapter ${m.chapter_num} ➔` : `Practice ${titleClean} ➔`)
+        : (m.btn_label || (m.chapter_num ? `Luyện Tập Chương ${m.chapter_num} ➔` : `Luyện Tập ${titleClean} ➔`));
+
       let pageLabel = isEricaWriting && m.book_start_page ? m.book_start_page : (m.pdf_start_page || 1);
       if (isPrinceton) {
         if (m.code === "RW_Harder") pageLabel = "2 – 12";
@@ -1056,25 +1136,33 @@ function renderModuleCards() {
       } else if ((isPrincetonBook || isPrincetonPrep2025) && m.pdf_start_page && m.pdf_end_page) {
         pageLabel = `${m.pdf_start_page} – ${m.pdf_end_page}`;
       }
-      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? "Công thức và chiến thuật toán SAT then chốt" : (isEricaWriting ? "Quy tắc ngữ pháp và dấu câu SAT trọng tâm" : (isPrincetonPrep2025 ? "Chiến thuật xử lý câu hỏi SAT Premium Prep 2025 & bài giảng Princeton Review" : (isPrincetonBook ? "Chiến thuật xử lý câu hỏi SAT Advanced & bài giảng Princeton Review" : (isPrinceton ? "Chiến thuật xử lý câu hỏi SAT nâng cao 1500+" : "Chiến thuật đọc hiểu cốt lõi")))));
-      const countDetail = exCount > 0 
-        ? `${total} Câu (${exCount} ví dụ + ${prCount} thực hành)`
-        : `${total} Câu`;
+
+      const stratSnippet = m.strategy ? m.strategy.replace(/^[•\s]+/, "").slice(0, 95) + "..." : (isPanda ? (isEn ? "Core SAT math formulas and problem-solving techniques" : "Công thức và chiến thuật toán SAT then chốt") : (isEricaWriting ? (isEn ? "Key SAT grammar rules and punctuation guidelines" : "Quy tắc ngữ pháp và dấu câu SAT trọng tâm") : (isPrincetonPrep2025 ? (isEn ? "Princeton Review SAT Premium Prep 2025 strategies and lecture walkthroughs" : "Chiến thuật xử lý câu hỏi SAT Premium Prep 2025 & bài giảng Princeton Review") : (isPrincetonBook ? (isEn ? "Princeton Review SAT Advanced strategies and lecture walkthroughs" : "Chiến thuật xử lý câu hỏi SAT Advanced & bài giảng Princeton Review") : (isPrinceton ? (isEn ? "Advanced 1500+ question strategies and trap evasion" : "Chiến thuật xử lý câu hỏi SAT nâng cao 1500+") : (isEn ? "Core reading comprehension strategies" : "Chiến thuật đọc hiểu cốt lõi"))))));
+      
+      const countDetail = isEn
+        ? (exCount > 0 ? `${total} Questions (${exCount} examples + ${prCount} practice)` : `${total} Questions`)
+        : (exCount > 0 ? `${total} Câu (${exCount} ví dụ + ${prCount} thực hành)` : `${total} Câu`);
 
       const pillClass = (m.section === "Math" || isPanda) ? "mod-math" : "mod-rw";
       const domainLabel = m.domain || (isPanda ? "Math" : (isEricaWriting ? "Writing & Grammar" : "Reading"));
 
+      const timeText = isEn ? `⏱️ ${m.time_minutes || 15} Mins` : `⏱️ ${m.time_minutes || 15} Phút`;
+      const pageText = isEn ? `📖 Page ${pageLabel}` : `📖 Trang ${pageLabel}`;
+      const progressText = answeredCount > 0
+        ? (isEn ? `<strong>${answeredCount}/${total}</strong> completed (${correctCount} correct)` : `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)`)
+        : countDetail;
+
       card.innerHTML = `
         <div class="mod-card-header">
           <span class="mod-pill ${pillClass}">${domainLabel}</span>
-          <span class="mod-time">⏱️ ${m.time_minutes || 15} Phút</span>
+          <span class="mod-time">${timeText}</span>
         </div>
         <h3>${headingText}</h3>
         <p>${m.sub_title ? `<strong>${m.sub_title}</strong>: ` : ""}${stratSnippet}</p>
         <div class="mod-meta">
-          <span>📖 Trang ${pageLabel}</span>
+          <span>${pageText}</span>
           <span class="mod-stat ${answeredCount > 0 ? "in-progress" : ""}">
-            ${answeredCount > 0 ? `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)` : countDetail}
+            ${progressText}
           </span>
         </div>
         <button type="button" class="btn-module-jump" data-module="${m.code}">${btnText}</button>
@@ -1215,6 +1303,7 @@ function flagHomeFieldError(el, message) {
 function startPracticeFromHome(targetModule) {
   let name = (DOM.homeInputName ? DOM.homeInputName.value.trim() : "") || App.studentState.student_name;
   let email = (DOM.homeInputEmail ? DOM.homeInputEmail.value.trim() : "") || App.studentState.student_email;
+  const isEn = (App.currentLang === "en");
 
   if (App.db && App.db.questions) {
     const qInMod = targetModule === "ALL" ? App.db.questions : App.db.questions.filter(q => q.module_code === targetModule);
@@ -1225,20 +1314,20 @@ function startPracticeFromHome(targetModule) {
 
   // 1. Validate Họ và tên học sinh *
   if (!name) {
-    flagHomeFieldError(DOM.homeInputName, "Vui lòng điền Họ và tên học sinh!");
+    flagHomeFieldError(DOM.homeInputName, isEn ? "Please enter student name!" : "Vui lòng điền Họ và tên học sinh!");
     return;
   }
 
   // 2. Validate Địa chỉ Email *
   if (!email || !email.includes("@")) {
-    flagHomeFieldError(DOM.homeInputEmail, "Vui lòng điền chính xác Địa chỉ Email học sinh!");
+    flagHomeFieldError(DOM.homeInputEmail, isEn ? "Please enter a valid student email address!" : "Vui lòng điền chính xác Địa chỉ Email học sinh!");
     return;
   }
 
   // 3. Validate Mục tiêu điểm số kỳ vọng *
   const activeChip = DOM.targetChipsContainer ? DOM.targetChipsContainer.querySelector(".target-chip.active") : null;
   if (!activeChip) {
-    flagHomeFieldError(DOM.targetChipsContainer, "Vui lòng chọn Mục tiêu điểm số kỳ vọng (1300+, 1400+ hoặc 1500+)!");
+    flagHomeFieldError(DOM.targetChipsContainer, isEn ? "Please select a target score (1300+, 1400+ or 1500+)!" : "Vui lòng chọn Mục tiêu điểm số kỳ vọng (1300+, 1400+ hoặc 1500+)!");
     return;
   }
 
@@ -1246,7 +1335,7 @@ function startPracticeFromHome(targetModule) {
   const homeSessionRaw = DOM.homeAarSession ? DOM.homeAarSession.value.trim() : "";
   const homeSessionIso = normalizeToIsoDate(homeSessionRaw);
   if (!homeSessionIso) {
-    flagHomeFieldError(DOM.homeAarSession, "Vui lòng chọn ngày thực tập ở mục Buổi # trước khi bắt đầu làm bài!");
+    flagHomeFieldError(DOM.homeAarSession, isEn ? "Please select practice date in Session # before starting!" : "Vui lòng chọn ngày thực tập ở mục Buổi # trước khi bắt đầu làm bài!");
     return;
   }
 
@@ -1254,32 +1343,32 @@ function startPracticeFromHome(targetModule) {
   const draftMod = DOM.homeAarSatModule ? DOM.homeAarSatModule.value : "";
   const draftModCustom = DOM.homeAarSatModuleCustom ? DOM.homeAarSatModuleCustom.value.trim() : "";
   if (!draftMod || draftMod.startsWith("--")) {
-    flagHomeFieldError(DOM.homeAarSatModule, "Vui lòng chọn Mô-đun SAT dự kiến luyện tập!");
+    flagHomeFieldError(DOM.homeAarSatModule, isEn ? "Please select the planned SAT module!" : "Vui lòng chọn Mô-đun SAT dự kiến luyện tập!");
     return;
   }
-  if (draftMod === "Khác (Tự nhập...)" && !draftModCustom) {
-    flagHomeFieldError(DOM.homeAarSatModuleCustom, "Vui lòng nhập tên Mô-đun SAT / chủ đề em dự kiến luyện tập!");
+  if ((draftMod === "Khác (Tự nhập...)" || draftMod === "Other (Custom...)") && !draftModCustom) {
+    flagHomeFieldError(DOM.homeAarSatModuleCustom, isEn ? "Please enter your custom SAT module/topic!" : "Vui lòng nhập tên Mô-đun SAT / chủ đề em dự kiến luyện tập!");
     return;
   }
 
   // 6. Validate Tiêu chuẩn ISTE áp dụng *
   const draftIste = DOM.homeAarIste ? DOM.homeAarIste.value : "";
   if (!draftIste || draftIste.startsWith("--")) {
-    flagHomeFieldError(DOM.homeAarIste, "Vui lòng chọn Tiêu chuẩn ISTE áp dụng cho buổi học!");
+    flagHomeFieldError(DOM.homeAarIste, isEn ? "Please select the applicable ISTE standard for this session!" : "Vui lòng chọn Tiêu chuẩn ISTE áp dụng cho buổi học!");
     return;
   }
 
   // 7. Validate Mục tiêu bài học & Điểm kỳ vọng *
   const draftGoal = DOM.homeAarGoal ? DOM.homeAarGoal.value.trim() : "";
   if (!draftGoal) {
-    flagHomeFieldError(DOM.homeAarGoal, "Vui lòng điền Mục tiêu bài học & Điểm kỳ vọng (phần Dự đoán trước buổi học - AAR) trước khi bắt đầu làm bài!");
+    flagHomeFieldError(DOM.homeAarGoal, isEn ? "Please enter Lesson Goal & Target Score (Stage 1 Anticipation) before starting!" : "Vui lòng điền Mục tiêu bài học & Điểm kỳ vọng (phần Dự đoán trước buổi học - AAR) trước khi bắt đầu làm bài!");
     return;
   }
 
   // 8. Validate Thách thức dự kiến *
   const draftChallenge = DOM.homeAarChallenge ? DOM.homeAarChallenge.value.trim() : "";
   if (!draftChallenge) {
-    flagHomeFieldError(DOM.homeAarChallenge, "Vui lòng điền Thách thức dự kiến (phần Dự đoán trước buổi học - AAR) trước khi bắt đầu làm bài!");
+    flagHomeFieldError(DOM.homeAarChallenge, isEn ? "Please enter Anticipated Challenges (Stage 1 Anticipation) before starting!" : "Vui lòng điền Thách thức dự kiến (phần Dự đoán trước buổi học - AAR) trước khi bắt đầu làm bài!");
     return;
   }
 
@@ -1295,8 +1384,8 @@ function startPracticeFromHome(targetModule) {
 
   // Format date and session label
   const dateVal = homeSessionIso || getTodayIsoLocal();
-  const dateDisplay = formatDateViFromIso(dateVal);
-  const sessionLabel = dateDisplay ? `Buổi ${dateDisplay}` : `Buổi ${dateVal}`;
+  const dateDisplay = isEn ? dateVal : formatDateViFromIso(dateVal);
+  const sessionLabel = isEn ? `Session ${dateVal}` : (dateDisplay ? `Buổi ${dateDisplay}` : `Buổi ${dateVal}`);
 
   // Automatically commit and save all student info and pre-session anticipation fields into AAR Draft
   App.aarDraft = Object.assign(createEmptyAarDraft(), App.aarDraft || {}, {
@@ -1463,21 +1552,26 @@ async function fetchDatabase(targetTestId = null) {
 function updateActiveTestUI() {
   if (!App.activeTest) App.activeTest = getActiveTestMeta();
   const test = App.activeTest;
+  const isEn = (App.currentLang === "en");
+
+  const shortTitle = getTestField(test, "short_title");
+  const badgeText = isEn ? (test.badge_en || test.badge || "Real Test") : (test.badge || "Chính thức");
+  const descText = getTestField(test, "description");
 
   // Document Title
-  document.title = `Bluebook Digital SAT - ${test.short_title}`;
+  document.title = `Bluebook Digital SAT - ${shortTitle}`;
 
   // Nav brand badge
   if (DOM.homeBrandBadge) {
-    DOM.homeBrandBadge.textContent = `${test.short_title} • ${test.badge || "Real Test"}`;
+    DOM.homeBrandBadge.textContent = `${shortTitle} • ${badgeText}`;
   }
 
   // Hero section titles
   if (DOM.heroMainTitle && DOM.heroTitleGradient) {
-    DOM.heroTitleGradient.textContent = `Real Test ${test.short_title}`;
+    DOM.heroTitleGradient.textContent = `Real Test ${shortTitle}`;
   }
-  if (DOM.heroMainDesc && test.description) {
-    DOM.heroMainDesc.textContent = test.description;
+  if (DOM.heroMainDesc && descText) {
+    DOM.heroMainDesc.textContent = descText;
   }
 
   // Hero poster & Drive buttons
@@ -1490,7 +1584,7 @@ function updateActiveTestUI() {
 
   // Practice View header badge & PDF iframe
   if (DOM.practiceTestBadge) {
-    DOM.practiceTestBadge.textContent = test.short_title;
+    DOM.practiceTestBadge.textContent = shortTitle;
   }
   if (DOM.pdfFrame && test.pdfPreviewUrl) {
     // Only update iframe src if changed to avoid unnecessary reloads
@@ -1508,26 +1602,26 @@ function updateActiveTestUI() {
 
     if (mRw1 && DOM.pageModRw1) {
       const endP = mRw2 ? (mRw2.pdf_start_page - 1) : (mRw1.pdf_start_page + 12);
-      DOM.pageModRw1.textContent = `📖 Trang ${mRw1.pdf_start_page} – ${endP}`;
+      DOM.pageModRw1.textContent = isEn ? `📖 Pages ${mRw1.pdf_start_page} – ${endP}` : `📖 Trang ${mRw1.pdf_start_page} – ${endP}`;
     }
     if (mRw2 && DOM.pageModRw2) {
       const endP = mM1 ? (mM1.pdf_start_page - 1) : (mRw2.pdf_start_page + 12);
-      DOM.pageModRw2.textContent = `📖 Trang ${mRw2.pdf_start_page} – ${endP}`;
+      DOM.pageModRw2.textContent = isEn ? `📖 Pages ${mRw2.pdf_start_page} – ${endP}` : `📖 Trang ${mRw2.pdf_start_page} – ${endP}`;
     }
     if (DOM.pageModMath1) {
       if (mM1) {
         const endP = mM2 ? (mM2.pdf_start_page - 1) : (mM1.pdf_start_page + 6);
-        DOM.pageModMath1.textContent = `📖 Trang ${mM1.pdf_start_page} – ${endP}`;
+        DOM.pageModMath1.textContent = isEn ? `📖 Pages ${mM1.pdf_start_page} – ${endP}` : `📖 Trang ${mM1.pdf_start_page} – ${endP}`;
       } else {
-        DOM.pageModMath1.textContent = `📖 Không áp dụng (Reading)`;
+        DOM.pageModMath1.textContent = isEn ? `📖 Not applicable (Reading)` : `📖 Không áp dụng (Reading)`;
       }
     }
     if (DOM.pageModMath2) {
       if (mM2) {
         const endP = mM2.pdf_start_page + 6;
-        DOM.pageModMath2.textContent = `📖 Trang ${mM2.pdf_start_page} – ${endP}`;
+        DOM.pageModMath2.textContent = isEn ? `📖 Pages ${mM2.pdf_start_page} – ${endP}` : `📖 Trang ${mM2.pdf_start_page} – ${endP}`;
       } else {
-        DOM.pageModMath2.textContent = `📖 Không áp dụng (Reading)`;
+        DOM.pageModMath2.textContent = isEn ? `📖 Not applicable (Reading)` : `📖 Không áp dụng (Reading)`;
       }
     }
 
@@ -1543,9 +1637,13 @@ function updateActiveTestUI() {
         const exCount = modQs.filter(q => q.category === "example").length;
         const prCount = modQs.filter(q => q.category === "practice").length;
         if (exCount > 0) {
-          opt.textContent = `${m.title || m.code} (${count} câu: ${exCount} ví dụ + ${prCount} thực hành)`;
+          opt.textContent = isEn
+            ? `${m.title || m.code} (${count} Qs: ${exCount} examples + ${prCount} practice)`
+            : `${m.title || m.code} (${count} câu: ${exCount} ví dụ + ${prCount} thực hành)`;
         } else {
-          opt.textContent = `${m.title || m.code} (${count} Qs)`;
+          opt.textContent = isEn
+            ? `${m.title || m.code} (${count} Qs)`
+            : `${m.title || m.code} (${count} câu)`;
         }
         DOM.selectModule.appendChild(opt);
       });
@@ -1553,19 +1651,33 @@ function updateActiveTestUI() {
       const optAll = document.createElement("option");
       optAll.value = "ALL";
       if (App.activeTestId === "erica-reading") {
-        optAll.textContent = `Toàn bộ 9 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 27} ví dụ + ${App.db.total_practice || 74} thực hành)`;
+        optAll.textContent = isEn
+          ? `All 9 Chapters: All ${totalCount} questions (${App.db.total_examples || 27} examples + ${App.db.total_practice || 74} practice)`
+          : `Toàn bộ 9 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 27} ví dụ + ${App.db.total_practice || 74} thực hành)`;
       } else if (App.activeTestId === "erica-writing") {
-        optAll.textContent = `Toàn bộ 17 chuyên đề: Tất cả ${totalCount} câu (${App.db.total_examples || 62} ví dụ + ${App.db.total_practice || 272} thực hành)`;
+        optAll.textContent = isEn
+          ? `All 17 Topics: All ${totalCount} questions (${App.db.total_examples || 62} examples + ${App.db.total_practice || 272} practice)`
+          : `Toàn bộ 17 chuyên đề: Tất cả ${totalCount} câu (${App.db.total_examples || 62} ví dụ + ${App.db.total_practice || 272} thực hành)`;
       } else if (App.activeTestId === "panda-math") {
-        optAll.textContent = `Toàn bộ 27 chương: Tất cả ${totalCount} câu hỏi SAT Math (College Panda)`;
+        optAll.textContent = isEn
+          ? `All 27 Chapters: All ${totalCount} questions (College Panda)`
+          : `Toàn bộ 27 chương: Tất cả ${totalCount} câu hỏi SAT Math (College Panda)`;
       } else if (App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025") {
-        optAll.textContent = `Toàn bộ 21 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 123} ví dụ + ${App.db.total_practice || 154} thực hành)`;
+        optAll.textContent = isEn
+          ? `All 21 Chapters: All ${totalCount} questions (${App.db.total_examples || 123} examples + ${App.db.total_practice || 154} practice)`
+          : `Toàn bộ 21 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 123} ví dụ + ${App.db.total_practice || 154} thực hành)`;
       } else if (App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook") {
-        optAll.textContent = `Toàn bộ 17 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 97} ví dụ + ${App.db.total_practice || 136} thực hành)`;
+        optAll.textContent = isEn
+          ? `All 17 Chapters: All ${totalCount} questions (${App.db.total_examples || 97} ví dụ + ${App.db.total_practice || 136} thực hành)`
+          : `Toàn bộ 17 chương: Tất cả ${totalCount} câu (${App.db.total_examples || 97} ví dụ + ${App.db.total_practice || 136} thực hành)`;
       } else if (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced") {
-        optAll.textContent = `Toàn bộ 2 Modules Nâng Cao: Tất cả ${totalCount} câu (Harder RW & Math)`;
+        optAll.textContent = isEn
+          ? `All 2 Advanced Modules: All ${totalCount} questions (Harder RW & Math)`
+          : `Toàn bộ 2 Modules Nâng Cao: Tất cả ${totalCount} câu (Harder RW & Math)`;
       } else {
-        optAll.textContent = `Toàn bộ đề: Tất cả ${totalCount} câu`;
+        optAll.textContent = isEn
+          ? `Full Test: All ${totalCount} questions`
+          : `Toàn bộ đề: Tất cả ${totalCount} câu`;
       }
       DOM.selectModule.appendChild(optAll);
 
@@ -1581,9 +1693,11 @@ function updateActiveTestUI() {
 
   renderModuleCards();
 }
+window.updateActiveTestUI = updateActiveTestUI;
 
 function renderExamSelectors() {
   const manifest = App.testsManifest || [];
+  const isEn = (App.currentLang === "en");
 
   const groupTests = manifest.filter(t => t.category === "tests" || (!t.category && (t.id.includes("2026") || t.id.includes("advanced"))));
   const groupBooks = manifest.filter(t => t.category === "books" || (!t.category && !(t.id.includes("2026") || t.id.includes("advanced"))));
@@ -1595,11 +1709,13 @@ function renderExamSelectors() {
 
     if (groupTests.length > 0) {
       const ogTests = document.createElement("optgroup");
-      ogTests.label = "📝 ĐỀ THI & MOCK TESTS THỰC CHIẾN (3 BỘ)";
+      ogTests.label = isEn ? "📝 REAL TESTS & TIMED PRACTICE (3 TESTS)" : "📝 ĐỀ THI & MOCK TESTS THỰC CHIẾN (3 BỘ)";
       groupTests.forEach(test => {
         const opt = document.createElement("option");
         opt.value = test.id;
-        opt.textContent = `${prefix}${test.short_title} (${test.badge || "Chính thức"})`;
+        const testBadge = isEn ? (test.badge_en || test.badge || "Official") : (test.badge || "Chính thức");
+        const titleText = isEn ? (test.short_title_en || test.short_title) : test.short_title;
+        opt.textContent = `${prefix}${titleText} (${testBadge})`;
         if (test.id === App.activeTestId || test.code === App.activeTestId) opt.selected = true;
         ogTests.appendChild(opt);
       });
@@ -1608,11 +1724,13 @@ function renderExamSelectors() {
 
     if (groupBooks.length > 0) {
       const ogBooks = document.createElement("optgroup");
-      ogBooks.label = "📚 SÁCH & GIÁO TRÌNH CHUYÊN SÂU (5 BỘ)";
+      ogBooks.label = isEn ? "📚 IN-DEPTH PREP BOOKS & TEXTBOOKS (5 BOOKS)" : "📚 SÁCH & GIÁO TRÌNH CHUYÊN SÂU (5 BỘ)";
       groupBooks.forEach(test => {
         const opt = document.createElement("option");
         opt.value = test.id;
-        opt.textContent = `${prefix}${test.short_title} (${test.badge || "Chính thức"})`;
+        const testBadge = isEn ? (test.badge_en || test.badge || "Official") : (test.badge || "Chính thức");
+        const titleText = isEn ? (test.short_title_en || test.short_title) : test.short_title;
+        opt.textContent = `${prefix}${titleText} (${testBadge})`;
         if (test.id === App.activeTestId || test.code === App.activeTestId) opt.selected = true;
         ogBooks.appendChild(opt);
       });
@@ -1649,8 +1767,11 @@ function renderExamSelectors() {
       const isActive = (test.id === App.activeTestId || test.code === App.activeTestId);
       const isBook = test.category === "books" || (!test.category && !(test.id.includes("2026") || test.id.includes("advanced")));
       const catType = isBook ? "books" : "tests";
-      const catLabel = test.category_badge || (isBook ? "📚 SÁCH GIÁO TRÌNH" : (test.id.includes("advanced") ? "🎯 THỬ THÁCH 1500+" : "📝 ĐỀ THI REAL TEST"));
+      const catLabel = isEn
+        ? (isBook ? "📚 TEXTBOOK / BOOK" : (test.id.includes("advanced") ? "🎯 1500+ CHALLENGE" : "📝 REAL TEST PRACTICE"))
+        : (test.category_badge || (isBook ? "📚 SÁCH GIÁO TRÌNH" : (test.id.includes("advanced") ? "🎯 THỬ THÁCH 1500+" : "📝 ĐỀ THI REAL TEST")));
       const catClass = isBook ? "pill-book" : (test.id.includes("advanced") ? "pill-advanced" : "pill-test");
+      const badgeTag = isEn ? (test.badge_en || test.badge || "Official Test") : (test.badge || "Official Test");
 
       // Calculate progress from localStorage for this test
       let answeredCount = 0;
@@ -1677,34 +1798,49 @@ function renderExamSelectors() {
       card.className = `exam-card ${isActive ? "active" : ""}`;
       card.dataset.testId = test.id;
       card.dataset.category = catType;
+
+      const title = getTestField(test, "title");
+      const desc = getTestField(test, "description");
+      const qMeta = isEn
+        ? `📝 ${test.total_questions || 98} Questions (${test.modules_count ? test.modules_count + " Chapters / Modules" : (test.id.includes("reading") ? "9 Chapters" : "4 Modules")})`
+        : `📝 ${test.total_questions || 98} Câu Hỏi (${test.modules_count ? test.modules_count + " Chương / Modules" : (test.id.includes("reading") ? "9 Chương" : "4 Modules")})`;
+      const timeMeta = isEn
+        ? `⏱️ ${test.time_minutes ? test.time_minutes + " Mins" : "134 Mins"}`
+        : `⏱️ ${test.time_minutes ? test.time_minutes + " Phút" : "134 Phút"}`;
+      const progressLabel = isEn ? "Personal progress:" : "Tiến độ cá nhân:";
+      const progressUnit = isEn ? "questions" : "câu";
+      const btnText = isActive
+        ? (isEn ? "✓ Selected & Active" : "✓ Đang Chọn Đề Này")
+        : (isEn ? "Select This Resource to Practice ➔" : "Chọn Đề Này Để Luyện Tập ➔");
+
       card.innerHTML = `
         <div class="exam-card-header">
           <div class="exam-badges-left">
             <span class="exam-cat-pill ${catClass}">${catLabel}</span>
-            <span class="exam-badge-tag">${test.badge || "Official Test"}</span>
+            <span class="exam-badge-tag">${badgeTag}</span>
           </div>
-          ${isActive ? '<span class="exam-active-indicator">● Đang luyện tập</span>' : ""}
+          ${isActive ? `<span class="exam-active-indicator">● ${isEn ? "Active Exam" : "Đang luyện tập"}</span>` : ""}
         </div>
-        <h3 class="exam-card-title">${test.title}</h3>
-        <p class="exam-card-desc">${test.description}</p>
+        <h3 class="exam-card-title">${title}</h3>
+        <p class="exam-card-desc">${desc}</p>
         <div class="exam-card-meta">
           <span>📅 ${test.date || "2026"}</span>
           <span>•</span>
-          <span>📝 ${test.total_questions || 98} Câu Hỏi (${test.modules_count ? test.modules_count + " Chương / Modules" : (test.id.includes("reading") ? "9 Chương" : "4 Modules")})</span>
+          <span>${qMeta}</span>
           <span>•</span>
-          <span>⏱️ ${test.time_minutes ? test.time_minutes + " Phút" : "134 Phút"}</span>
+          <span>${timeMeta}</span>
         </div>
         <div class="exam-progress-bar-wrap">
           <div class="exam-progress-label">
-            <span>Tiến độ cá nhân:</span>
-            <strong>${answeredCount}/${totalCount} câu (${pct}%)</strong>
+            <span>${progressLabel}</span>
+            <strong>${answeredCount}/${totalCount} ${progressUnit} (${pct}%)</strong>
           </div>
           <div class="exam-progress-bar">
             <div class="exam-progress-fill" style="width: ${pct}%"></div>
           </div>
         </div>
         <button type="button" class="btn-select-exam">
-          ${isActive ? "✓ Đang Chọn Đề Này" : "Chọn Đề Này Để Luyện Tập ➔"}
+          ${btnText}
         </button>
       `;
 
@@ -1719,6 +1855,7 @@ function renderExamSelectors() {
     initExamCategoryFilter();
   }
 }
+window.renderExamSelectors = renderExamSelectors;
 
 function initExamCategoryFilter() {
   const filterBar = document.getElementById("exams-filter-bar");
@@ -1950,26 +2087,26 @@ function renderCurrentQuestion() {
     eliminated: []
   };
 
+  const isEn = (App.currentLang === "en");
+
   // Question Number & Navigation Labels
   if (DOM.qNumberLabel) {
     if ((App.activeTestId === "erica-reading" || App.activeTestId === "ericareading" || App.activeTestId === "erica-writing" || App.activeTestId === "ericawriting" || App.activeTestId === "panda-math" || App.activeTestId === "pandamath" || App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook" || App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025") && q.q_label) {
       const bookPg = q.book_page || (q.pdf_page ? (App.activeTestId.includes("princeton") ? q.pdf_page : q.pdf_page - 1) : null);
-      const bookStr = bookPg ? ` • PDF trang ${bookPg}` : "";
-      DOM.qNumberLabel.innerHTML = `<strong>${escapeHtml(q.q_label)}</strong> <span style="opacity:0.75; font-weight:normal; margin-left:8px;">(Mục ${App.currentIndex + 1}/${App.questions.length}${bookStr})</span>`;
+      const bookStr = bookPg ? (isEn ? ` • PDF page ${bookPg}` : ` • PDF trang ${bookPg}`) : "";
+      DOM.qNumberLabel.innerHTML = `<strong>${escapeHtml(q.q_label)}</strong> <span style="opacity:0.75; font-weight:normal; margin-left:8px;">(${isEn ? "Item" : "Mục"} ${App.currentIndex + 1}/${App.questions.length}${bookStr})</span>`;
     } else {
-      const isVi = (App.currentLang === "vi");
-      DOM.qNumberLabel.textContent = isVi
-        ? `Câu ${App.currentIndex + 1} trên ${App.questions.length}`
-        : `Question ${App.currentIndex + 1} of ${App.questions.length}`;
+      DOM.qNumberLabel.textContent = isEn
+        ? `Question ${App.currentIndex + 1} of ${App.questions.length}`
+        : `Câu ${App.currentIndex + 1} trên ${App.questions.length}`;
     }
   }
-  if (DOM.btnNavBack) DOM.btnNavBack.textContent = (App.currentLang === "en") ? "Back" : "Câu trước";
-  if (DOM.btnNavNext) DOM.btnNavNext.textContent = (App.currentLang === "en") ? "Next" : "Câu tiếp";
-  if (DOM.btnCheckAnswer) DOM.btnCheckAnswer.textContent = (App.currentLang === "en") ? "Check Answer (Enter)" : "Kiểm tra đáp án (Enter)";
+  if (DOM.btnNavBack) DOM.btnNavBack.textContent = isEn ? "Back" : "Câu trước";
+  if (DOM.btnNavNext) DOM.btnNavNext.textContent = isEn ? "Next" : "Câu tiếp";
+  if (DOM.btnCheckAnswer) DOM.btnCheckAnswer.textContent = isEn ? "Check Answer (Enter)" : "Kiểm tra đáp án (Enter)";
   if (DOM.btnOpenNavigator) {
-    const isVi = (App.currentLang === "vi");
-    const qWord = isVi ? "Câu" : "Question";
-    const ofWord = isVi ? "trên" : "of";
+    const qWord = isEn ? "Question" : "Câu";
+    const ofWord = isEn ? "of" : "trên";
     DOM.btnOpenNavigator.innerHTML = `<span>${qWord} <strong id="nav-current-label">${App.currentIndex + 1}</strong> ${ofWord} <span id="nav-total-label">${App.questions.length}</span></span> <span class="nav-arrow-up">▲</span>`;
     DOM.navCurrentLabel = document.getElementById("nav-current-label");
     DOM.navTotalLabel = document.getElementById("nav-total-label");
@@ -1978,13 +2115,13 @@ function renderCurrentQuestion() {
   }
   if (DOM.qTopicBadge) {
     if (q.category === "example") {
-      DOM.qTopicBadge.innerHTML = `<span class="pill-badge pill-example">💡 Ví dụ minh họa</span> ${escapeHtml(q.topic || "")}`;
+      DOM.qTopicBadge.innerHTML = `<span class="pill-badge pill-example">${isEn ? "💡 Worked Example" : "💡 Ví dụ minh họa"}</span> ${escapeHtml(q.topic || "")}`;
     } else if (q.category === "practice") {
-      DOM.qTopicBadge.innerHTML = `<span class="pill-badge pill-practice">✍️ Luyện tập</span> ${escapeHtml(q.topic || "")}`;
+      DOM.qTopicBadge.innerHTML = `<span class="pill-badge pill-practice">${isEn ? "✍️ Practice Drill" : "✍️ Luyện tập"}</span> ${escapeHtml(q.topic || "")}`;
     } else {
       DOM.qTopicBadge.textContent = q.topic || "";
     }
-    DOM.qTopicBadge.title = `Chủ đề: ${q.topic || ""}`;
+    DOM.qTopicBadge.title = `${isEn ? "Topic" : "Chủ đề"}: ${q.topic || ""}`;
   }
   if (DOM.qDomainBadge) {
     let extra = "";
@@ -1992,7 +2129,7 @@ function renderCurrentQuestion() {
       extra = q.is_calculator ? " • 🧮 Calculator Allowed" : " • ✏️ No Calculator";
     }
     DOM.qDomainBadge.textContent = (q.domain || q.section || "") + extra;
-    DOM.qDomainBadge.title = `Phần thi: ${q.domain || q.section || ""} (${q.calc_mode || ""})`;
+    DOM.qDomainBadge.title = `${isEn ? "Section" : "Phần thi"}: ${q.domain || q.section || ""} (${q.calc_mode || ""})`;
   }
 
   // Response instruction label
@@ -2000,33 +2137,51 @@ function renderCurrentQuestion() {
     const isEricaWriting = (App.activeTestId === "erica-writing" || App.activeTestId === "ericawriting");
     const bookPg = q.book_page || (q.pdf_page ? q.pdf_page - 2 : null);
     const labelMeta = isEricaWriting && q.q_label
-      ? ` - <span style="color:#1e40af; font-weight:700;">${escapeHtml(q.q_label)}</span>${bookPg ? ` <span style="opacity:0.78;">(Sách tr. ${bookPg})</span>` : ""}`
+      ? ` - <span style="color:#1e40af; font-weight:700;">${escapeHtml(q.q_label)}</span>${bookPg ? ` <span style="opacity:0.78;">(${isEn ? "Book p." : "Sách tr."} ${bookPg})</span>` : ""}`
       : "";
     const isPrincetonPrep2025 = (App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025");
     const isPrincetonBook = (App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook");
     const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
     if (App.activeTestId === "panda-math") {
-      DOM.responseInstruction.innerHTML = '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> - Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
+      DOM.responseInstruction.innerHTML = isEn
+        ? '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> - Read the question and calculate carefully to select the correct answer:'
+        : '<strong>🐼 THE COLLEGE PANDA SAT MATH</strong> - Đọc đề bài và tính toán cẩn thận để chọn đáp án đúng:';
     } else if (isPrincetonPrep2025) {
       if (q.category === "example") {
-        DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (PRINCETON SAT PREP 2025)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Crack It:`;
+        DOM.responseInstruction.innerHTML = isEn
+          ? `<strong>💡 WORKED EXAMPLE (PRINCETON SAT PREP 2025)</strong> - Read the passage on the PDF (page ${q.pdf_page || 1}) and review the Here's How to Crack It walkthrough:`
+          : `<strong>💡 VÍ DỤ MINH HỌA (PRINCETON SAT PREP 2025)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Crack It:`;
       } else {
-        DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
+        DOM.responseInstruction.innerHTML = isEn
+          ? `<strong>✍️ PRACTICE DRILL</strong> - Read the question on the PDF (page ${q.pdf_page || 1}) and select the correct answer:`
+          : `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
       }
     } else if (isPrincetonBook) {
       if (q.category === "example") {
-        DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (THE PRINCETON REVIEW)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Ace It:`;
+        DOM.responseInstruction.innerHTML = isEn
+          ? `<strong>💡 WORKED EXAMPLE (THE PRINCETON REVIEW)</strong> - Read the passage on the PDF (page ${q.pdf_page || 1}) and review the Here's How to Ace It walkthrough:`
+          : `<strong>💡 VÍ DỤ MINH HỌA (THE PRINCETON REVIEW)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và phân tích bài giảng Here's How to Ace It:`;
       } else {
-        DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
+        DOM.responseInstruction.innerHTML = isEn
+          ? `<strong>✍️ PRACTICE DRILL</strong> - Read the question on the PDF (page ${q.pdf_page || 1}) and select the correct answer:`
+          : `<strong>✍️ BÀI TẬP THỰC HÀNH (DRILL)</strong> - Đọc đề trên sách PDF (trang ${q.pdf_page || 1}) và chọn đáp án chính xác:`;
       }
     } else if (isPrinceton) {
-      DOM.responseInstruction.innerHTML = '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> - Đọc đề bài &amp; các lựa chọn trên PDF Viewer bên trái, sau đó chọn đáp án A, B, C, D bên dưới:';
+      DOM.responseInstruction.innerHTML = isEn
+        ? '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> - Read the question &amp; options on the left PDF viewer, then select A, B, C, or D below:'
+        : '<strong>🎯 THE PRINCETON REVIEW ADVANCED SAT</strong> - Đọc đề bài &amp; các lựa chọn trên PDF Viewer bên trái, sau đó chọn đáp án A, B, C, D bên dưới:';
     } else if (q.category === "example") {
-      DOM.responseInstruction.innerHTML = `<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong>${labelMeta} - Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:`;
+      DOM.responseInstruction.innerHTML = isEn
+        ? `<strong>💡 WORKED EXAMPLE</strong>${labelMeta} - Read the example in the PDF booklet on the left and analyze Erica Meltzer's approach:`
+        : `<strong>💡 VÍ DỤ MINH HỌA (WORKED EXAMPLE)</strong>${labelMeta} - Đọc ví dụ trên trang sách PDF bên trái và cùng phân tích phương pháp của Erica Meltzer:`;
     } else if (q.category === "practice") {
-      DOM.responseInstruction.innerHTML = `<strong>✍️ BÀI TẬP THỰC HÀNH</strong>${labelMeta} - Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:`;
+      DOM.responseInstruction.innerHTML = isEn
+        ? `<strong>✍️ PRACTICE DRILL</strong>${labelMeta} - Read the question in the PDF booklet on the left and select the correct answer:`
+        : `<strong>✍️ BÀI TẬP THỰC HÀNH</strong>${labelMeta} - Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:`;
     } else {
-      DOM.responseInstruction.textContent = 'Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
+      DOM.responseInstruction.textContent = isEn
+        ? 'Read the question on the left PDF page and select the correct answer:'
+        : 'Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:';
     }
   }
 
@@ -2122,19 +2277,20 @@ function renderGridInSolution(q, qState, isFinished) {
     return;
   }
   solBox.className = "gridin-solution-card";
-  const trapErrors = q.grid_in_explanation?.trap_errors || "Cẩn thận kiểm tra các bẫy đổi đơn vị, làm tròn số thập phân, hoặc điều kiện bài toán.";
-  const steps = q.solution_steps || q.pooe_breakdown || "Xem lời giải chi tiết và các bước biến đổi trên bảng gợi ý.";
+  const isEn = (App.currentLang === "en");
+  const trapErrors = q.grid_in_explanation?.trap_errors || (isEn ? "Double check unit conversions, decimal rounding, and question constraints." : "Cẩn thận kiểm tra các bẫy đổi đơn vị, làm tròn số thập phân, hoặc điều kiện bài toán.");
+  const steps = q.solution_steps || q.pooe_breakdown || (isEn ? "See detailed step-by-step solution and mathematical derivations on the hint board." : "Xem lời giải chi tiết và các bước biến đổi trên bảng gợi ý.");
   
   solBox.innerHTML = `
     <div class="gridin-badge-line">
-      <span class="gridin-correct-tag"><span class="badge-icon">✅</span> ĐÁP ÁN ĐÚNG CHUẨN: <strong>${escapeHtml(q.correct_answer)}</strong></span>
+      <span class="gridin-correct-tag"><span class="badge-icon">✅</span> ${isEn ? "OFFICIAL CORRECT ANSWER:" : "ĐÁP ÁN ĐÚNG CHUẨN:"} <strong>${escapeHtml(q.correct_answer)}</strong></span>
     </div>
     <div class="gridin-section">
-      <div class="gridin-sec-header">💡 CÁCH GIẢI CHI TIẾT & BƯỚC TÍNH:</div>
+      <div class="gridin-sec-header">💡 ${isEn ? "DETAILED SOLUTION & DERIVATIONS:" : "CÁCH GIẢI CHI TIẾT & BƯỚC TÍNH:"}</div>
       <div class="gridin-sec-body">${escapeHtml(steps)}</div>
     </div>
     <div class="gridin-section gridin-trap">
-      <div class="gridin-sec-header trap-header">⚠️ TẠI SAO CÁC KẾT QUẢ KHÁC BỊ SAI / LỖI BẪY:</div>
+      <div class="gridin-sec-header trap-header">⚠️ ${isEn ? "WHY OTHER RESULTS ARE WRONG / TRAP ANALYSIS:" : "TẠI SAO CÁC KẾT QUẢ KHÁC BỊ SAI / LỖI BẪY:"}</div>
       <div class="gridin-sec-body">${escapeHtml(trapErrors)}</div>
     </div>
   `;
@@ -2707,11 +2863,12 @@ async function openMermaidModal() {
 
   pauseTimer();
 
+  const isEn = (App.currentLang === "en");
   const qIndex = App.currentIndex + 1;
   const modTitle = DOM.selectModule ? DOM.selectModule.options[DOM.selectModule.selectedIndex].text.split("(")[0].trim() : App.activeModuleCode;
 
   if (DOM.mermaidModalTitle) {
-    DOM.mermaidModalTitle.textContent = `${modTitle} • Câu ${qIndex}: ${q.topic || 'Sơ đồ tư duy logic'}`;
+    DOM.mermaidModalTitle.textContent = isEn ? `${modTitle} • Q${qIndex}: ${q.topic || 'Visual Logic Mindmap'}` : `${modTitle} • Câu ${qIndex}: ${q.topic || 'Sơ đồ tư duy logic'}`;
   }
 
   if (DOM.modalMermaid) {
@@ -2721,12 +2878,14 @@ async function openMermaidModal() {
   MermaidPanZoom.init();
   await renderMermaidDiagramContent(q);
 }
+window.openMermaidModal = openMermaidModal;
 
 function toggleMermaidFullscreen() {
   const modal = DOM.modalMermaid;
   const card = DOM.mermaidModalCard;
   if (!modal || !card) return;
 
+  const isEn = (App.currentLang === "en");
   const isFs = card.classList.contains("is-fullscreen") || document.fullscreenElement != null;
 
   if (!isFs) {
@@ -2734,8 +2893,8 @@ function toggleMermaidFullscreen() {
     modal.classList.add("is-fullscreen");
     if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.classList.add("is-active");
     if (DOM.mmFsIcon) DOM.mmFsIcon.textContent = "🗗";
-    if (DOM.mmFsText) DOM.mmFsText.textContent = "Thu nhỏ";
-    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.title = "Thoát toàn màn hình (Esc hoặc F11)";
+    if (DOM.mmFsText) DOM.mmFsText.textContent = isEn ? "Exit Fullscreen" : "Thu nhỏ";
+    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.title = isEn ? "Exit Fullscreen (Esc or F11)" : "Thoát toàn màn hình (Esc hoặc F11)";
 
     try {
       if (modal.requestFullscreen) {
@@ -2749,8 +2908,8 @@ function toggleMermaidFullscreen() {
     modal.classList.remove("is-fullscreen");
     if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.classList.remove("is-active");
     if (DOM.mmFsIcon) DOM.mmFsIcon.textContent = "⛶";
-    if (DOM.mmFsText) DOM.mmFsText.textContent = "Toàn màn hình";
-    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.title = "Phóng to toàn màn hình (F11)";
+    if (DOM.mmFsText) DOM.mmFsText.textContent = isEn ? "Fullscreen" : "Toàn màn hình";
+    if (DOM.btnMmFullscreen) DOM.btnMmFullscreen.title = isEn ? "Enter Fullscreen (F11)" : "Phóng to toàn màn hình (F11)";
 
     try {
       if (document.fullscreenElement) {
@@ -3537,6 +3696,7 @@ function renderErrorLogs() {
     _testShort: currentShort,
     _isCurrentTest: true
   }));
+  const isEn = (App.currentLang === "en");
 
   // Default scope to "all" so students see full history of traps and errors
   if (!App.notebookScope) {
@@ -3560,9 +3720,9 @@ function renderErrorLogs() {
 
   const list = (App.notebookScope === "current") ? currentLogs : allCrossLogs;
   const total = list.length;
-  const pending = list.filter(l => l.status === "Chưa xử lý").length;
-  const tracking = list.filter(l => l.status === "Đang theo dõi").length;
-  const resolved = list.filter(l => l.status === "Đã triệt tiêu").length;
+  const pending = list.filter(l => l.status === "Chưa xử lý" || l.status === "Pending").length;
+  const tracking = list.filter(l => l.status === "Đang theo dõi" || l.status === "Tracking").length;
+  const resolved = list.filter(l => l.status === "Đã triệt tiêu" || l.status === "Resolved").length;
   const vocabCount = list.filter(l => l.vocabulary && l.vocabulary.trim()).length;
 
   if (DOM.countChipAll) DOM.countChipAll.textContent = total;
@@ -3570,7 +3730,9 @@ function renderErrorLogs() {
   if (DOM.countChipTracking) DOM.countChipTracking.textContent = tracking;
   if (DOM.countChipResolved) DOM.countChipResolved.textContent = resolved;
   if (DOM.badgeNotebookCount) {
-    DOM.badgeNotebookCount.textContent = `${total} ghi chép • ${vocabCount} từ mới`;
+    DOM.badgeNotebookCount.textContent = isEn
+      ? `${total} records • ${vocabCount} vocab words`
+      : `${total} ghi chép • ${vocabCount} từ mới`;
   }
 
   DOM.errorLogList.innerHTML = "";
@@ -3598,9 +3760,9 @@ function renderErrorLogs() {
     DOM.errorLogList.innerHTML = `
       <div style="text-align: center; padding: 36px 16px; color: #5f6368;">
         <div style="font-size: 32px; margin-bottom: 8px;">📭</div>
-        <div style="font-weight: 600; font-size: 14px; color: #202124;">Không tìm thấy ghi chép nào</div>
+        <div style="font-weight: 600; font-size: 14px; color: #202124;">${isEn ? "No records found" : "Không tìm thấy ghi chép nào"}</div>
         <div style="font-size: 12.5px; margin-top: 4px;">
-          ${qLower ? `Không có kết quả khớp với từ khóa "${escapeHtml(qLower)}".` : `Em chưa có ghi chép thử sai hoặc từ vựng nào trong mục này.`}
+          ${qLower ? (isEn ? `No entries matching keyword "${escapeHtml(qLower)}".` : `Không có kết quả khớp với từ khóa "${escapeHtml(qLower)}".`) : (isEn ? "You don't have any error notes or vocabulary saved in this view yet." : "Em chưa có ghi chép thử sai hoặc từ vựng nào trong mục này.")}
         </div>
       </div>
     `;
@@ -3614,48 +3776,48 @@ function renderErrorLogs() {
       editCard.className = "g-inline-edit";
       editCard.innerHTML = `
         <div style="font-size: 13px; font-weight: 700; color: #1a73e8; margin-bottom: 10px;">
-          ✏️ Đang chỉnh sửa: ${item._testShort ? `[${escapeHtml(item._testShort)}] ` : ""}${escapeHtml(item.module || "SAT")} • Câu ${escapeHtml(item.q_label || item.question_id || "")}
+          ${isEn ? "✏️ Editing:" : "✏️ Đang chỉnh sửa:"} ${item._testShort ? `[${escapeHtml(item._testShort)}] ` : ""}${escapeHtml(item.module || "SAT")} • ${isEn ? "Question" : "Câu"} ${escapeHtml(item.q_label || item.question_id || "")}
         </div>
         <div class="inline-edit-grid">
           <div>
-            <label>Tình trạng xử lý:</label>
+            <label>${isEn ? "Resolution Status:" : "Tình trạng xử lý:"}</label>
             <select class="g-select edit-status">
-              <option value="Chưa xử lý" ${item.status === "Chưa xử lý" ? "selected" : ""}>⏳ Chưa xử lý</option>
-              <option value="Đang theo dõi" ${item.status === "Đang theo dõi" ? "selected" : ""}>🔄 Đang theo dõi</option>
-              <option value="Đã triệt tiêu" ${item.status === "Đã triệt tiêu" ? "selected" : ""}>✅ Đã triệt tiêu</option>
+              <option value="Chưa xử lý" ${item.status === "Chưa xử lý" ? "selected" : ""}>⏳ ${isEn ? "Pending Review" : "Chưa xử lý"}</option>
+              <option value="Đang theo dõi" ${item.status === "Đang theo dõi" ? "selected" : ""}>🔄 ${isEn ? "Under Tracking" : "Đang theo dõi"}</option>
+              <option value="Đã triệt tiêu" ${item.status === "Đã triệt tiêu" ? "selected" : ""}>✅ ${isEn ? "Mastered & Resolved" : "Đã triệt tiêu"}</option>
             </select>
           </div>
           <div>
-            <label>Nhóm bẫy SAT:</label>
+            <label>${isEn ? "SAT Trap Category:" : "Nhóm bẫy SAT:"}</label>
             <select class="g-select edit-trap">
-              <option value="Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)" ${item.root_cause?.includes("từ vựng") ? "selected" : ""}>📖 Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)</option>
-              <option value="Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)" ${item.root_cause?.includes("đảo cực") ? "selected" : ""}>⚠️ Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)</option>
-              <option value="Bẫy tương phản giả & Cụm nối (However, Although, But...)" ${item.root_cause?.includes("tương phản") ? "selected" : ""}>⚡ Bẫy tương phản giả & Cụm nối (However, Although, But...)</option>
-              <option value="Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)" ${item.root_cause?.includes("suy diễn") ? "selected" : ""}>🔍 Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)</option>
-              <option value="Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)" ${item.root_cause?.includes("đọc lướt") ? "selected" : ""}>👀 Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)</option>
-              <option value="Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)" ${item.root_cause?.includes("đại số") ? "selected" : ""}>🧮 Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)</option>
-              <option value="Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)" ${item.root_cause?.includes("nhầm câu hỏi") ? "selected" : ""}>🎯 Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)</option>
-              <option value="Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)" ${item.root_cause?.includes("làm tròn") ? "selected" : ""}>📏 Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)</option>
-              <option value="Chưa nắm chắc công thức / lý thuyết cốt lõi" ${item.root_cause?.includes("công thức") ? "selected" : ""}>📚 Chưa nắm chắc công thức / lý thuyết cốt lõi</option>
-              <option value="Khác" ${item.root_cause === "Khác" ? "selected" : ""}>💡 Bẫy khác...</option>
+              <option value="Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)" ${item.root_cause?.includes("từ vựng") ? "selected" : ""}>📖 ${isEn ? "Context Clues & Words in Context" : "Bẫy từ vựng & Nghĩa trong ngữ cảnh (Context Clues)"}</option>
+              <option value="Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)" ${item.root_cause?.includes("đảo cực") ? "selected" : ""}>⚠️ ${isEn ? "Polar Reversal & Extreme Words (always, never, only...)" : "Bẫy đảo cực & Từ tuyệt đối (Extreme Words: always, never, only...)"}</option>
+              <option value="Bẫy tương phản giả & Cụm nối (However, Although, But...)" ${item.root_cause?.includes("tương phản") ? "selected" : ""}>⚡ ${isEn ? "False Contrast & Transition Clues (However, Although, But...)" : "Bẫy tương phản giả & Cụm nối (However, Although, But...)"}</option>
+              <option value="Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)" ${item.root_cause?.includes("suy diễn") ? "selected" : ""}>🔍 ${isEn ? "Out of Scope / Unsupported Assumption" : "Bẫy suy diễn quá xa / Lạc đề (Out of Scope / Assumption)"}</option>
+              <option value="Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)" ${item.root_cause?.includes("đọc lướt") ? "selected" : ""}>👀 ${isEn ? "Careless Reading / Overlooked Negation" : "Bẫy đọc lướt sót từ khóa quan trọng (Careless Reading)"}</option>
+              <option value="Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)" ${item.root_cause?.includes("đại số") ? "selected" : ""}>🧮 ${isEn ? "Algebra Sign Trap & Equation Transposition Error" : "Bẫy đại số / Đổi dấu / Chuyển vế nhầm (Algebra / Sign Trap)"}</option>
+              <option value="Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)" ${item.root_cause?.includes("nhầm câu hỏi") ? "selected" : ""}>🎯 ${isEn ? "Misread Question Stem (Solved for x instead of y)" : "Bẫy đọc nhầm câu hỏi (Đề hỏi y nhưng giải ra x)"}</option>
+              <option value="Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)" ${item.root_cause?.includes("làm tròn") ? "selected" : ""}>📏 ${isEn ? "Rounding, Fractions & Unit Conversion Trap" : "Bẫy làm tròn số / Phân số / Đơn vị đo (Fractions / Units)"}</option>
+              <option value="Chưa nắm chắc công thức / lý thuyết cốt lõi" ${item.root_cause?.includes("công thức") ? "selected" : ""}>📚 ${isEn ? "Core Formula / Concept Knowledge Gap" : "Chưa nắm chắc công thức / lý thuyết cốt lõi"}</option>
+              <option value="Khác" ${item.root_cause === "Khác" ? "selected" : ""}>💡 ${isEn ? "Other Trap..." : "Bẫy khác..."}</option>
             </select>
           </div>
           <div class="full-width">
-            <label>Phân tích nguyên nhân thử sai & Bài học rút ra:</label>
+            <label>${isEn ? "Root-Cause Analysis & Socratic Takeaways:" : "Phân tích nguyên nhân thử sai & Bài học rút ra:"}</label>
             <textarea class="g-textarea edit-detail" rows="2">${escapeHtml(item.trap_detail || "")}</textarea>
           </div>
           <div class="full-width">
-            <label>📝 Ghi chú tư duy cá nhân (Mẹo nhớ nhanh):</label>
-            <textarea class="g-textarea edit-notes" rows="2" placeholder="Ví dụ: Quy tắc gạch chân từ khóa, cách giải nhanh...">${escapeHtml(item.student_notes || "")}</textarea>
+            <label>${isEn ? "📝 Personal Thinking Notes (Memory Clues):" : "📝 Ghi chú tư duy cá nhân (Mẹo nhớ nhanh):"}</label>
+            <textarea class="g-textarea edit-notes" rows="2" placeholder="${isEn ? "e.g. Underline context clues, mental math shortcuts..." : "Ví dụ: Quy tắc gạch chân từ khóa, cách giải nhanh..."}">${escapeHtml(item.student_notes || "")}</textarea>
           </div>
           <div class="full-width">
-            <label>📖 Từ mới & Thuật ngữ tiếng Anh:</label>
-            <textarea class="g-textarea edit-vocab" rows="2" placeholder="Ví dụ: repudiate = bác bỏ; ephemeral = ngắn ngủi...">${escapeHtml(item.vocabulary || "")}</textarea>
+            <label>${isEn ? "📖 New Vocabulary & English Terms:" : "📖 Từ mới & Thuật ngữ tiếng Anh:"}</label>
+            <textarea class="g-textarea edit-vocab" rows="2" placeholder="${isEn ? "e.g. repudiate = reject; ephemeral = short-lived..." : "Ví dụ: repudiate = bác bỏ; ephemeral = ngắn ngủi..."}">${escapeHtml(item.vocabulary || "")}</textarea>
           </div>
         </div>
         <div class="inline-edit-actions">
-          <button class="btn-subtle btn-cancel-edit">✕ Hủy</button>
-          <button class="btn-primary-g btn-save-edit">💾 Lưu thay đổi</button>
+          <button class="btn-subtle btn-cancel-edit">✕ ${isEn ? "Cancel" : "Hủy"}</button>
+          <button class="btn-primary-g btn-save-edit">💾 ${isEn ? "Save Changes" : "Lưu thay đổi"}</button>
         </div>
       `;
 
@@ -3667,7 +3829,7 @@ function renderErrorLogs() {
       editCard.querySelector(".btn-save-edit").addEventListener("click", () => {
         const newDetail = editCard.querySelector(".edit-detail").value.trim();
         if (!newDetail) {
-          alert("Vui lòng không để trống phần phân tích thử sai!");
+          alert(isEn ? "Please do not leave error reflection empty!" : "Vui lòng không để trống phần phân tích thử sai!");
           return;
         }
         item.status = editCard.querySelector(".edit-status").value;
@@ -3713,31 +3875,31 @@ function renderErrorLogs() {
     card.className = "g-notebook-card";
 
     let statusClass = "status-tracking";
-    let statusText = "🔄 Đang theo dõi";
-    if (item.status === "Chưa xử lý") {
+    let statusText = isEn ? "🔄 Under Tracking" : "🔄 Đang theo dõi";
+    if (item.status === "Chưa xử lý" || item.status === "Pending") {
       statusClass = "status-pending";
-      statusText = "⏳ Chưa xử lý";
-    } else if (item.status === "Đã triệt tiêu") {
+      statusText = isEn ? "⏳ Pending Review" : "⏳ Chưa xử lý";
+    } else if (item.status === "Đã triệt tiêu" || item.status === "Resolved") {
       statusClass = "status-resolved";
-      statusText = "✅ Đã triệt tiêu";
+      statusText = isEn ? "✅ Mastered & Resolved" : "✅ Đã triệt tiêu";
     }
 
     const notesHtml = item.student_notes ? `
       <div class="card-notes-box">
-        <strong>📝 Ghi chú tư duy:</strong> ${escapeHtml(item.student_notes)}
+        <strong>${isEn ? "📝 Thinking Notes:" : "📝 Ghi chú tư duy:"}</strong> ${escapeHtml(item.student_notes)}
       </div>
     ` : "";
 
     const vocabHtml = item.vocabulary ? `
       <div class="card-vocab-box">
-        <strong>📖 Từ mới / Thuật ngữ:</strong>
+        <strong>${isEn ? "📖 New Vocabulary / Terms:" : "📖 Từ mới / Thuật ngữ:"}</strong>
         ${formatVocabHtml(item.vocabulary)}
       </div>
     ` : "";
 
-    const quickToggleBtn = (item.status === "Đã triệt tiêu") ?
-      `<button class="btn-quick-toggle-status" title="Chuyển về trạng thái đang theo dõi">🔄 Đưa về theo dõi</button>` :
-      `<button class="btn-quick-toggle-status" title="Đánh dấu em đã nắm vững kiến thức này">✅ Đã triệt tiêu</button>`;
+    const quickToggleBtn = (item.status === "Đã triệt tiêu" || item.status === "Resolved") ?
+      `<button class="btn-quick-toggle-status" title="${isEn ? "Move back to tracking" : "Chuyển về trạng thái đang theo dõi"}">${isEn ? "🔄 Move to Tracking" : "🔄 Đưa về theo dõi"}</button>` :
+      `<button class="btn-quick-toggle-status" title="${isEn ? "Mark as mastered" : "Đánh dấu em đã nắm vững kiến thức này"}">${isEn ? "✅ Mark Resolved" : "✅ Đã triệt tiêu"}</button>`;
 
     const challengeTextVal = item.trap_detail || item.root_cause || "";
     const showChallengeBtn = DOM.homeAarChallenge && challengeTextVal;
@@ -3746,17 +3908,17 @@ function renderErrorLogs() {
       <div class="card-top-row">
         <div class="card-top-left">
           ${item._testShort ? `<span class="card-test-badge">🏷️ ${escapeHtml(item._testShort)}</span>` : ""}
-          <span class="card-q-tag">📘 ${escapeHtml(item.module || "SAT")} • Câu ${escapeHtml(item.q_label || item.question_id || "")}</span>
+          <span class="card-q-tag">📘 ${escapeHtml(item.module || "SAT")} • ${isEn ? "Question" : "Câu"} ${escapeHtml(item.q_label || item.question_id || "")}</span>
           <span class="card-status-badge ${statusClass}">${statusText}</span>
         </div>
         <div class="card-top-right">
-          <button class="btn-card-action btn-edit-card" title="Chỉnh sửa ghi chép này">✏️ Sửa</button>
-          <button class="btn-card-action btn-del-card" title="Xóa ghi chép này">✕</button>
+          <button class="btn-card-action btn-edit-card" title="${isEn ? "Edit this note" : "Chỉnh sửa ghi chép này"}">${isEn ? "✏️ Edit" : "✏️ Sửa"}</button>
+          <button class="btn-card-action btn-del-card" title="${isEn ? "Delete this note" : "Xóa ghi chép này"}">✕</button>
         </div>
       </div>
 
       <div class="card-trap-content">
-        <span class="card-trap-tag">${escapeHtml(item.root_cause || "Bẫy SAT")}</span>
+        <span class="card-trap-tag">${escapeHtml(item.root_cause || (isEn ? "SAT Trap" : "Bẫy SAT"))}</span>
         <span>${escapeHtml(item.trap_detail || "")}</span>
       </div>
 
@@ -3764,11 +3926,11 @@ function renderErrorLogs() {
       ${vocabHtml}
 
       <div class="card-footer">
-        <span>🕒 ${escapeHtml(item.date || "Ghi chép")} ${item.skill ? `• ${escapeHtml(item.skill)}` : ""}</span>
+        <span>🕒 ${escapeHtml(item.date || (isEn ? "Note" : "Ghi chép"))} ${item.skill ? `• ${escapeHtml(item.skill)}` : ""}</span>
         <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
           ${showChallengeBtn ? `
-            <button class="btn-use-as-challenge" title="Điền bẫy/bài học này vào mục Thách thức dự kiến trên trang chủ">
-              🎯 Điền vào Thách thức
+            <button class="btn-use-as-challenge" title="${isEn ? "Insert this trap into Anticipated Challenges on Home" : "Điền bẫy/bài học này vào mục Thách thức dự kiến trên trang chủ"}">
+              🎯 ${isEn ? "Use in Challenges" : "Điền vào Thách thức"}
             </button>
           ` : ""}
           ${quickToggleBtn}
@@ -3808,7 +3970,10 @@ function renderErrorLogs() {
 
     // Delete button
     card.querySelector(".btn-del-card").addEventListener("click", () => {
-      if (confirm(`Em có chắc chắn muốn xóa ghi chép thử sai câu ${item.q_label || item.question_id} này không?`)) {
+      const confirmMsg = isEn
+        ? `Are you sure you want to delete the error note for Question ${item.q_label || item.question_id}?`
+        : `Em có chắc chắn muốn xóa ghi chép thử sai câu ${item.q_label || item.question_id} này không?`;
+      if (confirm(confirmMsg)) {
         if (item._isCurrentTest || !item._testId || item._testId === App.activeTestId) {
           App.studentState.error_logs = App.studentState.error_logs.filter(x => x.id !== item.id);
           saveLocalState();
@@ -3861,6 +4026,7 @@ function renderErrorLogs() {
     DOM.errorLogList.appendChild(card);
   });
 }
+window.renderErrorLogs = renderErrorLogs;
 
 function renderStrategiesModal() {
   if (!App.db || !App.db.strategies) return;
@@ -4001,7 +4167,8 @@ function handleResetConfirm() {
   renderCurrentQuestion();
 
   DOM.modalResetConfirm.classList.add("hidden");
-  alert("✨ Đã đặt lại bài thi thành công! Chúc em luyện tập thật tốt!");
+  const isEn = (App.currentLang === "en");
+  alert(isEn ? "✨ Test reset successfully! Good luck with your practice!" : "✨ Đã đặt lại bài thi thành công! Chúc em luyện tập thật tốt!");
 }
 
 // ================= TEST SUMMARY CALCULATION =================
@@ -4048,8 +4215,9 @@ function checkCanNavigate() {
   const currentQ = App.currentQuestion;
   if (!currentQ) return true;
   const qState = App.studentState.attempts[currentQ.id];
+  const isEn = (App.currentLang === "en");
   if (qState && qState.needs_error_log && !qState.error_logged) {
-    alert("⚠️ Em cần hoàn thành ghi chép sổ thử sai cho câu này trước khi chuyển sang câu tiếp theo!");
+    alert(isEn ? "⚠️ Please complete the error log for this question before moving to the next!" : "⚠️ Em cần hoàn thành ghi chép sổ thử sai cho câu này trước khi chuyển sang câu tiếp theo!");
     openMandatoryReflectionModal(currentQ, qState);
     return false;
   }
@@ -4064,19 +4232,20 @@ function openMandatoryReflectionModal(q, qState) {
   if (!qState) qState = App.studentState.attempts[q.id];
   if (!q || !qState) return;
 
-  DOM.reflQLabel.textContent = `Câu ${q.q_label}`;
+  const isEn = (App.currentLang === "en");
+  DOM.reflQLabel.textContent = isEn ? `Question ${q.q_label}` : `Câu ${q.q_label}`;
   DOM.reflQTopic.textContent = q.topic;
   DOM.reflQModule.textContent = q.module_title;
   DOM.reflCorrectAns.textContent = q.correct_answer;
 
   const wrongs = (qState.attempts || []).filter(a => a.toUpperCase() !== q.correct_answer.toUpperCase());
   DOM.reflWrongPicks.textContent = wrongs.length > 0
-    ? wrongs.map((w, idx) => `Lần ${idx + 1}: [${w}]`).join("  •  ")
-    : "Có lần thử trước đó chưa chính xác";
+    ? wrongs.map((w, idx) => `${isEn ? "Attempt" : "Lần"} ${idx + 1}: [${w}]`).join("  •  ")
+    : (isEn ? "Previous attempt was incorrect" : "Có lần thử trước đó chưa chính xác");
 
-  const hint1 = q.tier1_hint || q.level1_tip || "Đọc kỹ từ khóa, ngữ cảnh và xác định bẫy SAT.";
+  const hint1 = q.tier1_hint || q.level1_tip || (isEn ? "Carefully identify keywords, context, and SAT traps." : "Đọc kỹ từ khóa, ngữ cảnh và xác định bẫy SAT.");
   const hint2 = q.tier2_hint || q.level2_hint || "";
-  DOM.reflHintBox.innerHTML = `<strong>💡 Gợi ý Tầng 1:</strong> ${hint1}${hint2 ? `<br><strong style="margin-top: 6px; display: inline-block;">🔍 Manh mối Tầng 2:</strong> ${hint2}` : ""}`;
+  DOM.reflHintBox.innerHTML = `<strong>💡 ${isEn ? "Tier 1 Hint:" : "Gợi ý Tầng 1:"}</strong> ${hint1}${hint2 ? `<br><strong style="margin-top: 6px; display: inline-block;">🔍 ${isEn ? "Tier 2 Clue:" : "Manh mối Tầng 2:"}</strong> ${hint2}` : ""}`;
 
   DOM.selectReflTrap.value = "";
   DOM.inputReflDetail.value = "";
@@ -4096,15 +4265,16 @@ function saveMandatoryReflection(advanceToNext = true) {
   const detail = DOM.inputReflDetail.value.trim();
   const notes = DOM.inputReflNotes ? DOM.inputReflNotes.value.trim() : "";
   const vocab = DOM.inputReflVocab ? DOM.inputReflVocab.value.trim() : "";
+  const isEn = (App.currentLang === "en");
 
   if (!trap) {
-    alert("Vui lòng chọn nhóm bẫy SAT em đã gặp phải!");
+    alert(isEn ? "Please select the SAT trap category encountered!" : "Vui lòng chọn nhóm bẫy SAT em đã gặp phải!");
     DOM.selectReflTrap.focus();
     return;
   }
 
   if (!detail || detail.length < 5) {
-    alert("Vui lòng nhập phân tích nguyên nhân thử sai và bài học rút ra (tối thiểu 5 ký tự)!");
+    alert(isEn ? "Please enter root-cause analysis and key takeaways (min 5 characters)!" : "Vui lòng nhập phân tích nguyên nhân thử sai và bài học rút ra (tối thiểu 5 ký tự)!");
     DOM.inputReflDetail.focus();
     return;
   }
@@ -5738,13 +5908,14 @@ async function searchDictionary(rawWord) {
   }
 
   // Update Cambridge Direct links
+  const isEn = (App.currentLang === "en");
   const cambridgeSearchUrl = `https://dictionary.cambridge.org/search/english/direct/?q=${encodeURIComponent(word)}`;
   if (DOM.dictBtnCambridgeDirect) {
     DOM.dictBtnCambridgeDirect.href = cambridgeSearchUrl;
   }
   if (DOM.dictCambridgeFallbackLink) {
     DOM.dictCambridgeFallbackLink.href = cambridgeSearchUrl;
-    DOM.dictCambridgeFallbackLink.textContent = `Mở "${word}" trên Cambridge Dictionary ↗`;
+    DOM.dictCambridgeFallbackLink.textContent = isEn ? `Open "${word}" on Cambridge Dictionary ↗` : `Mở "${word}" trên Cambridge Dictionary ↗`;
   }
 
   // Highlight active chip if present
@@ -5779,8 +5950,8 @@ async function searchDictionary(rawWord) {
     if (DOM.dictErrorState) {
       const errTitle = document.getElementById("dict-error-title");
       const errDesc = document.getElementById("dict-error-desc");
-      if (errTitle) errTitle.textContent = `Chưa có dữ liệu API cho "${escapeHtmlSafe(word)}"`;
-      if (errDesc) errDesc.textContent = `Bạn có thể bấm nút bên dưới để tra cứu trực tiếp trên Cambridge Dictionary chính thức.`;
+      if (errTitle) errTitle.textContent = isEn ? `No API entry found for "${escapeHtmlSafe(word)}"` : `Chưa có dữ liệu API cho "${escapeHtmlSafe(word)}"`;
+      if (errDesc) errDesc.textContent = isEn ? "You can click the button below to search directly on official Cambridge Dictionary." : `Bạn có thể bấm nút bên dưới để tra cứu trực tiếp trên Cambridge Dictionary chính thức.`;
       DOM.dictErrorState.classList.remove("hidden");
     }
     showVocabNoteBox(word, "");
@@ -5907,16 +6078,19 @@ function updateVocabNotesBadge() {
 
 function renderSavedVocabNotesList() {
   if (!DOM.dictSavedNotesList) return;
+  const isEn = (App.currentLang === "en");
   const notes = getSavedVocabNotes();
   if (notes.length === 0) {
-    DOM.dictSavedNotesList.innerHTML = `<div class="dict-saved-empty">Chưa có từ mới nào được lưu. Hãy tra từ và nhấn <strong>"💾 Lưu Vào Sổ Từ Mới"</strong> để tích luỹ từ vựng nhé!</div>`;
+    DOM.dictSavedNotesList.innerHTML = isEn
+      ? `<div class="dict-saved-empty">No saved vocabulary yet. Look up words and click <strong>"💾 Save to Vocab Notes"</strong> to build your word list!</div>`
+      : `<div class="dict-saved-empty">Chưa có từ mới nào được lưu. Hãy tra từ và nhấn <strong>"💾 Lưu Vào Sổ Từ Mới"</strong> để tích luỹ từ vựng nhé!</div>`;
     return;
   }
 
   DOM.dictSavedNotesList.innerHTML = notes.map((item, index) => `
     <div class="dict-saved-item" data-id="${escapeHtmlSafe(item.id || String(index))}">
       <div class="dict-saved-item-header">
-        <button type="button" class="dict-saved-word-link" data-word="${escapeHtmlSafe(item.word)}" title="Tra cứu lại từ này">
+        <button type="button" class="dict-saved-word-link" data-word="${escapeHtmlSafe(item.word)}" title="${isEn ? 'Look up this word' : 'Tra cứu lại từ này'}">
           ${escapeHtmlSafe(item.word)}
         </button>
         ${item.pos ? `<span class="dict-saved-pos-badge">${escapeHtmlSafe(item.pos)}</span>` : ""}
@@ -5924,7 +6098,7 @@ function renderSavedVocabNotesList() {
       <div class="dict-saved-meaning-text">${escapeHtmlSafe(item.meaning)}</div>
       <div class="dict-saved-meta">
         <span>🕒 ${escapeHtmlSafe(item.createdAt || "")}</span>
-        <button type="button" class="btn-del-saved-vocab" data-id="${escapeHtmlSafe(item.id || String(index))}" title="Xóa từ này khỏi sổ">🗑️ Xóa</button>
+        <button type="button" class="btn-del-saved-vocab" data-id="${escapeHtmlSafe(item.id || String(index))}" title="${isEn ? 'Delete this word from notebook' : 'Xóa từ này khỏi sổ'}">${isEn ? '🗑️ Delete' : '🗑️ Xóa'}</button>
       </div>
     </div>
   `).join("");
@@ -5952,14 +6126,15 @@ function saveCurrentVocabNote() {
   const word = DOM.dictInputNoteWord ? DOM.dictInputNoteWord.value.trim() : "";
   const pos = DOM.dictInputNotePos ? DOM.dictInputNotePos.value.trim() : "";
   const meaning = DOM.dictInputNoteMeaning ? DOM.dictInputNoteMeaning.value.trim() : "";
+  const isEn = (App.currentLang === "en");
 
   if (!word) {
-    alert("Vui lòng nhập từ vựng (Word)!");
+    alert(isEn ? "Please enter a vocabulary word (Word)!" : "Vui lòng nhập từ vựng (Word)!");
     if (DOM.dictInputNoteWord) DOM.dictInputNoteWord.focus();
     return;
   }
   if (!meaning) {
-    alert("Vui lòng ghi chú nghĩa hoặc ngữ cảnh SAT của từ!");
+    alert(isEn ? "Please write the definition or SAT context notes!" : "Vui lòng ghi chú nghĩa hoặc ngữ cảnh SAT của từ!");
     if (DOM.dictInputNoteMeaning) DOM.dictInputNoteMeaning.focus();
     return;
   }
@@ -6013,8 +6188,9 @@ function toggleSavedNotesDrawer(forceState) {
 
 function exportSavedVocabNotesExcel() {
   const notes = getSavedVocabNotes();
+  const isEn = (App.currentLang === "en");
   if (notes.length === 0) {
-    alert("Chưa có từ mới nào để xuất file!");
+    alert(isEn ? "No saved vocabulary to export!" : "Chưa có từ mới nào để xuất file!");
     return;
   }
 
@@ -6228,18 +6404,19 @@ function renderFeedbackHistoryList() {
 
 async function handleFeedbackSubmit(e) {
   e.preventDefault();
+  const isEn = (App.currentLang === "en");
   const content = DOM.inputFbContent ? DOM.inputFbContent.value.trim() : "";
   if (!content) {
-    alert("Vui lòng nhập nội dung chi tiết phản hồi của em!");
+    alert(isEn ? "Please enter your detailed feedback message!" : "Vui lòng nhập nội dung chi tiết phản hồi của em!");
     return;
   }
 
-  const studentName = (DOM.inputFbName ? DOM.inputFbName.value.trim() : "") || App.studentState.student_name || "Ẩn danh";
+  const studentName = (DOM.inputFbName ? DOM.inputFbName.value.trim() : "") || App.studentState.student_name || (isEn ? "Anonymous" : "Ẩn danh");
   const studentEmail = (DOM.inputFbEmail ? DOM.inputFbEmail.value.trim() : "") || App.studentState.student_email || "";
-  const category = DOM.selectFbCategory ? DOM.selectFbCategory.value : "🎯 Báo lỗi câu hỏi / Đáp án";
-  const priority = DOM.selectFbPriority ? DOM.selectFbPriority.value : "🟢 Bình thường";
+  const category = DOM.selectFbCategory ? DOM.selectFbCategory.value : (isEn ? "🎯 Question / Answer Bug" : "🎯 Báo lỗi câu hỏi / Đáp án");
+  const priority = DOM.selectFbPriority ? DOM.selectFbPriority.value : (isEn ? "🟢 Normal" : "🟢 Bình thường");
 
-  let contextLabel = App.currentFeedbackContext || "Hệ thống chung";
+  let contextLabel = App.currentFeedbackContext || (isEn ? "General System" : "Hệ thống chung");
   if (DOM.groupCustomContext && !DOM.groupCustomContext.classList.contains("hidden")) {
     const customMod = DOM.selectFbCustomModule.value;
     if (customMod !== "CURRENT") {
@@ -6258,7 +6435,7 @@ async function handleFeedbackSubmit(e) {
 
   if (DOM.btnSubmitFeedback) {
     DOM.btnSubmitFeedback.disabled = true;
-    DOM.btnSubmitFeedback.innerHTML = `<span>⏳ Đang ghi nhận & đồng bộ lên GitHub...</span>`;
+    DOM.btnSubmitFeedback.innerHTML = isEn ? `<span>⏳ Recording & syncing to GitHub...</span>` : `<span>⏳ Đang ghi nhận & đồng bộ lên GitHub...</span>`;
   }
 
   let serverSuccess = false;
@@ -6316,11 +6493,12 @@ async function handleFeedbackSubmit(e) {
 
   if (DOM.btnSubmitFeedback) {
     DOM.btnSubmitFeedback.disabled = false;
-    DOM.btnSubmitFeedback.innerHTML = `<span>🚀 Gửi Phản Hồi & Đồng Bộ Lên GitHub</span>`;
+    DOM.btnSubmitFeedback.innerHTML = isEn ? `<span>🚀 Submit Feedback & Sync to GitHub</span>` : `<span>🚀 Gửi Phản Hồi & Đồng Bộ Lên GitHub</span>`;
   }
 }
 
 function showFeedbackSuccess(fbId, isServerSynced, rawPayload) {
+  const isEn = (App.currentLang === "en");
   if (DOM.formSubmitFeedback) DOM.formSubmitFeedback.classList.add("hidden");
   if (DOM.fbSuccessBanner) {
     DOM.fbSuccessBanner.classList.remove("hidden");
@@ -6328,37 +6506,37 @@ function showFeedbackSuccess(fbId, isServerSynced, rawPayload) {
       const teacherEmail = "mikepham358@gmail.com";
       const mailSubject = encodeURIComponent(`[SAT Bluebook Feedback - ${fbId}] ${rawPayload.category} - ${rawPayload.context_label}`);
       const mailBody = encodeURIComponent(
-`Kính gửi Thầy Mike Pham Bá Hong Son,
+`Dear Teacher Mike Pham Ba Hong Son,
 
-Em gửi phản hồi / báo lỗi từ ứng dụng luyện thi Digital SAT Bluebook:
+Student feedback / bug report from Digital SAT Bluebook App:
 
-- Mã phản hồi: ${fbId}
-- Học sinh gửi: ${rawPayload.student_name} (${rawPayload.student_email || "Chưa cung cấp"})
-- Phân loại: ${rawPayload.category}
-- Mức độ ưu tiên: ${rawPayload.priority}
-- Vị trí / Ngữ cảnh: ${rawPayload.context_label}
-- Thời gian: ${new Date().toLocaleString("vi-VN")}
+- Ticket ID: ${fbId}
+- Student: ${rawPayload.student_name} (${rawPayload.student_email || "N/A"})
+- Category: ${rawPayload.category}
+- Priority: ${rawPayload.priority}
+- Context / Question: ${rawPayload.context_label}
+- Timestamp: ${new Date().toLocaleString()}
 
 --------------------------------------------------
-NỘI DUNG PHẢN HỒI / BÁO LỖI:
+FEEDBACK DETAILS / BUG REPORT:
 ${rawPayload.content}
 --------------------------------------------------
 
-Em cảm ơn Thầy!`
+Thank you Teacher!`
       );
       const mailtoUrl = `mailto:${teacherEmail}?subject=${mailSubject}&body=${mailBody}`;
 
       const ghIssueTitle = encodeURIComponent(`[Feedback ${rawPayload.category}] ${rawPayload.context_label}`);
       const ghIssueBody = encodeURIComponent(
-`### 💬 Phản hồi từ học sinh Vinschool SAT Team\n\n` +
-`- **Mã phản hồi:** \`${fbId}\`\n` +
-`- **Người gửi:** ${rawPayload.student_name} (${rawPayload.student_email || "Chưa cung cấp"})\n` +
-`- **Phân loại:** ${rawPayload.category}\n` +
-`- **Mức độ:** ${rawPayload.priority}\n` +
-`- **Vị trí / Ngữ cảnh:** ${rawPayload.context_label}\n` +
-`- **Thời gian:** ${new Date().toLocaleString("vi-VN")}\n\n` +
-`---\n### 📝 Nội dung phản hồi:\n${rawPayload.content}\n\n` +
-`*(Gửi từ Digital SAT Bluebook Practice App)*\n\ncc: @mikepham358`
+`### 💬 Feedback from Vinschool SAT Student\n\n` +
+`- **Ticket ID:** \`${fbId}\`\n` +
+`- **Student:** ${rawPayload.student_name} (${rawPayload.student_email || "N/A"})\n` +
+`- **Category:** ${rawPayload.category}\n` +
+`- **Priority:** ${rawPayload.priority}\n` +
+`- **Context / Question:** ${rawPayload.context_label}\n` +
+`- **Timestamp:** ${new Date().toLocaleString()}\n\n` +
+`---\n### 📝 Feedback Content:\n${rawPayload.content}\n\n` +
+`*(Sent from Digital SAT Bluebook Practice App)*\n\ncc: @mikepham358`
       );
       const ghIssueUrl = `https://github.com/mikepham358/vinschool-sat-team/issues/new?title=${ghIssueTitle}&body=${ghIssueBody}&assignees=mikepham358&labels=student-feedback`;
 
@@ -6369,7 +6547,29 @@ Em cảm ơn Thầy!`
         } catch (errOpen) {}
       }
 
-      DOM.fbSuccessMsg.innerHTML = `
+      DOM.fbSuccessMsg.innerHTML = isEn ? `
+        <div style="font-size: 14px; line-height: 1.6; color: #1e293b;">
+          🎉 Feedback ticket <strong>${escapeHtml(fbId)}</strong> has been recorded successfully!<br>
+          ${isServerSynced ? "Data automatically committed and synced to GitHub repo (<code>FEEDBACK_LOG.md</code>)." : "Data is prepared and ready to sync to GitHub."}
+        </div>
+        ${!isServerSynced ? `
+        <div style="margin-top: 14px; padding: 12px 14px; background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; font-size: 13.5px; color: #1e40af;">
+          🚀 <strong>The system opened the GitHub Issue tab for you!</strong><br>
+          Review your message and click the green <strong>"Submit new issue"</strong> button on GitHub to finalize your ticket and notify Teacher Mike.
+        </div>
+        ` : ""}
+        <div style="margin-top: 14px; padding: 12px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px; color: #475569;">
+          📬 <strong>Direct Contact:</strong> You can also email directly to <strong>${teacherEmail}</strong> via the button below:
+        </div>
+        <div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px;">
+          <a href="${mailtoUrl}" style="display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; background: #ea4335; color: #ffffff; text-decoration: none; border-radius: 20px; font-weight: 700; font-size: 13px; box-shadow: 0 2px 6px rgba(234, 67, 53, 0.25);">
+            📧 Email Teacher Directly (${teacherEmail}) ↗
+          </a>
+          <a href="${ghIssueUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; background: #0969da; color: #ffffff; text-decoration: none; border-radius: 20px; font-weight: 700; font-size: 13px; box-shadow: 0 2px 6px rgba(9, 105, 218, 0.25);">
+            🐙 Reopen GitHub Issue (Assign @mikepham358) ↗
+          </a>
+        </div>
+      ` : `
         <div style="font-size: 14px; line-height: 1.6; color: #1e293b;">
           🎉 Phản hồi mã <strong>${escapeHtml(fbId)}</strong> đã được ghi nhận thành công!<br>
           ${isServerSynced ? "Dữ liệu đã tự động commit & push lên kho lưu trữ GitHub (<code>FEEDBACK_LOG.md</code>)." : "Dữ liệu đã được chuẩn bị đầy đủ sẵn sàng đồng bộ lên GitHub."}
@@ -7461,31 +7661,45 @@ function closeReferenceModal() {
 const ISTE_STANDARDS_LOOKUP = {
   "Empowered Learner": {
     concept: "Đặt mục tiêu cá nhân, sử dụng công nghệ để đạt mục tiêu và tự đánh giá quá trình học.",
-    satApp: "Tự theo dõi tiến độ điểm số SAT, chủ động luyện đề Bluebook/Khan Academy và phân bổ thời gian theo điểm yếu."
+    concept_en: "Set personal learning goals, leverage technology to achieve them, and reflect on progress.",
+    satApp: "Tự theo dõi tiến độ điểm số SAT, chủ động luyện đề Bluebook/Khan Academy và phân bổ thời gian theo điểm yếu.",
+    satApp_en: "Track SAT score trajectory, self-direct practice on Bluebook, and target high-yield weak areas."
   },
   "Digital Citizen": {
     concept: "Sử dụng công nghệ an toàn, hợp pháp, có trách nhiệm và giữ kỷ luật tập trung số.",
-    satApp: "Quản lý thời gian dùng thiết bị, tránh xao nhãng khi làm test online và tôn trọng bản quyền tài liệu SAT."
+    concept_en: "Practice safe, ethical, and responsible technology usage while maintaining digital focus.",
+    satApp: "Quản lý thời gian dùng thiết bị, tránh xao nhãng khi làm test online và tôn trọng bản quyền tài liệu SAT.",
+    satApp_en: "Manage device screen time, eliminate distractions during timed tests, and respect academic honesty."
   },
   "Knowledge Constructor": {
     concept: "Thu thập, phân tích và tổng hợp thông tin từ nhiều nguồn để tạo ra tri thức có ý nghĩa.",
-    satApp: "Tổng hợp quy tắc Writing, phân tích cấu trúc bài Reading và xây dựng kho từ vựng SAT (Vocabulary Bank) theo ngữ cảnh."
+    concept_en: "Critically curate and synthesize information from multiple sources into meaningful understanding.",
+    satApp: "Tổng hợp quy tắc Writing, phân tích cấu trúc bài Reading và xây dựng kho từ vựng SAT (Vocabulary Bank) theo ngữ cảnh.",
+    satApp_en: "Synthesize Writing grammar rules, deconstruct Reading passage structures, and build context-rich vocab banks."
   },
   "Innovative Designer": {
     concept: "Sử dụng quy trình thiết kế để giải quyết vấn đề và tinh chỉnh giải pháp cá nhân.",
-    satApp: "Thử nghiệm chiến thuật làm bài và tự thiết kế hệ thống phân loại lỗi sai (Sổ thử sai / Error Log) hiệu quả."
+    concept_en: "Apply deliberate design processes to solve problems and iteratively refine solutions.",
+    satApp: "Thử nghiệm chiến thuật làm bài và tự thiết kế hệ thống phân loại lỗi sai (Sổ thử sai / Error Log) hiệu quả.",
+    satApp_en: "Experiment with pacing strategies and engineer a personalized Socratic Error Log taxonomy."
   },
   "Computational Thinker": {
     concept: "Phân tích bài toán, nhận diện mẫu hình và sử dụng thuật toán/công cụ để giải quyết vấn đề.",
-    satApp: "Sử dụng thành thạo Desmos giải nhanh SAT Math, nhận diện bẫy lặp lại và bóc tách bài toán nhiều bước."
+    concept_en: "Formulate problem strategies, recognize patterns, and harness algorithmic digital tools.",
+    satApp: "Sử dụng thành thạo Desmos giải nhanh SAT Math, nhận diện bẫy lặp lại và bóc tách bài toán nhiều bước.",
+    satApp_en: "Master Desmos graph solver shortcuts, recognize recurring trap patterns, and decompose multi-step problems."
   },
   "Creative Communicator": {
     concept: "Bày tỏ tư tưởng, lập luận rõ ràng qua nhiều phương tiện kỹ thuật số.",
-    satApp: "Diễn giải lại cách giải câu SAT Math khó hoặc lập luận chứng cứ (Evidence-Based) khi phân tích bài Reading."
+    concept_en: "Communicate complex thoughts and arguments clearly using varied digital media platforms.",
+    satApp: "Diễn giải lại cách giải câu SAT Math khó hoặc lập luận chứng cứ (Evidence-Based) khi phân tích bài Reading.",
+    satApp_en: "Articulate mathematical reasoning and synthesize evidence-based justifications in Reading & Writing."
   },
   "Global Collaborator": {
     concept: "Kết nối với cộng đồng người học rộng lớn để trao đổi chiến thuật và học hỏi lẫn nhau.",
-    satApp: "Thảo luận câu hỏi khó trong nhóm học SAT và chia sẻ kinh nghiệm luyện đề với thầy cô & bạn học."
+    concept_en: "Collaborate with peers to broaden perspectives and accelerate collective mastery.",
+    satApp: "Thảo luận câu hỏi khó trong nhóm học SAT và chia sẻ kinh nghiệm luyện đề với thầy cô & bạn học.",
+    satApp_en: "Engage in peer reviews, share high-yield test insights, and debrief AAR cycles with teachers & study groups."
   }
 };
 
@@ -7756,6 +7970,7 @@ function syncAarAnticipationUI() {
   syncAarTargetPills();
   updateHomeAarSyncBadge();
 }
+window.syncAarAnticipationUI = syncAarAnticipationUI;
 
 function captureDraftFromSource(source, { markModuleUserSet = false, markIsteUserSet = false, markSessionLabelUserSet = false, markDateUserSet = false, markDateCleared = false } = {}) {
   const prev = Object.assign(createEmptyAarDraft(), App.aarDraft || {});
@@ -8156,8 +8371,11 @@ function updateIsteHintFor(selectEl, hintEl) {
   const raw = selectEl.value || "";
   const shortKey = raw.split("(")[0].trim();
   const info = ISTE_STANDARDS_LOOKUP[shortKey];
+  const isEn = (App.currentLang === "en");
   if (info) {
-    hintEl.innerHTML = `<strong>Khái niệm:</strong> ${escapeHtmlSafe(info.concept)}<br><strong>Ứng dụng SAT:</strong> ${escapeHtmlSafe(info.satApp)}`;
+    const concept = isEn ? (info.concept_en || info.concept) : info.concept;
+    const satApp = isEn ? (info.satApp_en || info.satApp) : info.satApp;
+    hintEl.innerHTML = `<strong>${isEn ? "Concept:" : "Khái niệm:"}</strong> ${escapeHtmlSafe(concept)}<br><strong>${isEn ? "SAT Application:" : "Ứng dụng SAT:"}</strong> ${escapeHtmlSafe(satApp)}`;
   } else {
     hintEl.textContent = "";
   }
@@ -8190,6 +8408,7 @@ function escapeHtmlSafe(str) {
 function refreshAARPerformanceUI(updateFormFields = false) {
   const s = calculateAARSessionSummary(App.aarScope || "session");
   App.currentAarSummary = s;
+  const isEn = (App.currentLang === "en");
 
   if (DOM.aarScopePills) {
     DOM.aarScopePills.querySelectorAll(".aar-scope-btn").forEach(btn => {
@@ -8198,20 +8417,24 @@ function refreshAARPerformanceUI(updateFormFields = false) {
   }
 
   const scopeDescMap = {
-    session: s.isMixedSources ? "Xuyên suốt nhiều đề/sách trong buổi học" : "Phiên thực hành hiện tại",
-    module: `Module/Chương: ${DOM.selectModule ? (DOM.selectModule.options[DOM.selectModule.selectedIndex]?.text || App.activeModuleCode) : App.activeModuleCode}`,
-    all: `Toàn bộ câu đã làm trong ${s.activeTestShort}`
+    session: s.isMixedSources ? (isEn ? "Across multiple exams/books in session" : "Xuyên suốt nhiều đề/sách trong buổi học") : (isEn ? "Current practice session" : "Phiên thực hành hiện tại"),
+    module: `${isEn ? "Module/Chapter:" : "Module/Chương:"} ${DOM.selectModule ? (DOM.selectModule.options[DOM.selectModule.selectedIndex]?.text || App.activeModuleCode) : App.activeModuleCode}`,
+    all: isEn ? `All questions practiced in ${s.activeTestShort}` : `Toàn bộ câu đã làm trong ${s.activeTestShort}`
   };
 
   if (DOM.aarPerfHeadline) {
     if (s.practicedCount > 0) {
-      DOM.aarPerfHeadline.textContent = `Hiệu suất: ${s.weightedPctDisplay} • Đúng ${s.correctCount} / ${s.practicedCount} câu thực hành`;
+      DOM.aarPerfHeadline.textContent = isEn
+        ? `Efficiency: ${s.weightedPctDisplay} • Correct: ${s.correctCount} / ${s.practicedCount} practiced items`
+        : `Hiệu suất: ${s.weightedPctDisplay} • Đúng ${s.correctCount} / ${s.practicedCount} câu thực hành`;
     } else {
-      DOM.aarPerfHeadline.textContent = "Hiệu suất: 0% • Đúng 0 / 0 câu thực hành";
+      DOM.aarPerfHeadline.textContent = isEn ? "Efficiency: 0% • Correct: 0 / 0 practiced items" : "Hiệu suất: 0% • Đúng 0 / 0 câu thực hành";
     }
   }
   if (DOM.aarPerfSub) {
-    DOM.aarPerfSub.textContent = `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Công thức tính trung bình: Đúng L1 (100%) • L2 (66,7%) • L3 (33,3%) • Chưa đúng (0%)`;
+    DOM.aarPerfSub.textContent = isEn
+      ? `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Socratic weighting formula: Attempt 1 (100%) • Attempt 2 (66.7%) • Attempt 3 (33.3%) • Missed (0%)`
+      : `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Công thức tính trung bình: Đúng L1 (100%) • L2 (66,7%) • L3 (33,3%) • Chưa đúng (0%)`;
   }
   if (DOM.aarStatWeighted) DOM.aarStatWeighted.textContent = s.weightedPctDisplay;
   if (DOM.aarStatCorrect) DOM.aarStatCorrect.textContent = `${s.correctCount} / ${s.practicedCount}`;
@@ -8225,9 +8448,13 @@ function refreshAARPerformanceUI(updateFormFields = false) {
   if (updateFormFields) {
     if (DOM.aarInputEvidence) {
       if (s.practicedCount > 0) {
-        DOM.aarInputEvidence.value = `Hiệu suất buổi học: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu thực hành - Tỷ lệ đúng: ${s.accuracyPct}%) - Đúng Lần 1 (100%): ${s.l1Correct}, Lần 2 (66,7%): ${s.l2Correct}, Lần 3 (33,3%): ${s.l3Correct}, Chưa đúng (0%): ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
+        DOM.aarInputEvidence.value = isEn
+          ? `Session Efficiency: ${s.weightedPctDisplay} (Correct ${s.correctCount}/${s.practicedCount} questions - Accuracy: ${s.accuracyPct}%) - Attempt 1 (100%): ${s.l1Correct}, Attempt 2 (66.7%): ${s.l2Correct}, Attempt 3 (33.3%): ${s.l3Correct}, Missed (0%): ${s.missedOrRetry}. Source: ${s.testShort}.`
+          : `Hiệu suất buổi học: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu thực hành - Tỷ lệ đúng: ${s.accuracyPct}%) - Đúng Lần 1 (100%): ${s.l1Correct}, Lần 2 (66,7%): ${s.l2Correct}, Lần 3 (33,3%): ${s.l3Correct}, Chưa đúng (0%): ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
       } else {
-        DOM.aarInputEvidence.value = `Đã hoàn thành buổi học trên ${s.activeTestShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
+        DOM.aarInputEvidence.value = isEn
+          ? `Completed session on ${s.activeTestShort} (0 automatically scored items; adjust scope or add learning evidence here).`
+          : `Đã hoàn thành buổi học trên ${s.activeTestShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
       }
     }
   }
@@ -8238,9 +8465,10 @@ function pullErrorsIntoAARGap() {
   const allErrors = (s.scopedErrors && s.scopedErrors.length > 0)
     ? s.scopedErrors
     : (App.studentState.error_logs || []);
+  const isEn = (App.currentLang === "en");
 
   if (!allErrors || allErrors.length === 0) {
-    alert("Chưa có lỗi sai nào được ghi trong Sổ thử sai. Em có thể tự nhập nhận xét khoảng cách học tập ở ô này.");
+    alert(isEn ? "No errors recorded in the Error Notebook yet. You can type your learning gap reflections directly here." : "Chưa có lỗi sai nào được ghi trong Sổ thử sai. Em có thể tự nhập nhận xét khoảng cách học tập ở ô này.");
     return;
   }
 
@@ -8348,16 +8576,17 @@ function openAARModal() {
 }
 
 function collectAARFormEntry(requireCompleteFields = true) {
+  const isEn = (App.currentLang === "en");
   const studentName = DOM.aarInputStudentName ? DOM.aarInputStudentName.value.trim() : "";
   const studentEmail = DOM.aarInputStudentEmail ? DOM.aarInputStudentEmail.value.trim() : "";
   if (requireCompleteFields) {
     if (!studentName) {
-      alert("Vui lòng nhập Họ và tên học sinh trước khi gửi báo cáo AAR!");
+      alert(isEn ? "Please enter student full name before submitting AAR report!" : "Vui lòng nhập Họ và tên học sinh trước khi gửi báo cáo AAR!");
       if (DOM.aarInputStudentName) DOM.aarInputStudentName.focus();
       return null;
     }
     if (!studentEmail || !studentEmail.includes("@")) {
-      alert("Vui lòng nhập Email học sinh hợp lệ để hệ thống CC bản sao cho em!");
+      alert(isEn ? "Please enter a valid student email address so a copy can be CC'd to you!" : "Vui lòng nhập Email học sinh hợp lệ để hệ thống CC bản sao cho em!");
       if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.focus();
       return null;
     }
@@ -8370,14 +8599,14 @@ function collectAARFormEntry(requireCompleteFields = true) {
   if (DOM.headerStudentName && studentName) DOM.headerStudentName.textContent = studentName;
 
   let satModuleVal = (DOM.aarSelectSatModule && DOM.aarSelectSatModule.value) || "Digital SAT Full-test";
-  if (satModuleVal === "Khác (Tự nhập...)") {
+  if (satModuleVal === "Khác (Tự nhập...)" || satModuleVal === "Other (Custom...)") {
     const customMod = DOM.aarInputSatModuleCustom ? DOM.aarInputSatModuleCustom.value.trim() : "";
     if (requireCompleteFields && !customMod) {
-      alert("Vui lòng nhập tên Mô-đun SAT / chủ đề em đã học ở ô Khác!");
+      alert(isEn ? "Please enter SAT Module / topic in the Other box!" : "Vui lòng nhập tên Mô-đun SAT / chủ đề em đã học ở ô Khác!");
       if (DOM.aarInputSatModuleCustom) DOM.aarInputSatModuleCustom.focus();
       return null;
     }
-    satModuleVal = customMod || "Khác";
+    satModuleVal = customMod || (isEn ? "Other" : "Khác");
   }
 
   const s = calculateAARSessionSummary(App.aarScope || "session");
@@ -8385,9 +8614,9 @@ function collectAARFormEntry(requireCompleteFields = true) {
 
   const rawGoal = (DOM.aarInputGoal && DOM.aarInputGoal.value.trim()) || "";
   const targetLabel = formatTargetScoreLabel((App.studentState && App.studentState.student_target) || "1400+");
-  const hasTargetHint = /1[345]00\+|Mục tiêu SAT/i.test(rawGoal);
+  const hasTargetHint = /1[345]00\+|Mục tiêu SAT|Target SAT/i.test(rawGoal);
   const fullGoal = rawGoal
-    ? (hasTargetHint ? rawGoal : `${rawGoal} (Mục tiêu SAT: ${targetLabel.replace(/^🎯\s*/, "")})`)
+    ? (hasTargetHint ? rawGoal : `${rawGoal} (${isEn ? "Target SAT:" : "Mục tiêu SAT:"} ${targetLabel.replace(/^🎯\s*/, "")})`)
     : "";
 
   const entry = {
@@ -8409,15 +8638,15 @@ function collectAARFormEntry(requireCompleteFields = true) {
     l3_correct: s.l3Correct,
     missed_count: s.missedOrRetry,
     error_log_count: (s.scopedErrors || []).length,
-    session_label: (DOM.aarInputSessionLabel && DOM.aarInputSessionLabel.value.trim()) || `Buổi ${formatDateViFromIso(dateIso)}`,
+    session_label: (DOM.aarInputSessionLabel && DOM.aarInputSessionLabel.value.trim()) || (isEn ? `Session ${dateIso}` : `Buổi ${formatDateViFromIso(dateIso)}`),
     date_iso: dateIso,
-    date_display: formatDateViFromIso(dateIso),
+    date_display: isEn ? dateIso : formatDateViFromIso(dateIso),
     sat_module: satModuleVal,
-    iste_standard: (DOM.aarSelectIste && DOM.aarSelectIste.value) || "Empowered Learner \n(Học sinh Chủ động)",
+    iste_standard: (DOM.aarSelectIste && DOM.aarSelectIste.value) || (isEn ? "Empowered Learner" : "Empowered Learner \n(Học sinh Chủ động)"),
     goal: fullGoal,
     challenge: (DOM.aarInputChallenge && DOM.aarInputChallenge.value.trim()) || "",
     tools: (DOM.aarInputTools && DOM.aarInputTools.value.trim()) || "",
-    evidence: (DOM.aarInputEvidence && DOM.aarInputEvidence.value.trim()) || `Hiệu suất buổi học: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu - Tỷ lệ đúng: ${s.accuracyPct}%)`,
+    evidence: (DOM.aarInputEvidence && DOM.aarInputEvidence.value.trim()) || (isEn ? `Session Performance: ${s.weightedPctDisplay} (Correct ${s.correctCount}/${s.practicedCount} questions - Accuracy: ${s.accuracyPct}%)` : `Hiệu suất buổi học: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu - Tỷ lệ đúng: ${s.accuracyPct}%)`),
     mastery: (DOM.aarSelectMastery && DOM.aarSelectMastery.value) || "",
     gap: (DOM.aarInputGap && DOM.aarInputGap.value.trim()) || "",
     feedforward: (DOM.aarInputFeedforward && DOM.aarInputFeedforward.value.trim()) || "",
@@ -8427,16 +8656,16 @@ function collectAARFormEntry(requireCompleteFields = true) {
 
   if (requireCompleteFields) {
     const requiredChecks = [
-      { val: entry.goal, el: DOM.aarInputGoal, label: "Mục tiêu bài học & Điểm kỳ vọng" },
-      { val: entry.challenge, el: DOM.aarInputChallenge, label: "Thách thức dự kiến" },
-      { val: entry.tools, el: DOM.aarInputTools, label: "Công cụ & Kỹ thuật áp dụng" },
-      { val: entry.mastery, el: DOM.aarSelectMastery, label: "Mức độ làm chủ" },
-      { val: entry.gap, el: DOM.aarInputGap, label: "Khoảng cách (Gap) & Nguyên nhân thử sai" },
-      { val: entry.feedforward, el: DOM.aarInputFeedforward, label: "Bài học chuyển hóa cho buổi sau (Feed-forward)" }
+      { val: entry.goal, el: DOM.aarInputGoal, label: isEn ? "Learning Goal & Target Score" : "Mục tiêu bài học & Điểm kỳ vọng" },
+      { val: entry.challenge, el: DOM.aarInputChallenge, label: isEn ? "Anticipated Challenge" : "Thách thức dự kiến" },
+      { val: entry.tools, el: DOM.aarInputTools, label: isEn ? "Tools & Methods" : "Công cụ & Kỹ thuật áp dụng" },
+      { val: entry.mastery, el: DOM.aarSelectMastery, label: isEn ? "Mastery Level" : "Mức độ làm chủ" },
+      { val: entry.gap, el: DOM.aarInputGap, label: isEn ? "Gap & Trial-and-Error Analysis" : "Khoảng cách (Gap) & Nguyên nhân thử sai" },
+      { val: entry.feedforward, el: DOM.aarInputFeedforward, label: isEn ? "Feed-forward Next Steps" : "Bài học chuyển hóa cho buổi sau (Feed-forward)" }
     ];
     const missing = requiredChecks.find(c => !c.val);
     if (missing) {
-      alert(`Vui lòng điền/chọn đầy đủ mục "${missing.label}" để hoàn thiện chu trình AAR nhé!`);
+      alert(isEn ? `Please fill in the required field "${missing.label}" to complete the AAR cycle!` : `Vui lòng điền/chọn đầy đủ mục "${missing.label}" để hoàn thiện chu trình AAR nhé!`);
       if (missing.el) missing.el.focus();
       return null;
     }
@@ -8771,9 +9000,10 @@ function submitAARReport() {
   const entry = collectAARFormEntry(true);
   if (!entry) return;
 
+  const isEn = (App.currentLang === "en");
   if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = true;
   if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.remove("hidden");
-  if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "Đang mở Email AAR...";
+  if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = isEn ? "Opening Email client..." : "Đang mở Email AAR...";
 
   try {
     // 1. Persist entry & reset cross-test session tracker for the next study session
@@ -8832,23 +9062,28 @@ function submitAARReport() {
 
     // 7. Show Enhanced Success Modal with 1-click Webmail fallbacks
     closeAARModal();
-    if (DOM.successModalTitle) DOM.successModalTitle.textContent = "Đã Kích Hoạt Ứng Dụng Email!";
+    if (DOM.successModalTitle) DOM.successModalTitle.textContent = isEn ? "Email Application Triggered!" : "Đã Kích Hoạt Ứng Dụng Email!";
     if (DOM.successStatusText) {
-      DOM.successStatusText.textContent = `Báo cáo buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.weighted_pct_display || entry.accuracy_pct + '%'}) đã được chuẩn bị sẵn. Nếu ứng dụng Email chưa tự mở trên thiết bị của em, hãy chọn một trong các cách mở nhanh bên dưới:`;
+      DOM.successStatusText.textContent = isEn
+        ? `Your session report (${entry.correct_count}/${entry.practiced_count} correct - ${entry.weighted_pct_display || entry.accuracy_pct + '%'}) has been prepared. If your email app did not open automatically, choose a quick webmail button below:`
+        : `Báo cáo buổi học (${entry.correct_count}/${entry.practiced_count} câu đúng - ${entry.weighted_pct_display || entry.accuracy_pct + '%'}) đã được chuẩn bị sẵn. Nếu ứng dụng Email chưa tự mở trên thiết bị của em, hãy chọn một trong các cách mở nhanh bên dưới:`;
     }
     if (DOM.successRecipientText) {
-      DOM.successRecipientText.innerHTML = `Gửi tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>)`;
+      DOM.successRecipientText.innerHTML = isEn
+        ? `Sending to <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>)`
+        : `Gửi tới <code>v.sonpbh1@vinschool.edu.vn</code> &amp; <code>mikepham@baoan.ai.vn</code> (CC: <code>${escapeHtmlSafe(entry.student_email)}</code>)`;
     }
     if (DOM.modalSubmitSuccess) DOM.modalSubmitSuccess.classList.remove("hidden");
   } finally {
     if (DOM.btnAarSubmitSend) DOM.btnAarSubmitSend.disabled = false;
     if (DOM.aarSubmitSpinner) DOM.aarSubmitSpinner.classList.add("hidden");
-    if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = "✉️ Gửi email AAR";
+    if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = isEn ? "✉️ Send AAR Email" : "✉️ Gửi email AAR";
   }
 }
 
 async function downloadConsolidatedCombinedExcel() {
   const currentEntry = collectAARFormEntry(false);
+  const isEn = (App.currentLang === "en");
   const safeName = (
     (currentEntry && currentEntry.student_name ? currentEntry.student_name.trim() : "") ||
     (App.studentState && App.studentState.student_name ? String(App.studentState.student_name).trim() : "") ||
@@ -8865,10 +9100,10 @@ async function downloadConsolidatedCombinedExcel() {
 
   const btn = DOM.btnAarDownloadCombined || DOM.btnAarDownloadOnly;
   const textSpan = DOM.aarDownloadBtnText || (btn ? btn.querySelector("span:not(.spinner)") : null);
-  const origText = textSpan ? textSpan.textContent : "Tải báo cáo tổng hợp";
+  const origText = textSpan ? textSpan.textContent : (isEn ? "Download Consolidated Report" : "Tải báo cáo tổng hợp");
   if (btn) btn.disabled = true;
   if (DOM.aarDownloadSpinner) DOM.aarDownloadSpinner.classList.remove("hidden");
-  if (textSpan) textSpan.textContent = "Đang tạo báo cáo tổng hợp...";
+  if (textSpan) textSpan.textContent = isEn ? "Generating consolidated report..." : "Đang tạo báo cáo tổng hợp...";
 
   try {
     const existingLogs = Array.isArray(App.aarLogs) ? [...App.aarLogs] : [];
@@ -8882,16 +9117,16 @@ async function downloadConsolidatedCombinedExcel() {
     if (blob) {
       const safeFileStudent = safeName.replace(/[^a-zA-Z0-9\u00C0-\u1EF9_-]+/g, "_").replace(/^_+|_+$/g, "") || "Hoc_Sinh";
       const dateStamp = (new Date().toISOString().slice(0, 10)).replace(/-/g, "");
-      const downloadFilename = `SAT_Bao_Cao_Tong_Hop_AAR_${safeFileStudent}_${dateStamp}.xlsx`;
+      const downloadFilename = `SAT_AAR_Consolidated_Report_${safeFileStudent}_${dateStamp}.xlsx`;
       const url = window.URL.createObjectURL(blob);
       triggerBlobDownload(url, downloadFilename);
       setTimeout(() => window.URL.revokeObjectURL(url), 1500);
     } else {
-      alert("Không thể tạo file báo cáo tổng hợp. Vui lòng thử lại.");
+      alert(isEn ? "Unable to generate consolidated report. Please try again." : "Không thể tạo file báo cáo tổng hợp. Vui lòng thử lại.");
     }
   } catch (err) {
     console.error("Error generating consolidated report:", err);
-    alert("Lỗi khi xuất báo cáo tổng hợp: " + (err.message || err));
+    alert((isEn ? "Error exporting report: " : "Lỗi khi xuất báo cáo tổng hợp: ") + (err.message || err));
   } finally {
     if (btn) btn.disabled = false;
     if (DOM.aarDownloadSpinner) DOM.aarDownloadSpinner.classList.add("hidden");
@@ -8909,18 +9144,23 @@ async function exportAllAARHistoryExcel() {
 
 function renderAARHistoryList() {
   const logs = App.aarLogs || [];
+  const isEn = (App.currentLang === "en");
   if (DOM.aarHistorySummary) {
     if (logs.length === 0) {
-      DOM.aarHistorySummary.textContent = "Chưa có buổi học AAR nào được lưu trên thiết bị này.";
+      DOM.aarHistorySummary.textContent = isEn ? "No AAR sessions recorded yet on this device." : "Chưa có buổi học AAR nào được lưu trên thiết bị này.";
     } else {
-      const done = logs.filter(x => x.status === "Hoàn thành").length;
+      const done = logs.filter(x => x.status === "Hoàn thành" || x.status === "Completed").length;
       const pct = Math.round((done / logs.length) * 100);
-      DOM.aarHistorySummary.textContent = `Đã ghi nhận ${logs.length} buổi học • Hoàn thành chu trình AAR: ${done}/${logs.length} (${pct}%)`;
+      DOM.aarHistorySummary.textContent = isEn
+        ? `${logs.length} session(s) recorded • Completed AAR cycle: ${done}/${logs.length} (${pct}%)`
+        : `Đã ghi nhận ${logs.length} buổi học • Hoàn thành chu trình AAR: ${done}/${logs.length} (${pct}%)`;
     }
   }
   if (!DOM.aarHistoryList) return;
   if (logs.length === 0) {
-    DOM.aarHistoryList.innerHTML = `<div style="text-align:center;padding:24px;color:#64748b;font-size:13px;">Hãy hoàn thiện báo cáo AAR đầu tiên ở tab <strong>Báo Cáo Buổi Học Mới</strong> nhé!</div>`;
+    DOM.aarHistoryList.innerHTML = isEn
+      ? `<div style="text-align:center;padding:24px;color:#64748b;font-size:13px;">Complete your first AAR reflection in the <strong>New Session Report</strong> tab!</div>`
+      : `<div style="text-align:center;padding:24px;color:#64748b;font-size:13px;">Hãy hoàn thiện báo cáo AAR đầu tiên ở tab <strong>Báo Cáo Buổi Học Mới</strong> nhé!</div>`;
     return;
   }
 
@@ -8930,12 +9170,12 @@ function renderAARHistoryList() {
         <div>
           <strong>${escapeHtmlSafe(item.session_label)}</strong> • ${escapeHtmlSafe(item.date_display)} • <span style="color:#1e3a8a;font-weight:700;">${escapeHtmlSafe(item.sat_module)}</span>
         </div>
-        <span class="aar-history-badge">${escapeHtmlSafe(item.status || "Chưa chọn trạng thái")} • Hiệu suất: ${item.weighted_pct_display || formatWeightedPct(item.weighted_pct)} (Đúng ${item.correct_count}/${item.practiced_count})</span>
+        <span class="aar-history-badge">${escapeHtmlSafe(item.status || (isEn ? "No status" : "Chưa chọn trạng thái"))} • ${isEn ? "Performance" : "Hiệu suất"}: ${item.weighted_pct_display || formatWeightedPct(item.weighted_pct)} (${isEn ? "Correct" : "Đúng"} ${item.correct_count}/${item.practiced_count})</span>
       </div>
       <div class="aar-history-meta">
-        <div><strong>Minh chứng:</strong> ${escapeHtmlSafe(item.evidence)}</div>
-        <div><strong>Gap:</strong> ${escapeHtmlSafe(item.gap)}</div>
-        <div><strong>Feed-forward:</strong> ${escapeHtmlSafe(item.feedforward)}</div>
+        <div><strong>${isEn ? "Evidence:" : "Minh chứng:"}</strong> ${escapeHtmlSafe(item.evidence)}</div>
+        <div><strong>${isEn ? "Gap:" : "Gap:"}</strong> ${escapeHtmlSafe(item.gap)}</div>
+        <div><strong>${isEn ? "Feed-forward:" : "Feed-forward:"}</strong> ${escapeHtmlSafe(item.feedforward)}</div>
       </div>
     </div>
   `).join("");

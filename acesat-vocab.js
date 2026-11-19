@@ -163,7 +163,10 @@
     }
     const badgeStats = document.getElementById('badge-vocab-stats');
     if (badgeStats) {
-      badgeStats.textContent = `${acedLists.size}/100 Lists Aced ★ • 1,000 Từ`;
+      const isEn = (window.App && window.App.currentLang === "en");
+      badgeStats.textContent = isEn
+        ? `${acedLists.size}/100 Lists Aced ★ • 1,000 Words`
+        : `${acedLists.size}/100 Lists Aced ★ • 1,000 Từ`;
     }
   }
 
@@ -247,6 +250,7 @@
   function renderStepper() {
     if (!el.cardStepper) return;
     el.cardStepper.innerHTML = '';
+    const isEn = (window.App && window.App.currentLang === "en");
     practiceWords.forEach((item, idx) => {
       const chip = document.createElement('div');
       chip.className = 'stepper-chip';
@@ -255,7 +259,9 @@
       if (isMastered) chip.classList.add('is-mastered');
 
       chip.textContent = idx === currentCardIndex ? `• ${idx + 1} •` : (idx + 1);
-      chip.title = `Từ ${idx + 1}: ${item.word}${isMastered ? ' (Đã thuộc ★)' : ''}`;
+      chip.title = isEn
+        ? `Word ${idx + 1}: ${item.word}${isMastered ? ' (Mastered ★)' : ''}`
+        : `Từ ${idx + 1}: ${item.word}${isMastered ? ' (Đã thuộc ★)' : ''}`;
 
       chip.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -269,9 +275,12 @@
 
   function renderCard() {
     if (!practiceWords.length) return;
+    const isEn = (window.App && window.App.currentLang === "en");
     const c = practiceWords[currentCardIndex];
     if (el.cardCurrentNum) el.cardCurrentNum.textContent = currentCardIndex + 1;
-    if (el.cardPosIndicator) el.cardPosIndicator.textContent = `Từ ${currentCardIndex + 1}/10`;
+    if (el.cardPosIndicator) el.cardPosIndicator.textContent = isEn
+      ? `Word ${currentCardIndex + 1}/10`
+      : `Từ ${currentCardIndex + 1}/10`;
 
     if (el.cardWordFront) el.cardWordFront.textContent = c.word;
     if (el.cardWordBack) el.cardWordBack.textContent = c.word;
@@ -286,7 +295,9 @@
       el.masteryStarIcon.textContent = isMastered ? '★' : '☆';
     }
     if (el.masteryStarText) {
-      el.masteryStarText.textContent = isMastered ? 'Đã thuộc từ này' : 'Đánh dấu đã thuộc';
+      el.masteryStarText.textContent = isEn
+        ? (isMastered ? 'Mastered' : 'Mark as Mastered')
+        : (isMastered ? 'Đã thuộc từ này' : 'Đánh dấu đã thuộc');
     }
 
     renderStepper();
@@ -390,8 +401,9 @@
     if (el.testQNum) el.testQNum.textContent = currentQuizQIndex + 1;
     if (el.quizTargetWord) el.quizTargetWord.textContent = q.word;
 
+    const isEn = (window.App && window.App.currentLang === "en");
     const answeredCount = currentQuiz.questions.filter(item => item.userSelected !== null).length;
-    if (el.testAnsweredBadge) el.testAnsweredBadge.textContent = `${answeredCount}/10 Đã trả lời`;
+    if (el.testAnsweredBadge) el.testAnsweredBadge.textContent = isEn ? `${answeredCount}/10 Answered` : `${answeredCount}/10 Đã trả lời`;
 
     if (el.testProgressFill) {
       el.testProgressFill.style.width = `${((currentQuizQIndex + 1) / currentQuiz.questions.length) * 100}%`;
@@ -432,12 +444,15 @@
       el.btnQuizPrev.style.visibility = currentQuizQIndex === 0 ? 'hidden' : 'visible';
     }
     if (el.btnQuizNext) {
-      el.btnQuizNext.textContent = currentQuizQIndex === currentQuiz.questions.length - 1 ? 'Hoàn thành bài kiểm tra ✓' : 'Câu Kế Tiếp ›';
+      el.btnQuizNext.textContent = currentQuizQIndex === currentQuiz.questions.length - 1
+        ? (isEn ? 'Finish Quiz ✓' : 'Hoàn thành bài kiểm tra ✓')
+        : (isEn ? 'Next Question ›' : 'Câu Kế Tiếp ›');
     }
   }
 
   function finishQuiz() {
     if (!currentQuiz) return;
+    const isEn = (window.App && window.App.currentLang === "en");
     let correct = 0;
     currentQuiz.questions.forEach(q => {
       if (q.userSelected === q.correct) correct++;
@@ -456,7 +471,7 @@
     if (el.testResultsView) el.testResultsView.classList.remove('hidden');
 
     if (el.resPercent) el.resPercent.textContent = `${percent}%`;
-    if (el.resRatio) el.resRatio.textContent = `${correct} / ${total} Câu Đúng`;
+    if (el.resRatio) el.resRatio.textContent = isEn ? `${correct} / ${total} Correct` : `${correct} / ${total} Câu Đúng`;
     if (el.wrongCountText) el.wrongCountText.textContent = total - correct;
 
     // Animate circular ring (r=75 => C = 2*PI*75 = 471.24)
@@ -488,20 +503,27 @@
     el.quizBreakdown.classList.toggle('hidden');
     if (el.quizBreakdown.classList.contains('hidden')) return;
 
+    const isEn = (window.App && window.App.currentLang === "en");
     el.quizBreakdown.innerHTML = '';
     currentQuiz.questions.forEach((q, i) => {
       const isRight = q.userSelected === q.correct;
       const box = document.createElement('div');
       box.className = `quiz-breakdown-card ${isRight ? 'is-right' : 'is-wrong'}`;
+      const badgeText = isRight
+        ? (isEn ? '✓ Correct' : '✓ Chính xác')
+        : (q.userSelected ? (isEn ? '✕ Incorrect' : '✕ Sai') : (isEn ? 'Unanswered' : 'Chưa trả lời'));
+      const pickLabel = isEn ? 'Your pick:' : 'Em đã chọn:';
+      const noPick = isEn ? '<em>Not selected</em>' : '<em>Chưa chọn</em>';
+      const ansLabel = isEn ? 'Correct answer:' : 'Đáp án đúng:';
       box.innerHTML = `
         <div class="q-bk-header">
           <strong>${i + 1}. ${q.word}</strong>
           <span class="q-bk-badge ${isRight ? 'right' : 'wrong'}">
-            ${isRight ? '✓ Chính xác' : (q.userSelected ? '✕ Sai' : 'Chưa trả lời')}
+            ${badgeText}
           </span>
         </div>
-        <div class="q-bk-ans"><strong>Em đã chọn:</strong> ${q.userSelected || '<em>Chưa chọn</em>'}</div>
-        ${!isRight ? `<div class="q-bk-ans correct"><strong>Đáp án đúng:</strong> ${q.correct}</div>` : ''}
+        <div class="q-bk-ans"><strong>${pickLabel}</strong> ${q.userSelected || noPick}</div>
+        ${!isRight ? `<div class="q-bk-ans correct"><strong>${ansLabel}</strong> ${q.correct}</div>` : ''}
       `;
       el.quizBreakdown.appendChild(box);
     });
@@ -511,9 +533,10 @@
   function runSearch(query) {
     query = (query || '').toLowerCase().trim();
     if (!el.searchResultsList) return;
+    const isEn = (window.App && window.App.currentLang === "en");
 
     if (!query) {
-      renderSearchBatch(allWordsFlat.slice(0, 30), 'Hiển thị 30 từ đầu tiên. Hãy gõ từ cần tra cứu...');
+      renderSearchBatch(allWordsFlat.slice(0, 30), isEn ? 'Showing first 30 words. Type to search vocabulary...' : 'Hiển thị 30 từ đầu tiên. Hãy gõ từ cần tra cứu...');
       return;
     }
 
@@ -521,13 +544,14 @@
       item.word.toLowerCase().includes(query) || item.definition.toLowerCase().includes(query)
     );
 
-    renderSearchBatch(matches.slice(0, 50), `Tìm thấy ${matches.length} từ phù hợp với "${query}":`);
+    renderSearchBatch(matches.slice(0, 50), isEn ? `Found ${matches.length} words matching "${query}":` : `Tìm thấy ${matches.length} từ phù hợp với "${query}":`);
   }
 
   function renderSearchBatch(items, infoText) {
+    const isEn = (window.App && window.App.currentLang === "en");
     el.searchResultsList.innerHTML = `<div class="search-info-bar">${infoText}</div>`;
     if (!items.length) {
-      el.searchResultsList.innerHTML += `<div class="search-no-result">Không tìm thấy từ vựng nào phù hợp.</div>`;
+      el.searchResultsList.innerHTML += `<div class="search-no-result">${isEn ? 'No vocabulary words found.' : 'Không tìm thấy từ vựng nào phù hợp.'}</div>`;
       return;
     }
 
