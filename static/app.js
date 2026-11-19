@@ -14,11 +14,31 @@ const AAR_TEACHER_RECIPIENTS = "v.sonpbh1@vinschool.edu.vn,mikepham@baoan.ai.vn"
 
 const TESTS_MANIFEST_DEFAULT = [
   {
+    "id": "nov-2026",
+    "code": "nov2026",
+    "title": "Digital SAT Practice Test - November 2026 (INT-A)",
+    "short_title": "Tháng 11/2026 (INT-A)",
+    "badge": "Mới nhất",
+    "date": "2026-11",
+    "dataFile": "data/nov2026.json",
+    "pdfDriveId": "1OCnVgziQ2ZxoYzUZD9oF_warcJYTGppi",
+    "pdfPreviewUrl": "https://drive.google.com/file/d/1OCnVgziQ2ZxoYzUZD9oF_warcJYTGppi/preview",
+    "pdfViewUrl": "https://drive.google.com/file/d/1OCnVgziQ2ZxoYzUZD9oF_warcJYTGppi/view",
+    "poster": "poster.png",
+    "total_questions": 98,
+    "storageKey": "bluebook_nov2026_student_state_v1",
+    "description": "Đề thi Real Test Digital SAT quốc tế tháng 11/2026 (INT-A) kèm giải thích chi tiết 4 tầng Socratic và phân tích bẫy đề thi.",
+    "category": "tests",
+    "category_name": "Đề thi thực chiến (Tests)",
+    "category_badge": "📝 Real Test",
+    "category_color": "blue"
+  },
+  {
     "id": "oct-2026",
     "code": "oct2026",
     "title": "Digital SAT Practice Test - October 2026 (INT-B)",
     "short_title": "Tháng 10/2026 (INT-B)",
-    "badge": "Mới nhất",
+    "badge": "Chính thức",
     "date": "2026-10",
     "dataFile": "data/oct2026.json",
     "pdfDriveId": "1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b",
@@ -201,6 +221,7 @@ function detectInitialTestId() {
       if (clean.includes("panda") || clean.includes("nielson") || clean.includes("math")) return "panda-math";
       if (clean.includes("writing") || clean.includes("grammar")) return "erica-writing";
       if (clean.includes("erica") || clean.includes("reading")) return "erica-reading";
+      if (clean.includes("nov")) return "nov-2026";
       if (clean.includes("sep")) return "sep-2026";
       if (clean.includes("oct")) return "oct-2026";
       return paramTest;
@@ -212,6 +233,7 @@ function detectInitialTestId() {
     if (hash.includes("panda") || hash.includes("nielson") || hash.includes("math")) return "panda-math";
     if (hash.includes("writing") || hash.includes("grammar")) return "erica-writing";
     if (hash.includes("erica") || hash.includes("reading")) return "erica-reading";
+    if (hash.includes("nov")) return "nov-2026";
     if (hash.includes("sep")) return "sep-2026";
     if (hash.includes("oct")) return "oct-2026";
 
@@ -2849,7 +2871,8 @@ function navigatePdf(page, zoom = null) {
   const isPrincetonPrep2025 = (App.activeTestId === "princeton-prep-2025" || App.activeTestId === "princeton2025");
   const isPrincetonBook = (App.activeTestId === "princeton-book" || App.activeTestId === "princetonbook");
   const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
-  const maxPage = isPrincetonPrep2025 ? 1094 : (isPrincetonBook ? 599 : (App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-writing" ? 218 : (App.activeTestId === "erica-reading" ? 175 : (isPrinceton ? 22 : 44)))));
+  const isNov = (App.activeTestId === "nov-2026" || App.activeTestId === "nov2026");
+  const maxPage = isPrincetonPrep2025 ? 1094 : (isPrincetonBook ? 599 : (App.activeTestId === "panda-math" ? 317 : (App.activeTestId === "erica-writing" ? 218 : (App.activeTestId === "erica-reading" ? 175 : (isPrinceton ? 22 : (isNov ? 46 : 44))))));
   const p = Math.max(1, Math.min(maxPage, parseInt(page) || 1));
   if (DOM.pdfSyncPageNum) DOM.pdfSyncPageNum.textContent = p;
 }
