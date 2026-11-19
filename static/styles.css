@@ -11022,146 +11022,138 @@ body.resizing-split iframe {
   transform: translateY(1px) !important;
 }
 
-/* Pod 1: Learning & Vocab (Lego Mint / Emerald) */
-.tools-cluster.cluster-vocab {
-  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%) !important;
-  border: 1.5px solid #a7f3d0 !important;
-  box-shadow: 0 2px 0 0 #6ee7b7, inset 0 1px 0 #ffffff !important;
-}
-
-.tools-cluster.cluster-vocab:hover {
-  border-color: #6ee7b7 !important;
-  box-shadow: 0 2px 0 0 #34d399, inset 0 1px 0 #ffffff, 0 4px 12px rgba(16, 185, 129, 0.12) !important;
-}
-
-.tools-cluster.cluster-vocab .tool-btn {
-  border: 1.5px solid #a7f3d0 !important;
-  color: #047857 !important;
-  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #a7f3d0 !important;
-}
-
-.tools-cluster.cluster-vocab .tool-btn:hover {
-  background: #059669 !important;
-  color: #ffffff !important;
-  border-color: #047857 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #047857, 0 4px 10px rgba(5, 150, 105, 0.2) !important;
-}
-
-/* Pod 2: Reflection & Metacognition (Lego Amber / Coral) */
-.tools-cluster.cluster-reflection {
-  background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%) !important;
-  border: 1.5px solid #fde68a !important;
-  box-shadow: 0 2px 0 0 #fcd34d, inset 0 1px 0 #ffffff !important;
-}
-
-.tools-cluster.cluster-reflection:hover {
-  border-color: #fcd34d !important;
-  box-shadow: 0 2px 0 0 #f59e0b, inset 0 1px 0 #ffffff, 0 4px 12px rgba(245, 158, 11, 0.12) !important;
-}
-
-.tools-cluster.cluster-reflection .tool-btn {
-  border: 1.5px solid #fde68a !important;
-  color: #b45309 !important;
-  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #fde68a !important;
-}
-
-.tools-cluster.cluster-reflection .tool-btn:hover {
-  background: #d97706 !important;
-  color: #ffffff !important;
-  border-color: #b45309 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #b45309, 0 4px 10px rgba(217, 119, 6, 0.2) !important;
-}
-
-.tools-cluster.cluster-reflection .tool-btn .badge {
-  background: #ef4444 !important;
-  color: #ffffff !important;
-  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.35) !important;
-}
-
-.tools-cluster.cluster-reflection .aar-pill-label {
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.5px !important;
-}
-
-/* Pod 3: STEM & Math (Lego Cobalt Blue / Cyan) */
-.tools-cluster.cluster-math {
-  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
-  border: 1.5px solid #bfdbfe !important;
-  box-shadow: 0 2px 0 0 #93c5fd, inset 0 1px 0 #ffffff !important;
-}
-
-.tools-cluster.cluster-math:hover {
-  border-color: #93c5fd !important;
-  box-shadow: 0 2px 0 0 #60a5fa, inset 0 1px 0 #ffffff, 0 4px 12px rgba(0, 85, 191, 0.12) !important;
-}
-
-.tools-cluster.cluster-math .tool-btn {
-  border: 1.5px solid #bfdbfe !important;
-  color: #0055bf !important;
-  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #bfdbfe !important;
-}
-
-.tools-cluster.cluster-math .tool-btn:hover {
-  background: #0055bf !important;
-  color: #ffffff !important;
-  border-color: #004399 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #004399, 0 4px 10px rgba(0, 85, 191, 0.2) !important;
-}
-
-/* Pod 4: Growth & Focus (Lego Purple & Gold) */
-.tools-cluster.cluster-growth {
+/* Pod 1: Cụm Focus & Gamification (Zen & Badges) */
+.tools-cluster.cluster-focus-badges {
   background: linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%) !important;
   border: 1.5px solid #ddd6fe !important;
   box-shadow: 0 2px 0 0 #c4b5fd, inset 0 1px 0 #ffffff !important;
 }
 
-.tools-cluster.cluster-growth:hover {
+.tools-cluster.cluster-focus-badges:hover {
   border-color: #c4b5fd !important;
   box-shadow: 0 2px 0 0 #a855f7, inset 0 1px 0 #ffffff, 0 4px 12px rgba(124, 58, 237, 0.12) !important;
 }
 
-.tools-cluster.cluster-growth .tool-btn {
+.tools-cluster.cluster-focus-badges .tool-btn {
   border: 1.5px solid #ddd6fe !important;
   color: #7c3aed !important;
   box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #ddd6fe !important;
 }
 
-.tools-cluster.cluster-growth .tool-btn:hover {
+.tools-cluster.cluster-focus-badges .tool-btn:hover {
   background: #7c3aed !important;
   color: #ffffff !important;
   border-color: #6d28d9 !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #6d28d9, 0 4px 10px rgba(124, 58, 237, 0.2) !important;
 }
 
-.tools-cluster.cluster-growth .tool-btn.btn-zen-toggle.active {
+.tools-cluster.cluster-focus-badges .tool-btn.btn-zen-toggle.active {
   background: #7c3aed !important;
   color: #ffffff !important;
   border-color: #6d28d9 !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #5b21b6, 0 0 14px rgba(124, 58, 237, 0.4) !important;
 }
 
-.tools-cluster.cluster-growth .tool-btn .badge {
+.tools-cluster.cluster-focus-badges .tool-btn .badge {
   background: #f59e0b !important;
   color: #ffffff !important;
   box-shadow: 0 2px 4px rgba(245, 158, 11, 0.35) !important;
 }
 
-/* Pod 5: Profile & System (Lego Slate / Pure Mirror Enamel) */
-.tools-cluster.cluster-system {
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
-  border: 1.5px solid #e2e8f0 !important;
-  box-shadow: 0 2px 0 0 #cbd5e1, inset 0 1px 0 #ffffff !important;
+/* Pod 2: Cụm Từ điển, Sổ thử sai & 1,000 Từ vựng */
+.tools-cluster.cluster-learning-errors {
+  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  border: 1.5px solid #a7f3d0 !important;
+  box-shadow: 0 2px 0 0 #6ee7b7, inset 0 1px 0 #ffffff !important;
+}
+
+.tools-cluster.cluster-learning-errors:hover {
+  border-color: #6ee7b7 !important;
+  box-shadow: 0 2px 0 0 #34d399, inset 0 1px 0 #ffffff, 0 4px 12px rgba(16, 185, 129, 0.12) !important;
+}
+
+.tools-cluster.cluster-learning-errors .tool-btn {
+  border: 1.5px solid #a7f3d0 !important;
+  color: #047857 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #a7f3d0 !important;
+}
+
+.tools-cluster.cluster-learning-errors .tool-btn:hover {
+  background: #059669 !important;
+  color: #ffffff !important;
+  border-color: #047857 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #047857, 0 4px 10px rgba(5, 150, 105, 0.2) !important;
+}
+
+.tools-cluster.cluster-learning-errors .tool-btn.btn-error-log-tool {
+  border-color: #fde68a !important;
+  color: #b45309 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #fde68a !important;
+}
+
+.tools-cluster.cluster-learning-errors .tool-btn.btn-error-log-tool:hover {
+  background: #d97706 !important;
+  color: #ffffff !important;
+  border-color: #b45309 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #b45309, 0 4px 10px rgba(217, 119, 6, 0.2) !important;
+}
+
+.tools-cluster.cluster-learning-errors .tool-btn .badge {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.35) !important;
+}
+
+/* Pod 3: Cụm Scratchpad, Desmos & Formula Sheet */
+.tools-cluster.cluster-math-workspace {
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
+  border: 1.5px solid #bfdbfe !important;
+  box-shadow: 0 2px 0 0 #93c5fd, inset 0 1px 0 #ffffff !important;
+}
+
+.tools-cluster.cluster-math-workspace:hover {
+  border-color: #93c5fd !important;
+  box-shadow: 0 2px 0 0 #60a5fa, inset 0 1px 0 #ffffff, 0 4px 12px rgba(0, 85, 191, 0.12) !important;
+}
+
+.tools-cluster.cluster-math-workspace .tool-btn {
+  border: 1.5px solid #bfdbfe !important;
+  color: #0055bf !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #bfdbfe !important;
+}
+
+.tools-cluster.cluster-math-workspace .tool-btn:hover {
+  background: #0055bf !important;
+  color: #ffffff !important;
+  border-color: #004399 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #004399, 0 4px 10px rgba(0, 85, 191, 0.2) !important;
+}
+
+.tools-cluster.cluster-math-workspace .tool-btn.btn-scratchpad-tool {
+  border-color: #c7d2fe !important;
+  color: #4338ca !important;
+}
+
+.tools-cluster.cluster-math-workspace .tool-btn.btn-scratchpad-tool:hover {
+  background: #4338ca !important;
+  color: #ffffff !important;
+  border-color: #3730a3 !important;
+}
+
+/* Pod 4: Cụm EN/VI & AAR (Nút AAR nổi bật và dài hơn bên phải EN/VI) */
+.tools-cluster.cluster-lang-aar {
+  background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%) !important;
+  border: 1.5px solid #fed7aa !important;
+  box-shadow: 0 2px 0 0 #fdba74, inset 0 1px 0 #ffffff !important;
   gap: 6px !important;
 }
 
-.tools-cluster.cluster-system:hover {
-  border-color: #cbd5e1 !important;
-  box-shadow: 0 2px 0 0 #94a3b8, inset 0 1px 0 #ffffff, 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+.tools-cluster.cluster-lang-aar:hover {
+  border-color: #fdba74 !important;
+  box-shadow: 0 2px 0 0 #fb923c, inset 0 1px 0 #ffffff, 0 4px 12px rgba(234, 88, 12, 0.16) !important;
 }
 
-.tools-cluster.cluster-system .btn-lang-toggle {
+.tools-cluster.cluster-lang-aar .btn-lang-toggle {
   background: #ffffff !important;
   border: 1.5px solid #cbd5e1 !important;
   border-radius: 12px !important;
@@ -11178,34 +11170,63 @@ body.resizing-split iframe {
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.tools-cluster.cluster-system .btn-lang-toggle:hover {
+.tools-cluster.cluster-lang-aar .btn-lang-toggle:hover {
   border-color: #0055bf !important;
   color: #0055bf !important;
   transform: translateY(-1px) !important;
   box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 0 #0055bf, 0 4px 8px rgba(0, 85, 191, 0.12) !important;
 }
 
-.tools-cluster.cluster-system .header-student-badge {
-  background: #ffffff !important;
-  color: #0f172a !important;
-  border: 1.5px solid #cbd5e1 !important;
-  border-radius: 18px !important;
-  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #cbd5e1 !important;
-  padding: 4px 10px !important;
+/* Standout Prominent AAR Button (nổi bật và dài hơn bên phải EN/VI) */
+.tools-cluster.cluster-lang-aar .btn-aar-prominent {
   height: 36px !important;
+  min-width: 124px !important;
+  width: auto !important;
+  padding: 0 14px !important;
+  background: linear-gradient(180deg, #ff6b00 0%, #ea580c 100%) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #c2410c !important;
+  border-radius: 14px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2.5px 0 0 #9a3412, 0 4px 14px rgba(234, 88, 12, 0.35) !important;
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 6px !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
   cursor: pointer !important;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-decoration: none !important;
 }
 
-.tools-cluster.cluster-system .header-student-badge:hover {
-  border-color: #0055bf !important;
-  transform: translateY(-1px) !important;
-  box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 0 #0055bf, 0 4px 10px rgba(0, 85, 191, 0.1) !important;
+.tools-cluster.cluster-lang-aar .btn-aar-prominent .aar-icon {
+  font-size: 15px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.tools-cluster.cluster-lang-aar .btn-aar-prominent .aar-btn-text {
+  display: inline-block !important;
+  font-family: 'JetBrains Mono', 'Roboto Mono', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.6px !important;
+  color: #ffffff !important;
+  white-space: nowrap !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+}
+
+.tools-cluster.cluster-lang-aar .btn-aar-prominent:hover {
+  background: linear-gradient(180deg, #ff7a1a 0%, #f97316 100%) !important;
+  border-color: #9a3412 !important;
+  transform: translateY(-1.5px) scale(1.02) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 3.5px 0 0 #9a3412, 0 6px 18px rgba(234, 88, 12, 0.45) !important;
+}
+
+.tools-cluster.cluster-lang-aar .btn-aar-prominent:active {
+  transform: translateY(1.5px) scale(0.99) !important;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 0 #9a3412 !important;
 }
 
 /* 2.4 Responsive Proportions for TopBar */
@@ -11236,12 +11257,17 @@ body.resizing-split iframe {
     min-width: 33px !important;
     min-height: 33px !important;
   }
-  .tools-cluster.cluster-system .header-student-badge {
-    padding: 2px 8px !important;
+  .tools-cluster.cluster-lang-aar .btn-lang-toggle {
     height: 33px !important;
+    min-width: 36px !important;
   }
-  .tools-cluster.cluster-system .btn-lang-toggle {
+  .tools-cluster.cluster-lang-aar .btn-aar-prominent {
     height: 33px !important;
+    min-width: 108px !important;
+    padding: 0 10px !important;
+  }
+  .tools-cluster.cluster-lang-aar .btn-aar-prominent .aar-btn-text {
+    font-size: 11px !important;
   }
 }
 
@@ -11279,8 +11305,12 @@ body.resizing-split iframe {
     max-width: calc(50% - 110px) !important;
     gap: 3px !important;
   }
-  .header-student-badge .badge-name {
-    display: none !important;
+  .tools-cluster.cluster-lang-aar .btn-aar-prominent {
+    min-width: 95px !important;
+    padding: 0 8px !important;
+  }
+  .tools-cluster.cluster-lang-aar .btn-aar-prominent .aar-btn-text {
+    font-size: 10.5px !important;
   }
 }
 

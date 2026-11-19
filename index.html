@@ -492,49 +492,8 @@
 
       <!-- Zone C: Functional Utilities & Cognitive Tools (Right Island) -->
       <div class="header-tools">
-        <!-- Pod 1: Learning & Vocabulary (Lego Mint / Emerald) -->
-        <div class="tools-cluster cluster-vocab" title="Vocabulary & Reference Tools">
-          <button class="tool-btn btn-dict-tool" id="btn-open-dict" title="Cambridge Dictionary &amp; SAT Vocab Lookup">
-            <span class="tool-icon">📖</span>
-            <span class="tool-text" data-i18n="btn_dict">Dictionary</span>
-          </button>
-          <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="1,000 SAT Vocab Hub (AceSAT)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
-            <span class="tool-icon">📚</span>
-            <span class="tool-text" data-i18n="btn_vocab_tool">1,000 Vocab</span>
-          </button>
-        </div>
-
-        <!-- Pod 2: Metacognition & Socratic Reflection (Lego Amber / Coral) -->
-        <div class="tools-cluster cluster-reflection" title="Socratic Error Log & Metacognitive Reflection">
-          <button class="tool-btn btn-error-log-tool" id="btn-open-error-log" title="Socratic Error Log Notebook">
-            <span class="tool-icon">📓</span>
-            <span class="tool-text" data-i18n="btn_error_log">Error Log</span>
-            <span class="badge" id="badge-error-count">0</span>
-          </button>
-          <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Post-Session After Action Review (AAR)" data-i18n-title="btn_aar">
-            <span class="tool-icon">📝</span>
-            <span class="aar-pill-label">AAR</span>
-          </button>
-        </div>
-
-        <!-- Pod 3: STEM & Math Tools (Lego Cobalt Blue / Cyan) -->
-        <div class="tools-cluster cluster-math" title="STEM Math & Whiteboard Scratchpad">
-          <button class="tool-btn btn-calc-tool" id="btn-open-calc" title="Desmos Graphing Calculator">
-            <span class="tool-icon">🧮</span>
-            <span class="tool-text" data-i18n="btn_calc">Desmos</span>
-          </button>
-          <button class="tool-btn btn-ref-tool" id="btn-open-ref" title="SAT Math Formulas Reference Sheet">
-            <span class="tool-icon">📐</span>
-            <span class="tool-text" data-i18n="btn_ref">Math Formulas</span>
-          </button>
-          <button class="tool-btn btn-scratchpad-tool" id="btn-toggle-scratchpad" title="Whiteboard Scratchpad">
-            <span class="tool-icon">✏️</span>
-            <span class="tool-text" data-i18n="btn_scratchpad">Scratchpad</span>
-          </button>
-        </div>
-
-        <!-- Pod 4: Focus & Gamification (Lego Purple & Gold) -->
-        <div class="tools-cluster cluster-growth" title="Focus Zen & Micro-Credentials">
+        <!-- 1. Cụm Focus & Gamification (Zen & Badges) lên trước -->
+        <div class="tools-cluster cluster-focus-badges" title="Focus Zen & Micro-Credentials">
           <button class="tool-btn btn-zen-toggle" id="btn-toggle-zen" title="Toggle Zen Focus Mode (Key Z)">
             <span class="tool-icon">🧘</span>
             <span class="tool-text" data-i18n="btn_zen">Zen</span>
@@ -546,17 +505,49 @@
           </button>
         </div>
 
-        <!-- Pod 5: Profile & System (Slate / Minimalist White) -->
-        <div class="tools-cluster cluster-system" title="Profile & Language Settings">
+        <!-- 2. Cụm Từ điển, Sổ thử sai, và 1,000 Từ vựng tiếp theo -->
+        <div class="tools-cluster cluster-learning-errors" title="Dictionary, Socratic Error Log & 1,000 Vocab">
+          <button class="tool-btn btn-dict-tool" id="btn-open-dict" title="Cambridge Dictionary &amp; SAT Vocab Lookup">
+            <span class="tool-icon">📖</span>
+            <span class="tool-text" data-i18n="btn_dict">Dictionary</span>
+          </button>
+          <button class="tool-btn btn-error-log-tool" id="btn-open-error-log" title="Socratic Error Log Notebook">
+            <span class="tool-icon">📓</span>
+            <span class="tool-text" data-i18n="btn_error_log">Error Log</span>
+            <span class="badge" id="badge-error-count">0</span>
+          </button>
+          <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="1,000 SAT Vocab Hub (AceSAT)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
+            <span class="tool-icon">📚</span>
+            <span class="tool-text" data-i18n="btn_vocab_tool">1,000 Vocab</span>
+          </button>
+        </div>
+
+        <!-- 3. Cụm Scratchpad, Desmos, và Formula Sheet tiếp đó -->
+        <div class="tools-cluster cluster-math-workspace" title="Whiteboard Scratchpad, Desmos & Math Formulas">
+          <button class="tool-btn btn-scratchpad-tool" id="btn-toggle-scratchpad" title="Whiteboard Scratchpad">
+            <span class="tool-icon">✏️</span>
+            <span class="tool-text" data-i18n="btn_scratchpad">Scratchpad</span>
+          </button>
+          <button class="tool-btn btn-calc-tool" id="btn-open-calc" title="Desmos Graphing Calculator">
+            <span class="tool-icon">🧮</span>
+            <span class="tool-text" data-i18n="btn_calc">Desmos</span>
+          </button>
+          <button class="tool-btn btn-ref-tool" id="btn-open-ref" title="SAT Math Formulas Reference Sheet">
+            <span class="tool-icon">📐</span>
+            <span class="tool-text" data-i18n="btn_ref">Math Formulas</span>
+          </button>
+        </div>
+
+        <!-- 4. Cụm EN/VI & AAR (Loại bỏ Student Profile, nút AAR nổi bật và dài hơn bên phải EN/VI) -->
+        <div class="tools-cluster cluster-lang-aar" title="Language & After Action Review">
           <button type="button" class="tool-btn btn-lang-toggle btn-lang-practice" id="btn-lang-toggle-practice" title="Switch Language / Đổi ngôn ngữ (English / Tiếng Việt)">
             <span class="lang-globe">🌐</span>
             <span class="lang-cur font-bold">EN</span>
           </button>
-          <div class="header-student-badge" id="header-student-badge" title="Student Profile (Click to edit)">
-            <span class="badge-icon tool-icon">👤</span>
-            <span class="badge-name tool-text" id="header-student-name" data-i18n="student_badge_default">Student</span>
-            <button class="btn-edit-student" id="btn-edit-student" title="Edit name / email">✏️</button>
-          </div>
+          <button class="tool-btn btn-aar-report btn-aar-prominent" id="btn-open-aar" title="Post-Session After Action Review (AAR)" data-i18n-title="btn_aar">
+            <span class="tool-icon aar-icon">📝</span>
+            <span class="aar-btn-text" data-i18n="btn_aar">AAR Report</span>
+          </button>
         </div>
       </div>
     </header>
