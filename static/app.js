@@ -1291,14 +1291,14 @@ function startPracticeFromHome(targetModule) {
   syncAarTargetPills();
   updateHomeAarSyncBadge();
 
-  if (targetModule && targetModule !== App.activeModuleCode) {
+  if (targetModule) {
     App.activeModuleCode = targetModule;
     App.studentState.active_module = targetModule;
-    saveLocalState();
-    if (DOM.selectModule) DOM.selectModule.value = targetModule;
-    setupModuleQuestions();
-    startModuleTimer();
   }
+  saveLocalState();
+  if (DOM.selectModule) DOM.selectModule.value = App.activeModuleCode;
+  setupModuleQuestions();
+  startModuleTimer();
 
   showView("practice");
 }
@@ -2084,9 +2084,17 @@ function renderOptions(q, qState, isFinished) {
   const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
 
   const defaultKeys = ["A", "B", "C", "D"];
-  const opts = (q.options && q.options.length > 0)
+  const rawOpts = (q.options && q.options.length > 0)
     ? q.options
     : defaultKeys.map(k => ({ key: k, text: `Lựa chọn ${k}` }));
+
+  const opts = rawOpts.map((opt, idx) => {
+    if (typeof opt === "string") {
+      const k = defaultKeys[idx] || String.fromCharCode(65 + idx);
+      return { key: k, text: opt };
+    }
+    return opt;
+  });
 
   opts.forEach(opt => {
     const row = document.createElement("div");
@@ -3998,7 +4006,7 @@ function saveMandatoryReflection(advanceToNext = true) {
     trap_detail: detail,
     student_notes: notes,
     vocabulary: vocab,
-    socratic_analysis: q.level1_tip || "",
+    socratic_analysis: q.tier1_hint || q.level1_tip || "",
     status: "Đang theo dõi"
   };
 
@@ -6711,7 +6719,7 @@ function setupEventListeners() {
         trap_detail: detail,
         student_notes: DOM.inputNewNotes ? DOM.inputNewNotes.value.trim() : "",
         vocabulary: DOM.inputNewVocab ? DOM.inputNewVocab.value.trim() : "",
-        socratic_analysis: q ? (q.level1_tip || "") : "",
+        socratic_analysis: q ? (q.tier1_hint || q.level1_tip || "") : "",
         status: DOM.selectNewStatus ? DOM.selectNewStatus.value : "Đang theo dõi"
       };
 

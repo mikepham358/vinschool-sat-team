@@ -36,6 +36,14 @@ python3 add_new_test.py \
 
 ## 🛠️ Cách 2: Thêm Thủ Công Qua File JSON
 
+> [!IMPORTANT]
+> ### 🎯 QUY TẮC BẮT BUỘC KHI ĐỊNH DẠNG PHƯƠNG ÁN A, B, C, D CHO ĐỀ THI REAL TEST
+> 1. **KHÔNG chứa nội dung trích từ PDF vào mảng `options`**: Các phương án trắc nghiệm bắt buộc phải định dạng tinh giản theo quy chuẩn:
+>    `"options": ["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"]`
+>    Học sinh luôn đọc câu hỏi và các phương án từ PDF Viewer bên trái. Nội dung chi tiết của các phương án cùng phân tích bẫy/tại sao đúng/tại sao sai được đặt trong `option_explanations`, `pooe_breakdown`, và `tier3_hint`.
+> 2. **Tuyệt đối dùng dấu gạch nối tiêu chuẩn `-`**: Không dùng dấu gạch ngang dài `—` (em-dash) hoặc `–` (en-dash).
+> 3. **Câu hỏi tự điền đáp số (Grid-in)**: Đặt `is_grid_in: true`, `options: []`, `correct_answer` chứa giá trị số (ví dụ: `"25"`, `"-6"`, `"1/2, .5, 0.5"`).
+
 Nếu Thầy đã chuẩn bị sẵn file câu hỏi:
 
 1. **Tạo file dữ liệu câu hỏi:** Lưu tại `data/<test_id>.json` (ví dụ `data/nov2026.json`).
