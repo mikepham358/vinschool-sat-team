@@ -1,38 +1,62 @@
 :root {
-  --bb-bg-header: #0f172a;
-  --bb-bg-body: #f8fafc;
+  /* Google & Lego Joyful Minimalist Palette */
+  --lego-blue: #0055BF;
+  --lego-red: #E3000B;
+  --lego-yellow: #FFD500;
+  --lego-green: #00852B;
+  --lego-orange: #FF6E00;
+  --lego-purple: #7C3AED;
+  --lego-dark: #0F172A;
+  --lego-white: #FFFFFF;
+
+  /* Google Canvas & Clean Surfaces */
+  --bb-bg-header: #ffffff;
+  --bb-bg-body: #ffffff;
   --bb-bg-surface: #ffffff;
-  --bb-bg-surface-elevated: #f1f5f9;
-  --bb-border: #cbd5e1;
-  --bb-border-focus: #2563eb;
+  --bb-bg-surface-elevated: #f8fafc;
+  --bb-border: #e2e8f0;
+  --bb-border-focus: #0055bf;
   
   --bb-text-main: #0f172a;
   --bb-text-secondary: #475569;
   --bb-text-muted: #94a3b8;
   
-  --bb-blue: #0284c7;
-  --bb-blue-dark: #0369a1;
+  --bb-blue: #0055bf;
+  --bb-blue-dark: #003c88;
   --bb-blue-light: #e0f2fe;
 
-  --bb-primary: #1e3a8a;
-  --bb-primary-hover: #172554;
+  --bb-primary: #0055bf;
+  --bb-primary-hover: #003c88;
 
-  --bb-success: #16a34a;
+  --bb-success: #00852b;
   --bb-success-light: #f0fdf4;
   --bb-success-border: #86efac;
 
-  --bb-danger: #dc2626;
+  --bb-danger: #e3000b;
   --bb-danger-light: #fef2f2;
   --bb-danger-border: #fca5a5;
 
-  --bb-warning: #d97706;
+  --bb-warning: #ff6e00;
   --bb-warning-light: #fffbeb;
 
-  --bb-flag: #e11d48;
+  --bb-flag: #e3000b;
+
+  /* Mirror Glaze & Specular Highlights */
+  --mirror-rim: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --mirror-rim-subtle: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --mirror-glaze-bg: rgba(255, 255, 255, 0.92);
+  --mirror-glaze-backdrop: blur(16px) saturate(180%);
+
+  /* Tactile Lego 3D Bevel Shadows */
+  --lego-shadow-blue: 0 4px 0 0 #003c88;
+  --lego-shadow-green: 0 4px 0 0 #005a1d;
+  --lego-shadow-yellow: 0 4px 0 0 #b45309;
+  --lego-shadow-red: 0 4px 0 0 #990007;
+  --lego-shadow-neutral: 0 3px 0 0 #cbd5e1;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
 }
 
 * {
@@ -46,7 +70,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--bb-bg-body);
   color: var(--bb-text-main);
   height: 100vh;
@@ -5223,9 +5247,9 @@ body {
 
 .home-nav-container {
   width: 100%;
-  max-width: 1260px;
+  max-width: 1380px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -5235,7 +5259,8 @@ body {
 .home-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .google-sat-badge {
@@ -5262,11 +5287,12 @@ body {
 }
 
 .brand-title {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 700;
   color: #0f172a;
   line-height: 1.25;
   letter-spacing: -0.015em;
+  white-space: nowrap;
 }
 
 .brand-badge {
@@ -5274,6 +5300,7 @@ body {
   color: #64748b;
   font-weight: 600;
   letter-spacing: 0.1px;
+  white-space: nowrap;
 }
 
 .home-nav-actions {
@@ -10662,3 +10689,380 @@ body.resizing-split iframe {
   }
 }
 
+
+
+/* ==========================================================================
+   GOOGLE & LEGO MINIMALISM + MIRROR GLAZE DESIGN SYSTEM (INTERNATIONALIZED)
+   Tactile 3D Buttons • Pure White Canvas • Specular Mirror Sheen • Joyful Colors
+   ========================================================================== */
+
+/* 1. Pure White Canvas with Subtle Google/Lego Stud Dot Grid */
+.view-home {
+  background-color: #ffffff !important;
+  background-image: radial-gradient(circle, rgba(0, 85, 191, 0.04) 1.2px, transparent 1.2px) !important;
+  background-size: 24px 24px !important;
+}
+
+.home-main {
+  background: transparent !important;
+}
+
+.split-container {
+  background-color: #ffffff !important;
+}
+
+.pane-content {
+  background-color: #ffffff !important;
+  background-image: radial-gradient(circle, rgba(0, 85, 191, 0.035) 1.2px, transparent 1.2px) !important;
+  background-size: 24px 24px !important;
+}
+
+/* 2. Luminous Frosted-Glass White Bluebook Header (Mirror Glaze) */
+.bluebook-header {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+  color: #0f172a !important;
+}
+
+.bluebook-header .btn-home {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bluebook-header .btn-home:hover {
+  background: #ffffff !important;
+  color: var(--lego-blue, #0055bf) !important;
+  border-color: var(--lego-blue, #0055bf) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd !important;
+}
+
+.bluebook-header .btn-home:active {
+  transform: translateY(1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 0 #cbd5e1 !important;
+}
+
+.bluebook-header .module-selector-wrap select,
+.bluebook-header .select-practice-exam-header {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+  border-radius: 20px !important;
+  font-weight: 700 !important;
+}
+
+.bluebook-header .module-selector-wrap select:focus,
+.bluebook-header .module-selector-wrap select:hover,
+.bluebook-header .select-practice-exam-header:focus,
+.bluebook-header .select-practice-exam-header:hover {
+  border-color: var(--lego-blue, #0055bf) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd !important;
+}
+
+.bluebook-header .header-timer {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1, 0 4px 10px rgba(15, 23, 42, 0.04) !important;
+  border-radius: 24px !important;
+}
+
+.bluebook-header .timer-display {
+  color: #0f172a !important;
+}
+
+.bluebook-header .btn-timer-action {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  font-weight: 700 !important;
+  border-radius: 12px !important;
+}
+
+.bluebook-header .btn-timer-action:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.bluebook-header .header-session-counter {
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
+  color: var(--lego-blue, #0055bf) !important;
+  border: 1.5px solid #93c5fd !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #93c5fd !important;
+  font-weight: 800 !important;
+}
+
+.bluebook-header .header-session-counter .sc-val {
+  color: var(--lego-blue, #0055bf) !important;
+}
+
+.bluebook-header .tool-btn {
+  background: #ffffff !important;
+  color: #334155 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bluebook-header .tool-btn:hover {
+  background: #ffffff !important;
+  color: var(--lego-blue, #0055bf) !important;
+  border-color: var(--lego-blue, #0055bf) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd, 0 4px 10px rgba(0, 85, 191, 0.1) !important;
+}
+
+.bluebook-header .tool-btn:active {
+  transform: translateY(1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 0 #cbd5e1 !important;
+}
+
+.bluebook-header .header-student-badge {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 20px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+}
+
+/* 3. Language Switcher Buttons (Google + Lego Design) */
+.btn-lang-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 38px !important;
+  padding: 0 12px !important;
+  border-radius: 20px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1, 0 4px 10px rgba(15, 23, 42, 0.05) !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+  white-space: nowrap !important;
+}
+
+.btn-lang-toggle:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  border-color: var(--lego-blue, #0055bf) !important;
+  color: var(--lego-blue, #0055bf) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd, 0 6px 14px rgba(0, 85, 191, 0.12) !important;
+}
+
+.btn-lang-toggle:active {
+  transform: translateY(2px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 0 #cbd5e1 !important;
+}
+
+.btn-lang-toggle .lang-globe {
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+.btn-lang-toggle .lang-cur {
+  color: var(--lego-blue, #0055bf) !important;
+  font-weight: 800 !important;
+}
+
+.btn-lang-toggle .lang-sep {
+  color: #94a3b8 !important;
+  margin: 0 1px !important;
+}
+
+.btn-lang-toggle .lang-alt {
+  color: #64748b !important;
+  font-weight: 600 !important;
+}
+
+.btn-lang-practice {
+  width: auto !important;
+  min-width: 46px !important;
+  padding: 0 10px !important;
+  border-radius: 10px !important;
+}
+
+/* 4. Tactile 3D Lego Buttons */
+.btn-google-primary,
+.btn-submit {
+  background: linear-gradient(180deg, #1a73e8 0%, #0055bf 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 4px 0 0 #003c88, 0 6px 16px rgba(0, 85, 191, 0.25) !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-weight: 700 !important;
+}
+
+.btn-google-primary:hover:not(:disabled),
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 5px 0 0 #003c88, 0 8px 20px rgba(0, 85, 191, 0.32) !important;
+}
+
+.btn-google-primary:active:not(:disabled),
+.btn-submit:active:not(:disabled) {
+  transform: translateY(3px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 0 0 #003c88, 0 2px 4px rgba(0, 85, 191, 0.2) !important;
+}
+
+.btn-dock-next {
+  background: linear-gradient(180deg, #1a73e8 0%, #0055bf 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 3px 0 0 #003c88 !important;
+}
+
+.btn-dock-next:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 4px 0 0 #003c88 !important;
+}
+
+.btn-dock-next:active {
+  transform: translateY(2px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 0 0 #003c88 !important;
+}
+
+.btn-dock-nav {
+  border-radius: 20px !important;
+  font-weight: 700 !important;
+}
+
+.btn-module-jump {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  color: var(--lego-blue, #0055bf) !important;
+  border: 1.5px solid #93c5fd !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd !important;
+  border-radius: 20px !important;
+  font-weight: 700 !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn-module-jump:hover {
+  background: linear-gradient(180deg, #1a73e8 0%, #0055bf 100%) !important;
+  color: #ffffff !important;
+  border-color: #003c88 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 4px 0 0 #003c88 !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-module-jump:active {
+  transform: translateY(2px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 0 0 #003c88 !important;
+}
+
+/* 5. Tactile Squircle Lego Stud Option Bubbles & Option Rows */
+.option-row {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.option-row:hover:not(.eliminated):not(.correct):not(.wrong) {
+  border-color: var(--lego-blue, #0055bf) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 12px rgba(0, 85, 191, 0.1) !important;
+}
+
+.option-row.selected {
+  border-color: var(--lego-blue, #0055bf) !important;
+  background: linear-gradient(180deg, #f0f7ff 0%, #e0f2fe 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #0055bf, 0 6px 16px rgba(0, 85, 191, 0.15) !important;
+}
+
+.option-row.correct {
+  border-color: var(--lego-green, #00852b) !important;
+  background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #00852b, 0 6px 16px rgba(0, 133, 43, 0.15) !important;
+}
+
+.option-row.wrong {
+  border-color: var(--lego-red, #e3000b) !important;
+  background: linear-gradient(180deg, #fef2f2 0%, #fee2e2 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #e3000b, 0 6px 16px rgba(227, 0, 11, 0.15) !important;
+}
+
+.option-bubble {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important; /* Squircle Lego stud */
+  border: 1.5px solid #cbd5e1 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #334155 !important;
+  transition: all 0.15s ease !important;
+}
+
+.option-row.selected .option-bubble {
+  background: linear-gradient(180deg, #1a73e8 0%, #0055bf 100%) !important;
+  color: #ffffff !important;
+  border-color: #0055bf !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 2px 0 0 #003c88 !important;
+}
+
+.option-row.correct .option-bubble {
+  background: linear-gradient(180deg, #10b981 0%, #00852b 100%) !important;
+  color: #ffffff !important;
+  border-color: #00852b !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 2px 0 0 #005a1d !important;
+}
+
+.option-row.wrong .option-bubble {
+  background: linear-gradient(180deg, #ef4444 0%, #e3000b 100%) !important;
+  color: #ffffff !important;
+  border-color: #e3000b !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 2px 0 0 #990007 !important;
+}
+
+/* 6. Mirror-Glazed Glass Surfaces on Cards & Containers */
+.material-card,
+.module-card,
+.home-anticipation-box,
+.feature-card,
+.vocab-hero-card {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 4px 16px -2px rgba(15, 23, 42, 0.05) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  border-radius: 16px !important;
+}
+
+.module-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 10px 24px rgba(0, 85, 191, 0.1) !important;
+  border-color: rgba(0, 85, 191, 0.3) !important;
+}
+
+/* 7. Lego Stud Pill Badges */
+.mod-pill {
+  border-radius: 8px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+.mod-pill.mod-rw {
+  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%) !important;
+  color: #0369a1 !important;
+  border: 1px solid #7dd3fc !important;
+}
+
+.mod-pill.mod-math {
+  background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%) !important;
+  color: #92400e !important;
+  border: 1px solid #fcd34d !important;
+}

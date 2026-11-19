@@ -13,6 +13,7 @@
   <!-- Mermaid JS for Mindmap & Logic Flowcharts Visualization -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <!-- Tests Manifest for Instant Multi-Exam Switching -->
+  <script src="i18n.js"></script>
   <script src="data/tests.js"></script>
   <!-- AceSAT 1,000 Vocabulary Dataset (100 Word Lists) -->
   <script src="data/vocab.js"></script>
@@ -20,10 +21,10 @@
   <script src="data/badges.js"></script>
   <!-- Canvas Confetti for Gamification Celebrations -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="theme-bluebook">
@@ -41,23 +42,27 @@
             <span class="badge-letter g-yellow">T</span>
           </div>
           <div class="brand-text">
-            <span class="brand-title">Digital SAT Practice Based on Learning Science</span>
+            <span class="brand-title" data-i18n="brand_title">Digital SAT Practice Based on Learning Science</span>
             <span class="brand-badge" id="home-brand-badge">October 2026 • Real Test B</span>
           </div>
         </div>
         <div class="home-nav-actions">
-          <button type="button" class="btn-home-aar" id="btn-home-open-aar" title="Gửi Báo Cáo Phản Tư Sau Buổi Học (Chu Trình AAR)">
-            <span>📝</span>
-            <span>AAR Report</span>
+          <button type="button" class="btn-lang-toggle btn-lang-home" id="btn-lang-toggle-home" title="Switch Language / Đổi ngôn ngữ (English / Tiếng Việt)">
+            <span class="lang-globe">🌐</span>
+            <span class="lang-pill"><span class="lang-cur font-bold">EN</span><span class="lang-sep">/</span><span class="lang-alt">VI</span></span>
           </button>
-          <button type="button" class="btn-home-vocab" id="btn-home-open-vocab" title="Kho 1,000 Từ Vựng SAT (AceSAT Hub)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
+          <button type="button" class="btn-home-aar" id="btn-home-open-aar" title="Post-Session After Action Review (AAR)" data-i18n-title="btn_aar">
+            <span>📝</span>
+            <span data-i18n="btn_aar">AAR Report</span>
+          </button>
+          <button type="button" class="btn-home-vocab" id="btn-home-open-vocab" title="1,000 SAT Vocab Hub (AceSAT)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
             <span>📚</span>
-            <span>AceSAT: 1,000 Từ Vựng</span>
+            <span data-i18n="btn_vocab_1000">AceSAT: 1,000 Vocab</span>
             <span class="vocab-badge-count">100 Lists</span>
           </button>
           <div class="exam-picker-wrap">
-            <span class="exam-picker-label">🗓️ Đề thi:</span>
-            <select id="select-active-exam" class="select-exam-dropdown" title="Chọn đề thi để luyện tập">
+            <span class="exam-picker-label" data-i18n="exam_picker_label">🗓️ Active Exam:</span>
+            <select id="select-active-exam" class="select-exam-dropdown" title="Select Exam">
               <!-- Populated dynamically from TESTS_MANIFEST -->
             </select>
           </div>
@@ -76,8 +81,8 @@
           <div class="hero-form-column">
             <div class="material-card hero-form-card">
               <div class="card-header-clean">
-                <h3>Thông Tin Học Sinh</h3>
-                <span class="secure-badge">🔒 Lưu 100% trên thiết bị cá nhân</span>
+                <h3 data-i18n="student_form_title">Student Information</h3>
+                <span class="secure-badge" data-i18n="secure_badge">🔒 100% saved locally on personal device</span>
               </div>
 
               <!-- Badges Showcase Trigger Banner -->
@@ -86,14 +91,14 @@
                   <span class="home-badges-icon">🏆</span>
                   <div class="home-badges-text">
                     <div class="home-badges-title-row">
-                      <span class="home-badges-title">Micro-Credentials Showcase</span>
+                      <span class="home-badges-title" data-i18n="badges_title">Micro-Credentials Showcase</span>
                       <span class="home-badges-rank-pill" id="home-badges-rank-pill">Novice Scholar</span>
                     </div>
                     <span class="home-badges-sub" id="home-badges-summary">Unlocked 0/12 micro-credentials</span>
                   </div>
                 </div>
                 <button type="button" class="btn-home-badges-view" id="btn-home-badges-view">
-                  <span>Explore</span>
+                  <span data-i18n="btn_explore">Explore</span>
                   <span class="arrow">➔</span>
                 </button>
               </div>
@@ -101,17 +106,17 @@
               <form class="hero-form" id="form-home-profile" onsubmit="return false;">
                 <div class="form-row">
                   <div class="m3-input-field">
-                    <label for="home-input-name">Họ và tên học sinh <span class="req">*</span></label>
-                    <input type="text" id="home-input-name" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name" required>
+                    <label for="home-input-name" data-i18n="label_student_name">Student Full Name *</label>
+                    <input type="text" id="home-input-name" placeholder="e.g. Mike Pham" autocomplete="name" data-i18n-placeholder="placeholder_student_name" required>
                   </div>
                   <div class="m3-input-field">
-                    <label for="home-input-email">Địa chỉ Email <span class="req">*</span></label>
-                    <input type="email" id="home-input-email" placeholder="Ví dụ: an.nguyen@vinschool.edu.vn" autocomplete="email" required>
+                    <label for="home-input-email" data-i18n="label_student_email">Student Email Address *</label>
+                    <input type="email" id="home-input-email" placeholder="e.g. mikepham358@gmail.com" autocomplete="email" data-i18n-placeholder="placeholder_student_email" required>
                   </div>
                 </div>
 
                 <div class="m3-target-selector">
-                  <label class="target-label">Mục tiêu điểm số kỳ vọng <span class="req">*</span></label>
+                  <label class="target-label" data-i18n="label_target_score">Expected Target Score Level *</label>
                   <div class="target-chips" id="target-chips-container">
                     <button type="button" class="target-chip" data-val="1300+">🎯 1300+</button>
                     <button type="button" class="target-chip" data-val="1400+">🎯 1400+ Top 50</button>
@@ -122,28 +127,28 @@
                 <!-- Integrated AAR Stage 1: Anticipation (Pre-Session Self-Regulation) -->
                 <div class="home-anticipation-box" id="home-anticipation-box">
                   <div class="home-anticipation-header">
-                    <span class="home-anticipation-title">1️⃣ Dự Đoán Trước Buổi Học (Anticipation - Chu Trình AAR)</span>
-                    <span class="home-aar-sync-badge" id="home-aar-sync-badge">💾 Tự lưu vào Báo cáo AAR</span>
+                    <span class="home-anticipation-title" data-i18n="hero_aar_anticipation_title">1️⃣ Pre-Session Anticipation (AAR Cycle)</span>
+                    <span class="home-aar-sync-badge" id="home-aar-sync-badge" data-i18n="home_aar_sync_badge">💾 Auto-saved to AAR Report</span>
                   </div>
 
                   <div class="form-row home-anticipation-meta-row">
                     <div class="m3-input-field">
-                      <label for="home-aar-session">Buổi # (Ngày học) <span class="req">*</span></label>
-                      <input type="date" id="home-aar-session" title="Chọn ngày thực tập cho buổi học" required>
+                      <label for="home-aar-session" data-i18n="label_session_date">Session # (Practice Date) *</label>
+                      <input type="date" id="home-aar-session" title="Select practice date" required>
                     </div>
                     <div class="m3-input-field">
-                      <label for="home-aar-sat-module">Mô-đun SAT dự kiến <span class="req">*</span></label>
+                      <label for="home-aar-sat-module" data-i18n="label_sat_module">Expected SAT Module *</label>
                       <select id="home-aar-sat-module">
-                        <option value="" disabled selected>-- Chọn Mô-đun SAT dự kiến --</option>
+                        <option value="" disabled selected>-- Select Expected SAT Module --</option>
                       </select>
-                      <input type="text" id="home-aar-sat-module-custom" class="hidden" style="margin-top: 6px;" placeholder="Nhập tên mô-đun / chủ đề / sách sẽ luyện...">
+                      <input type="text" id="home-aar-sat-module-custom" class="hidden" style="margin-top: 6px;" placeholder="Enter module or topic name...">
                     </div>
                   </div>
 
                   <div class="m3-input-field home-anticipation-iste-wrap">
-                    <label for="home-aar-iste">Tiêu chuẩn ISTE áp dụng <span class="req">*</span></label>
+                    <label for="home-aar-iste" data-i18n="label_iste_standard">Applied ISTE Standard *</label>
                     <select id="home-aar-iste">
-                      <option value="" disabled selected>-- Chọn Tiêu chuẩn ISTE áp dụng --</option>
+                      <option value="" disabled selected>-- Select Applied ISTE Standard --</option>
                     </select>
                     <div class="aar-iste-hint home-aar-iste-hint" id="home-aar-iste-hint"></div>
                   </div>
@@ -151,39 +156,39 @@
                   <div class="form-row home-anticipation-grid">
                     <div class="m3-input-field anticipation-col">
                       <div class="anticipation-col-header">
-                        <label for="home-aar-goal" class="anticipation-label">
-                          Mục tiêu bài học &amp; Điểm kỳ vọng <span class="req">*</span>
+                        <label for="home-aar-goal" class="anticipation-label" data-i18n="goal_field_label">
+                          Lesson Goal &amp; Target Score *
                         </label>
                         <div class="anticipation-pill-wrap">
-                          <span class="home-goal-target-pill" id="home-goal-target-pill" title="Mục tiêu điểm số kỳ vọng">🎯 1400+ Top 50</span>
+                          <span class="home-goal-target-pill" id="home-goal-target-pill" title="Target Score Level">🎯 1400+ Top 50</span>
                         </div>
                       </div>
-                      <textarea id="home-aar-goal" rows="2" placeholder="Ví dụ: Đạt ≥ 85% câu đúng; nắm chắc phương pháp bẫy từ khóa &amp; loại đáp án sai." required></textarea>
+                      <textarea id="home-aar-goal" rows="2" placeholder="e.g. Score ≥ 85% correct; master keyword trap detection &amp; POOE elimination." data-i18n-placeholder="goal_placeholder" required></textarea>
                     </div>
                     <div class="m3-input-field anticipation-col">
                       <div class="anticipation-col-header">
-                        <label for="home-aar-challenge" class="anticipation-label">
-                          Thách thức dự kiến <span class="req">*</span>
+                        <label for="home-aar-challenge" class="anticipation-label" data-i18n="challenge_field_label">
+                          Anticipated Challenge *
                         </label>
                         <div class="anticipation-pill-wrap">
-                          <button type="button" class="btn-home-review-errors" id="btn-home-review-errors" title="Xem lại Sổ thử sai để nắm bắt các bẫy thường gặp và dễ dàng viết thách thức">
+                          <button type="button" class="btn-home-review-errors" id="btn-home-review-errors" title="Review Socratic error log to prepare anticipated challenges">
                             <span class="btn-icon">📓</span>
-                            <span class="btn-text">Xem lại Sổ thử sai</span>
+                            <span class="btn-text" data-i18n="challenge_btn_text">Review Error Log</span>
                             <span class="home-error-badge-count" id="home-error-badge-count">0</span>
                           </button>
                         </div>
                       </div>
-                      <textarea id="home-aar-challenge" rows="2" placeholder="Ví dụ: Câu suy luận dài, áp lực thời gian hoặc thao tác đồ thị Desmos." required></textarea>
+                      <textarea id="home-aar-challenge" rows="2" placeholder="e.g. Long inference questions, pacing pressure, or complex Desmos graphing." data-i18n-placeholder="challenge_placeholder" required></textarea>
                     </div>
                   </div>
                 </div>
 
                 <div class="hero-actions">
                   <button type="button" class="btn-google-primary btn-large" id="btn-home-start-practice">
-                    <span>Bắt Đầu Làm Bài Ngay 🚀</span>
+                    <span data-i18n="btn_start_practice">Start SAT Practice Now 🚀</span>
                   </button>
                   <button type="button" class="btn-google-tonal btn-large" id="btn-home-view-guide">
-                    <span>📖 Quy Tắc &amp; Hướng Dẫn</span>
+                    <span data-i18n="btn_view_guide">📖 Rules &amp; Guide</span>
                   </button>
                 </div>
               </form>
@@ -193,7 +198,7 @@
           <!-- Right: Hero Headline & Poster Showcase -->
           <div class="hero-poster-wrapper">
             <div class="hero-eyebrow">
-              <span class="pill-sparkle">✨ DESIGNED FOR VINSCHOOL SAT TEAM</span>
+              <span class="pill-sparkle" data-i18n="hero_eyebrow">✨ DESIGNED FOR VINSCHOOL SAT TEAM</span>
             </div>
             
             <h1 class="hero-title" id="hero-main-title">
@@ -201,8 +206,8 @@
               <span class="text-gradient" id="hero-title-gradient">Real Test October 2026</span>
             </h1>
             
-            <p class="hero-desc" id="hero-main-desc">
-              Hệ thống tương tác chuẩn College Board: Đọc đề thi gốc trên Google Drive, làm bài kèm máy tính Desmos, hỗ trợ câu hỏi Grid-in và hệ thống gợi ý Socratic 3 cấp độ.
+            <p class="hero-desc" id="hero-main-desc" data-i18n="hero_desc">
+              Master every question with authentic test booklets, synchronized Google Drive PDF viewer, Desmos graphing calculator, Socratic 4-tier feedback, and reflective error logging.
             </p>
 
             <div class="poster-card">
@@ -217,8 +222,8 @@
                   </a>
                 </div>
                 <div class="poster-actions-pills">
-                  <a id="btn-hero-drive-pdf" href="https://drive.google.com/file/d/1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-open-drive-pill" title="Mở đề thi PDF gốc trên Google Drive">
-                    📄 Mở PDF Đề Gốc ↗
+                  <a id="btn-hero-drive-pdf" href="https://drive.google.com/file/d/1Qiu34_dltehpEVmfHvOivjAvf8Zkd77b/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-open-drive-pill" title="Open Test Booklet PDF (Google Drive)" data-i18n="btn_hero_drive_pdf">
+                    📖 Open Test Booklet PDF (Google Drive)
                   </a>
                   <a href="https://edudirectory.withgoogle.com/profiles/5087615831769088" target="_blank" rel="noopener noreferrer" class="btn-open-profile-pill" title="Hồ sơ chính thức trên Google Directory">
                     🎓 Google Profile ↗
@@ -259,9 +264,9 @@
         <!-- Section: Modules / Chapters Selector Cards -->
         <section class="home-section modules-section" id="modules-section">
           <div class="section-header">
-            <span class="section-tag" id="modules-section-tag">CẤU TRÚC ĐỀ THI</span>
-            <h2 id="modules-section-title">Chọn Module Để Bắt Đầu Luyện Tập</h2>
-            <p id="modules-section-desc">Em có thể chọn luyện tập từng phần riêng biệt hoặc làm liên tục toàn bộ 98 câu.</p>
+            <span class="section-tag" id="modules-section-tag" data-i18n="modules_section_tag">EXAM STRUCTURE (4 MODULES)</span>
+            <h2 id="modules-section-title" data-i18n="modules_section_title">Select a Module to Start Practicing</h2>
+            <p id="modules-section-desc" data-i18n="modules_section_desc">You can practice each module independently or complete all 98 questions consecutively.</p>
           </div>
 
           <div class="modules-grid" id="modules-grid">
@@ -445,12 +450,12 @@
     <!-- Top Bluebook App Bar -->
     <header class="bluebook-header">
       <div class="header-section-info">
-        <button class="btn-home" id="btn-home" title="Về trang chủ / Hướng dẫn làm bài">
+        <button class="btn-home" id="btn-home" title="Home / Instructions" data-i18n-title="btn_home">
           <span class="home-icon">🏠</span>
-          <span class="home-text">Trang chủ</span>
+          <span class="home-text" data-i18n="btn_home">Home</span>
         </button>
         <div class="test-badge-wrap">
-          <select id="select-practice-exam" class="select-practice-exam-header" title="Đổi đề thi nhanh">
+          <select id="select-practice-exam" class="select-practice-exam-header" title="Switch Exam">
             <!-- Populated dynamically -->
           </select>
         </div>
@@ -469,64 +474,68 @@
     <div class="header-timer-cluster">
       <div class="header-timer">
         <div class="timer-display" id="timer-display">32:00</div>
-        <button class="btn-timer-action" id="btn-timer-toggle-view" title="Ẩn / Hiện đồng hồ">Hide</button>
-        <button class="btn-timer-action" id="btn-timer-pause" title="Tạm dừng / Tiếp tục">⏸️</button>
+        <button class="btn-timer-action" id="btn-timer-toggle-view" title="Hide / Show Timer" data-i18n="timer_hide">Hide</button>
+        <button class="btn-timer-action" id="btn-timer-pause" title="Pause / Resume">⏸️</button>
       </div>
-      <button type="button" class="header-session-counter" id="header-session-counter" title="Tổng số câu đã thực hành trong buổi học (xuyên suốt khi đổi đề) - Bấm để mở báo cáo AAR">
+      <button type="button" class="header-session-counter" id="header-session-counter" title="Total questions practiced in session across tests - Click to open AAR">
         <span class="sc-icon">📊</span>
         <span class="sc-val" id="header-session-count-val">0</span>
-        <span class="sc-lbl">câu</span>
+        <span class="sc-lbl" data-i18n="session_counter_label">questions</span>
       </button>
-      <button class="tool-btn btn-reset-test header-cluster-reset" id="btn-reset-test" title="Làm lại bài thi / Đặt lại bộ đếm từ đầu">
+      <button class="tool-btn btn-reset-test header-cluster-reset" id="btn-reset-test" title="Reset Test Progress">
         <span class="tool-icon">🔄</span>
-        <span class="tool-text">Làm lại</span>
+        <span class="tool-text" data-i18n="btn_reset">Reset</span>
       </button>
     </div>
 
     <!-- Right Utility Tools (Smart Icon Bar) -->
     <div class="header-tools">
-      <button class="tool-btn btn-zen-toggle" id="btn-toggle-zen" title="Bật/Tắt Chế độ Tập trung Zen Mode (Phím Z)">
+      <button class="tool-btn btn-zen-toggle" id="btn-toggle-zen" title="Toggle Zen Focus Mode (Key Z)">
         <span class="tool-icon">🧘</span>
-        <span class="tool-text">Zen</span>
+        <span class="tool-text" data-i18n="btn_zen">Zen</span>
       </button>
-      <button class="tool-btn" id="btn-open-dict" title="Từ điển Cambridge &amp; Tra cứu từ vựng SAT (Khung nổi như Desmos)">
+      <button class="tool-btn" id="btn-open-dict" title="Cambridge Dictionary &amp; SAT Vocab Lookup">
         <span class="tool-icon">📖</span>
-        <span class="tool-text">Từ điển</span>
+        <span class="tool-text" data-i18n="btn_dict">Dictionary</span>
       </button>
-      <button class="tool-btn" id="btn-open-error-log" title="Sổ tay Thử sai Socratic (Nhật ký lỗi sai)">
+      <button class="tool-btn" id="btn-open-error-log" title="Socratic Error Log Notebook">
         <span class="tool-icon">📓</span>
-        <span class="tool-text">Sổ thử sai</span>
+        <span class="tool-text" data-i18n="btn_error_log">Error Log</span>
         <span class="badge" id="badge-error-count">0</span>
       </button>
       <button class="tool-btn btn-badges-tool" id="btn-open-badges" title="Micro-Credentials &amp; Badges Showcase">
         <span class="tool-icon">🏆</span>
-        <span class="tool-text">Badges</span>
+        <span class="tool-text" data-i18n="btn_badges">Badges</span>
         <span class="badge" id="badge-badges-count">0</span>
       </button>
-      <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="Kho 1,000 Từ Vựng SAT (AceSAT Hub)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
+      <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="1,000 SAT Vocab Hub (AceSAT)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
         <span class="tool-icon">📚</span>
-        <span class="tool-text">Kho 1000 từ vựng</span>
+        <span class="tool-text" data-i18n="btn_vocab_tool">1,000 Vocab</span>
       </button>
-      <button class="tool-btn" id="btn-toggle-scratchpad" title="Bảng nháp Whiteboard">
+      <button class="tool-btn" id="btn-toggle-scratchpad" title="Whiteboard Scratchpad">
         <span class="tool-icon">✏️</span>
-        <span class="tool-text">Bản nháp</span>
+        <span class="tool-text" data-i18n="btn_scratchpad">Scratchpad</span>
       </button>
-      <button class="tool-btn" id="btn-open-calc" title="Mở máy tính vẽ đồ thị Desmos">
+      <button class="tool-btn" id="btn-open-calc" title="Desmos Graphing Calculator">
         <span class="tool-icon">🧮</span>
-        <span class="tool-text">Desmos</span>
+        <span class="tool-text" data-i18n="btn_calc">Desmos</span>
       </button>
-      <button class="tool-btn" id="btn-open-ref" title="Mở bảng công thức Toán SAT">
+      <button class="tool-btn" id="btn-open-ref" title="SAT Math Formulas Reference Sheet">
         <span class="tool-icon">📐</span>
-        <span class="tool-text">Công thức toán</span>
+        <span class="tool-text" data-i18n="btn_ref">Math Formulas</span>
       </button>
-      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Báo cáo Phản tư Sau Buổi Học (Chu Trình AAR), Gửi Email &amp; Tải Báo Cáo Tổng Hợp">
+      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Post-Session After Action Review (AAR)" data-i18n-title="btn_aar">
         <span class="tool-icon">📝</span>
         <span class="aar-pill-label">AAR</span>
       </button>
-      <div class="header-student-badge" id="header-student-badge" title="Thông tin học sinh (Bấm để chỉnh sửa)">
+      <button type="button" class="tool-btn btn-lang-toggle btn-lang-practice" id="btn-lang-toggle-practice" title="Switch Language / Đổi ngôn ngữ (English / Tiếng Việt)">
+        <span class="lang-globe">🌐</span>
+        <span class="lang-cur font-bold">EN</span>
+      </button>
+      <div class="header-student-badge" id="header-student-badge" title="Student Profile (Click to edit)">
         <span class="badge-icon tool-icon">👤</span>
-        <span class="badge-name tool-text" id="header-student-name">Học sinh</span>
-        <button class="btn-edit-student" id="btn-edit-student" title="Sửa tên / email">✏️</button>
+        <span class="badge-name tool-text" id="header-student-name" data-i18n="student_badge_default">Student</span>
+        <button class="btn-edit-student" id="btn-edit-student" title="Edit name / email">✏️</button>
       </div>
     </div>
   </header>
@@ -546,10 +555,10 @@
   <!-- Tablet / Mobile Split View Mode Switcher (Visible on Portrait / Screens <= 900px) -->
   <div class="tablet-pane-toggle" id="tablet-pane-toggle">
     <button type="button" class="tab-toggle-btn" id="btn-tab-pane-pdf">
-      <span>📄 Đề Thi Gốc (PDF)</span>
+      <span data-i18n="tablet_pdf_tab">📄 Test PDF Booklet</span>
     </button>
     <button type="button" class="tab-toggle-btn active" id="btn-tab-pane-content">
-      <span>📝 Câu Hỏi & Trả Lời</span>
+      <span data-i18n="tablet_content_tab">📝 Questions &amp; Answers</span>
     </button>
   </div>
 
@@ -577,8 +586,8 @@
       
       <!-- Bluebook Question Header / Instructions Bar -->
       <div class="question-top-bar" id="question-top-bar">
-        <div class="response-instruction" id="response-instruction">
-          Đọc đề bài trên trang sách PDF bên trái và chọn đáp án đúng:
+        <div class="response-instruction" id="response-instruction" data-i18n="response_instruction_default">
+          Read the question in the PDF booklet on the left and select the correct answer below:
         </div>
       </div>
 
@@ -590,7 +599,7 @@
           <label class="mark-review-label">
             <input type="checkbox" id="chk-mark-review">
             <span class="bookmark-icon">🔖</span>
-            <span>Mark for Review</span>
+            <span data-i18n="mark_review">Mark for Review</span>
           </label>
         </div>
 
@@ -647,7 +656,7 @@
             <div class="eff-badge" id="eff-badge">Hiệu suất: <strong id="eff-val">0%</strong></div>
           </div>
           <div class="submit-wrap">
-            <button class="btn-submit" id="btn-check-answer" disabled>Check Answer (Enter)</button>
+            <button class="btn-submit" id="btn-check-answer" disabled data-i18n="btn_check_answer">Check Answer (Enter)</button>
           </div>
         </div>
 
@@ -714,15 +723,15 @@
     <div class="footer-left">
       <div class="student-profile-badge">
         <span class="profile-icon">👤</span>
-        <input type="text" id="input-student-name" placeholder="Nhập tên học sinh..." title="Tên học sinh để xuất file Excel">
+        <input type="text" id="input-student-name" placeholder="Enter student name..." title="Student name for Excel export" data-i18n-placeholder="input_student_name_ph">
       </div>
     </div>
 
     <!-- Bluebook Question Review Navigator & Context Center Dock -->
     <div class="footer-center">
       <!-- 1. 📖 Câu này ở Trang ... sát bên trái nút Question ... of 27 -->
-      <div class="pdf-page-badge" id="pdf-page-badge" title="Số trang câu hỏi này trong đề thi PDF">
-        <span>📖 Câu này ở <strong>Trang <span id="pdf-sync-page-num">1</span></strong></span>
+      <div class="pdf-page-badge" id="pdf-page-badge" title="Question page in PDF booklet">
+        <span>📖 <span data-i18n="pdf_page_prefix">This question is on</span> <strong><span data-i18n="page_label">Page</span> <span id="pdf-sync-page-num">1</span></strong></span>
       </div>
 
       <!-- Question ... of 27 Navigator Button -->
@@ -734,14 +743,14 @@
       <!-- 2. Thông báo loại câu hỏi và phần thi sát về bên phải nút Question ... of 27 -->
       <div class="footer-q-meta" id="footer-q-meta">
         <span class="q-topic-badge" id="q-topic-badge">Vocabulary in Context</span>
-        <span class="q-domain-badge" id="q-domain-badge">Craft & Structure</span>
+        <span class="q-domain-badge" id="q-domain-badge">Craft &amp; Structure</span>
       </div>
     </div>
 
     <!-- Navigation Buttons Back & Next -->
     <div class="footer-right">
-      <button class="btn-dock-nav" id="btn-nav-back">Back</button>
-      <button class="btn-dock-nav btn-dock-next" id="btn-nav-next">Next</button>
+      <button class="btn-dock-nav" id="btn-nav-back" data-i18n="btn_back">Back</button>
+      <button class="btn-dock-nav btn-dock-next" id="btn-nav-next" data-i18n="btn_next">Next</button>
     </div>
   </footer>
   </div> <!-- end view-practice -->

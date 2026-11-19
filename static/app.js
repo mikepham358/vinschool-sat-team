@@ -246,6 +246,7 @@ function detectInitialTestId() {
 
 // Application State
 const App = {
+  currentLang: localStorage.getItem("bluebook_lang") || "en",
   testsManifest: (window.TESTS_MANIFEST && window.TESTS_MANIFEST.length) ? window.TESTS_MANIFEST : TESTS_MANIFEST_DEFAULT,
   activeTestId: detectInitialTestId(),
   activeTest: null,
@@ -321,6 +322,7 @@ const App = {
     }
   }
 };
+window.App = App;
 
 function getActiveTestMeta() {
   const match = (App.testsManifest || []).find(t => t.id === App.activeTestId || t.code === App.activeTestId);
@@ -750,6 +752,7 @@ const DOM = {
   btnSendAnotherFb: document.getElementById("btn-send-another-fb"),
   fbHistoryList: document.getElementById("fb-history-list")
 };
+window.DOM = DOM;
 
 // ================= LOCALSTORAGE MANAGER (MULTI-TEST & GLOBAL PROFILE) =================
 function loadLocalState() {
@@ -1085,16 +1088,53 @@ function renderModuleCards() {
     });
   } else {
     // Standard 4 SAT Modules
-    if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = "CẤU TRÚC ĐỀ THI (4 MODULES)";
-    if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = "Chọn Module Để Bắt Đầu Luyện Tập";
-    if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = "Em có thể chọn luyện tập từng phần riêng biệt hoặc làm liên tục toàn bộ 98 câu.";
+    const isEn = (App.currentLang === "en");
+    if (DOM.modulesSectionTag) DOM.modulesSectionTag.textContent = isEn ? "EXAM STRUCTURE (4 MODULES)" : "CẤU TRÚC ĐỀ THI (4 MODULES)";
+    if (DOM.modulesSectionTitle) DOM.modulesSectionTitle.textContent = isEn ? "Select a Module to Start Practicing" : "Chọn Module Để Bắt Đầu Luyện Tập";
+    if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn ? "You can practice each module independently or complete all 98 questions consecutively." : "Em có thể chọn luyện tập từng phần riêng biệt hoặc làm liên tục toàn bộ 98 câu.";
     DOM.modulesGrid.classList.remove("grid-chapters");
 
     const satDefs = [
-      { code: "RW_Module1", title: "Module 1: Đọc & Viết Chuẩn", pill: "Reading & Writing", pillClass: "mod-rw", time: "⏱️ 32 Phút", desc: "27 câu hỏi trắc nghiệm kiểm tra từ vựng ngữ cảnh, cấu trúc văn bản, suy luận và ngữ pháp chuẩn.", defaultPage: "📖 Trang 3 – 14", total: 27 },
-      { code: "RW_Module2", title: "Module 2: Đọc & Viết Phân Hóa", pill: "Reading & Writing", pillClass: "mod-rw", time: "⏱️ 32 Phút", desc: "27 câu hỏi nâng cao với các đoạn văn khoa học phức tạp, biểu đồ dữ liệu và cặp văn bản đối chiếu.", defaultPage: "📖 Trang 16 – 25", total: 27 },
-      { code: "Math_Module1", title: "Module 1: Toán Chuẩn", pill: "Math", pillClass: "mod-math", time: "⏱️ 35 Phút", desc: "22 câu hỏi đại số tuyến tính, phương trình bậc hai, hình học và thống kê kèm máy tính Desmos.", defaultPage: "📖 Trang 29 – 35", total: 22 },
-      { code: "Math_Module2", title: "Module 2: Toán Nâng Cao", pill: "Math", pillClass: "mod-math", time: "⏱️ 35 Phút", desc: "22 câu hỏi phân hóa đỉnh cao với hàm phi tuyến tính, hình học không gian và các câu điền số Grid-in.", defaultPage: "📖 Trang 38 – 44", total: 22 }
+      { 
+        code: "RW_Module1", 
+        title: isEn ? "Reading & Writing: Module 1" : "Module 1: Đọc & Viết Chuẩn", 
+        pill: "Reading & Writing", 
+        pillClass: "mod-rw", 
+        time: isEn ? "⏱️ 32 Mins" : "⏱️ 32 Phút", 
+        desc: isEn ? "27 questions testing Words in Context, Text Structure, Inferences, and Standard English Conventions." : "27 câu hỏi trắc nghiệm kiểm tra từ vựng ngữ cảnh, cấu trúc văn bản, suy luận và ngữ pháp chuẩn.", 
+        defaultPage: isEn ? "📖 Page 3 – 14" : "📖 Trang 3 – 14", 
+        total: 27 
+      },
+      { 
+        code: "RW_Module2", 
+        title: isEn ? "Reading & Writing: Module 2 (Harder)" : "Module 2: Đọc & Viết Phân Hóa", 
+        pill: "Reading & Writing", 
+        pillClass: "mod-rw", 
+        time: isEn ? "⏱️ 32 Mins" : "⏱️ 32 Phút", 
+        desc: isEn ? "27 advanced questions with complex scientific passages, quantitative evidence, and cross-text synthesis." : "27 câu hỏi nâng cao với các đoạn văn khoa học phức tạp, biểu đồ dữ liệu và cặp văn bản đối chiếu.", 
+        defaultPage: isEn ? "📖 Page 16 – 25" : "📖 Trang 16 – 25", 
+        total: 27 
+      },
+      { 
+        code: "Math_Module1", 
+        title: isEn ? "Math: Module 1" : "Module 1: Toán Chuẩn", 
+        pill: "Math", 
+        pillClass: "mod-math", 
+        time: isEn ? "⏱️ 35 Mins" : "⏱️ 35 Phút", 
+        desc: isEn ? "22 questions covering Linear Equations, Quadratics, Geometry, and Statistics with Desmos." : "22 câu hỏi đại số tuyến tính, phương trình bậc hai, hình học và thống kê kèm máy tính Desmos.", 
+        defaultPage: isEn ? "📖 Page 29 – 35" : "📖 Trang 29 – 35", 
+        total: 22 
+      },
+      { 
+        code: "Math_Module2", 
+        title: isEn ? "Math: Module 2 (Advanced)" : "Module 2: Toán Nâng Cao", 
+        pill: "Math", 
+        pillClass: "mod-math", 
+        time: isEn ? "⏱️ 35 Mins" : "⏱️ 35 Phút", 
+        desc: isEn ? "22 high-yield questions featuring non-linear modeling, coordinate geometry, and Grid-in SPR items." : "22 câu hỏi phân hóa đỉnh cao với hàm phi tuyến tính, hình học không gian và các câu điền số Grid-in.", 
+        defaultPage: isEn ? "📖 Page 38 – 44" : "📖 Trang 38 – 44", 
+        total: 22 
+      }
     ];
 
     DOM.modulesGrid.innerHTML = "";
@@ -1119,13 +1159,18 @@ function renderModuleCards() {
           const mIdx = App.db.modules.indexOf(mObj);
           const nextM = App.db.modules[mIdx + 1];
           const endP = nextM ? (nextM.pdf_start_page - 1) : (mObj.pdf_start_page + (def.code.startsWith("RW") ? 12 : 6));
-          pageText = `📖 Trang ${mObj.pdf_start_page} – ${endP}`;
+          pageText = isEn ? `📖 Page ${mObj.pdf_start_page} – ${endP}` : `📖 Trang ${mObj.pdf_start_page} – ${endP}`;
         }
       }
 
       const card = document.createElement("div");
       card.className = "module-card";
       card.dataset.module = def.code;
+      const btnJumpText = isEn ? `Enter ${def.title.split(":")[0]} ➔` : `Vào Thi ${def.title.split(":")[0]} ➔`;
+      const statLabel = answeredCount > 0
+        ? (isEn ? `<strong>${answeredCount}/${total}</strong> completed (${correctCount} correct)` : `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)`)
+        : (isEn ? `${total} Questions` : `${total} Câu`);
+
       card.innerHTML = `
         <div class="mod-card-header">
           <span class="mod-pill ${def.pillClass}">${def.pill}</span>
@@ -1136,10 +1181,10 @@ function renderModuleCards() {
         <div class="mod-meta">
           <span>${pageText}</span>
           <span class="mod-stat ${answeredCount > 0 ? "in-progress" : ""}">
-            ${answeredCount > 0 ? `<strong>${answeredCount}/${total}</strong> đã làm (${correctCount} đúng)` : `${total} Câu`}
+            ${statLabel}
           </span>
         </div>
-        <button type="button" class="btn-module-jump" data-module="${def.code}">Vào Thi ${def.title.split(":")[0]} ➔</button>
+        <button type="button" class="btn-module-jump" data-module="${def.code}">${btnJumpText}</button>
       `;
 
       card.addEventListener("click", () => {
@@ -1150,6 +1195,7 @@ function renderModuleCards() {
     });
   }
 }
+window.renderModuleCards = renderModuleCards;
 
 function flagHomeFieldError(el, message) {
   if (el) {
@@ -1350,6 +1396,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   startModuleTimer();
   updateModuleCardStats();
   syncHomeProfile();
+  if (window.applyI18nToDOM) {
+    window.applyI18nToDOM(App.currentLang);
+  }
   showView("home");
 });
 
@@ -1908,10 +1957,25 @@ function renderCurrentQuestion() {
       const bookStr = bookPg ? ` • PDF trang ${bookPg}` : "";
       DOM.qNumberLabel.innerHTML = `<strong>${escapeHtml(q.q_label)}</strong> <span style="opacity:0.75; font-weight:normal; margin-left:8px;">(Mục ${App.currentIndex + 1}/${App.questions.length}${bookStr})</span>`;
     } else {
-      DOM.qNumberLabel.textContent = `Question ${App.currentIndex + 1} of ${App.questions.length}`;
+      const isVi = (App.currentLang === "vi");
+      DOM.qNumberLabel.textContent = isVi
+        ? `Câu ${App.currentIndex + 1} trên ${App.questions.length}`
+        : `Question ${App.currentIndex + 1} of ${App.questions.length}`;
     }
   }
-  if (DOM.navCurrentLabel) DOM.navCurrentLabel.textContent = App.currentIndex + 1;
+  if (DOM.btnNavBack) DOM.btnNavBack.textContent = (App.currentLang === "en") ? "Back" : "Câu trước";
+  if (DOM.btnNavNext) DOM.btnNavNext.textContent = (App.currentLang === "en") ? "Next" : "Câu tiếp";
+  if (DOM.btnCheckAnswer) DOM.btnCheckAnswer.textContent = (App.currentLang === "en") ? "Check Answer (Enter)" : "Kiểm tra đáp án (Enter)";
+  if (DOM.btnOpenNavigator) {
+    const isVi = (App.currentLang === "vi");
+    const qWord = isVi ? "Câu" : "Question";
+    const ofWord = isVi ? "trên" : "of";
+    DOM.btnOpenNavigator.innerHTML = `<span>${qWord} <strong id="nav-current-label">${App.currentIndex + 1}</strong> ${ofWord} <span id="nav-total-label">${App.questions.length}</span></span> <span class="nav-arrow-up">▲</span>`;
+    DOM.navCurrentLabel = document.getElementById("nav-current-label");
+    DOM.navTotalLabel = document.getElementById("nav-total-label");
+  } else if (DOM.navCurrentLabel) {
+    DOM.navCurrentLabel.textContent = App.currentIndex + 1;
+  }
   if (DOM.qTopicBadge) {
     if (q.category === "example") {
       DOM.qTopicBadge.innerHTML = `<span class="pill-badge pill-example">💡 Ví dụ minh họa</span> ${escapeHtml(q.topic || "")}`;
@@ -2043,6 +2107,7 @@ function renderCurrentQuestion() {
   // Auto-sync timer based on practice vs review mode
   syncTimerState();
 }
+window.renderCurrentQuestion = renderCurrentQuestion;
 
 function renderGridInSolution(q, qState, isFinished) {
   let solBox = document.getElementById("gridin-solution-box");
@@ -2081,12 +2146,13 @@ function renderOptions(q, qState, isFinished) {
     isFinished = (qState.status && (qState.status.startsWith("mastered") || qState.status === "missed")) || !!qState.reviewAllHints;
   }
   const eliminated = qState.eliminated || [];
+  const isEn = (App.currentLang === "en");
   const isPrinceton = (App.activeTestId === "princeton-advanced" || App.activeTestId === "princetonadvanced");
 
   const defaultKeys = ["A", "B", "C", "D"];
   const rawOpts = (q.options && q.options.length > 0)
     ? q.options
-    : defaultKeys.map(k => ({ key: k, text: `Lựa chọn ${k}` }));
+    : defaultKeys.map(k => ({ key: k, text: isEn ? `Choice ${k}` : `Lựa chọn ${k}` }));
 
   const opts = rawOpts.map((opt, idx) => {
     if (typeof opt === "string") {
@@ -2120,18 +2186,26 @@ function renderOptions(q, qState, isFinished) {
     const isEliminated = eliminated.includes(opt.key);
     let optText;
     if (isPrinceton) {
-      optText = `Đáp án ${opt.key}`;
+      optText = isEn ? `Choice ${opt.key}` : `Đáp án ${opt.key}`;
     } else {
-      optText = (opt.text && opt.text.trim() && opt.text !== opt.key && opt.text !== `Lựa chọn ${opt.key}`)
-        ? opt.text
-        : `Lựa chọn ${opt.key}`;
+      const defaultVi = `Lựa chọn ${opt.key}`;
+      const defaultEn = `Choice ${opt.key}`;
+      if (opt.text && opt.text.trim() && opt.text !== opt.key && opt.text !== defaultVi && opt.text !== defaultEn) {
+        optText = opt.text;
+      } else {
+        optText = isEn ? `Choice ${opt.key}` : `Lựa chọn ${opt.key}`;
+      }
     }
+
+    const strikeTitle = isEliminated
+      ? (isEn ? `Restore option ${opt.key}` : `Khôi phục phương án ${opt.key}`)
+      : (isEn ? `Eliminate option ${opt.key} (Alt+X)` : `Gạch bỏ phương án ${opt.key} (Eliminate)`);
 
     row.innerHTML = `
       <div class="option-header-row">
         <div class="option-bubble">${opt.key}</div>
         <div class="option-text-wrap font-medium">${escapeHtml(optText)}</div>
-        ${!isFinished ? `<button type="button" class="btn-strike-option ${isEliminated ? 'is-eliminated' : ''}" title="${isEliminated ? 'Khôi phục phương án ' + opt.key : 'Gạch bỏ phương án ' + opt.key + ' (Eliminate)'}">⨉</button>` : ''}
+        ${!isFinished ? `<button type="button" class="btn-strike-option ${isEliminated ? 'is-eliminated' : ''}" title="${strikeTitle}">⨉</button>` : ''}
       </div>
     `;
 
@@ -2142,7 +2216,9 @@ function renderOptions(q, qState, isFinished) {
       const expDiv = document.createElement("div");
       expDiv.className = `option-explanation-card ${isCorrect ? 'exp-correct' : 'exp-wrong'}`;
       
-      const badgeLabel = isCorrect ? "✅ ĐÁP ÁN ĐÚNG" : "❌ TẠI SAO SAI / BỊ LOẠI";
+      const badgeLabel = isCorrect
+        ? (isEn ? "✅ CORRECT ANSWER" : "✅ ĐÁP ÁN ĐÚNG")
+        : (isEn ? "❌ WHY INCORRECT / ELIMINATED" : "❌ TẠI SAO SAI / BỊ LOẠI");
       
       expDiv.innerHTML = `
         <div class="exp-badge-line">
@@ -2205,6 +2281,20 @@ function renderAttemptSlots(q, qState) {
   const attempts = qState.attempts || [];
   const status = qState.status || "unanswered";
   const eff = qState.efficiency || 0;
+  const isEn = (App.currentLang === "en");
+
+  if (DOM.slotL1) {
+    const nameEl = DOM.slotL1.querySelector(".slot-name");
+    if (nameEl) nameEl.textContent = isEn ? "Attempt 1" : "Lần 1";
+  }
+  if (DOM.slotL2) {
+    const nameEl = DOM.slotL2.querySelector(".slot-name");
+    if (nameEl) nameEl.textContent = isEn ? "Attempt 2" : "Lần 2";
+  }
+  if (DOM.slotL3) {
+    const nameEl = DOM.slotL3.querySelector(".slot-name");
+    if (nameEl) nameEl.textContent = isEn ? "Attempt 3" : "Lần 3";
+  }
 
   const setSlot = (slotEl, idx) => {
     const textEl = slotEl.querySelector(".slot-text");
@@ -2225,20 +2315,26 @@ function renderAttemptSlots(q, qState) {
   setSlot(DOM.slotL2, 1);
   setSlot(DOM.slotL3, 2);
 
-  DOM.effVal.textContent = `${Math.round(eff * 100)}%`;
+  if (DOM.effBadge) {
+    const lbl = isEn ? "Efficiency: " : "Hiệu suất: ";
+    DOM.effBadge.innerHTML = `${lbl}<strong id="eff-val">${Math.round(eff * 100)}%</strong>`;
+    DOM.effVal = document.getElementById("eff-val");
+  } else if (DOM.effVal) {
+    DOM.effVal.textContent = `${Math.round(eff * 100)}%`;
+  }
 
   // Status Alert
   if (status === "mastered_l1") {
-    showAlert(true, "🎉 Chính xác! Em đã làm đúng ngay Lần 1 (Hiệu suất 100%).");
+    showAlert(true, isEn ? "🎉 Correct! Solved on Attempt 1 (100% efficiency)." : "🎉 Chính xác! Em đã làm đúng ngay Lần 1 (Hiệu suất 100%).");
   } else if (status === "mastered_l2") {
-    showAlert(true, "✅ Rất tốt! Em đã làm đúng ở Lần 2 (Hiệu suất 66.7%).");
+    showAlert(true, isEn ? "✅ Great job! Solved on Attempt 2 (66.7% efficiency)." : "✅ Rất tốt! Em đã làm đúng ở Lần 2 (Hiệu suất 66.7%).");
   } else if (status === "mastered_l3") {
-    showAlert(true, "✅ Đúng ở Lần 3 (Hiệu suất 33.3%). Xem lại gợi ý để nắm chắc kiến thức.");
+    showAlert(true, isEn ? "✅ Correct on Attempt 3 (33.3% efficiency). Review hints to reinforce mastery." : "✅ Đúng ở Lần 3 (Hiệu suất 33.3%). Xem lại gợi ý để nắm chắc kiến thức.");
   } else if (status === "missed") {
-    showAlert(false, `❌ Chưa chính xác sau 3 lần. Đáp án đúng là [${q.correct_answer}]. Hãy ghi lại vào Sổ thử sai.`);
+    showAlert(false, isEn ? `❌ Incorrect after 3 attempts. Correct answer is [${q.correct_answer}]. Logged to Error Notebook.` : `❌ Chưa chính xác sau 3 lần. Đáp án đúng là [${q.correct_answer}]. Hãy ghi lại vào Sổ thử sai.`);
   } else if (status.startsWith("retry")) {
     const left = 3 - attempts.length;
-    showAlert(false, `⚠️ Chưa chính xác. Em còn ${left} lần thử. Đã mở gợi ý bên dưới!`);
+    showAlert(false, isEn ? `⚠️ Incorrect. You have ${left} attempts remaining. Hints unlocked below!` : `⚠️ Chưa chính xác. Em còn ${left} lần thử. Đã mở gợi ý bên dưới!`);
   } else {
     DOM.statusAlert.className = "status-alert hidden";
   }
@@ -2253,34 +2349,54 @@ function showAlert(isSuccess, text) {
 function renderHints(q, qState) {
   const attempts = qState.attempts || [];
   const isFinished = (qState.status.startsWith("mastered") || qState.status === "missed") || !!qState.reviewAllHints;
+  const isEn = (App.currentLang === "en");
+
+  // Update Accordion Header Titles
+  if (DOM.hintHead1) {
+    const tEl = DOM.hintHead1.querySelector(".hint-title");
+    if (tEl) tEl.textContent = isEn ? "💡 Tier 1: Context Clues & Orientation" : "💡 Tầng 1: Định hướng bối cảnh & Tư duy tổng quan";
+  }
+  if (DOM.hintHead2) {
+    const tEl = DOM.hintHead2.querySelector(".hint-title");
+    if (tEl) tEl.textContent = isEn ? "🔍 Tier 2: Structural Clues & POOE Elimination" : "🔍 Tầng 2: Manh mối cấu trúc & Phân tích loại trừ";
+  }
+  if (DOM.hintHead3) {
+    const tEl = DOM.hintHead3.querySelector(".hint-title");
+    if (tEl) tEl.textContent = isEn ? "🎯 Tier 3: Core Rationale & Detailed Solution" : "🎯 Tầng 3: Chốt phương pháp & Lời giải chi tiết";
+  }
+  if (DOM.hintHead4) {
+    const tEl = DOM.hintHead4.querySelector(".hint-title");
+    if (tEl) tEl.textContent = isEn ? "✨ Tier 4: Strategic Tip & Desmos Shortcut" : "✨ Tầng 4: Chiến thuật độc quyền & Mẹo Desmos";
+  }
 
   // Tier 1: Định hướng bối cảnh & Tư duy tổng quan (Mở sau Lần 1 hoặc khi hoàn thành)
   if (attempts.length >= 1 || isFinished) {
-    DOM.hintText1.innerHTML = formatMarkdownHints(q.tier1_hint || q.level1_tip || "Xác định từ khóa trọng tâm và logic ngữ cảnh của câu hỏi.");
+    DOM.hintText1.innerHTML = formatMarkdownHints(q.tier1_hint || q.level1_tip || (isEn ? "Identify key keywords and contextual logic in the passage." : "Xác định từ khóa trọng tâm và logic ngữ cảnh của câu hỏi."));
     DOM.hintContent1.classList.remove("collapsed");
     DOM.hintCard1.classList.add("unlocked");
   } else {
-    DOM.hintText1.textContent = "🔒 Thử sức Lần 1 để mở khóa gợi ý định hướng bối cảnh.";
+    DOM.hintText1.textContent = isEn ? "🔒 Complete Attempt 1 to unlock Context Clues orientation." : "🔒 Thử sức Lần 1 để mở khóa gợi ý định hướng bối cảnh.";
     DOM.hintContent1.classList.add("collapsed");
     DOM.hintCard1.classList.remove("unlocked");
   }
 
   // Tier 2: Manh mối cấu trúc & Phân tích loại trừ (Mở sau Lần 2 hoặc khi hoàn thành)
   if (attempts.length >= 2 || isFinished) {
-    DOM.hintText2.innerHTML = formatMarkdownHints(q.tier2_hint || q.level2_hint || "Áp dụng phương pháp loại trừ và phân tích cấu trúc đối chiếu.");
+    DOM.hintText2.innerHTML = formatMarkdownHints(q.tier2_hint || q.level2_hint || (isEn ? "Apply Process of Elimination (POOE) and analyze structural contrasts." : "Áp dụng phương pháp loại trừ và phân tích cấu trúc đối chiếu."));
     DOM.hintContent2.classList.remove("collapsed");
     DOM.hintCard2.classList.add("unlocked");
   } else {
-    DOM.hintText2.textContent = "🔒 Thử sức Lần 2 để mở khóa manh mối cấu trúc & loại trừ phương án sai.";
+    DOM.hintText2.textContent = isEn ? "🔒 Complete Attempt 2 to unlock Structural Clues & POOE elimination." : "🔒 Thử sức Lần 2 để mở khóa manh mối cấu trúc & loại trừ phương án sai.";
     DOM.hintContent2.classList.add("collapsed");
     DOM.hintCard2.classList.remove("unlocked");
   }
 
   // Tier 3: Chốt phương pháp & Lời giải chi tiết (Mở sau Lần 3 hoặc khi hoàn thành)
   if (attempts.length >= 3 || isFinished) {
-    let sol = q.tier3_hint || q.level3_solution || "Chốt phương pháp: So sánh trực tiếp với giả thiết cốt lõi trong đề.";
+    let sol = q.tier3_hint || q.level3_solution || (isEn ? "Method lock: Compare directly with core hypotheses in the question." : "Chốt phương pháp: So sánh trực tiếp với giả thiết cốt lõi trong đề.");
     if (isFinished) {
-      sol = `<strong>Đáp án đúng: <span class="correct-highlight">[${q.correct_answer}]</span></strong><br><br>${formatMarkdownHints(sol)}`;
+      const correctLbl = isEn ? "Correct Answer" : "Đáp án đúng";
+      sol = `<strong>${correctLbl}: <span class="correct-highlight">[${q.correct_answer}]</span></strong><br><br>${formatMarkdownHints(sol)}`;
     } else {
       sol = formatMarkdownHints(sol);
     }
@@ -2288,7 +2404,7 @@ function renderHints(q, qState) {
     DOM.hintContent3.classList.remove("collapsed");
     DOM.hintCard3.classList.add("unlocked");
   } else {
-    DOM.hintText3.textContent = "🔒 Mở khóa chốt phương pháp sau 3 lần thử hoặc khi làm đúng.";
+    DOM.hintText3.textContent = isEn ? "🔒 Unlocked after 3 attempts or upon answering correctly." : "🔒 Mở khóa chốt phương pháp sau 3 lần thử hoặc khi làm đúng.";
     DOM.hintContent3.classList.add("collapsed");
     DOM.hintCard3.classList.remove("unlocked");
   }
@@ -2298,22 +2414,22 @@ function renderHints(q, qState) {
     if (isFinished) {
       let content = "";
       if (q.princeton_strategy) {
-        content += `<p style="margin-bottom: 8px;"><strong>🎯 Chiến thuật Princeton Review:</strong> ${escapeHtml(q.princeton_strategy)}</p>`;
+        content += `<p style="margin-bottom: 8px;"><strong>${isEn ? '🎯 Princeton Review Strategy:' : '🎯 Chiến thuật Princeton Review:'}</strong> ${escapeHtml(q.princeton_strategy)}</p>`;
       }
       if (q.target_clue) {
-        content += `<p style="margin-bottom: 8px;"><strong>🔍 Phân tích Manh mối & Target:</strong> ${escapeHtml(q.target_clue)}</p>`;
+        content += `<p style="margin-bottom: 8px;"><strong>${isEn ? '🔍 Clue Analysis & Target:' : '🔍 Phân tích Manh mối & Target:'}</strong> ${escapeHtml(q.target_clue)}</p>`;
       }
       if (q.pro_tip) {
-        content += `<p style="margin-bottom: 8px;"><strong>💡 Mẹo độc quyền Pro-Tip:</strong> ${escapeHtml(q.pro_tip)}</p>`;
+        content += `<p style="margin-bottom: 8px;"><strong>${isEn ? '💡 Pro-Tip Shortcut:' : '💡 Mẹo độc quyền Pro-Tip:'}</strong> ${escapeHtml(q.pro_tip)}</p>`;
       }
       if (!content) {
-        content = `<strong>✨ Chiến thuật College Board:</strong><br>${escapeHtml(q.strategic_tip || "Nắm vững quy tắc và công thức toán / ngữ pháp cốt lõi.")}`;
+        content = `<strong>${isEn ? '✨ Strategic Tip:' : '✨ Chiến thuật College Board:'}</strong><br>${escapeHtml(q.strategic_tip || (isEn ? "Master core grammar and math rules." : "Nắm vững quy tắc và công thức toán / ngữ pháp cốt lõi."))}`;
       }
       DOM.hintText4.innerHTML = content;
       DOM.hintContent4.classList.remove("collapsed");
       DOM.hintCard4.classList.add("unlocked");
     } else {
-      DOM.hintText4.textContent = "🔒 Hoàn thành câu hỏi để mở khóa phân tích chiến thuật & mẹo độc quyền Princeton Review.";
+      DOM.hintText4.textContent = isEn ? "🔒 Complete this question to unlock strategic pro-tips and shortcuts." : "🔒 Hoàn thành câu hỏi để mở khóa phân tích chiến thuật & mẹo độc quyền Princeton Review.";
       DOM.hintContent4.classList.add("collapsed");
       DOM.hintCard4.classList.remove("unlocked");
     }
@@ -6282,6 +6398,20 @@ Em cảm ơn Thầy!`
 
 // ================= EVENT LISTENERS =================
 function setupEventListeners() {
+  // Bilingual Language Switchers (Google & Lego UX)
+  const btnLangHome = document.getElementById("btn-lang-toggle-home");
+  if (btnLangHome) {
+    btnLangHome.addEventListener("click", () => {
+      if (typeof window.toggleAppLanguage === "function") window.toggleAppLanguage();
+    });
+  }
+  const btnLangPractice = document.getElementById("btn-lang-toggle-practice");
+  if (btnLangPractice) {
+    btnLangPractice.addEventListener("click", () => {
+      if (typeof window.toggleAppLanguage === "function") window.toggleAppLanguage();
+    });
+  }
+
   // Module Change
   DOM.selectModule.addEventListener("change", (e) => {
     if (!checkCanNavigate()) {
@@ -7508,16 +7638,22 @@ function saveGlobalAARDraft() {
 
 function syncAarTargetPills() {
   const label = formatTargetScoreLabel((App.studentState && App.studentState.student_target) || "1400+");
+  const isEn = (App.currentLang === "en");
   if (DOM.homeGoalTargetPill) DOM.homeGoalTargetPill.textContent = label;
-  if (DOM.aarTargetScorePill) DOM.aarTargetScorePill.textContent = `Mục tiêu SAT: ${label}`;
+  if (DOM.aarTargetScorePill) DOM.aarTargetScorePill.textContent = `${isEn ? 'Target SAT' : 'Mục tiêu SAT'}: ${label}`;
 }
 
 function updateHomeAarSyncBadge() {
   if (!DOM.homeAarSyncBadge) return;
   const d = App.aarDraft || {};
   const isReady = Boolean(String(d.goal || "").trim() && String(d.challenge || "").trim());
+  const isEn = (App.currentLang === "en");
   DOM.homeAarSyncBadge.classList.toggle("ready", isReady);
-  DOM.homeAarSyncBadge.textContent = isReady ? "✓ Đã đồng bộ sẵn vào AAR" : "💾 Tự lưu vào Báo cáo AAR";
+  if (isReady) {
+    DOM.homeAarSyncBadge.textContent = isEn ? "✓ Synced with AAR Report" : "✓ Đã đồng bộ sẵn vào AAR";
+  } else {
+    DOM.homeAarSyncBadge.textContent = isEn ? "💾 Auto-saved to AAR Report" : "💾 Tự lưu vào Báo cáo AAR";
+  }
 }
 
 function getEffectiveModuleForIste(satModule, customModule) {
