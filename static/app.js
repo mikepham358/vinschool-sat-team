@@ -359,6 +359,8 @@ const DOM = {
   homeGoalTargetPill: document.getElementById("home-goal-target-pill"),
   homeAarGoal: document.getElementById("home-aar-goal"),
   homeAarChallenge: document.getElementById("home-aar-challenge"),
+  btnHomeReviewErrors: document.getElementById("btn-home-review-errors"),
+  homeErrorBadgeCount: document.getElementById("home-error-badge-count"),
   btnHomeStartPractice: document.getElementById("btn-home-start-practice"),
   btnHomeViewGuide: document.getElementById("btn-home-view-guide"),
 
@@ -549,6 +551,10 @@ const DOM = {
   inputFilterErrSearch: document.getElementById("input-filter-err-search"),
   btnClearErrSearch: document.getElementById("btn-clear-err-search"),
   badgeNotebookCount: document.getElementById("badge-notebook-count"),
+  notebookScopeBar: document.getElementById("notebook-scope-bar"),
+  notebookScopeChips: document.getElementById("notebook-scope-chips"),
+  countScopeAll: document.getElementById("count-scope-all"),
+  countScopeCurrent: document.getElementById("count-scope-current"),
   notebookFilterChips: document.getElementById("notebook-filter-chips"),
   countChipAll: document.getElementById("count-chip-all"),
   countChipPending: document.getElementById("count-chip-pending"),
@@ -815,6 +821,7 @@ function loadLocalState() {
 
   loadGlobalAARState();
   loadGlobalSessionTracker();
+  updateErrorBadge();
 }
 
 function saveLocalState() {
@@ -1124,15 +1131,15 @@ function startPracticeFromHome(targetModule) {
     }
   }
 
-  // 1. Validate Họ và tên thí sinh *
+  // 1. Validate Họ và tên học sinh *
   if (!name) {
-    flagHomeFieldError(DOM.homeInputName, "Vui lòng điền Họ và tên thí sinh!");
+    flagHomeFieldError(DOM.homeInputName, "Vui lòng điền Họ và tên học sinh!");
     return;
   }
 
   // 2. Validate Địa chỉ Email *
   if (!email || !email.includes("@")) {
-    flagHomeFieldError(DOM.homeInputEmail, "Vui lòng điền chính xác Địa chỉ Email thí sinh!");
+    flagHomeFieldError(DOM.homeInputEmail, "Vui lòng điền chính xác Địa chỉ Email học sinh!");
     return;
   }
 
@@ -2916,13 +2923,93 @@ function formatVocabHtml(vocabText) {
   return `<span>${escapeHtml(vocabText)}</span>`;
 }
 
+function getAllErrorLogsAcrossTests() {
+  const collected = [];
+  const seen = new Set();
+
+  // 1. Current active test logs first
+  const currentMeta = (App.testsManifest || []).find(t => t.id === App.activeTestId || t.code === App.activeTestId);
+  const currentShort = currentMeta ? currentMeta.short_title : App.activeTestId;
+  (App.studentState.error_logs || []).forEach(e => {
+    if (e && e.id && !seen.has(e.id)) {
+      seen.add(e.id);
+      collected.push(Object.assign({}, e, {
+        _testId: App.activeTestId,
+        _testShort: currentShort,
+        _isCurrentTest: true
+      }));
+    }
+  });
+
+  // 2. All other tests from localStorage
+  const manifest = (App.testsManifest && App.testsManifest.length) ? App.testsManifest : (window.TESTS_MANIFEST || []);
+  manifest.forEach(t => {
+    if (t.id === App.activeTestId || t.code === App.activeTestId) return;
+    try {
+      const storageKey = getStorageKeyForTest(t.id);
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed.error_logs)) {
+          parsed.error_logs.forEach(e => {
+            if (e && e.id && !seen.has(e.id) && !String(e.id).startsWith("err_oct_")) {
+              seen.add(e.id);
+              collected.push(Object.assign({}, e, {
+                _testId: t.id,
+                _testShort: t.short_title || t.id,
+                _isCurrentTest: false
+              }));
+            }
+          });
+        }
+      }
+    } catch (err) {}
+  });
+
+  return collected;
+}
+
 function updateErrorBadge() {
   const unres = (App.studentState.error_logs || []).filter(l => l.status !== "Đã triệt tiêu").length;
   if (DOM.badgeErrorCount) DOM.badgeErrorCount.textContent = unres;
+
+  if (DOM.homeErrorBadgeCount) {
+    const allCrossLogs = getAllErrorLogsAcrossTests();
+    DOM.homeErrorBadgeCount.textContent = allCrossLogs.length;
+  }
 }
 
 function renderErrorLogs() {
-  const list = App.studentState.error_logs || [];
+  const allCrossLogs = getAllErrorLogsAcrossTests();
+  const currentMeta = (App.testsManifest || []).find(t => t.id === App.activeTestId || t.code === App.activeTestId);
+  const currentShort = currentMeta ? currentMeta.short_title : App.activeTestId;
+  const currentLogs = (App.studentState.error_logs || []).map(e => Object.assign({}, e, {
+    _testId: App.activeTestId,
+    _testShort: currentShort,
+    _isCurrentTest: true
+  }));
+
+  // Default scope to "all" so students see full history of traps and errors
+  if (!App.notebookScope) {
+    App.notebookScope = "all";
+  }
+
+  // Update scope counts in UI
+  if (DOM.countScopeAll) DOM.countScopeAll.textContent = allCrossLogs.length;
+  if (DOM.countScopeCurrent) DOM.countScopeCurrent.textContent = currentLogs.length;
+
+  if (DOM.notebookScopeChips) {
+    DOM.notebookScopeChips.querySelectorAll(".scope-chip").forEach(chip => {
+      const scopeVal = chip.getAttribute("data-scope");
+      if (scopeVal === App.notebookScope) {
+        chip.classList.add("active");
+      } else {
+        chip.classList.remove("active");
+      }
+    });
+  }
+
+  const list = (App.notebookScope === "current") ? currentLogs : allCrossLogs;
   const total = list.length;
   const pending = list.filter(l => l.status === "Chưa xử lý").length;
   const tracking = list.filter(l => l.status === "Đang theo dõi").length;
@@ -2952,7 +3039,8 @@ function renderErrorLogs() {
       item.root_cause,
       item.trap_detail,
       item.student_notes,
-      item.vocabulary
+      item.vocabulary,
+      item._testShort
     ].filter(Boolean).join(" ").toLowerCase();
     return searchTarget.includes(qLower);
   });
@@ -2977,7 +3065,7 @@ function renderErrorLogs() {
       editCard.className = "g-inline-edit";
       editCard.innerHTML = `
         <div style="font-size: 13px; font-weight: 700; color: #1a73e8; margin-bottom: 10px;">
-          ✏️ Đang chỉnh sửa: ${escapeHtml(item.module || "SAT")} • Câu ${escapeHtml(item.q_label || item.question_id || "")}
+          ✏️ Đang chỉnh sửa: ${item._testShort ? `[${escapeHtml(item._testShort)}] ` : ""}${escapeHtml(item.module || "SAT")} • Câu ${escapeHtml(item.q_label || item.question_id || "")}
         </div>
         <div class="inline-edit-grid">
           <div>
@@ -3039,7 +3127,29 @@ function renderErrorLogs() {
         item.student_notes = editCard.querySelector(".edit-notes").value.trim();
         item.vocabulary = editCard.querySelector(".edit-vocab").value.trim();
 
-        saveLocalState();
+        if (item._isCurrentTest || !item._testId || item._testId === App.activeTestId) {
+          saveLocalState();
+        } else {
+          try {
+            const storageKey = getStorageKeyForTest(item._testId);
+            const raw = localStorage.getItem(storageKey);
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              if (Array.isArray(parsed.error_logs)) {
+                const target = parsed.error_logs.find(x => x.id === item.id);
+                if (target) {
+                  target.status = item.status;
+                  target.root_cause = item.root_cause;
+                  target.trap_detail = item.trap_detail;
+                  target.student_notes = item.student_notes;
+                  target.vocabulary = item.vocabulary;
+                  localStorage.setItem(storageKey, JSON.stringify(parsed));
+                }
+              }
+            }
+          } catch (e) {}
+        }
+
         App.editingLogId = null;
         updateErrorBadge();
         renderErrorLogs();
@@ -3080,9 +3190,13 @@ function renderErrorLogs() {
       `<button class="btn-quick-toggle-status" title="Chuyển về trạng thái đang theo dõi">🔄 Đưa về theo dõi</button>` :
       `<button class="btn-quick-toggle-status" title="Đánh dấu em đã nắm vững kiến thức này">✅ Đã triệt tiêu</button>`;
 
+    const challengeTextVal = item.trap_detail || item.root_cause || "";
+    const showChallengeBtn = DOM.homeAarChallenge && challengeTextVal;
+
     card.innerHTML = `
       <div class="card-top-row">
         <div class="card-top-left">
+          ${item._testShort ? `<span class="card-test-badge">🏷️ ${escapeHtml(item._testShort)}</span>` : ""}
           <span class="card-q-tag">📘 ${escapeHtml(item.module || "SAT")} • Câu ${escapeHtml(item.q_label || item.question_id || "")}</span>
           <span class="card-status-badge ${statusClass}">${statusText}</span>
         </div>
@@ -3102,9 +3216,40 @@ function renderErrorLogs() {
 
       <div class="card-footer">
         <span>🕒 ${escapeHtml(item.date || "Ghi chép")} ${item.skill ? `• ${escapeHtml(item.skill)}` : ""}</span>
-        <div>${quickToggleBtn}</div>
+        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+          ${showChallengeBtn ? `
+            <button class="btn-use-as-challenge" title="Điền bẫy/bài học này vào mục Thách thức dự kiến trên trang chủ">
+              🎯 Điền vào Thách thức
+            </button>
+          ` : ""}
+          ${quickToggleBtn}
+        </div>
       </div>
     `;
+
+    // Use as challenge button
+    const btnUseChallenge = card.querySelector(".btn-use-as-challenge");
+    if (btnUseChallenge) {
+      btnUseChallenge.addEventListener("click", () => {
+        if (DOM.homeAarChallenge && challengeTextVal) {
+          DOM.homeAarChallenge.value = challengeTextVal;
+          DOM.homeAarChallenge.dispatchEvent(new Event("input", { bubbles: true }));
+          DOM.modalErrorLog.classList.add("hidden");
+          syncTimerState();
+          try {
+            DOM.homeAarChallenge.scrollIntoView({ behavior: "smooth", block: "center" });
+            DOM.homeAarChallenge.focus();
+            DOM.homeAarChallenge.style.transition = "box-shadow 0.3s ease, border-color 0.3s ease";
+            DOM.homeAarChallenge.style.borderColor = "#16a34a";
+            DOM.homeAarChallenge.style.boxShadow = "0 0 0 3px rgba(22, 163, 74, 0.25)";
+            setTimeout(() => {
+              DOM.homeAarChallenge.style.borderColor = "";
+              DOM.homeAarChallenge.style.boxShadow = "";
+            }, 2500);
+          } catch(e) {}
+        }
+      });
+    }
 
     // Edit button
     card.querySelector(".btn-edit-card").addEventListener("click", () => {
@@ -3115,8 +3260,22 @@ function renderErrorLogs() {
     // Delete button
     card.querySelector(".btn-del-card").addEventListener("click", () => {
       if (confirm(`Em có chắc chắn muốn xóa ghi chép thử sai câu ${item.q_label || item.question_id} này không?`)) {
-        App.studentState.error_logs = App.studentState.error_logs.filter(x => x.id !== item.id);
-        saveLocalState();
+        if (item._isCurrentTest || !item._testId || item._testId === App.activeTestId) {
+          App.studentState.error_logs = App.studentState.error_logs.filter(x => x.id !== item.id);
+          saveLocalState();
+        } else {
+          try {
+            const storageKey = getStorageKeyForTest(item._testId);
+            const raw = localStorage.getItem(storageKey);
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              if (Array.isArray(parsed.error_logs)) {
+                parsed.error_logs = parsed.error_logs.filter(x => x.id !== item.id);
+                localStorage.setItem(storageKey, JSON.stringify(parsed));
+              }
+            }
+          } catch (e) {}
+        }
         updateErrorBadge();
         renderErrorLogs();
       }
@@ -3127,7 +3286,24 @@ function renderErrorLogs() {
     if (toggleBtn) {
       toggleBtn.addEventListener("click", () => {
         item.status = (item.status === "Đã triệt tiêu") ? "Đang theo dõi" : "Đã triệt tiêu";
-        saveLocalState();
+        if (item._isCurrentTest || !item._testId || item._testId === App.activeTestId) {
+          saveLocalState();
+        } else {
+          try {
+            const storageKey = getStorageKeyForTest(item._testId);
+            const raw = localStorage.getItem(storageKey);
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              if (Array.isArray(parsed.error_logs)) {
+                const target = parsed.error_logs.find(x => x.id === item.id);
+                if (target) {
+                  target.status = item.status;
+                  localStorage.setItem(storageKey, JSON.stringify(parsed));
+                }
+              }
+            }
+          } catch (e) {}
+        }
         updateErrorBadge();
         renderErrorLogs();
       });
@@ -3213,7 +3389,7 @@ function initOnboarding() {
   if (DOM.headerStudentBadge) {
     DOM.headerStudentBadge.addEventListener("click", () => {
       const current = App.studentState.student_name || "";
-      const updated = prompt("Chỉnh sửa Họ và tên thí sinh:", current);
+      const updated = prompt("Chỉnh sửa Họ và tên học sinh:", current);
       if (updated && updated.trim()) {
         App.studentState.student_name = updated.trim();
         saveLocalState();
@@ -5943,10 +6119,39 @@ function setupEventListeners() {
     renderErrorLogs();
     DOM.modalErrorLog.classList.remove("hidden");
   });
+  if (DOM.btnHomeReviewErrors) {
+    DOM.btnHomeReviewErrors.addEventListener("click", () => {
+      pauseTimer();
+      App.editingLogId = null;
+      if (DOM.notebookAddPanel) DOM.notebookAddPanel.classList.add("hidden");
+      App.notebookScope = "all";
+      renderErrorLogs();
+      DOM.modalErrorLog.classList.remove("hidden");
+    });
+  }
+  if (DOM.notebookScopeChips) {
+    DOM.notebookScopeChips.addEventListener("click", (e) => {
+      const chip = e.target.closest(".scope-chip");
+      if (!chip) return;
+      const scopeVal = chip.getAttribute("data-scope");
+      if (scopeVal) {
+        App.notebookScope = scopeVal;
+        renderErrorLogs();
+      }
+    });
+  }
   DOM.btnCloseErrorLog.addEventListener("click", () => {
     DOM.modalErrorLog.classList.add("hidden");
     syncTimerState();
   });
+  if (DOM.modalErrorLog) {
+    DOM.modalErrorLog.addEventListener("click", (e) => {
+      if (e.target === DOM.modalErrorLog) {
+        DOM.modalErrorLog.classList.add("hidden");
+        syncTimerState();
+      }
+    });
+  }
 
   if (DOM.btnOpenVocab) {
     DOM.btnOpenVocab.addEventListener("click", () => {

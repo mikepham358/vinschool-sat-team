@@ -72,14 +72,14 @@
           <div class="hero-form-column">
             <div class="material-card hero-form-card">
               <div class="card-header-clean">
-                <h3>Thông Tin Thí Sinh</h3>
+                <h3>Thông Tin Học Sinh</h3>
                 <span class="secure-badge">🔒 Lưu 100% trên thiết bị cá nhân</span>
               </div>
 
               <form class="hero-form" id="form-home-profile" onsubmit="return false;">
                 <div class="form-row">
                   <div class="m3-input-field">
-                    <label for="home-input-name">Họ và tên thí sinh <span class="req">*</span></label>
+                    <label for="home-input-name">Họ và tên học sinh <span class="req">*</span></label>
                     <input type="text" id="home-input-name" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name" required>
                   </div>
                   <div class="m3-input-field">
@@ -135,7 +135,14 @@
                       <textarea id="home-aar-goal" rows="2" placeholder="Ví dụ: Đạt ≥ 85% câu đúng; nắm chắc phương pháp bẫy từ khóa &amp; loại đáp án sai." required></textarea>
                     </div>
                     <div class="m3-input-field">
-                      <label for="home-aar-challenge">Thách thức dự kiến <span class="req">*</span></label>
+                      <div class="challenge-label-header">
+                        <label for="home-aar-challenge">Thách thức dự kiến <span class="req">*</span></label>
+                        <button type="button" class="btn-home-review-errors" id="btn-home-review-errors" title="Xem lại Sổ thử sai để nắm bắt các bẫy thường gặp và dễ dàng viết thách thức">
+                          <span class="btn-icon">📓</span>
+                          <span>Xem lại Sổ thử sai</span>
+                          <span class="home-error-badge-count" id="home-error-badge-count">0</span>
+                        </button>
+                      </div>
                       <textarea id="home-aar-challenge" rows="2" placeholder="Ví dụ: Câu suy luận dài, áp lực thời gian hoặc thao tác đồ thị Desmos." required></textarea>
                     </div>
                   </div>
@@ -1253,6 +1260,19 @@
             <span class="icon">➕</span>
             <span>Thêm ghi chép / Từ mới</span>
           </button>
+        </div>
+
+        <!-- Scope Switcher: All Tests vs Current Test -->
+        <div class="notebook-scope-bar" id="notebook-scope-bar">
+          <span class="notebook-scope-label">Phạm vi xem:</span>
+          <div class="notebook-scope-chips" id="notebook-scope-chips">
+            <button type="button" class="scope-chip active" data-scope="all" id="scope-chip-all">
+              🌐 Toàn bộ bài thi (<span id="count-scope-all">0</span>)
+            </button>
+            <button type="button" class="scope-chip" data-scope="current" id="scope-chip-current">
+              🎯 Đề hiện tại (<span id="count-scope-current">0</span>)
+            </button>
+          </div>
         </div>
 
         <!-- Filter Chips (Google Material 3) -->
