@@ -7926,7 +7926,10 @@ body.resizing-split iframe {
 
 /* ================= MERMAID INTERACTIVE VISUAL THINKING DIAGRAM & POP-UP ================= */
 .mermaid-trigger-banner {
-  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 0 14px 0;
   animation: mermaidFadeIn 0.35s ease-out;
 }
 
@@ -7935,56 +7938,49 @@ body.resizing-split iframe {
 }
 
 .btn-open-mermaid-modal {
-  width: 100%;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(59, 130, 246, 0.12) 100%);
-  border: 1.5px dashed #6366f1;
-  color: #4338ca;
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-size: 13.5px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f5f3ff 100%);
+  border: 1.5px solid #c4b5fd;
+  color: #6d28d9;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #c4b5fd, 0 4px 10px rgba(109, 40, 217, 0.08);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
 }
 
 .btn-open-mermaid-modal:hover {
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
   color: #ffffff;
-  border-style: solid;
-  border-color: #4f46e5;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.28);
+  border-color: #5b21b6;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 3px 0 0 #4c1d95, 0 6px 14px rgba(109, 40, 217, 0.25);
   transform: translateY(-1px);
 }
 
-.btn-open-mermaid-modal .mm-btn-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.btn-open-mermaid-modal:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 0 0 #4c1d95;
 }
 
 .btn-open-mermaid-modal .mm-icon {
-  font-size: 18px;
+  font-size: 15px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
-.btn-open-mermaid-modal .mm-arrow {
-  font-size: 12.5px;
+.btn-open-mermaid-modal .mm-text {
+  font-size: 13.5px;
   font-weight: 700;
-  padding: 4px 10px;
-  background: rgba(99, 102, 241, 0.12);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.btn-open-mermaid-modal:hover .mm-arrow {
-  background: rgba(255, 255, 255, 0.25);
-  color: #ffffff;
-  transform: translateX(2px);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 /* ================= MERMAID MODAL POP-UP ================= */

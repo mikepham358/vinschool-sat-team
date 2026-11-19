@@ -103,8 +103,8 @@ window.I18N_TRANSLATIONS = {
     btn_next: "Next",
     choice_prefix: "Choice",
     gridin_placeholder: "Enter numeric answer...",
-    mermaid_trigger_title: "Visual Logic Mindmap (Mermaid) - Click to open pop-up",
-    mermaid_trigger_btn: "↗ Open Pop-up",
+    mermaid_trigger_title: "Visual Logic Mindmap (Mermaid)",
+    mermaid_trigger_btn: "Logic mindmap",
 
     // 4-Tier Socratic Hints
     tier1_title: "💡 Tier 1: Context Clues & Orientation",
@@ -230,8 +230,8 @@ window.I18N_TRANSLATIONS = {
     btn_next: "Câu tiếp",
     choice_prefix: "Lựa chọn",
     gridin_placeholder: "Nhập đáp án số...",
-    mermaid_trigger_title: "Sơ đồ tư duy trực quan (Mermaid Mindmap) - Bấm để mở Pop-up",
-    mermaid_trigger_btn: "↗ Mở Pop-up",
+    mermaid_trigger_title: "Sơ đồ tư duy logic (Mermaid)",
+    mermaid_trigger_btn: "Logic mindmap",
 
     // 4-Tier Socratic Hints
     tier1_title: "💡 Tầng 1: Định Hướng Bối Cảnh & Tư Duy Tổng Quan",
