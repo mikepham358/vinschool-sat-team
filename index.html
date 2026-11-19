@@ -81,19 +81,19 @@
               </div>
 
               <!-- Badges Showcase Trigger Banner -->
-              <div class="home-badges-banner" id="home-badges-banner" title="Bấm để chiêm ngưỡng Tủ Huy Hiệu Micro-Credentials của em">
+              <div class="home-badges-banner" id="home-badges-banner" title="Click to view your Micro-Credentials &amp; Honor Showcase">
                 <div class="home-badges-info">
                   <span class="home-badges-icon">🏆</span>
                   <div class="home-badges-text">
                     <div class="home-badges-title-row">
-                      <span class="home-badges-title">Tủ Huy Hiệu Micro-Credentials</span>
-                      <span class="home-badges-rank-pill" id="home-badges-rank-pill">Tập Sự</span>
+                      <span class="home-badges-title">Micro-Credentials Showcase</span>
+                      <span class="home-badges-rank-pill" id="home-badges-rank-pill">Novice Scholar</span>
                     </div>
-                    <span class="home-badges-sub" id="home-badges-summary">Đã mở khóa 0/12 huy hiệu</span>
+                    <span class="home-badges-sub" id="home-badges-summary">Unlocked 0/12 micro-credentials</span>
                   </div>
                 </div>
                 <button type="button" class="btn-home-badges-view" id="btn-home-badges-view">
-                  <span>Chiêm ngưỡng</span>
+                  <span>Explore</span>
                   <span class="arrow">➔</span>
                 </button>
               </div>
@@ -498,9 +498,9 @@
         <span class="tool-text">Sổ thử sai</span>
         <span class="badge" id="badge-error-count">0</span>
       </button>
-      <button class="tool-btn btn-badges-tool" id="btn-open-badges" title="Bảng Vàng Huy Hiệu &amp; Micro-Credentials">
+      <button class="tool-btn btn-badges-tool" id="btn-open-badges" title="Micro-Credentials &amp; Badges Showcase">
         <span class="tool-icon">🏆</span>
-        <span class="tool-text">Huy hiệu</span>
+        <span class="tool-text">Badges</span>
         <span class="badge" id="badge-badges-count">0</span>
       </button>
       <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="Kho 1,000 Từ Vựng SAT (AceSAT Hub)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
@@ -2337,19 +2337,19 @@
     </div>
   </div>
 
-  <!-- Modal: Badges Showcase (Tủ Trưng Bày Huy Hiệu & Micro-Credentials) -->
+  <!-- Modal: Badges Showcase (Micro-Credentials & Badges Showcase) -->
   <div class="modal-overlay hidden" id="modal-badges-showcase">
     <div class="modal-card badges-modal-card">
       <div class="modal-card-header g-ux-modal-header badges-modal-header">
         <div class="header-title-group">
           <div class="header-main-title">
             <span class="header-icon">🏆</span>
-            <h3>Bảng Vàng Huy Hiệu &amp; Micro-Credentials</h3>
-            <span class="live-count-badge" id="badge-showcase-total-unlocked">0/12 Mở khóa</span>
+            <h3>Micro-Credentials &amp; Honor Showcase</h3>
+            <span class="live-count-badge" id="badge-showcase-total-unlocked">0/12 Unlocked</span>
           </div>
-          <p class="header-sub-desc">Hệ thống chứng chỉ vi mô ghi nhận năng lực, tính kỷ luật và tư duy thử sai Socratic của học sinh Vinschool</p>
+          <p class="header-sub-desc">Micro-credentialing system recognizing academic rigor, deliberate practice, and Socratic reflection</p>
         </div>
-        <button class="btn-close-modal" id="btn-close-badges-modal" title="Đóng">✕</button>
+        <button class="btn-close-modal" id="btn-close-badges-modal" title="Close">✕</button>
       </div>
 
       <div class="modal-card-body badges-modal-body">
@@ -2359,14 +2359,14 @@
             <div class="rank-avatar" id="badges-rank-avatar">🌟</div>
             <div class="rank-details">
               <div class="rank-title-row">
-                <span class="rank-label">Cấp độ học tập:</span>
-                <span class="rank-name" id="badges-rank-title">Chiến Binh Socratic</span>
+                <span class="rank-label">Scholar Rank:</span>
+                <span class="rank-name" id="badges-rank-title">Novice Scholar</span>
               </div>
-              <div class="rank-stats" id="badges-rank-stats">Tổng điểm thành tích: 0 XP • 0 huy hiệu Vàng</div>
+              <div class="rank-stats" id="badges-rank-stats">Total Mastered: 0 Badges • 0 Gold / Diamond Tiers</div>
             </div>
           </div>
           <div class="rank-hero-right">
-            <div class="rank-progress-text">Tiến độ mở khóa toàn bộ</div>
+            <div class="rank-progress-text">Overall Mastery Progress</div>
             <div class="rank-progress-bar-wrap">
               <div class="rank-progress-bar" id="badges-total-progress-bar" style="width: 0%;"></div>
             </div>
@@ -2375,11 +2375,11 @@
 
         <!-- Category Filter Chips -->
         <div class="badges-filter-chips" id="badges-filter-chips">
-          <button class="filter-chip active" data-cat="all">Tất cả (12)</button>
-          <button class="filter-chip" data-cat="socratic">🛡️ Socratic &amp; Thử Sai (3)</button>
-          <button class="filter-chip" data-cat="mastery">⚡ Kỹ Năng SAT (3)</button>
-          <button class="filter-chip" data-cat="persistence">🔥 Kỷ Luật &amp; AAR (3)</button>
-          <button class="filter-chip" data-cat="tools">📖 Từ Vựng &amp; Công Cụ (3)</button>
+          <button class="filter-chip active" data-cat="all">All (12)</button>
+          <button class="filter-chip" data-cat="socratic">🛡️ Socratic &amp; Error Analysis (3)</button>
+          <button class="filter-chip" data-cat="mastery">⚡ SAT Mastery (3)</button>
+          <button class="filter-chip" data-cat="persistence">🔥 Persistence &amp; AAR (3)</button>
+          <button class="filter-chip" data-cat="tools">📖 Vocabulary &amp; Tools (3)</button>
         </div>
 
         <!-- Badges Grid -->
@@ -2390,26 +2390,26 @@
     </div>
   </div>
 
-  <!-- Modal: Badge Unlock Celebratory Dialog (Vinh Danh Mở Khóa) -->
+  <!-- Modal: Badge Unlock Celebratory Dialog -->
   <div class="modal-overlay hidden" id="modal-badge-unlocked">
     <div class="modal-card badge-unlocked-card">
       <div class="unlocked-burst-glow"></div>
       <div class="unlocked-icon-wrap" id="unlocked-badge-icon-wrap">
         <span class="unlocked-badge-icon" id="unlocked-badge-icon">🛡️</span>
-        <span class="unlocked-tier-pill" id="unlocked-tier-pill">Cấp Bạc</span>
+        <span class="unlocked-tier-pill" id="unlocked-tier-pill">Silver Tier</span>
       </div>
-      <div class="unlocked-badge-kicker">🎉 CHÚC MỪNG EM ĐÃ ĐẠT THÀNH TÍCH MỚI!</div>
-      <h3 class="unlocked-badge-title" id="unlocked-badge-title">Dũng Sĩ Thử Sai</h3>
-      <div class="unlocked-badge-tier-title" id="unlocked-badge-tier-title">Hạng Thiện Chiến (10 Lỗi Đã Ghi Chép)</div>
-      <p class="unlocked-badge-desc" id="unlocked-badge-desc">Em đã xuất sắc duy trì ghi chép nguyên nhân thử sai vào Sổ Thử Sai.</p>
-      <div class="unlocked-badge-quote" id="unlocked-badge-quote">"Sai lầm không phải là thất bại - nó là dữ liệu quý giá nhất để em tiến bộ vượt bậc."</div>
+      <div class="unlocked-badge-kicker">🎉 CONGRATULATIONS! NEW ACHIEVEMENT UNLOCKED!</div>
+      <h3 class="unlocked-badge-title" id="unlocked-badge-title">Trap Slayer</h3>
+      <div class="unlocked-badge-tier-title" id="unlocked-badge-tier-title">Veteran Rank • 10 Traps Logged</div>
+      <p class="unlocked-badge-desc" id="unlocked-badge-desc">You have proactively recorded and analyzed test traps in your Socratic Error Log.</p>
+      <div class="unlocked-badge-quote" id="unlocked-badge-quote">"A mistake is not a failure - it is the most valuable data point for exponential growth."</div>
       
       <div class="unlocked-actions">
         <button type="button" class="btn-unlocked-showcase" id="btn-unlocked-open-showcase">
-          <span>🏆 Xem Tủ Huy Hiệu</span>
+          <span>🏆 View Showcase</span>
         </button>
         <button type="button" class="btn-unlocked-continue" id="btn-unlocked-continue">
-          <span>Tiếp Tục Rèn Luyện 🚀</span>
+          <span>Continue Practicing 🚀</span>
         </button>
       </div>
     </div>

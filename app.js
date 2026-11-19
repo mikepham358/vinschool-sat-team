@@ -3213,11 +3213,11 @@ function getBadgesStatValue(criteriaType) {
 }
 
 function getStudentRankInfo(totalUnlockedCount) {
-  if (totalUnlockedCount >= 10) return { rank: "Huyền Thoại Ivy League", avatar: "👑" };
-  if (totalUnlockedCount >= 7) return { rank: "Đại Sư SAT", avatar: "🏆" };
-  if (totalUnlockedCount >= 4) return { rank: "Chuyên Gia Đột Phá", avatar: "⚡" };
-  if (totalUnlockedCount >= 2) return { rank: "Chiến Binh Socratic", avatar: "🛡️" };
-  return { rank: "Học Viên Khởi Đầu", avatar: "🌱" };
+  if (totalUnlockedCount >= 10) return { rank: "Ivy League Legend", avatar: "👑" };
+  if (totalUnlockedCount >= 7) return { rank: "SAT Grandmaster", avatar: "🏆" };
+  if (totalUnlockedCount >= 4) return { rank: "Breakthrough Specialist", avatar: "⚡" };
+  if (totalUnlockedCount >= 2) return { rank: "Socratic Warrior", avatar: "🛡️" };
+  return { rank: "Novice Scholar", avatar: "🌱" };
 }
 
 function updateBadgesUI() {
@@ -3228,7 +3228,7 @@ function updateBadgesUI() {
   const rankInfo = getStudentRankInfo(unlockedCount);
 
   if (DOM.homeBadgesSummary) {
-    DOM.homeBadgesSummary.textContent = `Đã mở khóa ${unlockedCount}/${totalBadges} huy hiệu micro-credentials`;
+    DOM.homeBadgesSummary.textContent = `Unlocked ${unlockedCount}/${totalBadges} micro-credentials`;
   }
   if (DOM.homeBadgesRankPill) {
     DOM.homeBadgesRankPill.textContent = rankInfo.rank;
@@ -3237,7 +3237,7 @@ function updateBadgesUI() {
     DOM.badgeBadgesCount.textContent = unlockedCount;
   }
   if (DOM.badgeShowcaseTotalUnlocked) {
-    DOM.badgeShowcaseTotalUnlocked.textContent = `${unlockedCount}/${totalBadges} Mở khóa`;
+    DOM.badgeShowcaseTotalUnlocked.textContent = `${unlockedCount}/${totalBadges} Unlocked`;
   }
   if (DOM.badgesRankTitle) {
     DOM.badgesRankTitle.textContent = rankInfo.rank;
@@ -3247,7 +3247,7 @@ function updateBadgesUI() {
   }
   if (DOM.badgesRankStats) {
     const goldCount = Object.values(App.badgesState?.unlocked || {}).filter(u => u.tier === "gold" || u.tier === "diamond").length;
-    DOM.badgesRankStats.textContent = `Đã chinh phục: ${unlockedCount} danh hiệu • ${goldCount} cấp Vàng / Kim Cương`;
+    DOM.badgesRankStats.textContent = `Total Mastered: ${unlockedCount} Badges • ${goldCount} Gold / Diamond Tiers`;
   }
   if (DOM.badgesTotalProgressBar) {
     const pct = Math.round((unlockedCount / totalBadges) * 100);
@@ -3316,12 +3316,12 @@ function showBadgeUnlockedModal(badge, tier) {
   if (!DOM.modalBadgeUnlocked) return;
   if (DOM.unlockedBadgeIcon) DOM.unlockedBadgeIcon.textContent = badge.icon;
   if (DOM.unlockedTierPill) {
-    DOM.unlockedTierPill.textContent = `Cấp ${tier.name} (${tier.tier.toUpperCase()})`;
+    DOM.unlockedTierPill.textContent = `${tier.name} Tier (${tier.tier.toUpperCase()})`;
     DOM.unlockedTierPill.style.background = tier.color || "#d97706";
   }
   if (DOM.unlockedBadgeTitle) DOM.unlockedBadgeTitle.textContent = badge.title;
   if (DOM.unlockedBadgeTierTitle) {
-    DOM.unlockedBadgeTierTitle.textContent = `Hạng ${tier.name} • Mục tiêu hoàn thành: ${tier.target}`;
+    DOM.unlockedBadgeTierTitle.textContent = `${tier.name} Rank • Target: ${tier.target}`;
   }
   if (DOM.unlockedBadgeDesc) DOM.unlockedBadgeDesc.textContent = badge.description;
   if (DOM.unlockedBadgeQuote) DOM.unlockedBadgeQuote.textContent = `"${badge.quote}"`;
@@ -3358,7 +3358,7 @@ function renderBadgesShowcase() {
       }
     }
 
-    const currentTierName = unlockedInfo ? `${unlockedInfo.name} (${unlockedInfo.tier.toUpperCase()})` : "Chưa mở khóa";
+    const currentTierName = unlockedInfo ? `${unlockedInfo.name} (${unlockedInfo.tier.toUpperCase()})` : "Locked";
     const tierClass = unlockedInfo ? `tier-${unlockedInfo.tier}` : "tier-locked";
 
     const targetVal = nextTier.target;
@@ -3382,7 +3382,7 @@ function renderBadgesShowcase() {
 
       <div class="badge-card-progress-section">
         <div class="badge-card-progress-meta">
-          <span>${isMaxLevel ? "🏆 Đã đạt cấp tối đa!" : `Tiến độ lên cấp ${escapeHtml(nextTier.name)}:`}</span>
+          <span>${isMaxLevel ? "🏆 Max Tier Achieved!" : `Progress to ${escapeHtml(nextTier.name)}:`}</span>
           <span>${currentVal} / ${targetVal} (${progressPct}%)</span>
         </div>
         <div class="badge-card-progress-track">
@@ -3396,7 +3396,7 @@ function renderBadgesShowcase() {
 
       <div class="badge-card-footer">
         <span>🏷️ ${escapeHtml(badge.category_name)}</span>
-        <span>${unlockedInfo ? `Mở khóa: ${new Date(unlockedInfo.unlocked_at).toLocaleDateString("vi-VN")}` : "Cần rèn luyện thêm"}</span>
+        <span>${unlockedInfo ? `Unlocked: ${new Date(unlockedInfo.unlocked_at).toLocaleDateString("en-US")}` : "Requires more practice"}</span>
       </div>
     `;
 
@@ -8496,8 +8496,8 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 ${Object.keys(App.badgesState?.unlocked || {}).map(id => {
   const b = (App.badgesDefinitions || []).find(x => x.id === id);
   const u = App.badgesState?.unlocked[id];
-  return b ? `• ${b.icon} ${b.title}: Hạng ${u.name} (${u.tier.toUpperCase()})` : null;
-}).filter(Boolean).join("\n") || "• Đang rèn luyện mở khóa các huy hiệu tiếp theo"}
+  return b ? `• ${b.icon} ${b.title}: ${u.name} (${u.tier.toUpperCase()})` : null;
+}).filter(Boolean).join("\n") || "• In progress - working toward next micro-credentials"}
 
 (Báo cáo chu trình AAR & Hiệu suất thực hành SAT chi tiết chuẩn OECD Learning Compass 2030).
 
