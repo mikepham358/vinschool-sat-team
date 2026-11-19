@@ -449,7 +449,8 @@
 
     <!-- Top Bluebook App Bar -->
     <header class="bluebook-header">
-      <div class="header-section-info">
+      <!-- Zone A: Exam & Navigation Context (Left Island) -->
+      <div class="header-section-info header-band band-navigation">
         <button class="btn-home" id="btn-home" title="Home / Instructions" data-i18n-title="btn_home">
           <span class="home-icon">🏠</span>
           <span class="home-text" data-i18n="btn_home">Home</span>
@@ -470,75 +471,95 @@
         </div>
       </div>
 
-    <!-- Center Timer + Cross-Test Session Counter + Reset Controls -->
-    <div class="header-timer-cluster">
-      <div class="header-timer">
-        <div class="timer-display" id="timer-display">32:00</div>
-        <button class="btn-timer-action" id="btn-timer-toggle-view" title="Hide / Show Timer" data-i18n="timer_hide">Hide</button>
-        <button class="btn-timer-action" id="btn-timer-pause" title="Pause / Resume">⏸️</button>
+      <!-- Zone B: Time & Pace (Always in Exact Viewport Center) -->
+      <div class="header-timer-cluster header-band band-timer">
+        <div class="header-timer">
+          <span class="timer-icon">⏱️</span>
+          <div class="timer-display" id="timer-display">32:00</div>
+          <button class="btn-timer-action" id="btn-timer-toggle-view" title="Hide / Show Timer" data-i18n="timer_hide">Hide</button>
+          <button class="btn-timer-action" id="btn-timer-pause" title="Pause / Resume">⏸️</button>
+        </div>
+        <button type="button" class="header-session-counter" id="header-session-counter" title="Total questions practiced in session across tests - Click to open AAR">
+          <span class="sc-icon">📊</span>
+          <span class="sc-val" id="header-session-count-val">0</span>
+          <span class="sc-lbl" data-i18n="session_counter_label">questions</span>
+        </button>
+        <button class="tool-btn btn-reset-test header-cluster-reset" id="btn-reset-test" title="Reset Test Progress">
+          <span class="tool-icon">🔄</span>
+          <span class="tool-text" data-i18n="btn_reset">Reset</span>
+        </button>
       </div>
-      <button type="button" class="header-session-counter" id="header-session-counter" title="Total questions practiced in session across tests - Click to open AAR">
-        <span class="sc-icon">📊</span>
-        <span class="sc-val" id="header-session-count-val">0</span>
-        <span class="sc-lbl" data-i18n="session_counter_label">questions</span>
-      </button>
-      <button class="tool-btn btn-reset-test header-cluster-reset" id="btn-reset-test" title="Reset Test Progress">
-        <span class="tool-icon">🔄</span>
-        <span class="tool-text" data-i18n="btn_reset">Reset</span>
-      </button>
-    </div>
 
-    <!-- Right Utility Tools (Smart Icon Bar) -->
-    <div class="header-tools">
-      <button class="tool-btn btn-zen-toggle" id="btn-toggle-zen" title="Toggle Zen Focus Mode (Key Z)">
-        <span class="tool-icon">🧘</span>
-        <span class="tool-text" data-i18n="btn_zen">Zen</span>
-      </button>
-      <button class="tool-btn" id="btn-open-dict" title="Cambridge Dictionary &amp; SAT Vocab Lookup">
-        <span class="tool-icon">📖</span>
-        <span class="tool-text" data-i18n="btn_dict">Dictionary</span>
-      </button>
-      <button class="tool-btn" id="btn-open-error-log" title="Socratic Error Log Notebook">
-        <span class="tool-icon">📓</span>
-        <span class="tool-text" data-i18n="btn_error_log">Error Log</span>
-        <span class="badge" id="badge-error-count">0</span>
-      </button>
-      <button class="tool-btn btn-badges-tool" id="btn-open-badges" title="Micro-Credentials &amp; Badges Showcase">
-        <span class="tool-icon">🏆</span>
-        <span class="tool-text" data-i18n="btn_badges">Badges</span>
-        <span class="badge" id="badge-badges-count">0</span>
-      </button>
-      <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="1,000 SAT Vocab Hub (AceSAT)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
-        <span class="tool-icon">📚</span>
-        <span class="tool-text" data-i18n="btn_vocab_tool">1,000 Vocab</span>
-      </button>
-      <button class="tool-btn" id="btn-toggle-scratchpad" title="Whiteboard Scratchpad">
-        <span class="tool-icon">✏️</span>
-        <span class="tool-text" data-i18n="btn_scratchpad">Scratchpad</span>
-      </button>
-      <button class="tool-btn" id="btn-open-calc" title="Desmos Graphing Calculator">
-        <span class="tool-icon">🧮</span>
-        <span class="tool-text" data-i18n="btn_calc">Desmos</span>
-      </button>
-      <button class="tool-btn" id="btn-open-ref" title="SAT Math Formulas Reference Sheet">
-        <span class="tool-icon">📐</span>
-        <span class="tool-text" data-i18n="btn_ref">Math Formulas</span>
-      </button>
-      <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Post-Session After Action Review (AAR)" data-i18n-title="btn_aar">
-        <span class="tool-icon">📝</span>
-        <span class="aar-pill-label">AAR</span>
-      </button>
-      <button type="button" class="tool-btn btn-lang-toggle btn-lang-practice" id="btn-lang-toggle-practice" title="Switch Language / Đổi ngôn ngữ (English / Tiếng Việt)">
-        <span class="lang-globe">🌐</span>
-        <span class="lang-cur font-bold">EN</span>
-      </button>
-      <div class="header-student-badge" id="header-student-badge" title="Student Profile (Click to edit)">
-        <span class="badge-icon tool-icon">👤</span>
-        <span class="badge-name tool-text" id="header-student-name" data-i18n="student_badge_default">Student</span>
-        <button class="btn-edit-student" id="btn-edit-student" title="Edit name / email">✏️</button>
+      <!-- Zone C: Functional Utilities & Cognitive Tools (Right Island) -->
+      <div class="header-tools">
+        <!-- Pod 1: Learning & Vocabulary (Lego Mint / Emerald) -->
+        <div class="tools-cluster cluster-vocab" title="Vocabulary & Reference Tools">
+          <button class="tool-btn btn-dict-tool" id="btn-open-dict" title="Cambridge Dictionary &amp; SAT Vocab Lookup">
+            <span class="tool-icon">📖</span>
+            <span class="tool-text" data-i18n="btn_dict">Dictionary</span>
+          </button>
+          <button class="tool-btn btn-vocab-tool" id="btn-open-vocab" title="1,000 SAT Vocab Hub (AceSAT)" onclick="if(window.openAceSATVocabModal){window.openAceSATVocabModal('practice');}else{document.getElementById('modal-acesat-vocab')?.classList.remove('hidden');}">
+            <span class="tool-icon">📚</span>
+            <span class="tool-text" data-i18n="btn_vocab_tool">1,000 Vocab</span>
+          </button>
+        </div>
+
+        <!-- Pod 2: Metacognition & Socratic Reflection (Lego Amber / Coral) -->
+        <div class="tools-cluster cluster-reflection" title="Socratic Error Log & Metacognitive Reflection">
+          <button class="tool-btn btn-error-log-tool" id="btn-open-error-log" title="Socratic Error Log Notebook">
+            <span class="tool-icon">📓</span>
+            <span class="tool-text" data-i18n="btn_error_log">Error Log</span>
+            <span class="badge" id="badge-error-count">0</span>
+          </button>
+          <button class="tool-btn btn-aar-report" id="btn-open-aar" title="Post-Session After Action Review (AAR)" data-i18n-title="btn_aar">
+            <span class="tool-icon">📝</span>
+            <span class="aar-pill-label">AAR</span>
+          </button>
+        </div>
+
+        <!-- Pod 3: STEM & Math Tools (Lego Cobalt Blue / Cyan) -->
+        <div class="tools-cluster cluster-math" title="STEM Math & Whiteboard Scratchpad">
+          <button class="tool-btn btn-calc-tool" id="btn-open-calc" title="Desmos Graphing Calculator">
+            <span class="tool-icon">🧮</span>
+            <span class="tool-text" data-i18n="btn_calc">Desmos</span>
+          </button>
+          <button class="tool-btn btn-ref-tool" id="btn-open-ref" title="SAT Math Formulas Reference Sheet">
+            <span class="tool-icon">📐</span>
+            <span class="tool-text" data-i18n="btn_ref">Math Formulas</span>
+          </button>
+          <button class="tool-btn btn-scratchpad-tool" id="btn-toggle-scratchpad" title="Whiteboard Scratchpad">
+            <span class="tool-icon">✏️</span>
+            <span class="tool-text" data-i18n="btn_scratchpad">Scratchpad</span>
+          </button>
+        </div>
+
+        <!-- Pod 4: Focus & Gamification (Lego Purple & Gold) -->
+        <div class="tools-cluster cluster-growth" title="Focus Zen & Micro-Credentials">
+          <button class="tool-btn btn-zen-toggle" id="btn-toggle-zen" title="Toggle Zen Focus Mode (Key Z)">
+            <span class="tool-icon">🧘</span>
+            <span class="tool-text" data-i18n="btn_zen">Zen</span>
+          </button>
+          <button class="tool-btn btn-badges-tool" id="btn-open-badges" title="Micro-Credentials &amp; Badges Showcase">
+            <span class="tool-icon">🏆</span>
+            <span class="tool-text" data-i18n="btn_badges">Badges</span>
+            <span class="badge" id="badge-badges-count">0</span>
+          </button>
+        </div>
+
+        <!-- Pod 5: Profile & System (Slate / Minimalist White) -->
+        <div class="tools-cluster cluster-system" title="Profile & Language Settings">
+          <button type="button" class="tool-btn btn-lang-toggle btn-lang-practice" id="btn-lang-toggle-practice" title="Switch Language / Đổi ngôn ngữ (English / Tiếng Việt)">
+            <span class="lang-globe">🌐</span>
+            <span class="lang-cur font-bold">EN</span>
+          </button>
+          <div class="header-student-badge" id="header-student-badge" title="Student Profile (Click to edit)">
+            <span class="badge-icon tool-icon">👤</span>
+            <span class="badge-name tool-text" id="header-student-name" data-i18n="student_badge_default">Student</span>
+            <button class="btn-edit-student" id="btn-edit-student" title="Edit name / email">✏️</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
   <!-- Floating Zen Mode Status Capsule (Visible only in Zen Mode) -->
   <div class="zen-floating-pill hidden" id="zen-floating-pill">

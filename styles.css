@@ -10713,119 +10713,575 @@ body.resizing-split iframe {
   background-size: 24px 24px !important;
 }
 
-/* 2. Luminous Frosted-Glass White Bluebook Header (Mirror Glaze) */
+/* 2. Luminous Frosted-Glass White Bluebook Header (Mirror Glaze & Lego Ergonomics) */
 .bluebook-header {
-  background: rgba(255, 255, 255, 0.94) !important;
+  position: relative !important;
+  min-height: 64px !important;
+  height: 64px !important;
+  max-width: 100% !important;
+  background: rgba(255, 255, 255, 0.96) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.9) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 20px rgba(15, 23, 42, 0.05) !important;
   color: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 16px !important;
+  flex-shrink: 0 !important;
+  z-index: 30 !important;
+  border-bottom: 1.5px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04), inset 0 1px 0 #ffffff !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
 }
 
-.bluebook-header .btn-home {
+.bluebook-header::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* 2.1 Zone A: Left Navigation & Exam Band (Lego Cobalt Blue / Ice Tint) */
+.header-section-info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  flex: 0 1 auto !important;
+  max-width: calc(50% - 150px) !important;
+}
+
+.header-band.band-navigation {
+  background: linear-gradient(180deg, #f0f7ff 0%, #e0effe 100%) !important;
+  border: 1.5px solid #bae6fd !important;
+  box-shadow: 0 2px 0 0 #93c5fd, inset 0 1px 0 #ffffff !important;
+  border-radius: 16px !important;
+  padding: 4px 8px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.header-band.band-navigation:hover {
+  border-color: #7dd3fc !important;
+  box-shadow: 0 2px 0 0 #60a5fa, inset 0 1px 0 #ffffff, 0 4px 12px rgba(2, 132, 199, 0.08) !important;
+}
+
+.header-band.band-navigation .btn-home {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
   background: #ffffff !important;
-  color: #0f172a !important;
-  border: 1.5px solid #cbd5e1 !important;
+  color: #0055bf !important;
+  border: 1.5px solid #93c5fd !important;
   border-radius: 10px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #93c5fd !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.bluebook-header .btn-home:hover {
-  background: #ffffff !important;
-  color: var(--lego-blue, #0055bf) !important;
-  border-color: var(--lego-blue, #0055bf) !important;
+.header-band.band-navigation .btn-home:hover {
+  background: #0055bf !important;
+  color: #ffffff !important;
+  border-color: #004399 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #004399 !important;
   transform: translateY(-1px) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd !important;
 }
 
-.bluebook-header .btn-home:active {
+.header-band.band-navigation .btn-home:active {
   transform: translateY(1px) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 0 #cbd5e1 !important;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 0 0 #004399 !important;
 }
 
-.bluebook-header .module-selector-wrap select,
-.bluebook-header .select-practice-exam-header {
+.header-band.band-navigation .select-practice-exam-header,
+.header-band.band-navigation .module-selector-wrap select {
   background: #ffffff !important;
   color: #0f172a !important;
-  border: 1.5px solid #cbd5e1 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
-  border-radius: 20px !important;
+  border: 1.5px solid #93c5fd !important;
+  border-radius: 18px !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #bfdbfe !important;
+  padding: 5px 12px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
+  outline: none !important;
+  cursor: pointer !important;
+  max-width: 175px !important;
+  text-overflow: ellipsis !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.bluebook-header .module-selector-wrap select:focus,
-.bluebook-header .module-selector-wrap select:hover,
-.bluebook-header .select-practice-exam-header:focus,
-.bluebook-header .select-practice-exam-header:hover {
-  border-color: var(--lego-blue, #0055bf) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd !important;
+.header-band.band-navigation .select-practice-exam-header:hover,
+.header-band.band-navigation .module-selector-wrap select:hover,
+.header-band.band-navigation .select-practice-exam-header:focus,
+.header-band.band-navigation .module-selector-wrap select:focus {
+  border-color: #0055bf !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 0 #0055bf, 0 4px 10px rgba(0, 85, 191, 0.1) !important;
+  transform: translateY(-1px) !important;
 }
 
-.bluebook-header .header-timer {
+/* 2.2 Zone B: Center Timer Cluster (Strictly 50% Screen Center - Lego Enamel Capsule) */
+.header-timer-cluster {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 25 !important;
+  pointer-events: auto !important;
+}
+
+.header-band.band-timer {
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
-  border: 1.5px solid #cbd5e1 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1, 0 4px 10px rgba(15, 23, 42, 0.04) !important;
-  border-radius: 24px !important;
+  border: 2px solid #cbd5e1 !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), inset 0 1px 0 #ffffff, 0 2px 0 0 #cbd5e1 !important;
+  border-radius: 30px !important;
+  padding: 4px 10px !important;
 }
 
-.bluebook-header .timer-display {
+.header-timer {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.header-timer .timer-icon {
+  font-size: 15px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  animation: timerIconGlow 3s infinite ease-in-out !important;
+}
+
+@keyframes timerIconGlow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(0, 85, 191, 0.2)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 5px rgba(0, 85, 191, 0.4)); }
+}
+
+.timer-display {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
   color: #0f172a !important;
+  letter-spacing: 1px !important;
+  min-width: 62px !important;
+  text-align: center !important;
+  line-height: 1 !important;
 }
 
-.bluebook-header .btn-timer-action {
+.timer-display.timer-paused {
+  color: #d97706 !important;
+  animation: timerPausedPulse 1.8s infinite ease-in-out !important;
+}
+
+.timer-display.timer-low {
+  color: #dc2626 !important;
+  animation: timerLowAlert 1s infinite ease-in-out !important;
+}
+
+@keyframes timerLowAlert {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+.btn-timer-action {
   background: #f1f5f9 !important;
-  color: #475569 !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
+  padding: 4px 8px !important;
   border-radius: 12px !important;
+  cursor: pointer !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1.5px 0 0 #cbd5e1 !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.bluebook-header .btn-timer-action:hover {
+.btn-timer-action:hover {
   background: #e2e8f0 !important;
   color: #0f172a !important;
+  border-color: #94a3b8 !important;
+  transform: translateY(-0.5px) !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #94a3b8 !important;
 }
 
-.bluebook-header .header-session-counter {
+.btn-timer-action:active {
+  transform: translateY(1px) !important;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.05), 0 0.5px 0 0 #cbd5e1 !important;
+}
+
+.header-session-counter {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  height: 32px !important;
+  padding: 0 10px !important;
+  border-radius: 16px !important;
   background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
-  color: var(--lego-blue, #0055bf) !important;
   border: 1.5px solid #93c5fd !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #93c5fd !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #93c5fd !important;
+  color: #0055bf !important;
+  font-size: 12px !important;
   font-weight: 800 !important;
-}
-
-.bluebook-header .header-session-counter .sc-val {
-  color: var(--lego-blue, #0055bf) !important;
-}
-
-.bluebook-header .tool-btn {
-  background: #ffffff !important;
-  color: #334155 !important;
-  border: 1.5px solid #cbd5e1 !important;
-  border-radius: 10px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.bluebook-header .tool-btn:hover {
-  background: #ffffff !important;
-  color: var(--lego-blue, #0055bf) !important;
-  border-color: var(--lego-blue, #0055bf) !important;
+.header-session-counter:hover {
+  background: #dbeafe !important;
+  border-color: #60a5fa !important;
   transform: translateY(-1px) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 3px 0 0 #93c5fd, 0 4px 10px rgba(0, 85, 191, 0.1) !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 0 #60a5fa !important;
 }
 
-.bluebook-header .tool-btn:active {
+.header-session-counter:active {
   transform: translateY(1px) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 0 #cbd5e1 !important;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.05), 0 1px 0 0 #93c5fd !important;
 }
 
-.bluebook-header .header-student-badge {
+.header-cluster-reset {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #fecdd3 !important;
+  color: #e11d48 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #fda4af !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.header-cluster-reset:hover {
+  background: #ffe4e6 !important;
+  border-color: #fb7185 !important;
+  color: #be123c !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 0 #fb7185, 0 4px 10px rgba(225, 29, 72, 0.12) !important;
+}
+
+.header-cluster-reset:active {
+  transform: translateY(1px) !important;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.05), 0 1px 0 0 #fda4af !important;
+}
+
+/* 2.3 Zone C: Right Cognitive Utilities (Color-Coded Semantic Lego Pods) */
+.header-tools {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 6px !important;
+  flex: 0 1 auto !important;
+  max-width: calc(50% - 150px) !important;
+}
+
+.tools-cluster {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 3px 5px !important;
+  border-radius: 14px !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Common button inside clusters */
+.tools-cluster .tool-btn {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tools-cluster .tool-btn:hover {
+  transform: translateY(-1px) !important;
+}
+
+.tools-cluster .tool-btn:active {
+  transform: translateY(1px) !important;
+}
+
+/* Pod 1: Learning & Vocab (Lego Mint / Emerald) */
+.tools-cluster.cluster-vocab {
+  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  border: 1.5px solid #a7f3d0 !important;
+  box-shadow: 0 2px 0 0 #6ee7b7, inset 0 1px 0 #ffffff !important;
+}
+
+.tools-cluster.cluster-vocab:hover {
+  border-color: #6ee7b7 !important;
+  box-shadow: 0 2px 0 0 #34d399, inset 0 1px 0 #ffffff, 0 4px 12px rgba(16, 185, 129, 0.12) !important;
+}
+
+.tools-cluster.cluster-vocab .tool-btn {
+  border: 1.5px solid #a7f3d0 !important;
+  color: #047857 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #a7f3d0 !important;
+}
+
+.tools-cluster.cluster-vocab .tool-btn:hover {
+  background: #059669 !important;
+  color: #ffffff !important;
+  border-color: #047857 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #047857, 0 4px 10px rgba(5, 150, 105, 0.2) !important;
+}
+
+/* Pod 2: Reflection & Metacognition (Lego Amber / Coral) */
+.tools-cluster.cluster-reflection {
+  background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%) !important;
+  border: 1.5px solid #fde68a !important;
+  box-shadow: 0 2px 0 0 #fcd34d, inset 0 1px 0 #ffffff !important;
+}
+
+.tools-cluster.cluster-reflection:hover {
+  border-color: #fcd34d !important;
+  box-shadow: 0 2px 0 0 #f59e0b, inset 0 1px 0 #ffffff, 0 4px 12px rgba(245, 158, 11, 0.12) !important;
+}
+
+.tools-cluster.cluster-reflection .tool-btn {
+  border: 1.5px solid #fde68a !important;
+  color: #b45309 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #fde68a !important;
+}
+
+.tools-cluster.cluster-reflection .tool-btn:hover {
+  background: #d97706 !important;
+  color: #ffffff !important;
+  border-color: #b45309 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #b45309, 0 4px 10px rgba(217, 119, 6, 0.2) !important;
+}
+
+.tools-cluster.cluster-reflection .tool-btn .badge {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.35) !important;
+}
+
+.tools-cluster.cluster-reflection .aar-pill-label {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Pod 3: STEM & Math (Lego Cobalt Blue / Cyan) */
+.tools-cluster.cluster-math {
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
+  border: 1.5px solid #bfdbfe !important;
+  box-shadow: 0 2px 0 0 #93c5fd, inset 0 1px 0 #ffffff !important;
+}
+
+.tools-cluster.cluster-math:hover {
+  border-color: #93c5fd !important;
+  box-shadow: 0 2px 0 0 #60a5fa, inset 0 1px 0 #ffffff, 0 4px 12px rgba(0, 85, 191, 0.12) !important;
+}
+
+.tools-cluster.cluster-math .tool-btn {
+  border: 1.5px solid #bfdbfe !important;
+  color: #0055bf !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #bfdbfe !important;
+}
+
+.tools-cluster.cluster-math .tool-btn:hover {
+  background: #0055bf !important;
+  color: #ffffff !important;
+  border-color: #004399 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #004399, 0 4px 10px rgba(0, 85, 191, 0.2) !important;
+}
+
+/* Pod 4: Growth & Focus (Lego Purple & Gold) */
+.tools-cluster.cluster-growth {
+  background: linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%) !important;
+  border: 1.5px solid #ddd6fe !important;
+  box-shadow: 0 2px 0 0 #c4b5fd, inset 0 1px 0 #ffffff !important;
+}
+
+.tools-cluster.cluster-growth:hover {
+  border-color: #c4b5fd !important;
+  box-shadow: 0 2px 0 0 #a855f7, inset 0 1px 0 #ffffff, 0 4px 12px rgba(124, 58, 237, 0.12) !important;
+}
+
+.tools-cluster.cluster-growth .tool-btn {
+  border: 1.5px solid #ddd6fe !important;
+  color: #7c3aed !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #ddd6fe !important;
+}
+
+.tools-cluster.cluster-growth .tool-btn:hover {
+  background: #7c3aed !important;
+  color: #ffffff !important;
+  border-color: #6d28d9 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #6d28d9, 0 4px 10px rgba(124, 58, 237, 0.2) !important;
+}
+
+.tools-cluster.cluster-growth .tool-btn.btn-zen-toggle.active {
+  background: #7c3aed !important;
+  color: #ffffff !important;
+  border-color: #6d28d9 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 3px 0 0 #5b21b6, 0 0 14px rgba(124, 58, 237, 0.4) !important;
+}
+
+.tools-cluster.cluster-growth .tool-btn .badge {
+  background: #f59e0b !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.35) !important;
+}
+
+/* Pod 5: Profile & System (Lego Slate / Pure Mirror Enamel) */
+.tools-cluster.cluster-system {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 2px 0 0 #cbd5e1, inset 0 1px 0 #ffffff !important;
+  gap: 6px !important;
+}
+
+.tools-cluster.cluster-system:hover {
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 0 0 #94a3b8, inset 0 1px 0 #ffffff, 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.tools-cluster.cluster-system .btn-lang-toggle {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 12px !important;
+  color: #0f172a !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #cbd5e1 !important;
+  padding: 4px 8px !important;
+  height: 36px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tools-cluster.cluster-system .btn-lang-toggle:hover {
+  border-color: #0055bf !important;
+  color: #0055bf !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 0 #0055bf, 0 4px 8px rgba(0, 85, 191, 0.12) !important;
+}
+
+.tools-cluster.cluster-system .header-student-badge {
   background: #ffffff !important;
   color: #0f172a !important;
   border: 1.5px solid #cbd5e1 !important;
-  border-radius: 20px !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 0 0 #cbd5e1 !important;
+  border-radius: 18px !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 0 #cbd5e1 !important;
+  padding: 4px 10px !important;
+  height: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tools-cluster.cluster-system .header-student-badge:hover {
+  border-color: #0055bf !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 0 #0055bf, 0 4px 10px rgba(0, 85, 191, 0.1) !important;
+}
+
+/* 2.4 Responsive Proportions for TopBar */
+@media (max-width: 1400px) {
+  .bluebook-header {
+    padding: 0 12px !important;
+  }
+  .header-section-info {
+    max-width: calc(50% - 140px) !important;
+  }
+  .header-band.band-navigation .select-practice-exam-header {
+    max-width: 135px !important;
+  }
+  .header-band.band-navigation .module-selector-wrap select {
+    max-width: 140px !important;
+  }
+  .header-tools {
+    max-width: calc(50% - 140px) !important;
+    gap: 4px !important;
+  }
+  .tools-cluster {
+    padding: 2px 4px !important;
+    gap: 3px !important;
+  }
+  .tools-cluster .tool-btn {
+    width: 33px !important;
+    height: 33px !important;
+    min-width: 33px !important;
+    min-height: 33px !important;
+  }
+  .tools-cluster.cluster-system .header-student-badge {
+    padding: 2px 8px !important;
+    height: 33px !important;
+  }
+  .tools-cluster.cluster-system .btn-lang-toggle {
+    height: 33px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .bluebook-header {
+    min-height: 58px !important;
+    height: 58px !important;
+    padding: 0 8px !important;
+  }
+  .header-section-info {
+    max-width: calc(50% - 110px) !important;
+  }
+  .header-band.band-navigation .select-practice-exam-header {
+    max-width: 105px !important;
+    font-size: 11px !important;
+  }
+  .header-band.band-navigation .module-selector-wrap select {
+    max-width: 110px !important;
+    font-size: 11px !important;
+  }
+  .header-timer-cluster {
+    gap: 5px !important;
+  }
+  .header-band.band-timer {
+    padding: 3px 6px !important;
+  }
+  .timer-display {
+    font-size: 15px !important;
+    min-width: 52px !important;
+  }
+  .header-session-counter .sc-lbl {
+    display: none !important;
+  }
+  .header-tools {
+    max-width: calc(50% - 110px) !important;
+    gap: 3px !important;
+  }
+  .header-student-badge .badge-name {
+    display: none !important;
+  }
 }
 
 /* 3. Language Switcher Buttons (Google + Lego Design) */
