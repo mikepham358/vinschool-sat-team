@@ -294,7 +294,7 @@ const App = {
   selectedChoice: null,
   eliminatorMode: false,
   timerInterval: null,
-  timerRunning: false, // Default paused until student starts practice
+  timerRunning: true, // Default running unless student manually clicks pause
   manualPause: false,  // Student clicked pause button manually
   timerHidden: false,
   pdfViewerMode: "drive", // Standard Google Drive viewer
@@ -1430,6 +1430,7 @@ function startPracticeFromHome(targetModule) {
     App.activeModuleCode = targetModule;
     App.studentState.active_module = targetModule;
   }
+  App.manualPause = false; // Always run by default when starting practice
   saveLocalState();
   if (DOM.selectModule) DOM.selectModule.value = App.activeModuleCode;
   setupModuleQuestions();
@@ -1956,7 +1957,7 @@ function pauseTimer() {
   App.timerRunning = false;
   if (DOM.btnTimerPause) {
     DOM.btnTimerPause.textContent = "▶️";
-    DOM.btnTimerPause.title = "Tiếp tục tính giờ";
+    DOM.btnTimerPause.title = (App.currentLang === "en") ? "Resume timer" : "Tiếp tục tính giờ";
   }
   if (DOM.timerDisplay) {
     DOM.timerDisplay.classList.add("timer-paused");
@@ -1971,7 +1972,7 @@ function resumeTimer() {
   App.timerRunning = true;
   if (DOM.btnTimerPause) {
     DOM.btnTimerPause.textContent = "⏸️";
-    DOM.btnTimerPause.title = "Tạm dừng";
+    DOM.btnTimerPause.title = (App.currentLang === "en") ? "Pause timer" : "Tạm dừng";
   }
   if (DOM.timerDisplay) {
     DOM.timerDisplay.classList.remove("timer-paused");
@@ -1982,35 +1983,17 @@ function resumeTimer() {
 }
 
 function shouldTimerRun() {
+  // 1. If student explicitly paused via the pause button, respect manual pause
   if (App.manualPause) return false;
 
-  // 1. Must be in practice view
+  // 2. Must be in practice view (pause on home / landing view)
   if (!DOM.viewPractice || DOM.viewPractice.classList.contains("hidden")) return false;
 
-  // 2. Modals that suspend active practice (error notes, review, calculators, strategies, etc.)
-  if (DOM.modalMandatoryReflection && !DOM.modalMandatoryReflection.classList.contains("hidden")) return false;
-  if (DOM.modalErrorLog && !DOM.modalErrorLog.classList.contains("hidden")) return false;
-  if (DOM.navigatorOverlay && !DOM.navigatorOverlay.classList.contains("hidden")) return false;
-  if (DOM.modalCalculator && !DOM.modalCalculator.classList.contains("hidden")) return false;
-  if (DOM.modalReference && !DOM.modalReference.classList.contains("hidden")) return false;
-  if (DOM.modalStrategies && !DOM.modalStrategies.classList.contains("hidden")) return false;
-  if (DOM.modalAarReport && !DOM.modalAarReport.classList.contains("hidden")) return false;
-  if (DOM.modalSubmitSuccess && !DOM.modalSubmitSuccess.classList.contains("hidden")) return false;
-  if (DOM.modalFeedback && !DOM.modalFeedback.classList.contains("hidden")) return false;
-  if (DOM.modalAceSATVocab && !DOM.modalAceSATVocab.classList.contains("hidden")) return false;
+  // 3. If time has run out for this module (00:00), do not run
+  const activeSecs = (App.studentState && App.studentState.timer_seconds) ? App.studentState.timer_seconds[App.activeModuleCode] : null;
+  if (activeSecs !== null && activeSecs <= 0) return false;
 
-  // 3. Question status check:
-  // If the current question is already completed or just evaluated for review, pause the timer!
-  const currentQ = App.currentQuestion || (App.questions ? App.questions[App.currentIndex] : null);
-  if (!currentQ) return false;
-
-  const qState = App.studentState.attempts[currentQ.id];
-  if (qState) {
-    const isFinished = (qState.status && (qState.status.startsWith("mastered") || qState.status === "missed"));
-    if (isFinished) return false;
-    if (qState.justChecked) return false;
-  }
-
+  // Default: Timer is ALWAYS running in practice view unless manually paused by student
   return true;
 }
 
@@ -2051,6 +2034,11 @@ function startModuleTimer() {
   };
 
   updateDisplay();
+
+  // If in practice view and not manually paused, ensure timer starts running immediately
+  if (!App.manualPause && DOM.viewPractice && !DOM.viewPractice.classList.contains("hidden")) {
+    resumeTimer();
+  }
 
   App.timerInterval = setInterval(() => {
     if (App.timerRunning) {
@@ -2861,8 +2849,6 @@ async function openMermaidModal() {
   const q = App.currentQuestion;
   if (!q || !q.mermaid_diagram || !q.mermaid_diagram.trim()) return;
 
-  pauseTimer();
-
   const isEn = (App.currentLang === "en");
   const qIndex = App.currentIndex + 1;
   const modTitle = DOM.selectModule ? DOM.selectModule.options[DOM.selectModule.selectedIndex].text.split("(")[0].trim() : App.activeModuleCode;
@@ -3144,10 +3130,7 @@ function checkAnswer() {
   saveLocalState();
   recordQuestionInGlobalSession(q, qState);
 
-  // Pause timer so student can review explanations, hints, or record reflection without penalty
-  pauseTimer();
-
-  // Re-render UI
+  // Re-render UI (timer remains running by default)
   renderCurrentQuestion();
 
   // If question is completed (correct or 3 attempts) and has unlogged mistake, show mandatory reflection modal!
@@ -4160,6 +4143,7 @@ function handleResetConfirm() {
   App.studentState.active_q_index = 0;
 
   // 5. Persist and Re-render
+  App.manualPause = false;
   saveLocalState();
   setupModuleQuestions();
   startModuleTimer();
@@ -4225,9 +4209,6 @@ function checkCanNavigate() {
 }
 
 function openMandatoryReflectionModal(q, qState) {
-  // Always pause timer during error notebook reflection
-  pauseTimer();
-
   if (!q) q = App.currentQuestion;
   if (!qState) qState = App.studentState.attempts[q.id];
   if (!q || !qState) return;
@@ -4327,8 +4308,6 @@ function saveMandatoryReflection(advanceToNext = true) {
     if (DOM.hintContent2) DOM.hintContent2.classList.remove("collapsed");
     if (DOM.hintContent3) DOM.hintContent3.classList.remove("collapsed");
     if (DOM.hintContent4) DOM.hintContent4.classList.remove("collapsed");
-
-    pauseTimer();
 
     const hintSec = document.getElementById("hint-card-1") || DOM.hintsContainer;
     if (hintSec) {
@@ -6278,8 +6257,6 @@ function updateFeedbackBadge() {
 }
 
 function openFeedbackModal(prefilledContext) {
-  pauseTimer();
-
   // Detect current context
   let contextLabel = "Trang chủ / Hệ thống chung";
   const isPractice = DOM.viewPractice && !DOM.viewPractice.classList.contains("hidden");
@@ -6692,7 +6669,6 @@ function setupEventListeners() {
 
   // Question Navigator Modal
   DOM.btnOpenNavigator.addEventListener("click", () => {
-    pauseTimer();
     renderNavigatorTiles();
     DOM.navigatorOverlay.classList.remove("hidden");
   });
@@ -6762,7 +6738,6 @@ function setupEventListeners() {
   }
   if (DOM.btnOpenBadges) {
     DOM.btnOpenBadges.addEventListener("click", () => {
-      pauseTimer();
       renderBadgesShowcase();
       DOM.modalBadgesShowcase.classList.remove("hidden");
     });
@@ -6944,7 +6919,6 @@ function setupEventListeners() {
   }
 
   DOM.btnOpenErrorLog.addEventListener("click", () => {
-    pauseTimer();
     App.editingLogId = null;
     if (DOM.notebookAddPanel) DOM.notebookAddPanel.classList.add("hidden");
     renderErrorLogs();
@@ -6952,7 +6926,6 @@ function setupEventListeners() {
   });
   if (DOM.btnHomeReviewErrors) {
     DOM.btnHomeReviewErrors.addEventListener("click", () => {
-      pauseTimer();
       App.editingLogId = null;
       if (DOM.notebookAddPanel) DOM.notebookAddPanel.classList.add("hidden");
       App.notebookScope = "all";
@@ -6986,7 +6959,6 @@ function setupEventListeners() {
 
   if (DOM.btnOpenVocab) {
     DOM.btnOpenVocab.addEventListener("click", () => {
-      pauseTimer();
       if (window.openAceSATVocabModal) window.openAceSATVocabModal("practice");
     });
   }
@@ -7102,7 +7074,6 @@ function setupEventListeners() {
 
   if (DOM.btnOpenStrategies) {
     DOM.btnOpenStrategies.addEventListener("click", () => {
-      pauseTimer();
       renderStrategiesModal();
       DOM.modalStrategies.classList.remove("hidden");
     });
@@ -7646,7 +7617,6 @@ function filterReferenceSheet(category = "all") {
 }
 
 function openReferenceModal() {
-  pauseTimer();
   renderReferenceSheetMath();
   filterReferenceSheet("all");
   if (DOM.modalReference) DOM.modalReference.classList.remove("hidden");
@@ -8514,7 +8484,6 @@ function closeAARModal() {
 }
 
 function openAARModal() {
-  pauseTimer();
   loadGlobalAARState();
   loadGlobalSessionTracker();
 

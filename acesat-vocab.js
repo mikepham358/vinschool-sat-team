@@ -583,7 +583,6 @@
 
   // --- MODAL CONTROLLER & HOOKS ---
   function openModal(defaultTab = 'practice') {
-    if (window.pauseTimer) window.pauseTimer();
     if (el.modal) el.modal.classList.remove('hidden');
 
     // On every modal open, pick a random list and shuffle flashcards
