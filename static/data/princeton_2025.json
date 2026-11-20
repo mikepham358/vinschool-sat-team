@@ -704,8 +704,29 @@
       "topic": "Chiến Thuật POE Cơ Bản",
       "pdf_page": 243,
       "passage": "",
-      "prompt": "tool to add a little flag\nnext to the question. Then keep on moving until you find a question that\nbetter suits your POOD.\nSometimes, though, a question that seems easy at first may turn out to be\nmor",
-      "options": [],
+      "prompt": "Use the Mark for Review tool to add a little flag next to the question. Then keep on moving until you find a question that better suits your POOD.\nSometimes, though, a question that seems easy at first may turn out to be more troublesome than it appeared. If you get stuck on a question, what is the best strategy according to The Princeton Review?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "Spend 5 minutes until you figure it out at all costs"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "Leave it blank and end the module without answering"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "Keep guessing randomly without marking for later review"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "Mark it for review, move on to easier questions, and retry later with fresh eyes"
+        }
+      ],
       "options_raw": {},
       "is_grid_in": false,
       "correct_answer": "D",
@@ -735,19 +756,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Washington, D.C."
+          "text": "Washington, D.C.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Paris"
+          "text": "Paris",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "London"
+          "text": "London",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Baku The question doesn’t seem that hard anymore, does it? Of course, we made our example extremely easy. (By the way, there won’t actually be any questions about geography on the Digital SAT.) But you’d be surprised by how many people give up on Digital SAT questions that aren’t much more difficult than this one just because they don’t know the correct answer right off the top of their heads. “Capital of Azerbaijan? Oh, no! I’ve never heard of Azerbaijan!” These students don’t stop to think that they might be able to find the correct answer simply by eliminating all of the answer choices they know are wrong. You Already Know Almost All of the Answers All but a handful of the questions on the Digital SAT are multiple-choice questions, and every multiple-choice question has four answer choices. One of those choices, and only one, will be the correct answer to the question. You don’t have to come up with the answer from scratch. You just have to identify it. How will you do that? Look for the Wrong Answers Instead of the Right Ones Why? Because wrong answers are usually easier to find than the right ones. After all, there are more of them! Remember the question about Azerbaijan? Even though you didn’t know the answer off the top of your head, you easily figured it out by eliminating the three obviously incorrect choices. You looked for wrong answers first. In other words, you used Process of Elimination, which we’ll call POE for short. This is an extremely important concept, one we’ll come back to again"
+          "text": "Baku The question doesn’t seem that hard anymore, does it? Of course, we made our example extremely easy. (By the way, there won’t actually be any questions about geography on the Digital SAT.) But you’d be surprised by how many people give up on Digital SAT questions that aren’t much more difficult than this one just because they don’t know the correct answer right off the top of their heads. “Capital of Azerbaijan? Oh, no! I’ve never heard of Azerbaijan!” These students don’t stop to think that they might be able to find the correct answer simply by eliminating all of the answer choices they know are wrong. You Already Know Almost All of the Answers All but a handful of the questions on the Digital SAT are multiple-choice questions, and every multiple-choice question has four answer choices. One of those choices, and only one, will be the correct answer to the question. You don’t have to come up with the answer from scratch. You just have to identify it. How will you do that? Look for the Wrong Answers Instead of the Right Ones Why? Because wrong answers are usually easier to find than the right ones. After all, there are more of them! Remember the question about Azerbaijan? Even though you didn’t know the answer off the top of your head, you easily figured it out by eliminating the three obviously incorrect choices. You looked for wrong answers first. In other words, you used Process of Elimination, which we’ll call POE for short. This is an extremely important concept, one we’ll come back to again",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -784,19 +809,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Paris"
+          "text": "Paris",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Dukhan"
+          "text": "Dukhan",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Tokyo"
+          "text": "Tokyo",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Doha On this question, you’ll almost certainly be able to eliminate two of the four choices by using POE. That means you’re still not sure of the answer. You know that the capital of Qatar has to be either Doha or Dukhan, but you don’t know which. So just pick one and move on! You’ve already improved your chances of getting it right from 25% to 50%. The Answer Eliminator Tool The Digital SAT Bluebook app has a great tool to help you keep track of your POE. It is called the Answer Eliminator, and it crosses off answers for you right on the screen. To use it, click the box on the right side of the gray bar that has “ABC” with a slash through the letters. A new set of letters will appear to the right of each answer, and clicking on one crosses off the corresponding answer. Here is what our Qatar question would look like after eliminating (A) and (C)."
+          "text": "Doha On this question, you’ll almost certainly be able to eliminate two of the four choices by using POE. That means you’re still not sure of the answer. You know that the capital of Qatar has to be either Doha or Dukhan, but you don’t know which. So just pick one and move on! You’ve already improved your chances of getting it right from 25% to 50%. The Answer Eliminator Tool The Digital SAT Bluebook app has a great tool to help you keep track of your POE. It is called the Answer Eliminator, and it crosses off answers for you right on the screen. To use it, click the box on the right side of the gray bar that has “ABC” with a slash through the letters. A new set of letters will appear to the right of each answer, and clicking on one crosses off the corresponding answer. Here is what our Qatar question would look like after eliminating (A) and (C).",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -833,19 +862,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Paris"
+          "text": "Paris",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Dukhan"
+          "text": "Dukhan",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Tokyo"
+          "text": "Tokyo",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Doha"
+          "text": "Doha",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -878,8 +911,29 @@
       "topic": "Chiến Thuật POE Cơ Bản",
       "pdf_page": 254,
       "passage": "",
-      "prompt": "tool to flag questions you want to come back\nto later.\nThere are bound to be at least a few questions you simply don’t get to\nor ones on which you find it difficult to eliminate even one answer\nchoice",
-      "options": [],
+      "prompt": "There are bound to be at least a few questions you simply don’t get to or ones on which you find it difficult to eliminate even one answer choice. What is the fundamental rule regarding unanswered questions on the Digital SAT?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "Never leave any question blank because there is no guessing penalty on the Digital SAT"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "Leave questions blank if unsure to avoid point deductions"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "Only answer questions you are 100% certain of"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "Unanswered questions receive partial credit whereas wrong answers receive zero"
+        }
+      ],
       "options_raw": {},
       "is_grid_in": false,
       "correct_answer": "A",
@@ -909,19 +963,23 @@
       "options": [
         {
           "id": "A",
-          "text": "To define a distinction between William and the other waiters at the dining club"
+          "text": "To define a distinction between William and the other waiters at the dining club",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "To examine the type of service that the narrator most highly values Is this answer consistent with your highlighting and annotation? No, it’s not. All you know from the passage is that the narrator wants waiters to wait on him and doesn’t want to know about their private lives. The passage offers no indication as to what type of service the narrator most highly values, which is what we call Extreme Language. These traps typically include a word or phrase beyond what the passage can support. Believe it or not, most highly values can be eliminated for another reason! Valuing something is a positive emotion; it means we hold an idea or person in certain esteem and are grateful for it. However, the emotions you highlighted in the passage (forced, distress, bad form) were entirely negative. So, the emotions presented in (B) are the Opposite of those in the passage. Answers may express a conflicting attitude, tone, or meaning to"
+          "text": "To examine the type of service that the narrator most highly values Is this answer consistent with your highlighting and annotation? No, it’s not. All you know from the passage is that the narrator wants waiters to wait on him and doesn’t want to know about their private lives. The passage offers no indication as to what type of service the narrator most highly values, which is what we call Extreme Language. These traps typically include a word or phrase beyond what the passage can support. Believe it or not, most highly values can be eliminated for another reason! Valuing something is a positive emotion; it means we hold an idea or person in certain esteem and are grateful for it. However, the emotions you highlighted in the passage (forced, distress, bad form) were entirely negative. So, the emotions presented in (B) are the Opposite of those in the passage. Answers may express a conflicting attitude, tone, or meaning to",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "To demonstrate the narrator’s disappointment with the dining club for hiring William Is this answer consistent with your highlighting and annotation? No, it’s not. Some answers can start so well and go so, so wrong. This answer is Half-Right: the narrator is 100% disappointed by something…but his disappointment is not directed at the dining club for hiring William. Because exams like the Digital SAT are stressful, it’s easy to read part of an answer and be tempted to just choose it so you can move on. Force yourself to read all the way to the end of the answer, because that’s where the trap in a Half-Right answer will often lie. Half-Right answers usually rely on one of the other traps to make up the flawed half of the answer. In this case, this answer could be seen as Recycled Language or Beyond the Text. In fact, these traps often appear together in the same answer. The words dining club and William both appear in the passage, but William’s hiring is never mentioned in the passage. Yet, the answer seems tempting because it’s very logical to assume that the narrator is upset about William’s hiring: after all, he certainly believes he now knows things about William that he really shouldn’t know about his waiter. Again, you would need textual support for that conclusion, and you don’t have it. At this point, you’d strike out (C) using the Answer Eliminator and move on to the next answer. You still need to evaluate (D) even if it’s the only answer remaining and not simply choose it because it’s the last answer standing. An answer on the Digital SAT is correct only because it’s"
+          "text": "To demonstrate the narrator’s disappointment with the dining club for hiring William Is this answer consistent with your highlighting and annotation? No, it’s not. Some answers can start so well and go so, so wrong. This answer is Half-Right: the narrator is 100% disappointed by something…but his disappointment is not directed at the dining club for hiring William. Because exams like the Digital SAT are stressful, it’s easy to read part of an answer and be tempted to just choose it so you can move on. Force yourself to read all the way to the end of the answer, because that’s where the trap in a Half-Right answer will often lie. Half-Right answers usually rely on one of the other traps to make up the flawed half of the answer. In this case, this answer could be seen as Recycled Language or Beyond the Text. In fact, these traps often appear together in the same answer. The words dining club and William both appear in the passage, but William’s hiring is never mentioned in the passage. Yet, the answer seems tempting because it’s very logical to assume that the narrator is upset about William’s hiring: after all, he certainly believes he now knows things about William that he really shouldn’t know about his waiter. Again, you would need textual support for that conclusion, and you don’t have it. At this point, you’d strike out (C) using the Answer Eliminator and move on to the next answer. You still need to evaluate (D) even if it’s the only answer remaining and not simply choose it because it’s the last answer standing. An answer on the Digital SAT is correct only because it’s",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "To express the narrator’s strong emotions towards professional boundaries Is this answer consistent with your highlighting and annotation? Yes, it’s fairly consistent. The narrator believes it is bad form to come into closer relation with waiters and that William should have kept his distress to himself. This is fairly consistent with our annotation box as well, which stated, “knows more about waiter now – unhappy about it.” Notice how the answer doesn’t use the same words as the passage nor does it use the same words as our annotation-it almost never will. However, it does express all of the correct ideas. The narrator does indeed have strong emotions towards professional boundaries and feels that they have been crossed with what the narrator now knows about William’s private life. Even if this is not how you would personally phrase the passage’s main purpose, this answer is fully supported by the passage and shouldn’t be eliminated. You keep this answer in play. Since all three of the other answers are crossed out and (D) remains because it is supported by the passage, you can now confidently click on (D) as the answer."
+          "text": "To express the narrator’s strong emotions towards professional boundaries Is this answer consistent with your highlighting and annotation? Yes, it’s fairly consistent. The narrator believes it is bad form to come into closer relation with waiters and that William should have kept his distress to himself. This is fairly consistent with our annotation box as well, which stated, “knows more about waiter now – unhappy about it.” Notice how the answer doesn’t use the same words as the passage nor does it use the same words as our annotation-it almost never will. However, it does express all of the correct ideas. The narrator does indeed have strong emotions towards professional boundaries and feels that they have been crossed with what the narrator now knows about William’s private life. Even if this is not how you would personally phrase the passage’s main purpose, this answer is fully supported by the passage and shouldn’t be eliminated. You keep this answer in play. Since all three of the other answers are crossed out and (D) remains because it is supported by the passage, you can now confidently click on (D) as the answer.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -958,19 +1016,23 @@
       "options": [
         {
           "id": "A",
-          "text": "beautiful"
+          "text": "beautiful",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "harmonious"
+          "text": "harmonious",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "jarring"
+          "text": "jarring",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "acclaimed"
+          "text": "acclaimed",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1007,19 +1069,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Agreeable"
+          "text": "Agreeable",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Observant"
+          "text": "Observant",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Withdrawn"
+          "text": "Withdrawn",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Hostile"
+          "text": "Hostile",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1056,19 +1122,23 @@
       "options": [
         {
           "id": "A",
-          "text": "To explain how misunderstood calmodulin is"
+          "text": "To explain how misunderstood calmodulin is",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "To describe Cohen’s realization regarding calmodulin"
+          "text": "To describe Cohen’s realization regarding calmodulin",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "To illustrate how calcium-binding proteins function"
+          "text": "To illustrate how calcium-binding proteins function",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "To place emphasis on the importance of calcium within enzymes"
+          "text": "To place emphasis on the importance of calcium within enzymes",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1105,19 +1175,23 @@
       "options": [
         {
           "id": "A",
-          "text": "It details the outcome of a conversation mentioned in the previous sentence."
+          "text": "It details the outcome of a conversation mentioned in the previous sentence.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "It describes the specifics of the construction of the jailhouse."
+          "text": "It describes the specifics of the construction of the jailhouse.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "It explains that an individual is debating his obligations to duty."
+          "text": "It explains that an individual is debating his obligations to duty.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "It introduces a claim that the following sentence further explains."
+          "text": "It introduces a claim that the following sentence further explains.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1154,19 +1228,23 @@
       "options": [
         {
           "id": "A",
-          "text": "By noting that it may not be the only possible treatment by which an individual may reduce anxiety"
+          "text": "By noting that it may not be the only possible treatment by which an individual may reduce anxiety",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "By claiming that those who prescribe medication for anxiety completely ignore the emotional benefits of frequent handwashing"
+          "text": "By claiming that those who prescribe medication for anxiety completely ignore the emotional benefits of frequent handwashing",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "By stating that his team’s findings help establish handwashing as an alternative treatment to prescribed medication"
+          "text": "By stating that his team’s findings help establish handwashing as an alternative treatment to prescribed medication",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "By calling for other psychologists to focus their own efforts on how handwashing frequency increases with exposure to instructional videos Watch Us Crack It Check out the Video Walkthroughs in your online Student Tools to watch a Princeton Review teacher work through this question step-by-step."
+          "text": "By calling for other psychologists to focus their own efforts on how handwashing frequency increases with exposure to instructional videos Watch Us Crack It Check out the Video Walkthroughs in your online Student Tools to watch a Princeton Review teacher work through this question step-by-step.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1203,19 +1281,23 @@
       "options": [
         {
           "id": "A",
-          "text": "She is skeptical of Mr. Casaubon’s career as a messenger."
+          "text": "She is skeptical of Mr. Casaubon’s career as a messenger.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "She wants to know Mr. Casaubon’s feelings towards summer."
+          "text": "She wants to know Mr. Casaubon’s feelings towards summer.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "She is enthused by the prospect of marriage to a particular individual."
+          "text": "She is enthused by the prospect of marriage to a particular individual.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "She prefers marriage over other types of relationships."
+          "text": "She prefers marriage over other types of relationships.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1252,19 +1334,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Advanced cameras can now take pictures from a much safer distance than fire photographers can."
+          "text": "Advanced cameras can now take pictures from a much safer distance than fire photographers can.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Although there are numerous possible career paths for fire photographers, they must prioritize safety given the nature of their jobs."
+          "text": "Although there are numerous possible career paths for fire photographers, they must prioritize safety given the nature of their jobs.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "While there are many possible career paths, most fire photographers prefer working directly with fire departments."
+          "text": "While there are many possible career paths, most fire photographers prefer working directly with fire departments.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Fire photographers have been charged with documenting fires for a century."
+          "text": "Fire photographers have been charged with documenting fires for a century.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1301,19 +1387,23 @@
       "options": [
         {
           "id": "A",
-          "text": "“We sat there and smoked, staring vacantly at the half- empty shelves, and all but shivering in the damp room.”"
+          "text": "“We sat there and smoked, staring vacantly at the half- empty shelves, and all but shivering in the damp room.”",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "“We made clever comments to the effect that the farmers were now getting plenty of moisture for the hay-fields, and that it would be a pity if rain should set in now, right at the beginning of the haying season.”"
+          "text": "“We made clever comments to the effect that the farmers were now getting plenty of moisture for the hay-fields, and that it would be a pity if rain should set in now, right at the beginning of the haying season.”",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "“We were tired of the store-indeed, I should like to know who would have enjoyed it.”"
+          "text": "“We were tired of the store-indeed, I should like to know who would have enjoyed it.”",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "“We had often cursed their lengthy visits, but now that they had hired themselves out during the haymaking, we suddenly realized that they had often been entertaining.”"
+          "text": "“We had often cursed their lengthy visits, but now that they had hired themselves out during the haymaking, we suddenly realized that they had often been entertaining.”",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1350,19 +1440,23 @@
       "options": [
         {
           "id": "A",
-          "text": "The skim cow’s milk has higher sugar content than fat content, but it also contains more sodium than does unsweetened oat milk."
+          "text": "The skim cow’s milk has higher sugar content than fat content, but it also contains more sodium than does unsweetened oat milk.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Both the skim cow’s milk and the unsweetened oat milk’s sodium contents were over 100 milligrams per cup."
+          "text": "Both the skim cow’s milk and the unsweetened oat milk’s sodium contents were over 100 milligrams per cup.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "The skim cow’s milk and unsweetened oat milk both contain 90 calories in an average 1 cup serving."
+          "text": "The skim cow’s milk and unsweetened oat milk both contain 90 calories in an average 1 cup serving.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "The unsweetened oat milk has lower sugar content but higher fat content than does the skim cow’s milk."
+          "text": "The unsweetened oat milk has lower sugar content but higher fat content than does the skim cow’s milk.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1399,19 +1493,23 @@
       "options": [
         {
           "id": "A",
-          "text": "the pyramids formed by A. mellifera swarms may reduce strain on the nest structure."
+          "text": "the pyramids formed by A. mellifera swarms may reduce strain on the nest structure.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "any individual A. mellifera bee can be in danger of suffocation by the rest of the bee swarm."
+          "text": "any individual A. mellifera bee can be in danger of suffocation by the rest of the bee swarm.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "improving the numbers of A. mellifera requires Western intervention."
+          "text": "improving the numbers of A. mellifera requires Western intervention.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "colonial nests enable A. mellifera to produce high quantities of wax."
+          "text": "colonial nests enable A. mellifera to produce high quantities of wax.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1448,19 +1546,23 @@
       "options": [
         {
           "id": "A",
-          "text": "To establish that Catherine is as naïve as expected of one her age"
+          "text": "To establish that Catherine is as naïve as expected of one her age",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "To describe Catherine’s personality and level of maturity prior to her trip"
+          "text": "To describe Catherine’s personality and level of maturity prior to her trip",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "To convey Catherine’s disapproval towards the family that will host her in Bath"
+          "text": "To convey Catherine’s disapproval towards the family that will host her in Bath",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "To explain the difficulties and dangers that Catherine will face in Bath Which answer is the trap? The trap answer to this Purpose question is (A). Why? This trap answer is Right Answer, Wrong Question. It’s completely supported by the final sentence of the passage, which states and her mind about as ignorant and uninformed as the female mind at seventeen usually is. The problem is that the question asks for the main purpose of the passage, and the rest of the passage doesn’t discuss Catherine’s naiveté at all! So, which answer must be correct? By Process of Elimination, the correct answer is (B). Why? Careful highlighting would show that the passage describes Catherine Morland’s mental and personal endowments, that her heart was affectionate, her disposition cheerful and open, without conceit or affectation, and her person pleasing, which are all just as important to the description as the naiveté from the last lines you saw earlier. A good annotation for the answer here would have been “describe how Catherine acts and thinks,” which is fairly consistent with (B)."
+          "text": "To explain the difficulties and dangers that Catherine will face in Bath Which answer is the trap? The trap answer to this Purpose question is (A). Why? This trap answer is Right Answer, Wrong Question. It’s completely supported by the final sentence of the passage, which states and her mind about as ignorant and uninformed as the female mind at seventeen usually is. The problem is that the question asks for the main purpose of the passage, and the rest of the passage doesn’t discuss Catherine’s naiveté at all! So, which answer must be correct? By Process of Elimination, the correct answer is (B). Why? Careful highlighting would show that the passage describes Catherine Morland’s mental and personal endowments, that her heart was affectionate, her disposition cheerful and open, without conceit or affectation, and her person pleasing, which are all just as important to the description as the naiveté from the last lines you saw earlier. A good annotation for the answer here would have been “describe how Catherine acts and thinks,” which is fairly consistent with (B).",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1497,19 +1599,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Both the individuals who consumed sucralose and the control group had much higher glucose tolerance levels at the conclusion of the study."
+          "text": "Both the individuals who consumed sucralose and the control group had much higher glucose tolerance levels at the conclusion of the study.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "At the conclusion of the study, individuals who consumed sucralose had lower glucose tolerance levels but also decreased appetite levels compared to the control group."
+          "text": "At the conclusion of the study, individuals who consumed sucralose had lower glucose tolerance levels but also decreased appetite levels compared to the control group.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Individuals who consumed sucralose had lower glucose tolerance levels and increased appetite levels at the conclusion of the study compared to the control group."
+          "text": "Individuals who consumed sucralose had lower glucose tolerance levels and increased appetite levels at the conclusion of the study compared to the control group.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "When individuals who consumed sucralose were interviewed, they were found to also have consumed large quantities of water, which is known to decrease appetite. Which answer is the trap? The trap answer to this Claims question is (B). Why? This trap answer is Half-Right. It looks incredibly solid, except for the very end when it mentions that the sucralose group had decreased appetite levels compared to the control group, while the passage states that sucralose should increase appetite. Most of the time, Half-Right answers will contain one of the other traps; in this case, the very end of the answer"
+          "text": "When individuals who consumed sucralose were interviewed, they were found to also have consumed large quantities of water, which is known to decrease appetite. Which answer is the trap? The trap answer to this Claims question is (B). Why? This trap answer is Half-Right. It looks incredibly solid, except for the very end when it mentions that the sucralose group had decreased appetite levels compared to the control group, while the passage states that sucralose should increase appetite. Most of the time, Half-Right answers will contain one of the other traps; in this case, the very end of the answer",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1546,19 +1652,23 @@
       "options": [
         {
           "id": "A",
-          "text": "certain practitioners of barefoot running in different regions of the world may have already discovered the benefits of the practice."
+          "text": "certain practitioners of barefoot running in different regions of the world may have already discovered the benefits of the practice.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "barefoot running has made exercise more accessible to those who cannot afford expensive footwear."
+          "text": "barefoot running has made exercise more accessible to those who cannot afford expensive footwear.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "barefoot running will soon surpass other methods of exercise as awareness of its benefits becomes more prevalent."
+          "text": "barefoot running will soon surpass other methods of exercise as awareness of its benefits becomes more prevalent.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "footwear manufacturers could increase profits if they created region-specific running shoe designs. Which answer is a trap? The first trap answer to this Conclusions question is (B). Why? This trap answer is a Beyond the Text trap. Anytime you look at an answer and say, “Well, this is true” or “This makes sense,” you want to remind yourself that what makes an answer correct on the Digital SAT is that it is supported by the passage and that it answers the question. As logical as it is to assume that increased awareness of the benefits of barefoot running may decrease the barrier to exercise created by expensive footwear, the author never mentions anything regarding expensive footwear in the passage. If an answer is something you could only support if you had a chance to argue about it with someone, it’s probably a wrong answer. Which remaining answer is also a trap? The second trap answer is (C). Why? This answer is a type of Extreme Language trap. While it may not contain words like only or most which are more concretely extreme words, it still takes an opinion or claim made in the passage too far. The opening sentence states that barefoot running…has increased in popularity, but that doesn’t mean that barefoot running will surpass other methods of exercise as (C) states. The passage would need to state this bold prediction and not just offer a piece of evidence that may support such a prediction as if it were part of a much longer, much more detailed argument."
+          "text": "footwear manufacturers could increase profits if they created region-specific running shoe designs. Which answer is a trap? The first trap answer to this Conclusions question is (B). Why? This trap answer is a Beyond the Text trap. Anytime you look at an answer and say, “Well, this is true” or “This makes sense,” you want to remind yourself that what makes an answer correct on the Digital SAT is that it is supported by the passage and that it answers the question. As logical as it is to assume that increased awareness of the benefits of barefoot running may decrease the barrier to exercise created by expensive footwear, the author never mentions anything regarding expensive footwear in the passage. If an answer is something you could only support if you had a chance to argue about it with someone, it’s probably a wrong answer. Which remaining answer is also a trap? The second trap answer is (C). Why? This answer is a type of Extreme Language trap. While it may not contain words like only or most which are more concretely extreme words, it still takes an opinion or claim made in the passage too far. The opening sentence states that barefoot running…has increased in popularity, but that doesn’t mean that barefoot running will surpass other methods of exercise as (C) states. The passage would need to state this bold prediction and not just offer a piece of evidence that may support such a prediction as if it were part of a much longer, much more detailed argument.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1595,19 +1705,23 @@
       "options": [
         {
           "id": "A",
-          "text": "little while, a year agone, I knew her for a romping child,"
+          "text": "little while, a year agone, I knew her for a romping child,",
+          "key": "A"
         },
         {
           "id": "A",
-          "text": "dimple and a glance that shone With idle mischief when she smiled. To-day she passed me in the press, And turning with a quick surprise I wondered at her stateliness, I wondered at her altered eyes. Which choice best states the main idea of the text?"
+          "text": "dimple and a glance that shone With idle mischief when she smiled. To-day she passed me in the press, And turning with a quick surprise I wondered at her stateliness, I wondered at her altered eyes. Which choice best states the main idea of the text?",
+          "key": "A"
         },
         {
           "id": "A",
-          "text": "The speaker is reminiscing about a past romantic relationship with a woman."
+          "text": "The speaker is reminiscing about a past romantic relationship with a woman.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "The speaker is astonished at the changes within a certain individual."
+          "text": "The speaker is astonished at the changes within a certain individual.",
+          "key": "B"
         }
       ],
       "options_raw": {
@@ -1642,19 +1756,23 @@
       "options": [
         {
           "id": "A",
-          "text": "“Earl Simon on the Abbey tower / In summer sunshine stood, / While helm and lance o’er Greenhill heights /"
+          "text": "“Earl Simon on the Abbey tower / In summer sunshine stood, / While helm and lance o’er Greenhill heights /",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "“‘My son!’ he cried, ‘I know his flag / Amongst a thousand glancing’:- / Fond father! no!-’tis Edward stern / In royal strength advancing.”"
+          "text": "“‘My son!’ he cried, ‘I know his flag / Amongst a thousand glancing’:- / Fond father! no!-’tis Edward stern / In royal strength advancing.”",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "“The Prince fell on him like a hawk / At Al’ster yester-eve, / And flaunts his captured banner now / And flaunts but to deceive:-”"
+          "text": "“The Prince fell on him like a hawk / At Al’ster yester-eve, / And flaunts his captured banner now / And flaunts but to deceive:-”",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "“-Look round! for Mortimer is by, / And guards the rearward river:- / The hour that parted sire and son / Has parted them for ever!”"
+          "text": "“-Look round! for Mortimer is by, / And guards the rearward river:- / The hour that parted sire and son / Has parted them for ever!”",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1691,19 +1809,23 @@
       "options": [
         {
           "id": "A",
-          "text": "allows"
+          "text": "allows",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "avoids"
+          "text": "avoids",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "embraces"
+          "text": "embraces",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "integrates"
+          "text": "integrates",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1740,19 +1862,23 @@
       "options": [
         {
           "id": "A",
-          "text": "aesthetic"
+          "text": "aesthetic",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "detrimental"
+          "text": "detrimental",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "economic"
+          "text": "economic",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "restorative"
+          "text": "restorative",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1789,19 +1915,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Amusement"
+          "text": "Amusement",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Recital"
+          "text": "Recital",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Execution"
+          "text": "Execution",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Appraisal"
+          "text": "Appraisal",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1838,19 +1968,23 @@
       "options": [
         {
           "id": "A",
-          "text": "It describes an invention and then gives specific reasons for its continued use."
+          "text": "It describes an invention and then gives specific reasons for its continued use.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "It describes a hypothesis concerning a compound and then contradicts that hypothesis."
+          "text": "It describes a hypothesis concerning a compound and then contradicts that hypothesis.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "It introduces a product and then discusses both the uses and the dangers associated with that product."
+          "text": "It introduces a product and then discusses both the uses and the dangers associated with that product.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "It explains the initial purpose of an invention and then questions the ethics behind that invention."
+          "text": "It explains the initial purpose of an invention and then questions the ethics behind that invention.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1887,19 +2021,23 @@
       "options": [
         {
           "id": "A",
-          "text": "She would argue that binge-watching can have very different effects on people depending on the subject matter being viewed."
+          "text": "She would argue that binge-watching can have very different effects on people depending on the subject matter being viewed.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "She would point out that the long-term effects of binge- watching will be negative for streaming companies as well."
+          "text": "She would point out that the long-term effects of binge- watching will be negative for streaming companies as well.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "She would suggest that Dr. Mayer compare the dopamine effects of binge-watching to the dopamine effects experienced as the result of engaging in other kinds of pleasurable activities."
+          "text": "She would suggest that Dr. Mayer compare the dopamine effects of binge-watching to the dopamine effects experienced as the result of engaging in other kinds of pleasurable activities.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "She would suggest that frequent binge-watching may not have an entirely positive effect upon an individual."
+          "text": "She would suggest that frequent binge-watching may not have an entirely positive effect upon an individual.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1936,19 +2074,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Mrs. Kearney had certain standards regarding a potential husband."
+          "text": "Mrs. Kearney had certain standards regarding a potential husband.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Mrs. Kearney’s desperation to marry was obvious to those around her."
+          "text": "Mrs. Kearney’s desperation to marry was obvious to those around her.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Mrs. Kearney was criticized for treating potential suitors rudely."
+          "text": "Mrs. Kearney was criticized for treating potential suitors rudely.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Mrs. Kearney sometimes disapproved of the behavior of her would-be suitors."
+          "text": "Mrs. Kearney sometimes disapproved of the behavior of her would-be suitors.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -1985,19 +2127,23 @@
       "options": [
         {
           "id": "A",
-          "text": "It discusses the study by Ramula and her team to examine one possible reason that garden lupines are able to grow and thrive."
+          "text": "It discusses the study by Ramula and her team to examine one possible reason that garden lupines are able to grow and thrive.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "It details the study by Ramula and her team to critique other researchers for ignoring the impact of soil microbiota on garden lupines."
+          "text": "It details the study by Ramula and her team to critique other researchers for ignoring the impact of soil microbiota on garden lupines.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "It argues that the effects of soil microbiota on garden lupines are often difficult to observe, as was the case with Ramula and her team’s study."
+          "text": "It argues that the effects of soil microbiota on garden lupines are often difficult to observe, as was the case with Ramula and her team’s study.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "It explains a significant threat to the environment caused by garden lupines that the study by Ramula and her team attempted to address."
+          "text": "It explains a significant threat to the environment caused by garden lupines that the study by Ramula and her team attempted to address.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2034,19 +2180,23 @@
       "options": [
         {
           "id": "A",
-          "text": "type O+ blood in the Americas was 55%."
+          "text": "type O+ blood in the Americas was 55%.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "type B+ blood in Africa was 17%."
+          "text": "type B+ blood in Africa was 17%.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "type O+ blood in Oceania was 42%."
+          "text": "type O+ blood in Oceania was 42%.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "type B+ blood in Asia was 25%."
+          "text": "type B+ blood in Asia was 25%.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2083,19 +2233,23 @@
       "options": [
         {
           "id": "A",
-          "text": "“In the time that goes to saddling a horse, the detail rode into the storm, First Sergeant Price on John G., leading.”"
+          "text": "“In the time that goes to saddling a horse, the detail rode into the storm, First Sergeant Price on John G., leading.”",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "“Delicately, nervously, John G. set his feet, step by step, till he had reached the centre of the second plank.”"
+          "text": "“Delicately, nervously, John G. set his feet, step by step, till he had reached the centre of the second plank.”",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "“John G., on that diluvian night, was twenty-two years old, and still every whit as clean-limbed, alert, and plucky as his salad days had seen him.”"
+          "text": "“John G., on that diluvian night, was twenty-two years old, and still every whit as clean-limbed, alert, and plucky as his salad days had seen him.”",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "“And John G. is a gentleman and a soldier, every inch of him. Horse-show judges have affixed their seal to the self- evident fact by the sign of the blue ribbon, but the best proof lies in the personal knowledge of “A” Troop, soundly built on twelve years’ brotherhood.”"
+          "text": "“And John G. is a gentleman and a soldier, every inch of him. Horse-show judges have affixed their seal to the self- evident fact by the sign of the blue ribbon, but the best proof lies in the personal knowledge of “A” Troop, soundly built on twelve years’ brotherhood.”",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2132,19 +2286,23 @@
       "options": [
         {
           "id": "A",
-          "text": "fetching after a VR schedule is 66%."
+          "text": "fetching after a VR schedule is 66%.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "sitting after an FR schedule is 90%."
+          "text": "sitting after an FR schedule is 90%.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "fetching after a VI schedule is 46%."
+          "text": "fetching after a VI schedule is 46%.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "sitting after a VI schedule is 60%."
+          "text": "sitting after a VI schedule is 60%.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2181,19 +2339,23 @@
       "options": [
         {
           "id": "A",
-          "text": "avoiding the ingestion of C. botulinum without losing healthful nutrients."
+          "text": "avoiding the ingestion of C. botulinum without losing healthful nutrients.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "making C. botulinum more vulnerable to the effects of boiling."
+          "text": "making C. botulinum more vulnerable to the effects of boiling.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "maximizing the many health benefits of C. botulinum."
+          "text": "maximizing the many health benefits of C. botulinum.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "enabling safe consumption of food tainted with C. botulinum."
+          "text": "enabling safe consumption of food tainted with C. botulinum.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2230,19 +2392,23 @@
       "options": [
         {
           "id": "A",
-          "text": "babies’ favorite bottles"
+          "text": "babies’ favorite bottles",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "baby’s favorite bottle’s"
+          "text": "baby’s favorite bottle’s",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "babies’ favorite bottles’"
+          "text": "babies’ favorite bottles’",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "baby’s favorite bottles What’s changing in the answer choices? What is this question testing? 2."
+          "text": "baby’s favorite bottles What’s changing in the answer choices? What is this question testing? 2.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2279,19 +2445,23 @@
       "options": [
         {
           "id": "A",
-          "text": "have done"
+          "text": "have done",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "has done"
+          "text": "has done",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "were doing"
+          "text": "were doing",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "do What’s changing in the answer choices? What is this question testing? 3."
+          "text": "do What’s changing in the answer choices? What is this question testing? 3.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2328,19 +2498,23 @@
       "options": [
         {
           "id": "A",
-          "text": "standing; with"
+          "text": "standing; with",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "standing. With"
+          "text": "standing. With",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "standing, with"
+          "text": "standing, with",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "standing with What’s changing in the answer choices? What is this question testing? 4."
+          "text": "standing with What’s changing in the answer choices? What is this question testing? 4.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2377,19 +2551,23 @@
       "options": [
         {
           "id": "A",
-          "text": "their"
+          "text": "their",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "they’re"
+          "text": "they’re",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "it’s"
+          "text": "it’s",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "its What’s changing in the answer choices? What is this question testing? 5."
+          "text": "its What’s changing in the answer choices? What is this question testing? 5.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2426,19 +2604,23 @@
       "options": [
         {
           "id": "A",
-          "text": "approaches"
+          "text": "approaches",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "had approached"
+          "text": "had approached",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "was approaching"
+          "text": "was approaching",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "approached What’s changing in the answer choices?"
+          "text": "approached What’s changing in the answer choices?",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2475,19 +2657,23 @@
       "options": [
         {
           "id": "A",
-          "text": "today’s experience of culture is largely shaped by dime novels."
+          "text": "today’s experience of culture is largely shaped by dime novels.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "we experience culture the way we do because of dime novels."
+          "text": "we experience culture the way we do because of dime novels.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "dime novels have shaped the way we experience culture today."
+          "text": "dime novels have shaped the way we experience culture today.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "the shape of dime novels influences cultural experiences. What’s changing in the answer choices? What is this question testing?"
+          "text": "the shape of dime novels influences cultural experiences. What’s changing in the answer choices? What is this question testing?",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2524,19 +2710,23 @@
       "options": [
         {
           "id": "A",
-          "text": "did it provide positive opportunities for them?"
+          "text": "did it provide positive opportunities for them?",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "a choice that provided positive opportunities for them."
+          "text": "a choice that provided positive opportunities for them.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "a choice that provided positive opportunities for them?"
+          "text": "a choice that provided positive opportunities for them?",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "did it provide positive opportunities for them."
+          "text": "did it provide positive opportunities for them.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2573,19 +2763,23 @@
       "options": [
         {
           "id": "A",
-          "text": "having used"
+          "text": "having used",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "using"
+          "text": "using",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "use"
+          "text": "use",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "to use"
+          "text": "to use",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2622,19 +2816,23 @@
       "options": [
         {
           "id": "A",
-          "text": "accessed"
+          "text": "accessed",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "accessing"
+          "text": "accessing",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "access"
+          "text": "access",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "accesses"
+          "text": "accesses",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2671,19 +2869,23 @@
       "options": [
         {
           "id": "A",
-          "text": "conservation efforts could be more directed and successful?"
+          "text": "conservation efforts could be more directed and successful?",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "conservation efforts could be more directed and successful."
+          "text": "conservation efforts could be more directed and successful.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "could conservation efforts be more directed and successful?"
+          "text": "could conservation efforts be more directed and successful?",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "could conservation efforts be more directed and successful."
+          "text": "could conservation efforts be more directed and successful.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2720,19 +2922,23 @@
       "options": [
         {
           "id": "A",
-          "text": "whether the Egyptians or the British should control access to the tomb?"
+          "text": "whether the Egyptians or the British should control access to the tomb?",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "should the Egyptians or the British control access to the tomb?"
+          "text": "should the Egyptians or the British control access to the tomb?",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "the Egyptians or the British to control access to the tomb."
+          "text": "the Egyptians or the British to control access to the tomb.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "whether the Egyptians or the British should control access to the tomb."
+          "text": "whether the Egyptians or the British should control access to the tomb.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2769,19 +2975,23 @@
       "options": [
         {
           "id": "A",
-          "text": "believed"
+          "text": "believed",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "believing"
+          "text": "believing",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "to believe"
+          "text": "to believe",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "having believed"
+          "text": "having believed",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2818,19 +3028,23 @@
       "options": [
         {
           "id": "A",
-          "text": "having made"
+          "text": "having made",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "making"
+          "text": "making",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "to make"
+          "text": "to make",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "made"
+          "text": "made",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2863,8 +3077,29 @@
       "topic": "Cấu Trúc Câu Hoàn Chỉnh",
       "pdf_page": 397,
       "passage": "",
-      "prompt": "5. Ada Yonath is a crystallographer from Israel who focused on the\nstructure of ribosomes. She identified the mechanisms surrounding\nhow antibiotics attack ribosomes and then _________ the Nobel Prize",
-      "options": [],
+      "prompt": "5. Ada Yonath is a crystallographer from Israel who focused on the structure of ribosomes. She identified the mechanisms surrounding how antibiotics attack ribosomes and then _________ the Nobel Prize in Chemistry, alongside Thomas A. Steitz and Venkatraman Ramakrishnan.\nWhich choice completes the text so that it conforms to the conventions of Standard English?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "receives"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "will receive"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "receive"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "received"
+        }
+      ],
       "options_raw": {},
       "is_grid_in": false,
       "correct_answer": "D",
@@ -2894,19 +3129,23 @@
       "options": [
         {
           "id": "A",
-          "text": "scientist,"
+          "text": "scientist,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "scientist;"
+          "text": "scientist;",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "scientist:"
+          "text": "scientist:",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "scientist"
+          "text": "scientist",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2943,19 +3182,23 @@
       "options": [
         {
           "id": "A",
-          "text": "experiment, the most famous of which was started in 1927 at the University of Queensland,"
+          "text": "experiment, the most famous of which was started in 1927 at the University of Queensland,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "experiment, the most famous of which was started in 1927 at the University of Queensland"
+          "text": "experiment, the most famous of which was started in 1927 at the University of Queensland",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "experiment the most famous of which was started in 1927 at the University of Queensland,"
+          "text": "experiment the most famous of which was started in 1927 at the University of Queensland,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "experiment the most famous of which was started in 1927 at the University of Queensland"
+          "text": "experiment the most famous of which was started in 1927 at the University of Queensland",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -2992,19 +3235,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Night Sky with Exit Wounds:"
+          "text": "Night Sky with Exit Wounds:",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Night Sky with Exit Wounds"
+          "text": "Night Sky with Exit Wounds",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Night Sky with Exit Wounds,"
+          "text": "Night Sky with Exit Wounds,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Night Sky with Exit Wounds-"
+          "text": "Night Sky with Exit Wounds-",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3041,19 +3288,23 @@
       "options": [
         {
           "id": "A",
-          "text": "traditions,"
+          "text": "traditions,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "traditions;"
+          "text": "traditions;",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "traditions:"
+          "text": "traditions:",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "traditions"
+          "text": "traditions",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3090,19 +3341,23 @@
       "options": [
         {
           "id": "A",
-          "text": "antibiotic, that"
+          "text": "antibiotic, that",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "antibiotic"
+          "text": "antibiotic",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "antibiotic that"
+          "text": "antibiotic that",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "antibiotic,"
+          "text": "antibiotic,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3139,19 +3394,23 @@
       "options": [
         {
           "id": "A",
-          "text": "marches"
+          "text": "marches",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "marches-"
+          "text": "marches-",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "marches;"
+          "text": "marches;",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "marches,"
+          "text": "marches,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3188,19 +3447,23 @@
       "options": [
         {
           "id": "A",
-          "text": "novelist, Amir Or"
+          "text": "novelist, Amir Or",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "novelist Amir Or"
+          "text": "novelist Amir Or",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "novelist, Amir Or,"
+          "text": "novelist, Amir Or,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "novelist Amir Or,"
+          "text": "novelist Amir Or,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3237,19 +3500,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Wild, known"
+          "text": "Wild, known",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Wild known"
+          "text": "Wild known",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Wild-known"
+          "text": "Wild-known",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Wild (known"
+          "text": "Wild (known",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3286,19 +3553,23 @@
       "options": [
         {
           "id": "A",
-          "text": "tinnitus, or ringing in the ears"
+          "text": "tinnitus, or ringing in the ears",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "tinnitus, or ringing in the ears,"
+          "text": "tinnitus, or ringing in the ears,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "tinnitus or ringing in the ears,"
+          "text": "tinnitus or ringing in the ears,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "tinnitus or ringing in the ears"
+          "text": "tinnitus or ringing in the ears",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3335,19 +3606,23 @@
       "options": [
         {
           "id": "A",
-          "text": "artist,"
+          "text": "artist,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "artist"
+          "text": "artist",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "artist, which"
+          "text": "artist, which",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "artist who"
+          "text": "artist who",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3380,8 +3655,29 @@
       "topic": "Cụm Bổ Ngữ & Mệnh Đề Phụ",
       "pdf_page": 421,
       "passage": "",
-      "prompt": "6. Maki Kawai is a chemist from Japan who invented spatially selective\nsingle-molecule spectroscopy. She combined two forms of\nspectroscopy into this new _______ led to the detection of a novel\nreacti",
-      "options": [],
+      "prompt": "6. Maki Kawai is a chemist from Japan who invented spatially selective single-molecule spectroscopy. She combined two forms of spectroscopy into this new _______ led to the detection of a novel reaction pathway on the superficial level of titanium dioxide.\nWhich choice completes the text so that it conforms to the conventions of Standard English?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "method"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "method, which"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "method, that"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "method,"
+        }
+      ],
       "options_raw": {},
       "is_grid_in": false,
       "correct_answer": "B",
@@ -3411,19 +3707,23 @@
       "options": [
         {
           "id": "A",
-          "text": "musicians, his"
+          "text": "musicians, his",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "musicians, his,"
+          "text": "musicians, his,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "musicians his"
+          "text": "musicians his",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "musicians; his"
+          "text": "musicians; his",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3460,19 +3760,23 @@
       "options": [
         {
           "id": "A",
-          "text": "scientist, but"
+          "text": "scientist, but",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "scientist,"
+          "text": "scientist,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "scientist but"
+          "text": "scientist but",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "scientist"
+          "text": "scientist",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3509,19 +3813,23 @@
       "options": [
         {
           "id": "A",
-          "text": "industry while"
+          "text": "industry while",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "industry"
+          "text": "industry",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "industry,"
+          "text": "industry,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "industry:"
+          "text": "industry:",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3558,19 +3866,23 @@
       "options": [
         {
           "id": "A",
-          "text": "life. However, professor"
+          "text": "life. However, professor",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "life, however. Professor"
+          "text": "life, however. Professor",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "life, however, professor"
+          "text": "life, however, professor",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "life, however: professor"
+          "text": "life, however: professor",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3607,19 +3919,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Peru"
+          "text": "Peru",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Peru,"
+          "text": "Peru,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Peru and"
+          "text": "Peru and",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Peru."
+          "text": "Peru.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3656,19 +3972,23 @@
       "options": [
         {
           "id": "A",
-          "text": "cells and"
+          "text": "cells and",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "cells, and"
+          "text": "cells, and",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "cells"
+          "text": "cells",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "cells,"
+          "text": "cells,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3705,19 +4025,23 @@
       "options": [
         {
           "id": "A",
-          "text": "characters and"
+          "text": "characters and",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "characters"
+          "text": "characters",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "characters;"
+          "text": "characters;",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "characters,"
+          "text": "characters,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3754,19 +4078,23 @@
       "options": [
         {
           "id": "A",
-          "text": "spans:"
+          "text": "spans:",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "spans"
+          "text": "spans",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "spans;"
+          "text": "spans;",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "spans,"
+          "text": "spans,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3803,19 +4131,23 @@
       "options": [
         {
           "id": "A",
-          "text": "government:"
+          "text": "government:",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "government;"
+          "text": "government;",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "government"
+          "text": "government",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "government."
+          "text": "government.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3852,19 +4184,23 @@
       "options": [
         {
           "id": "A",
-          "text": "forms"
+          "text": "forms",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "forms:"
+          "text": "forms:",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "forms, for example"
+          "text": "forms, for example",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "forms,"
+          "text": "forms,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3901,19 +4237,23 @@
       "options": [
         {
           "id": "A",
-          "text": "History, then,"
+          "text": "History, then,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "History,"
+          "text": "History,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "History;"
+          "text": "History;",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "History then,"
+          "text": "History then,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -3946,8 +4286,29 @@
       "topic": "Nối Hai Mệnh Đề Độc Lập",
       "pdf_page": 425,
       "passage": "",
-      "prompt": "8. In languages, classifiers are used to describe a noun, such as how\n“cups” describes “coffee” in the phrase “three cups of coffee.” Unlike\nEnglish, which only sometimes uses classifiers, Chinese lan",
-      "options": [],
+      "prompt": "8. In languages, classifiers are used to describe a noun, such as how “cups” describes “coffee” in the phrase “three cups of coffee.” Unlike English, which only sometimes uses classifiers, Chinese languages use classifiers very frequently. Often, the specific classifier used is based on some quality of the _______ objects such as tables and paper use “zhāng,” whereas long, thin objects such as sticks and pens use “tiáo.”\nWhich choice completes the text so that it conforms to the conventions of Standard English?",
+      "options": [
+        {
+          "id": "A",
+          "key": "A",
+          "text": "noun, for example, flat"
+        },
+        {
+          "id": "B",
+          "key": "B",
+          "text": "noun, for example. Flat"
+        },
+        {
+          "id": "C",
+          "key": "C",
+          "text": "noun. For example, flat"
+        },
+        {
+          "id": "D",
+          "key": "D",
+          "text": "noun for example flat"
+        }
+      ],
       "options_raw": {},
       "is_grid_in": false,
       "correct_answer": "C",
@@ -3977,19 +4338,23 @@
       "options": [
         {
           "id": "A",
-          "text": "peak. Though"
+          "text": "peak. Though",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "peak: though"
+          "text": "peak: though",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "peak, though"
+          "text": "peak, though",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "peak; though"
+          "text": "peak; though",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4026,19 +4391,23 @@
       "options": [
         {
           "id": "A",
-          "text": "African because"
+          "text": "African because",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "African; because"
+          "text": "African; because",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "African: because"
+          "text": "African: because",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "African. Because"
+          "text": "African. Because",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4075,19 +4444,23 @@
       "options": [
         {
           "id": "A",
-          "text": "sailed a man performing a traditional funerary dance"
+          "text": "sailed a man performing a traditional funerary dance",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "sailed, a man performing a traditional funerary dance,"
+          "text": "sailed, a man performing a traditional funerary dance,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "sailed a man performing a traditional funerary dance,"
+          "text": "sailed a man performing a traditional funerary dance,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "sailed, a man, performing a traditional funerary dance"
+          "text": "sailed, a man, performing a traditional funerary dance",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4124,19 +4497,23 @@
       "options": [
         {
           "id": "A",
-          "text": "tenóre; a style of quartet singing from Sardinia, Italy,"
+          "text": "tenóre; a style of quartet singing from Sardinia, Italy,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "tenóre, a style of quartet singing from Sardinia, Italy,"
+          "text": "tenóre, a style of quartet singing from Sardinia, Italy,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "tenóre, a style of quartet singing from Sardinia, Italy;"
+          "text": "tenóre, a style of quartet singing from Sardinia, Italy;",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "tenóre; a style of quartet singing from Sardinia, Italy;"
+          "text": "tenóre; a style of quartet singing from Sardinia, Italy;",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4173,19 +4550,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Bouchet, was"
+          "text": "Bouchet, was",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Bouchet was"
+          "text": "Bouchet was",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Bouchet: was"
+          "text": "Bouchet: was",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Bouchet. Was"
+          "text": "Bouchet. Was",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4222,19 +4603,23 @@
       "options": [
         {
           "id": "A",
-          "text": "unidiomatic because"
+          "text": "unidiomatic because",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "unidiomatic,"
+          "text": "unidiomatic,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "unidiomatic. Because"
+          "text": "unidiomatic. Because",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "unidiomatic: because"
+          "text": "unidiomatic: because",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4271,19 +4656,23 @@
       "options": [
         {
           "id": "A",
-          "text": "by:"
+          "text": "by:",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "by-"
+          "text": "by-",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "by,"
+          "text": "by,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "by"
+          "text": "by",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4320,19 +4709,23 @@
       "options": [
         {
           "id": "A",
-          "text": "content"
+          "text": "content",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "content;"
+          "text": "content;",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "content:"
+          "text": "content:",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "content,"
+          "text": "content,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4369,19 +4762,23 @@
       "options": [
         {
           "id": "A",
-          "text": "2002, when"
+          "text": "2002, when",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "2002,"
+          "text": "2002,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "2002; when"
+          "text": "2002; when",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "2002"
+          "text": "2002",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4418,19 +4815,23 @@
       "options": [
         {
           "id": "A",
-          "text": "shelters; adopting environmental habits,"
+          "text": "shelters; adopting environmental habits,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "shelters, adopting environmental habits;"
+          "text": "shelters, adopting environmental habits;",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "shelters, adopting environmental habits,"
+          "text": "shelters, adopting environmental habits,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "shelters; adopting environmental habits;"
+          "text": "shelters; adopting environmental habits;",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4467,19 +4868,23 @@
       "options": [
         {
           "id": "A",
-          "text": "hydrogen 2.9 times as great;"
+          "text": "hydrogen 2.9 times as great;",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "hydrogen 2.9 times as great,"
+          "text": "hydrogen 2.9 times as great,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "hydrogen, 2.9 times as great,"
+          "text": "hydrogen, 2.9 times as great,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "hydrogen, 2.9 times as great;"
+          "text": "hydrogen, 2.9 times as great;",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4516,19 +4921,23 @@
       "options": [
         {
           "id": "A",
-          "text": "have been"
+          "text": "have been",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "are"
+          "text": "are",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "was"
+          "text": "was",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "were"
+          "text": "were",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4565,19 +4974,23 @@
       "options": [
         {
           "id": "A",
-          "text": "will use"
+          "text": "will use",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "have used"
+          "text": "have used",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "were using"
+          "text": "were using",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "use"
+          "text": "use",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4614,19 +5027,23 @@
       "options": [
         {
           "id": "A",
-          "text": "ends"
+          "text": "ends",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "has ended"
+          "text": "has ended",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "will end"
+          "text": "will end",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "ended"
+          "text": "ended",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4663,19 +5080,23 @@
       "options": [
         {
           "id": "A",
-          "text": "it is"
+          "text": "it is",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "they are"
+          "text": "they are",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "those are"
+          "text": "those are",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "one is"
+          "text": "one is",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4712,19 +5133,23 @@
       "options": [
         {
           "id": "A",
-          "text": "its"
+          "text": "its",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "they’re"
+          "text": "they’re",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "their"
+          "text": "their",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "it’s"
+          "text": "it’s",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4761,19 +5186,23 @@
       "options": [
         {
           "id": "A",
-          "text": "books’ subjects"
+          "text": "books’ subjects",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "books subjects"
+          "text": "books subjects",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "books’ subjects’"
+          "text": "books’ subjects’",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "books subjects’"
+          "text": "books subjects’",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4810,19 +5239,23 @@
       "options": [
         {
           "id": "A",
-          "text": "researchers’ findings were a reduction in fine particulate concentration levels in those locations."
+          "text": "researchers’ findings were a reduction in fine particulate concentration levels in those locations.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "researchers found a reduction in fine particulate concentration levels in those locations."
+          "text": "researchers found a reduction in fine particulate concentration levels in those locations.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "a reduction in fine particulate concentration levels in those locations was found by researchers."
+          "text": "a reduction in fine particulate concentration levels in those locations was found by researchers.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "there was a reduction in fine particulate concentration levels in those locations, according to researchers."
+          "text": "there was a reduction in fine particulate concentration levels in those locations, according to researchers.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4859,19 +5292,23 @@
       "options": [
         {
           "id": "A",
-          "text": "has been"
+          "text": "has been",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "are"
+          "text": "are",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "is"
+          "text": "is",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "was"
+          "text": "was",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4908,19 +5345,23 @@
       "options": [
         {
           "id": "A",
-          "text": "we"
+          "text": "we",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "one"
+          "text": "one",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "they"
+          "text": "they",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "some"
+          "text": "some",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -4957,19 +5398,23 @@
       "options": [
         {
           "id": "A",
-          "text": "galleries’ purchases"
+          "text": "galleries’ purchases",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "galleries’ purchase’s"
+          "text": "galleries’ purchase’s",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "galleries purchases"
+          "text": "galleries purchases",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "galleries purchase’s"
+          "text": "galleries purchase’s",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5006,19 +5451,23 @@
       "options": [
         {
           "id": "A",
-          "text": "explores"
+          "text": "explores",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "has explored"
+          "text": "has explored",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "is exploring"
+          "text": "is exploring",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "explore"
+          "text": "explore",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5055,19 +5504,23 @@
       "options": [
         {
           "id": "A",
-          "text": "had believed"
+          "text": "had believed",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "believed"
+          "text": "believed",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "would believe"
+          "text": "would believe",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "were believing"
+          "text": "were believing",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5104,19 +5557,23 @@
       "options": [
         {
           "id": "A",
-          "text": "their"
+          "text": "their",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "they’re"
+          "text": "they’re",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "its"
+          "text": "its",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "it’s"
+          "text": "it’s",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5153,19 +5610,23 @@
       "options": [
         {
           "id": "A",
-          "text": "artists’ individual styles’"
+          "text": "artists’ individual styles’",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "artist’s individual styles"
+          "text": "artist’s individual styles",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "artists individual styles"
+          "text": "artists individual styles",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "artists’ individual styles"
+          "text": "artists’ individual styles",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5202,19 +5663,23 @@
       "options": [
         {
           "id": "A",
-          "text": "the works written by Hyesoon used imagery and experimental language"
+          "text": "the works written by Hyesoon used imagery and experimental language",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Hyesoon used imagery and experimental language to create her pieces"
+          "text": "Hyesoon used imagery and experimental language to create her pieces",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "numerous works written by Hyesoon used imagery and experimental language"
+          "text": "numerous works written by Hyesoon used imagery and experimental language",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "there was a poet, Hyesoon, who used imagery and experimental language"
+          "text": "there was a poet, Hyesoon, who used imagery and experimental language",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5251,19 +5716,23 @@
       "options": [
         {
           "id": "A",
-          "text": "its"
+          "text": "its",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "their"
+          "text": "their",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "it’s"
+          "text": "it’s",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "they’re"
+          "text": "they’re",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5300,19 +5769,23 @@
       "options": [
         {
           "id": "A",
-          "text": "the Fischer Space Pen’s testing and approval by NASA led to its use in Project Apollo."
+          "text": "the Fischer Space Pen’s testing and approval by NASA led to its use in Project Apollo.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Project Apollo used the Fischer Space Pen after it was tested and approved by NASA."
+          "text": "Project Apollo used the Fischer Space Pen after it was tested and approved by NASA.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "NASA tested and approved the Fischer Space Pen for use in Project Apollo."
+          "text": "NASA tested and approved the Fischer Space Pen for use in Project Apollo.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "the Fischer Space Pen was tested and approved by NASA for use in Project Apollo."
+          "text": "the Fischer Space Pen was tested and approved by NASA for use in Project Apollo.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5349,19 +5822,23 @@
       "options": [
         {
           "id": "A",
-          "text": "On the other hand,"
+          "text": "On the other hand,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Still,"
+          "text": "Still,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Eventually,"
+          "text": "Eventually,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Additionally,"
+          "text": "Additionally,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5398,19 +5875,23 @@
       "options": [
         {
           "id": "A",
-          "text": "likewise,"
+          "text": "likewise,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "specifically,"
+          "text": "specifically,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "though,"
+          "text": "though,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "rather,"
+          "text": "rather,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5447,19 +5928,23 @@
       "options": [
         {
           "id": "A",
-          "text": "To that end,"
+          "text": "To that end,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Additionally,"
+          "text": "Additionally,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Not surprisingly,"
+          "text": "Not surprisingly,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Rather,"
+          "text": "Rather,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5496,19 +5981,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Gathering Moss is about moss, and Braiding Sweetgrass is about lessons from plants."
+          "text": "Gathering Moss is about moss, and Braiding Sweetgrass is about lessons from plants.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Gathering Moss and Braiding Sweetgrass both include scientific writing."
+          "text": "Gathering Moss and Braiding Sweetgrass both include scientific writing.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Gathering Moss combines science and personal reflection, while Braiding Sweetgrass combines three different types of knowledge."
+          "text": "Gathering Moss combines science and personal reflection, while Braiding Sweetgrass combines three different types of knowledge.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Published in 2003, Gathering Moss was written by Robin Wall Kimmerer, who has worked in the field of biocultural restoration. Watch Us Crack It Watch the step-by-step video explanation of how to answer this question in your Student Tools."
+          "text": "Published in 2003, Gathering Moss was written by Robin Wall Kimmerer, who has worked in the field of biocultural restoration. Watch Us Crack It Watch the step-by-step video explanation of how to answer this question in your Student Tools.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5545,19 +6034,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Bison, a type of native megafauna, doubled plant diversity in their native environments."
+          "text": "Bison, a type of native megafauna, doubled plant diversity in their native environments.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Bison and cattle are two types of megafauna that live in the United States."
+          "text": "Bison and cattle are two types of megafauna that live in the United States.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Although many native megafauna are extinct, bison were reintroduced to their native environment."
+          "text": "Although many native megafauna are extinct, bison were reintroduced to their native environment.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Native and domesticated megafauna can have impacts on their environments."
+          "text": "Native and domesticated megafauna can have impacts on their environments.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5594,19 +6087,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Canadian composer, writer, and environmentalist R. Murray Schafer created and wrote about the collections of animal sounds, natural sounds such as weather, and human-created sounds known as soundscapes."
+          "text": "Canadian composer, writer, and environmentalist R. Murray Schafer created and wrote about the collections of animal sounds, natural sounds such as weather, and human-created sounds known as soundscapes.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "The Tuning of the World and The Soundscape were written by R. Murray Schafer, a Canadian composer, writer, and environmentalist."
+          "text": "The Tuning of the World and The Soundscape were written by R. Murray Schafer, a Canadian composer, writer, and environmentalist.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "R. Murray Schafer, a Canadian composer, writer, and environmentalist, created many soundscapes during his career."
+          "text": "R. Murray Schafer, a Canadian composer, writer, and environmentalist, created many soundscapes during his career.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Schafer wrote about and created soundscapes, which are sounds that arise from a location, including animal sounds, natural sounds such as weather, and human- created sounds."
+          "text": "Schafer wrote about and created soundscapes, which are sounds that arise from a location, including animal sounds, natural sounds such as weather, and human- created sounds.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5643,19 +6140,23 @@
       "options": [
         {
           "id": "A",
-          "text": "For instance,"
+          "text": "For instance,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Fortunately,"
+          "text": "Fortunately,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Still,"
+          "text": "Still,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Moreover,"
+          "text": "Moreover,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5692,19 +6193,23 @@
       "options": [
         {
           "id": "A",
-          "text": "moreover,"
+          "text": "moreover,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "for instance,"
+          "text": "for instance,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "still,"
+          "text": "still,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "however,"
+          "text": "however,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5741,19 +6246,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Still,"
+          "text": "Still,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Therefore,"
+          "text": "Therefore,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Nevertheless,"
+          "text": "Nevertheless,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Though,"
+          "text": "Though,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5790,19 +6299,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Consequently,"
+          "text": "Consequently,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "In conclusion,"
+          "text": "In conclusion,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Similarly,"
+          "text": "Similarly,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Despite this,"
+          "text": "Despite this,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5839,19 +6352,23 @@
       "options": [
         {
           "id": "A",
-          "text": "As a rule,"
+          "text": "As a rule,",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Conversely,"
+          "text": "Conversely,",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Accordingly,"
+          "text": "Accordingly,",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Subsequently,"
+          "text": "Subsequently,",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5888,19 +6405,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Pulsate and Protrude, Flow by Sachiko Kodama are made with ferrofluid, a type of liquid created when magnetic nanoparticles are dissolved in a solvent."
+          "text": "Pulsate and Protrude, Flow by Sachiko Kodama are made with ferrofluid, a type of liquid created when magnetic nanoparticles are dissolved in a solvent.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Sachiko Kodama is a Japanese artist who uses magnetic fields to change the shape of ferrofluid to create her sculptures."
+          "text": "Sachiko Kodama is a Japanese artist who uses magnetic fields to change the shape of ferrofluid to create her sculptures.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Sachiko Kodama’s ferrofluid sculptures include Pulsate and Protrude, Flow."
+          "text": "Sachiko Kodama’s ferrofluid sculptures include Pulsate and Protrude, Flow.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Ferrofluid is a magnetic liquid that can be manipulated into sculptures."
+          "text": "Ferrofluid is a magnetic liquid that can be manipulated into sculptures.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5937,19 +6458,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Charpentier and Doudna both study biochemistry."
+          "text": "Charpentier and Doudna both study biochemistry.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Charpentier and Doudna met in 2011 and were awarded the Nobel Prize in 2020."
+          "text": "Charpentier and Doudna met in 2011 and were awarded the Nobel Prize in 2020.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Charpentier and Doudna discovered how to use CRISPR- Cas9 for genome editing and were awarded the Nobel Prize in 2020."
+          "text": "Charpentier and Doudna discovered how to use CRISPR- Cas9 for genome editing and were awarded the Nobel Prize in 2020.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Charpentier studies genetics, and Doudna studies molecular biology."
+          "text": "Charpentier studies genetics, and Doudna studies molecular biology.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -5986,19 +6511,23 @@
       "options": [
         {
           "id": "A",
-          "text": "The Kolkata Metro System opened its second line-the 9.1 km-long Green Line-in 2020."
+          "text": "The Kolkata Metro System opened its second line-the 9.1 km-long Green Line-in 2020.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "The 31.36-km-long Blue Line opened in 1984, whereas the 9.1-km-long Green Line opened in 2020."
+          "text": "The 31.36-km-long Blue Line opened in 1984, whereas the 9.1-km-long Green Line opened in 2020.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "The Kolkata Metro System, which began construction in the 1970s, includes the 31.36-km-long Blue Line, which opened in 1984, and the 9.1 km-long Green Line, which opened in 2020."
+          "text": "The Kolkata Metro System, which began construction in the 1970s, includes the 31.36-km-long Blue Line, which opened in 1984, and the 9.1 km-long Green Line, which opened in 2020.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Kolkata, also known as Calcutta, is located in eastern India and began construction on the Kolkata Metro System in the 1970s."
+          "text": "Kolkata, also known as Calcutta, is located in eastern India and began construction on the Kolkata Metro System in the 1970s.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6035,19 +6564,23 @@
       "options": [
         {
           "id": "A",
-          "text": "The bees in the study by Martin Giurfa and his team were trained with sucrose rewards."
+          "text": "The bees in the study by Martin Giurfa and his team were trained with sucrose rewards.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Martin Giurfa and his team wanted to see whether bees organize numbers spatially from left to right, similar to how humans organize numbers."
+          "text": "Martin Giurfa and his team wanted to see whether bees organize numbers spatially from left to right, similar to how humans organize numbers.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Various vertebrate species, such as humans and honeybees, organize numbers spatially from left to right."
+          "text": "Various vertebrate species, such as humans and honeybees, organize numbers spatially from left to right.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Martin Giurfa and his team found that bees did organize numbers in a similar way to how humans do."
+          "text": "Martin Giurfa and his team found that bees did organize numbers in a similar way to how humans do.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6084,19 +6617,23 @@
       "options": [
         {
           "id": "A",
-          "text": "20th-century research into Wolffram’s red salt, a deep red inorganic compound made up of colorless components, focused on the presence of various platinum ions."
+          "text": "20th-century research into Wolffram’s red salt, a deep red inorganic compound made up of colorless components, focused on the presence of various platinum ions.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "While Drew and Tress hypothesized that Wolffram’s red salt was red due to platinum (3+) ions, Jensen proved that Wolffram’s red salt did not have platinum (3+) ions."
+          "text": "While Drew and Tress hypothesized that Wolffram’s red salt was red due to platinum (3+) ions, Jensen proved that Wolffram’s red salt did not have platinum (3+) ions.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "20th-century hypotheses and research into the color of Wolffram’s red salt focused on the presence of various platinum ions."
+          "text": "20th-century hypotheses and research into the color of Wolffram’s red salt focused on the presence of various platinum ions.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Wolffram’s red salt is not deep red due to the presence of platinum (3+) ions, as Drew and Tress hypothesized, but rather due to chains of platinum (2+) and platinum (4+) ions, as discovered by Shoichiro and Ryutaro."
+          "text": "Wolffram’s red salt is not deep red due to the presence of platinum (3+) ions, as Drew and Tress hypothesized, but rather due to chains of platinum (2+) and platinum (4+) ions, as discovered by Shoichiro and Ryutaro.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6133,19 +6670,23 @@
       "options": [
         {
           "id": "A",
-          "text": "30"
+          "text": "30",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "33"
+          "text": "33",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "35"
+          "text": "35",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "65"
+          "text": "65",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6182,19 +6723,23 @@
       "options": [
         {
           "id": "A",
-          "text": "12"
+          "text": "12",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "15"
+          "text": "15",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "16"
+          "text": "16",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "28"
+          "text": "28",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6231,19 +6776,23 @@
       "options": [
         {
           "id": "A",
-          "text": "3"
+          "text": "3",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "10"
+          "text": "10",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "15"
+          "text": "15",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "20 Bite-Sized Pieces: Do one small, manageable piece at a time and keep writing things down."
+          "text": "20 Bite-Sized Pieces: Do one small, manageable piece at a time and keep writing things down.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6280,19 +6829,23 @@
       "options": [
         {
           "id": "A",
-          "text": "4ck 2"
+          "text": "4ck 2",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "4ck 2 – 4c 2k"
+          "text": "4ck 2 – 4c 2k",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "5c 2k 4 – 10c 4k"
+          "text": "5c 2k 4 – 10c 4k",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "8c 2k 3 + 7c 2k – 5c2"
+          "text": "8c 2k 3 + 7c 2k – 5c2",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6329,19 +6882,23 @@
       "options": [
         {
           "id": "A",
-          "text": "5"
+          "text": "5",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "10"
+          "text": "10",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "15"
+          "text": "15",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "20"
+          "text": "20",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6378,19 +6935,23 @@
       "options": [
         {
           "id": "A",
-          "text": "None"
+          "text": "None",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "I and II only"
+          "text": "I and II only",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "II and III only"
+          "text": "II and III only",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "I, II, and III"
+          "text": "I, II, and III",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6427,19 +6988,23 @@
       "options": [
         {
           "id": "A",
-          "text": "$175,000"
+          "text": "$175,000",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "$250,000"
+          "text": "$250,000",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "$275,000"
+          "text": "$275,000",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "$350,000"
+          "text": "$350,000",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6476,19 +7041,23 @@
       "options": [
         {
           "id": "A",
-          "text": "January to March"
+          "text": "January to March",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "February to April"
+          "text": "February to April",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "June to August"
+          "text": "June to August",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "September to November"
+          "text": "September to November",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6525,19 +7094,23 @@
       "options": [
         {
           "id": "A",
-          "text": "0.08"
+          "text": "0.08",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "0.8"
+          "text": "0.8",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "1.25"
+          "text": "1.25",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "12.5"
+          "text": "12.5",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6574,19 +7147,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Monday and Thursday"
+          "text": "Monday and Thursday",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Tuesday and Thursday"
+          "text": "Tuesday and Thursday",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Wednesday and Friday"
+          "text": "Wednesday and Friday",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Tuesday and Friday"
+          "text": "Tuesday and Friday",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6623,19 +7200,23 @@
       "options": [
         {
           "id": "A",
-          "text": "16"
+          "text": "16",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "28"
+          "text": "28",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "48"
+          "text": "48",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "56"
+          "text": "56",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6780,19 +7361,23 @@
       "options": [
         {
           "id": "A",
-          "text": "1"
+          "text": "1",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "2"
+          "text": "2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "4"
+          "text": "4",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "6"
+          "text": "6",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6829,19 +7414,23 @@
       "options": [
         {
           "id": "A",
-          "text": "4"
+          "text": "4",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "16"
+          "text": "16",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "32"
+          "text": "32",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "256"
+          "text": "256",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -6878,19 +7467,23 @@
       "options": [
         {
           "id": "A",
-          "text": "2"
+          "text": "2",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "9"
+          "text": "9",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "18"
+          "text": "18",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "40"
+          "text": "40",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7035,19 +7628,23 @@
       "options": [
         {
           "id": "A",
-          "text": "0, 5"
+          "text": "0, 5",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "0, 4, 5"
+          "text": "0, 4, 5",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "0"
+          "text": "0",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "5 Extra Answers Any time you are solving for a variable, make sure your solutions actually work. If they do not, they are extraneous, or extra."
+          "text": "5 Extra Answers Any time you are solving for a variable, make sure your solutions actually work. If they do not, they are extraneous, or extra.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7084,19 +7681,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–6"
+          "text": "–6",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–4"
+          "text": "–4",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "4"
+          "text": "4",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "8"
+          "text": "8",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7214,19 +7815,23 @@
       "options": [
         {
           "id": "A",
-          "text": "x = –5 y = 10"
+          "text": "x = –5 y = 10",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "x = 10y y = 10x"
+          "text": "x = 10y y = 10x",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "y = –4x – 10 y = –4x – 15"
+          "text": "y = –4x – 10 y = –4x – 15",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "4y = 2x + 20"
+          "text": "4y = 2x + 20",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7263,19 +7868,23 @@
       "options": [
         {
           "id": "A",
-          "text": "x ≤ –4"
+          "text": "x ≤ –4",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "x ≤ 8"
+          "text": "x ≤ 8",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "x ≥ –4"
+          "text": "x ≥ –4",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "x ≥ –8"
+          "text": "x ≥ –8",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7312,19 +7921,23 @@
       "options": [
         {
           "id": "A",
-          "text": "g = 0.07 + 0.5w"
+          "text": "g = 0.07 + 0.5w",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "g = 0.07(0.5 + w)"
+          "text": "g = 0.07(0.5 + w)",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "g = 0.5(0.07 + w)"
+          "text": "g = 0.5(0.07 + w)",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "g = 0.5 + 0.07w When to translate Start translating words into math in bite-sized pieces when you see the following: The question asks what “models” or “represents” a situation. The answers contain one or more equations or inequalities."
+          "text": "g = 0.5 + 0.07w When to translate Start translating words into math in bite-sized pieces when you see the following: The question asks what “models” or “represents” a situation. The answers contain one or more equations or inequalities.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7361,19 +7974,23 @@
       "options": [
         {
           "id": "A",
-          "text": "22.86r + 18.29b ≥ 200 3b ≤ r"
+          "text": "22.86r + 18.29b ≥ 200 3b ≤ r",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "22.86r + 54.87b ≥ 200 3b ≤ r"
+          "text": "22.86r + 54.87b ≥ 200 3b ≤ r",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "22.86r + 18.29b ≥ 200 b ≤ 3r"
+          "text": "22.86r + 18.29b ≥ 200 b ≤ 3r",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "22.86r + 54.87b ≥ 200 b ≤ 3r"
+          "text": "22.86r + 54.87b ≥ 200 b ≤ 3r",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7518,19 +8135,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–7"
+          "text": "–7",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–1"
+          "text": "–1",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "1"
+          "text": "1",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "3"
+          "text": "3",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7621,19 +8242,23 @@
       "options": [
         {
           "id": "A",
-          "text": "12"
+          "text": "12",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "15"
+          "text": "15",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "25"
+          "text": "25",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "30"
+          "text": "30",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7670,19 +8295,23 @@
       "options": [
         {
           "id": "A",
-          "text": "30"
+          "text": "30",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "700"
+          "text": "700",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "2,100"
+          "text": "2,100",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "6,300"
+          "text": "6,300",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7719,19 +8348,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–3"
+          "text": "–3",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–2"
+          "text": "–2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "1"
+          "text": "1",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "3 Digital SAT Smoke and Mirrors When you’re asked to solve an equation involving an absolute value, it is very likely that the correct answer will involve the negative result. Why? Because the test-writers know that you are less likely to think about the negative result! Another way to avoid mistakes is to do all the math inside the absolute value symbols first, and then make the result positive."
+          "text": "3 Digital SAT Smoke and Mirrors When you’re asked to solve an equation involving an absolute value, it is very likely that the correct answer will involve the negative result. Why? Because the test-writers know that you are less likely to think about the negative result! Another way to avoid mistakes is to do all the math inside the absolute value symbols first, and then make the result positive.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7795,19 +8428,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–3, 3"
+          "text": "–3, 3",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–2"
+          "text": "–2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "–2, –7"
+          "text": "–2, –7",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "3, 6"
+          "text": "3, 6",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -7952,19 +8589,23 @@
       "options": [
         {
           "id": "A",
-          "text": "xy = 76 x = 2y2"
+          "text": "xy = 76 x = 2y2",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "xy = 76 x = (2y)2"
+          "text": "xy = 76 x = (2y)2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "x + y = 76 x = 4y2"
+          "text": "x + y = 76 x = 4y2",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "xy = 76 x = 2y"
+          "text": "xy = 76 x = 2y",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8028,19 +8669,23 @@
       "options": [
         {
           "id": "A",
-          "text": "0"
+          "text": "0",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "1"
+          "text": "1",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "2"
+          "text": "2",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "3"
+          "text": "3",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8077,19 +8722,23 @@
       "options": [
         {
           "id": "A",
-          "text": "40"
+          "text": "40",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "60"
+          "text": "60",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "150"
+          "text": "150",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "250"
+          "text": "250",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8126,19 +8775,23 @@
       "options": [
         {
           "id": "A",
-          "text": "5"
+          "text": "5",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "6"
+          "text": "6",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "7"
+          "text": "7",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "8"
+          "text": "8",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8175,19 +8828,23 @@
       "options": [
         {
           "id": "A",
-          "text": "(–5, 4)"
+          "text": "(–5, 4)",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "(4, –2)"
+          "text": "(4, –2)",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "(5, 4)"
+          "text": "(5, 4)",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "(5, –4) Which Way? Sometimes, it’s hard to tell if you need a larger number or a smaller number if the first answer you tried didn’t work. Don’t fret. Just pick a direction and go! Spend your time trying answers rather than worrying about going in the wrong direction."
+          "text": "(5, –4) Which Way? Sometimes, it’s hard to tell if you need a larger number or a smaller number if the first answer you tried didn’t work. Don’t fret. Just pick a direction and go! Spend your time trying answers rather than worrying about going in the wrong direction.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8224,19 +8881,23 @@
       "options": [
         {
           "id": "A",
-          "text": "130"
+          "text": "130",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "140"
+          "text": "140",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "145"
+          "text": "145",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "150"
+          "text": "150",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8273,19 +8934,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–4"
+          "text": "–4",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "0"
+          "text": "0",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "4"
+          "text": "4",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "There is no such value of x."
+          "text": "There is no such value of x.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8457,19 +9122,23 @@
       "options": [
         {
           "id": "A",
-          "text": "The total number of red marbles"
+          "text": "The total number of red marbles",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "The total number of blue marbles"
+          "text": "The total number of blue marbles",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "The number of red marbles in each box"
+          "text": "The number of red marbles in each box",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "The number of blue marbles in each box"
+          "text": "The number of blue marbles in each box",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8506,19 +9175,23 @@
       "options": [
         {
           "id": "A",
-          "text": "For every $4 the price of pizza decreases, the cafeteria sells 1 more slice of pizza."
+          "text": "For every $4 the price of pizza decreases, the cafeteria sells 1 more slice of pizza.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "For every dollar the price of pizza decreases, the cafeteria sells 4 more slices of pizza."
+          "text": "For every dollar the price of pizza decreases, the cafeteria sells 4 more slices of pizza.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "For every $4 the price of pizza increases, the cafeteria sells 1 more slice of pizza."
+          "text": "For every $4 the price of pizza increases, the cafeteria sells 1 more slice of pizza.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "For every dollar the price of pizza increases, the cafeteria sells 4 more slices of pizza."
+          "text": "For every dollar the price of pizza increases, the cafeteria sells 4 more slices of pizza.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8555,19 +9228,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Jeffrey starts the month with a budget of $19."
+          "text": "Jeffrey starts the month with a budget of $19.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Jeffrey spends $19 on coffee every day."
+          "text": "Jeffrey spends $19 on coffee every day.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "It takes 19 days for Jeffrey to drink 133 cups of coffee."
+          "text": "It takes 19 days for Jeffrey to drink 133 cups of coffee.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "It takes 19 days for Jeffrey to run out of money in his budget for purchasing coffee."
+          "text": "It takes 19 days for Jeffrey to run out of money in his budget for purchasing coffee.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8631,19 +9308,23 @@
       "options": [
         {
           "id": "A",
-          "text": "I only"
+          "text": "I only",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "III only"
+          "text": "III only",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "I and III"
+          "text": "I and III",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "II and III"
+          "text": "II and III",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8707,19 +9388,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–2"
+          "text": "–2",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "2"
+          "text": "2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "2 and 6"
+          "text": "2 and 6",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "6"
+          "text": "6",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8783,19 +9468,23 @@
       "options": [
         {
           "id": "A",
-          "text": "16"
+          "text": "16",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "17"
+          "text": "17",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "25"
+          "text": "25",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "33"
+          "text": "33",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8832,19 +9521,23 @@
       "options": [
         {
           "id": "A",
-          "text": "9%"
+          "text": "9%",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "11%"
+          "text": "11%",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "36%"
+          "text": "36%",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "44%"
+          "text": "44%",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8881,19 +9574,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–3"
+          "text": "–3",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–2"
+          "text": "–2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "2"
+          "text": "2",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "3"
+          "text": "3",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8930,19 +9627,23 @@
       "options": [
         {
           "id": "A",
-          "text": "25"
+          "text": "25",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "75"
+          "text": "75",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "175"
+          "text": "175",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "475"
+          "text": "475",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -8979,19 +9680,23 @@
       "options": [
         {
           "id": "A",
-          "text": "20"
+          "text": "20",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "25"
+          "text": "25",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "45"
+          "text": "45",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "80"
+          "text": "80",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9028,19 +9733,23 @@
       "options": [
         {
           "id": "A",
-          "text": "67"
+          "text": "67",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "97"
+          "text": "97",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "113"
+          "text": "113",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "147"
+          "text": "147",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9077,19 +9786,23 @@
       "options": [
         {
           "id": "A",
-          "text": "5"
+          "text": "5",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "8"
+          "text": "8",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "20"
+          "text": "20",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "24 Use PITA! Don’t forget that you can often plug in the answer choices on function questions! Noticing a pattern yet? Just a few easy tricks can unlock a lot of easy points."
+          "text": "24 Use PITA! Don’t forget that you can often plug in the answer choices on function questions! Noticing a pattern yet? Just a few easy tricks can unlock a lot of easy points.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9126,19 +9839,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–1"
+          "text": "–1",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "0"
+          "text": "0",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "1"
+          "text": "1",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "2"
+          "text": "2",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9175,19 +9892,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–40"
+          "text": "–40",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–5"
+          "text": "–5",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "5"
+          "text": "5",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "40"
+          "text": "40",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9224,19 +9945,23 @@
       "options": [
         {
           "id": "A",
-          "text": "D(s) = s2"
+          "text": "D(s) = s2",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "D(s) ="
+          "text": "D(s) =",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "D(s) = s – 3.5"
+          "text": "D(s) = s – 3.5",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "D(s) ="
+          "text": "D(s) =",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9273,19 +9998,23 @@
       "options": [
         {
           "id": "A",
-          "text": "z(x) = 10(1.25)x"
+          "text": "z(x) = 10(1.25)x",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "z(x) = 1.25(10)x"
+          "text": "z(x) = 1.25(10)x",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "z(x) = 0.75(10)x"
+          "text": "z(x) = 0.75(10)x",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "z(x) = 10(0.75)x"
+          "text": "z(x) = 10(0.75)x",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9322,19 +10051,23 @@
       "options": [
         {
           "id": "A",
-          "text": "f (x) = 8x"
+          "text": "f (x) = 8x",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "f (x) = 8x + 8"
+          "text": "f (x) = 8x + 8",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "f (x) = 9x – 1"
+          "text": "f (x) = 9x – 1",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "f (x) = 9x + 8"
+          "text": "f (x) = 9x + 8",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9371,19 +10104,23 @@
       "options": [
         {
           "id": "A",
-          "text": "(6, 7)"
+          "text": "(6, 7)",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "(7, 7)"
+          "text": "(7, 7)",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "(7, 8)"
+          "text": "(7, 8)",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "(8, 7)"
+          "text": "(8, 7)",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9420,19 +10157,23 @@
       "options": [
         {
           "id": "A",
-          "text": "y = –2x – 1"
+          "text": "y = –2x – 1",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "y = –2x + 4"
+          "text": "y = –2x + 4",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "y = 2x – 4"
+          "text": "y = 2x – 4",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "y = 2x + 4"
+          "text": "y = 2x + 4",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9469,19 +10210,23 @@
       "options": [
         {
           "id": "A",
-          "text": "x – y = 3"
+          "text": "x – y = 3",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "x – 3y = 2"
+          "text": "x – 3y = 2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "x + 6y = 4"
+          "text": "x + 6y = 4",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "x + 3y = 5"
+          "text": "x + 3y = 5",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9545,19 +10290,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–432"
+          "text": "–432",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–6"
+          "text": "–6",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "6"
+          "text": "6",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "432"
+          "text": "432",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9594,19 +10343,23 @@
       "options": [
         {
           "id": "A",
-          "text": "(0, –4)"
+          "text": "(0, –4)",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "(0, 4)"
+          "text": "(0, 4)",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "There are no solutions."
+          "text": "There are no solutions.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "There are infinitely many solutions. There’s Just No Solution When given two equations with no solutions, find a way to compare slopes. The equations represent parallel lines."
+          "text": "There are infinitely many solutions. There’s Just No Solution When given two equations with no solutions, find a way to compare slopes. The equations represent parallel lines.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9643,19 +10396,23 @@
       "options": [
         {
           "id": "A",
-          "text": "(0, –2)"
+          "text": "(0, –2)",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "(0, 2)"
+          "text": "(0, 2)",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "(1, 0)"
+          "text": "(1, 0)",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "(2, 4)"
+          "text": "(2, 4)",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9692,19 +10449,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–2.25"
+          "text": "–2.25",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–1.5"
+          "text": "–1.5",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "1.5"
+          "text": "1.5",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "2.25"
+          "text": "2.25",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9741,19 +10502,23 @@
       "options": [
         {
           "id": "A",
-          "text": "(x – 4)2 + (y + 1)2 = 1"
+          "text": "(x – 4)2 + (y + 1)2 = 1",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "(x – 2)2 + (y + 1)2 = 9"
+          "text": "(x – 2)2 + (y + 1)2 = 9",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "(x – 6)2 + (y + 1)2 = 9"
+          "text": "(x – 6)2 + (y + 1)2 = 9",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "(x – 4)2 + (y + 3)2 = 9"
+          "text": "(x – 4)2 + (y + 3)2 = 9",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9817,19 +10582,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–10"
+          "text": "–10",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "–2"
+          "text": "–2",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "0"
+          "text": "0",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "2"
+          "text": "2",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9866,19 +10635,23 @@
       "options": [
         {
           "id": "A",
-          "text": "h(d ) = d + 100"
+          "text": "h(d ) = d + 100",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "h(d ) = d – 100"
+          "text": "h(d ) = d – 100",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "h(d ) = 100d"
+          "text": "h(d ) = 100d",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "h(d ) ="
+          "text": "h(d ) =",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9915,19 +10688,23 @@
       "options": [
         {
           "id": "A",
-          "text": "y = x – 4"
+          "text": "y = x – 4",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "y = 2x – 1"
+          "text": "y = 2x – 1",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "y = 2x + 2"
+          "text": "y = 2x + 2",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "y = 3x – 3"
+          "text": "y = 3x – 3",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -9964,19 +10741,23 @@
       "options": [
         {
           "id": "A",
-          "text": "–5x + y ="
+          "text": "–5x + y =",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "x + 3y = 15"
+          "text": "x + 3y = 15",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "x + 5y = 15"
+          "text": "x + 5y = 15",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "3x + y = 5"
+          "text": "3x + y = 5",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10067,19 +10848,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Zero"
+          "text": "Zero",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "One"
+          "text": "One",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Two"
+          "text": "Two",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Three"
+          "text": "Three",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10116,19 +10901,23 @@
       "options": [
         {
           "id": "A",
-          "text": "t s 1 5 2 10 3 15 4 20"
+          "text": "t s 1 5 2 10 3 15 4 20",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "t s 1 5 2 10 3 30 4 120"
+          "text": "t s 1 5 2 10 3 30 4 120",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "t s 1 5"
+          "text": "t s 1 5",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "t s 5 1 10 2 15 3 20 4"
+          "text": "t s 5 1 10 2 15 3 20 4",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10192,19 +10981,23 @@
       "options": [
         {
           "id": "A",
-          "text": "The cart reached a maximum height of 154 feet above the ground."
+          "text": "The cart reached a maximum height of 154 feet above the ground.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "The cart reached a maximum height of 55.5 feet above the ground."
+          "text": "The cart reached a maximum height of 55.5 feet above the ground.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "The cart’s final height was 154 feet above the ground."
+          "text": "The cart’s final height was 154 feet above the ground.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "The cart’s final height was 55.5 feet above the ground."
+          "text": "The cart’s final height was 55.5 feet above the ground.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10241,19 +11034,23 @@
       "options": [
         {
           "id": "A",
-          "text": "1:9"
+          "text": "1:9",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "2:1"
+          "text": "2:1",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "3:1"
+          "text": "3:1",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "9:1"
+          "text": "9:1",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10290,19 +11087,23 @@
       "options": [
         {
           "id": "A",
-          "text": "24"
+          "text": "24",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "30"
+          "text": "30",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "36"
+          "text": "36",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "60"
+          "text": "60",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10339,19 +11140,23 @@
       "options": [
         {
           "id": "A",
-          "text": "2.0 inches"
+          "text": "2.0 inches",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "2.3 inches"
+          "text": "2.3 inches",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "2.6 inches"
+          "text": "2.6 inches",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "2.9 inches"
+          "text": "2.9 inches",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10388,19 +11193,23 @@
       "options": [
         {
           "id": "A",
-          "text": "95"
+          "text": "95",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "190"
+          "text": "190",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "5,720"
+          "text": "5,720",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "343,200"
+          "text": "343,200",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10437,19 +11246,23 @@
       "options": [
         {
           "id": "A",
-          "text": "$920"
+          "text": "$920",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "$960"
+          "text": "$960",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "$990"
+          "text": "$990",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "$993 Bite-Sized Pieces Always handle percentage problems using Bite- Sized Pieces: one piece at a time."
+          "text": "$993 Bite-Sized Pieces Always handle percentage problems using Bite- Sized Pieces: one piece at a time.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10486,19 +11299,23 @@
       "options": [
         {
           "id": "A",
-          "text": "80"
+          "text": "80",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "100"
+          "text": "100",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "105"
+          "text": "105",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "120"
+          "text": "120",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10535,19 +11352,23 @@
       "options": [
         {
           "id": "A",
-          "text": "80"
+          "text": "80",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "81"
+          "text": "81",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "82"
+          "text": "82",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "84"
+          "text": "84",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10584,19 +11405,23 @@
       "options": [
         {
           "id": "A",
-          "text": "55 minutes"
+          "text": "55 minutes",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "58 minutes"
+          "text": "58 minutes",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "1 hour and 1 minute"
+          "text": "1 hour and 1 minute",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "1 hour and 5 minutes"
+          "text": "1 hour and 5 minutes",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10633,19 +11458,23 @@
       "options": [
         {
           "id": "A",
-          "text": "6n + 18"
+          "text": "6n + 18",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "5n"
+          "text": "5n",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "n + 18"
+          "text": "n + 18",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "n + 6"
+          "text": "n + 6",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10682,19 +11511,23 @@
       "options": [
         {
           "id": "A",
-          "text": "0.00"
+          "text": "0.00",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "0.37"
+          "text": "0.37",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "0.45"
+          "text": "0.45",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "0.55"
+          "text": "0.55",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10731,19 +11564,23 @@
       "options": [
         {
           "id": "A",
-          "text": "2.5"
+          "text": "2.5",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "3.5"
+          "text": "3.5",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "4.0"
+          "text": "4.0",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "4.5"
+          "text": "4.5",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10780,19 +11617,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Mode"
+          "text": "Mode",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Mean"
+          "text": "Mean",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Range"
+          "text": "Range",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "Median"
+          "text": "Median",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10829,19 +11670,23 @@
       "options": [
         {
           "id": "A",
-          "text": "24–32"
+          "text": "24–32",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "39–48"
+          "text": "39–48",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "150–195"
+          "text": "150–195",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "180–240"
+          "text": "180–240",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10878,19 +11723,23 @@
       "options": [
         {
           "id": "A",
-          "text": "mode < median < range"
+          "text": "mode < median < range",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "median < mode < range"
+          "text": "median < mode < range",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "median < range < mode"
+          "text": "median < range < mode",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "range < median < mode"
+          "text": "range < median < mode",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -10927,19 +11776,23 @@
       "options": [
         {
           "id": "A",
-          "text": "The standard deviations are the same, and the medians are the same."
+          "text": "The standard deviations are the same, and the medians are the same.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "The standard deviations are the same, and the medians are different."
+          "text": "The standard deviations are the same, and the medians are different.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "The standard deviations are different, and the medians are the same."
+          "text": "The standard deviations are different, and the medians are the same.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "The standard deviations are different, and the medians are different."
+          "text": "The standard deviations are different, and the medians are different.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11084,19 +11937,23 @@
       "options": [
         {
           "id": "A",
-          "text": "16"
+          "text": "16",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "135"
+          "text": "135",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "153"
+          "text": "153",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "1,296"
+          "text": "1,296",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11133,19 +11990,23 @@
       "options": [
         {
           "id": "A",
-          "text": "1, 1, 2, 2, 2, 3, 4, 4, 4, 4"
+          "text": "1, 1, 2, 2, 2, 3, 4, 4, 4, 4",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "1, 1, 1, 2, 3, 3, 4, 4, 4, 4"
+          "text": "1, 1, 1, 2, 3, 3, 4, 4, 4, 4",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "1, 2, 2, 3, 3, 3, 4, 4, 4, 4"
+          "text": "1, 2, 2, 3, 3, 3, 4, 4, 4, 4",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "2, 3, 6, 16"
+          "text": "2, 3, 6, 16",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11182,19 +12043,23 @@
       "options": [
         {
           "id": "A",
-          "text": "12"
+          "text": "12",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "16"
+          "text": "16",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "24"
+          "text": "24",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "30"
+          "text": "30",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11231,19 +12096,23 @@
       "options": [
         {
           "id": "A",
-          "text": "4.5"
+          "text": "4.5",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "5"
+          "text": "5",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "6"
+          "text": "6",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "6.5"
+          "text": "6.5",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11280,19 +12149,23 @@
       "options": [
         {
           "id": "A",
-          "text": "30,000"
+          "text": "30,000",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "40,000"
+          "text": "40,000",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "60,000"
+          "text": "60,000",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "80,000"
+          "text": "80,000",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11329,19 +12202,23 @@
       "options": [
         {
           "id": "A",
-          "text": "No less than 29% of the students have brown hair."
+          "text": "No less than 29% of the students have brown hair.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "Between 29% and 41% of the students have brown hair."
+          "text": "Between 29% and 41% of the students have brown hair.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "Exactly 35% of the students have brown hair."
+          "text": "Exactly 35% of the students have brown hair.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "No more than 41% of the students have brown hair."
+          "text": "No more than 41% of the students have brown hair.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11405,19 +12282,23 @@
       "options": [
         {
           "id": "A",
-          "text": "93"
+          "text": "93",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "117"
+          "text": "117",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "156"
+          "text": "156",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "175"
+          "text": "175",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11454,19 +12335,23 @@
       "options": [
         {
           "id": "A",
-          "text": "There is not enough information to compare these standard deviations."
+          "text": "There is not enough information to compare these standard deviations.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "The standard deviation of data set R is greater than the standard deviation of data set Q."
+          "text": "The standard deviation of data set R is greater than the standard deviation of data set Q.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "The standard deviation of data set R is less than the standard deviation of data set Q."
+          "text": "The standard deviation of data set R is less than the standard deviation of data set Q.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "The standard deviation of data set R is equal to the standard deviation of data set Q."
+          "text": "The standard deviation of data set R is equal to the standard deviation of data set Q.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11503,19 +12388,23 @@
       "options": [
         {
           "id": "A",
-          "text": "20"
+          "text": "20",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "21"
+          "text": "21",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "25"
+          "text": "25",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "29 ANSWERS TO FRACTIONS, DECIMALS, AND PERCENTS EXERCISE 1. , 0.5, 50% 2. , 3.0, 300%"
+          "text": "29 ANSWERS TO FRACTIONS, DECIMALS, AND PERCENTS EXERCISE 1. , 0.5, 50% 2. , 3.0, 300%",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11579,19 +12468,23 @@
       "options": [
         {
           "id": "A",
-          "text": "40"
+          "text": "40",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "50"
+          "text": "50",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "90"
+          "text": "90",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "130"
+          "text": "130",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11655,19 +12548,23 @@
       "options": [
         {
           "id": "A",
-          "text": "0.48"
+          "text": "0.48",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "4.8"
+          "text": "4.8",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "24"
+          "text": "24",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "48"
+          "text": "48",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11731,19 +12628,23 @@
       "options": [
         {
           "id": "A",
-          "text": "Neither I nor II"
+          "text": "Neither I nor II",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "I only"
+          "text": "I only",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "II only"
+          "text": "II only",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "I and II"
+          "text": "I and II",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11807,19 +12708,23 @@
       "options": [
         {
           "id": "A",
-          "text": "5π"
+          "text": "5π",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "10π"
+          "text": "10π",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "16π"
+          "text": "16π",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "25π"
+          "text": "25π",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11910,19 +12815,23 @@
       "options": [
         {
           "id": "A",
-          "text": "3π"
+          "text": "3π",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "9π"
+          "text": "9π",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "27π"
+          "text": "27π",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "36π"
+          "text": "36π",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -11959,19 +12868,23 @@
       "options": [
         {
           "id": "A",
-          "text": "10"
+          "text": "10",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "45"
+          "text": "45",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "90"
+          "text": "90",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "110"
+          "text": "110",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -12008,19 +12921,23 @@
       "options": [
         {
           "id": "A",
-          "text": "22"
+          "text": "22",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "26"
+          "text": "26",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "32"
+          "text": "32",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "110"
+          "text": "110",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -12057,19 +12974,23 @@
       "options": [
         {
           "id": "A",
-          "text": "8"
+          "text": "8",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "9"
+          "text": "9",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "12"
+          "text": "12",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "15"
+          "text": "15",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -12106,19 +13027,23 @@
       "options": [
         {
           "id": "A",
-          "text": "It must decrease by 1 unit."
+          "text": "It must decrease by 1 unit.",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "It must increase by 1 unit."
+          "text": "It must increase by 1 unit.",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "It must decrease by 1.4 units."
+          "text": "It must decrease by 1.4 units.",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "It must increase by 1.4 units."
+          "text": "It must increase by 1.4 units.",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -12209,19 +13134,23 @@
       "options": [
         {
           "id": "A",
-          "text": "1.06"
+          "text": "1.06",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "1.18"
+          "text": "1.18",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "2.09"
+          "text": "2.09",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "6.51"
+          "text": "6.51",
+          "key": "D"
         }
       ],
       "options_raw": {
@@ -12339,19 +13268,23 @@
       "options": [
         {
           "id": "A",
-          "text": "3 meters"
+          "text": "3 meters",
+          "key": "A"
         },
         {
           "id": "B",
-          "text": "9 meters"
+          "text": "9 meters",
+          "key": "B"
         },
         {
           "id": "C",
-          "text": "27 meters"
+          "text": "27 meters",
+          "key": "C"
         },
         {
           "id": "D",
-          "text": "29 meters"
+          "text": "29 meters",
+          "key": "D"
         }
       ],
       "options_raw": {

@@ -2312,9 +2312,11 @@ function renderOptions(q, qState, isFinished) {
   const opts = rawOpts.map((opt, idx) => {
     if (typeof opt === "string") {
       const k = defaultKeys[idx] || String.fromCharCode(65 + idx);
-      return { key: k, text: opt };
+      return { key: k, id: k, text: opt };
     }
-    return opt;
+    const k = opt.key || opt.id || defaultKeys[idx] || String.fromCharCode(65 + idx);
+    const txt = (opt.text !== undefined && opt.text !== null) ? String(opt.text) : (opt.value || opt.val || "");
+    return { ...opt, key: k, id: k, text: txt };
   });
 
   opts.forEach(opt => {
@@ -4408,7 +4410,7 @@ function formatQuestionPromptForExcel(q) {
   if (q.is_grid_in) {
     parts.push("[Hình thức]: Tự luận điền đáp án (Grid-in)");
   } else if (Array.isArray(q.options) && q.options.length > 0) {
-    const optStr = q.options.map(o => `${o.key}) ${cleanTextForExcel(o.text || "", 1000)}`).join(" | ");
+    const optStr = q.options.map(o => `${o.key || o.id}) ${cleanTextForExcel(o.text || "", 1000)}`).join(" | ");
     if (optStr) parts.push(`[Phương án]: ${optStr}`);
   } else if (q.options_raw) {
     parts.push(`[Phương án]: ${cleanTextForExcel(q.options_raw, 4000)}`);
@@ -9275,7 +9277,7 @@ async function downloadConsolidatedCombinedExcel() {
 
   const btn = DOM.btnAarDownloadCombined || DOM.btnAarDownloadOnly;
   const textSpan = DOM.aarDownloadBtnText || (btn ? btn.querySelector("span:not(.spinner)") : null);
-  const origText = textSpan ? textSpan.textContent : (isEn ? "Download Consolidated Report" : "Tải báo cáo tổng hợp");
+  const origText = textSpan ? textSpan.textContent : (isEn ? "📥 Export Full Report" : "📥 Xuất Báo Cáo Đầy Đủ");
   if (btn) btn.disabled = true;
   if (DOM.aarDownloadSpinner) DOM.aarDownloadSpinner.classList.remove("hidden");
   if (textSpan) textSpan.textContent = isEn ? "Generating consolidated report..." : "Đang tạo báo cáo tổng hợp...";
