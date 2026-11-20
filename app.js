@@ -944,6 +944,7 @@ function saveLocalState() {
 // ================= VIEW CONTROLLER (GOOGLE UX LANDING & PRACTICE) =================
 function showView(viewName) {
   if (viewName === "home") {
+    document.title = "Digital SAT Practice Based on Learning Science";
     document.body.classList.remove("in-practice");
     document.body.classList.remove("zen-mode");
     if (DOM.zenFloatingPill) DOM.zenFloatingPill.classList.add("hidden");
@@ -979,6 +980,8 @@ function showView(viewName) {
       DOM.modalOnboarding.style.display = "none";
     }
     resumeTimer();
+    const curTestTitle = App.activeTest ? getTestField(App.activeTest, "short_title") : "";
+    document.title = curTestTitle ? `Digital SAT Practice Based on Learning Science • ${curTestTitle}` : "Digital SAT Practice Based on Learning Science";
     renderCurrentQuestion();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -1560,7 +1563,10 @@ function updateActiveTestUI() {
   const descText = getTestField(test, "description");
 
   // Document Title
-  document.title = `Bluebook Digital SAT - ${shortTitle}`;
+  const isPractice = DOM.viewPractice && !DOM.viewPractice.classList.contains("hidden");
+  document.title = isPractice
+    ? `Digital SAT Practice Based on Learning Science • ${shortTitle}`
+    : "Digital SAT Practice Based on Learning Science";
 
   // Nav brand badge
   if (DOM.homeBrandBadge) {
