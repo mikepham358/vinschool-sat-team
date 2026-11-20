@@ -207,6 +207,9 @@ window.I18N_TRANSLATIONS = {
     aar_modal_subtitle: "OECD Learning Compass 2030 & ISTE Standards • Synchronized practice performance",
     aar_tab_new: "✍️ New Session Report",
     aar_tab_history: "📚 Saved AAR History",
+    aar_lbl_date_filter: "📅 Report Timeframe / Date:",
+    aar_date_today: "🌟 Today",
+    aar_date_all: "🌐 All Dates",
     aar_sec0_title: "0️⃣ SESSION METADATA",
     aar_lbl_session: "Session #",
     aar_lbl_date: "Practice Date",
@@ -626,6 +629,9 @@ window.I18N_TRANSLATIONS = {
     aar_modal_subtitle: "Chuẩn OECD Learning Compass 2030 & ISTE Standards • Đồng bộ hiệu suất thực hành",
     aar_tab_new: "✍️ Báo Cáo Buổi Học Mới",
     aar_tab_history: "📚 Nhật Ký AAR Đã Lưu",
+    aar_lbl_date_filter: "📅 Khung thời gian / Ngày báo cáo:",
+    aar_date_today: "🌟 Hôm nay",
+    aar_date_all: "🌐 Tất cả các ngày",
     aar_sec0_title: "0️⃣ THÔNG TIN BUỔI HỌC",
     aar_lbl_session: "Buổi #",
     aar_lbl_date: "Ngày học",
@@ -967,6 +973,14 @@ window.toggleAppLanguage = function() {
   }
   if (isPracticeActive && typeof window.renderCurrentQuestion === "function") {
     window.renderCurrentQuestion();
+  }
+  if (typeof window.updateAARDateFilterOptions === "function") {
+    window.updateAARDateFilterOptions();
+  }
+  if (typeof window.refreshAARPerformanceUI === "function") {
+    const modalAar = document.getElementById("modal-aar-report");
+    const isAarOpen = modalAar && !modalAar.classList.contains("hidden");
+    window.refreshAARPerformanceUI(isAarOpen);
   }
 
   // Toast confirmation

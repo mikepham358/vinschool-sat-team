@@ -309,6 +309,7 @@ const App = {
   sessionPracticedIds: new Set(),
   globalSessionItems: {},
   aarScope: "session",
+  aarDateFilter: "today",
   aarLogs: [],
   lastAarReportAt: null,
   aarDraft: {
@@ -715,6 +716,9 @@ const DOM = {
   aarPerfHeadline: document.getElementById("aar-perf-headline"),
   aarPerfSub: document.getElementById("aar-perf-sub"),
   aarScopePills: document.getElementById("aar-scope-pills"),
+  aarDateFilterBar: document.getElementById("aar-date-filter-bar"),
+  aarDatePills: document.getElementById("aar-date-pills"),
+  aarSelectDateFilter: document.getElementById("aar-select-date-filter"),
   aarStatWeighted: document.getElementById("aar-stat-weighted"),
   aarStatCorrect: document.getElementById("aar-stat-correct"),
   aarStatPct: document.getElementById("aar-stat-pct"),
@@ -986,6 +990,7 @@ function showView(viewName) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
+window.showView = showView;
 
 function syncHomeProfile() {
   const name = App.studentState.student_name || "";
@@ -7137,6 +7142,39 @@ function setupEventListeners() {
       });
     });
   }
+  if (DOM.aarDatePills) {
+    DOM.aarDatePills.addEventListener("click", (e) => {
+      const btn = e.target.closest(".aar-date-btn");
+      if (!btn) return;
+      const fVal = btn.getAttribute("data-date-filter") || "today";
+      App.aarDateFilter = fVal;
+      if (DOM.aarSelectDateFilter) DOM.aarSelectDateFilter.value = fVal;
+      DOM.aarDatePills.querySelectorAll(".aar-date-btn").forEach(b => {
+        b.classList.toggle("active", b === btn);
+      });
+      if (fVal === "today" && DOM.aarInputDate) {
+        DOM.aarInputDate.value = getTodayIsoLocal();
+      }
+      refreshAARPerformanceUI(true);
+    });
+  }
+  if (DOM.aarSelectDateFilter) {
+    DOM.aarSelectDateFilter.addEventListener("change", (e) => {
+      const fVal = e.target.value;
+      App.aarDateFilter = fVal;
+      if (DOM.aarDatePills) {
+        DOM.aarDatePills.querySelectorAll(".aar-date-btn").forEach(b => {
+          b.classList.toggle("active", b.getAttribute("data-date-filter") === fVal);
+        });
+      }
+      if (fVal === "today" && DOM.aarInputDate) {
+        DOM.aarInputDate.value = getTodayIsoLocal();
+      } else if (fVal !== "all" && DOM.aarInputDate) {
+        DOM.aarInputDate.value = fVal;
+      }
+      refreshAARPerformanceUI(true);
+    });
+  }
   if (DOM.aarSelectSatModule) {
     DOM.aarSelectSatModule.addEventListener("change", () => {
       toggleAarCustomModuleInput(true);
@@ -7155,6 +7193,15 @@ function setupEventListeners() {
       const norm = normalizeToIsoDate(val);
       if (norm) {
         captureModalAarDraftFromInputs({ markDateUserSet: true });
+        const todayIso = getTodayIsoLocal();
+        App.aarDateFilter = (norm === todayIso) ? "today" : norm;
+        if (DOM.aarSelectDateFilter) DOM.aarSelectDateFilter.value = App.aarDateFilter;
+        if (DOM.aarDatePills) {
+          DOM.aarDatePills.querySelectorAll(".aar-date-btn").forEach(b => {
+            b.classList.toggle("active", b.getAttribute("data-date-filter") === App.aarDateFilter);
+          });
+        }
+        refreshAARPerformanceUI(true);
       } else if (!val) {
         captureModalAarDraftFromInputs({ markDateCleared: true });
       }
@@ -8212,11 +8259,115 @@ function detectDefaultAarModule() {
   return "Digital SAT Full-test";
 }
 
-function calculateAARSessionSummary(scope = "session") {
+function getLocalDateIsoFromTimestamp(ts) {
+  if (!ts) return null;
+  const d = new Date(ts);
+  if (isNaN(d.getTime())) return null;
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+function getAvailablePracticedDates() {
+  const dateCounts = {};
+  const globalItems = Object.values(App.globalSessionItems || {});
+  const seenKeys = new Set();
+
+  globalItems.forEach(it => {
+    if (!it || !it.practiced_at) return;
+    const dateStr = getLocalDateIsoFromTimestamp(it.practiced_at);
+    if (dateStr) {
+      dateCounts[dateStr] = (dateCounts[dateStr] || 0) + 1;
+      seenKeys.add(it.key || `${it.test_id || App.activeTestId}::${it.qid}`);
+    }
+  });
+
+  const attempts = (App.studentState && App.studentState.attempts) ? App.studentState.attempts : {};
+  Object.keys(attempts).forEach(qid => {
+    const key = `${App.activeTestId}::${qid}`;
+    if (seenKeys.has(key)) return;
+    const st = attempts[qid];
+    if (!st || !st.last_practiced_at || !Array.isArray(st.attempts) || st.attempts.length === 0) return;
+    const dateStr = getLocalDateIsoFromTimestamp(st.last_practiced_at);
+    if (dateStr) {
+      dateCounts[dateStr] = (dateCounts[dateStr] || 0) + 1;
+    }
+  });
+
+  return Object.keys(dateCounts).sort().reverse().map(dateIso => ({
+    dateIso,
+    count: dateCounts[dateIso]
+  }));
+}
+
+function updateAARDateFilterOptions() {
+  if (!DOM.aarSelectDateFilter) return;
+  const isEn = (App.currentLang === "en");
+  const todayIso = getTodayIsoLocal();
+  const dates = getAvailablePracticedDates();
+
+  const totalAllItems = Object.values(App.globalSessionItems || {}).length ||
+    Object.values((App.studentState && App.studentState.attempts) || {}).filter(st => st && Array.isArray(st.attempts) && st.attempts.length > 0).length;
+
+  const todayItem = dates.find(d => d.dateIso === todayIso);
+  const todayCount = todayItem ? todayItem.count : 0;
+
+  let html = `<option value="today">🌟 ${isEn ? "Today" : "Hôm nay"} (${todayIso}) [${todayCount} ${isEn ? "items" : "câu"}]</option>`;
+
+  dates.forEach(d => {
+    if (d.dateIso !== todayIso) {
+      const displayDate = isEn ? d.dateIso : formatDateViFromIso(d.dateIso);
+      html += `<option value="${d.dateIso}">🗓️ ${isEn ? "Date" : "Ngày"} ${displayDate} [${d.count} ${isEn ? "items" : "câu"}]</option>`;
+    }
+  });
+
+  html += `<option value="all">🌐 ${isEn ? "All Dates (Combined History)" : "Tất cả các ngày (Tổng hợp)"} [${totalAllItems} ${isEn ? "items" : "câu"}]</option>`;
+  DOM.aarSelectDateFilter.innerHTML = html;
+
+  const currentVal = App.aarDateFilter || "today";
+  const hasVal = Array.from(DOM.aarSelectDateFilter.options).some(o => o.value === currentVal);
+  DOM.aarSelectDateFilter.value = hasVal ? currentVal : "today";
+  App.aarDateFilter = DOM.aarSelectDateFilter.value;
+
+  if (DOM.aarDatePills) {
+    DOM.aarDatePills.querySelectorAll(".aar-date-btn").forEach(btn => {
+      const f = btn.getAttribute("data-date-filter");
+      btn.classList.toggle("active", f === App.aarDateFilter);
+    });
+  }
+}
+
+function calculateAARSessionSummary(scope = "session", dateFilter = null) {
   const allQs = (App.db && Array.isArray(App.db.questions)) ? App.db.questions : [];
   const attempts = App.studentState.attempts || {};
   const lastAarAt = App.lastAarReportAt;
   const activeTestShort = (App.activeTest && App.activeTest.short_title) || (App.db && App.db.test_title) || "Digital SAT";
+
+  const activeDateFilter = dateFilter || App.aarDateFilter || "today";
+  const todayIso = getTodayIsoLocal();
+  const isEn = (App.currentLang === "en");
+
+  let dateLabel = "";
+  if (activeDateFilter === "today") {
+    dateLabel = isEn ? `Today (${todayIso})` : `Hôm nay (${formatDateViFromIso(todayIso)})`;
+  } else if (activeDateFilter === "all") {
+    dateLabel = isEn ? "All Dates (Combined History)" : "Tất cả các ngày (Tổng hợp)";
+  } else {
+    dateLabel = isEn ? `Date ${activeDateFilter}` : `Ngày ${formatDateViFromIso(activeDateFilter)}`;
+  }
+
+  function matchesDate(ts) {
+    if (activeDateFilter === "all") return true;
+    const itemDate = getLocalDateIsoFromTimestamp(ts);
+    if (!itemDate) {
+      return activeDateFilter === "today";
+    }
+    if (activeDateFilter === "today") {
+      return itemDate === todayIso;
+    }
+    return itemDate === activeDateFilter;
+  }
 
   let practicedCount = 0;
   let correctCount = 0;
@@ -8253,12 +8404,13 @@ function calculateAARSessionSummary(scope = "session") {
           l1_correct: eff >= 0.99 || st.status === "mastered_l1",
           l2_correct: (eff >= 0.6 && eff < 0.99) || st.status === "mastered_l2",
           l3_correct: (eff >= 0.3 && eff < 0.6) || st.status === "mastered_l3",
-          efficiency: eff
+          efficiency: eff,
+          practiced_at: st.last_practiced_at || new Date().toISOString()
         };
       }
     });
 
-    const items = Object.values(combinedMap);
+    const items = Object.values(combinedMap).filter(it => matchesDate(it.practiced_at));
     const bySource = {};
     const practicedMapByTest = {};
 
@@ -8297,6 +8449,7 @@ function calculateAARSessionSummary(scope = "session") {
     targetQs.forEach(q => {
       const st = attempts[q.id];
       if (st && Array.isArray(st.attempts) && st.attempts.length > 0) {
+        if (!matchesDate(st.last_practiced_at)) return;
         practicedCount++;
         practicedIds.add(String(q.id));
         if (isMathModule(q)) hasMath = true;
@@ -8323,6 +8476,8 @@ function calculateAARSessionSummary(scope = "session") {
 
   return {
     scope,
+    dateFilter: activeDateFilter,
+    dateLabel,
     practicedCount,
     correctCount,
     l1Correct,
@@ -8382,7 +8537,7 @@ function escapeHtmlSafe(str) {
 }
 
 function refreshAARPerformanceUI(updateFormFields = false) {
-  const s = calculateAARSessionSummary(App.aarScope || "session");
+  const s = calculateAARSessionSummary(App.aarScope || "session", App.aarDateFilter || "today");
   App.currentAarSummary = s;
   const isEn = (App.currentLang === "en");
 
@@ -8390,6 +8545,16 @@ function refreshAARPerformanceUI(updateFormFields = false) {
     DOM.aarScopePills.querySelectorAll(".aar-scope-btn").forEach(btn => {
       btn.classList.toggle("active", btn.getAttribute("data-scope") === s.scope);
     });
+  }
+
+  if (DOM.aarDatePills) {
+    DOM.aarDatePills.querySelectorAll(".aar-date-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-date-filter") === (App.aarDateFilter || "today"));
+    });
+  }
+
+  if (DOM.aarSelectDateFilter && DOM.aarSelectDateFilter.value !== (App.aarDateFilter || "today")) {
+    DOM.aarSelectDateFilter.value = App.aarDateFilter || "today";
   }
 
   const scopeDescMap = {
@@ -8401,16 +8566,18 @@ function refreshAARPerformanceUI(updateFormFields = false) {
   if (DOM.aarPerfHeadline) {
     if (s.practicedCount > 0) {
       DOM.aarPerfHeadline.textContent = isEn
-        ? `Efficiency: ${s.weightedPctDisplay} • Correct: ${s.correctCount} / ${s.practicedCount} practiced items`
-        : `Hiệu suất: ${s.weightedPctDisplay} • Đúng ${s.correctCount} / ${s.practicedCount} câu thực hành`;
+        ? `Efficiency: ${s.weightedPctDisplay} • Correct: ${s.correctCount} / ${s.practicedCount} practiced items [${s.dateLabel}]`
+        : `Hiệu suất: ${s.weightedPctDisplay} • Đúng ${s.correctCount} / ${s.practicedCount} câu thực hành [${s.dateLabel}]`;
     } else {
-      DOM.aarPerfHeadline.textContent = isEn ? "Efficiency: 0% • Correct: 0 / 0 practiced items" : "Hiệu suất: 0% • Đúng 0 / 0 câu thực hành";
+      DOM.aarPerfHeadline.textContent = isEn
+        ? `Efficiency: 0% • Correct: 0 / 0 practiced items [${s.dateLabel}]`
+        : `Hiệu suất: 0% • Đúng 0 / 0 câu thực hành [${s.dateLabel}]`;
     }
   }
   if (DOM.aarPerfSub) {
     DOM.aarPerfSub.textContent = isEn
-      ? `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Socratic weighting formula: Attempt 1 (100%) • Attempt 2 (66.7%) • Attempt 3 (33.3%) • Missed (0%)`
-      : `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Công thức tính trung bình: Đúng L1 (100%) • L2 (66,7%) • L3 (33,3%) • Chưa đúng (0%)`;
+      ? `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Timeframe: ${s.dateLabel} • Socratic weighting formula: Attempt 1 (100%) • Attempt 2 (66.7%) • Attempt 3 (33.3%) • Missed (0%)`
+      : `${s.testShort} • ${scopeDescMap[s.scope] || ""} • Khung thời gian: ${s.dateLabel} • Công thức tính trung bình: Đúng L1 (100%) • L2 (66,7%) • L3 (33,3%) • Chưa đúng (0%)`;
   }
   if (DOM.aarStatWeighted) DOM.aarStatWeighted.textContent = s.weightedPctDisplay;
   if (DOM.aarStatCorrect) DOM.aarStatCorrect.textContent = `${s.correctCount} / ${s.practicedCount}`;
@@ -8425,12 +8592,12 @@ function refreshAARPerformanceUI(updateFormFields = false) {
     if (DOM.aarInputEvidence) {
       if (s.practicedCount > 0) {
         DOM.aarInputEvidence.value = isEn
-          ? `Session Efficiency: ${s.weightedPctDisplay} (Correct ${s.correctCount}/${s.practicedCount} questions - Accuracy: ${s.accuracyPct}%) - Attempt 1 (100%): ${s.l1Correct}, Attempt 2 (66.7%): ${s.l2Correct}, Attempt 3 (33.3%): ${s.l3Correct}, Missed (0%): ${s.missedOrRetry}. Source: ${s.testShort}.`
-          : `Hiệu suất buổi học: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu thực hành - Tỷ lệ đúng: ${s.accuracyPct}%) - Đúng Lần 1 (100%): ${s.l1Correct}, Lần 2 (66,7%): ${s.l2Correct}, Lần 3 (33,3%): ${s.l3Correct}, Chưa đúng (0%): ${s.missedOrRetry}. Nguồn: ${s.testShort}.`;
+          ? `Session Efficiency [${s.dateLabel}] on ${s.testShort}: ${s.weightedPctDisplay} (Correct ${s.correctCount}/${s.practicedCount} questions - Accuracy: ${s.accuracyPct}%) - Attempt 1 (100%): ${s.l1Correct}, Attempt 2 (66.7%): ${s.l2Correct}, Attempt 3 (33.3%): ${s.l3Correct}, Missed (0%): ${s.missedOrRetry}.`
+          : `Hiệu suất luyện tập [${s.dateLabel}] trên ${s.testShort}: ${s.weightedPctDisplay} (Đúng ${s.correctCount}/${s.practicedCount} câu thực hành - Tỷ lệ đúng: ${s.accuracyPct}%) - Đúng Lần 1 (100%): ${s.l1Correct}, Lần 2 (66,7%): ${s.l2Correct}, Lần 3 (33,3%): ${s.l3Correct}, Chưa đúng (0%): ${s.missedOrRetry}.`;
       } else {
         DOM.aarInputEvidence.value = isEn
-          ? `Completed session on ${s.activeTestShort} (0 automatically scored items; adjust scope or add learning evidence here).`
-          : `Đã hoàn thành buổi học trên ${s.activeTestShort} (0 câu chấm điểm tự động; chuyển phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
+          ? `Completed session [${s.dateLabel}] on ${s.activeTestShort} (0 automatically scored items; adjust date filter/scope or add learning evidence here).`
+          : `Đã hoàn thành buổi học [${s.dateLabel}] trên ${s.activeTestShort} (0 câu chấm điểm tự động trong khung ngày này; chuyển bộ lọc ngày/phạm vi hoặc ghi bổ sung minh chứng tại đây).`;
       }
     }
   }
@@ -8499,15 +8666,22 @@ function openAARModal() {
   if (DOM.aarInputStudentEmail) DOM.aarInputStudentEmail.value = email;
   if (DOM.aarPreviewCcEmail) DOM.aarPreviewCcEmail.textContent = email || "Chưa nhập email học sinh";
 
+  // If draft has session_date, align date filter with it
+  if (App.aarDraft && App.aarDraft.session_date && isValidIsoDate(App.aarDraft.session_date)) {
+    const todayIso = getTodayIsoLocal();
+    App.aarDateFilter = (App.aarDraft.session_date === todayIso) ? "today" : App.aarDraft.session_date;
+  }
+  updateAARDateFilterOptions();
+
   // Prefer persistent cross-test session; only fall back to active module/all if 0 practiced in session
   let initialScope = "session";
-  const sessionStats = calculateAARSessionSummary("session");
+  const sessionStats = calculateAARSessionSummary("session", App.aarDateFilter || "today");
   if (sessionStats.practicedCount === 0) {
-    const modStats = calculateAARSessionSummary("module");
+    const modStats = calculateAARSessionSummary("module", App.aarDateFilter || "today");
     if (modStats.practicedCount > 0) {
       initialScope = "module";
     } else {
-      const allStats = calculateAARSessionSummary("all");
+      const allStats = calculateAARSessionSummary("all", App.aarDateFilter || "today");
       if (allStats.practicedCount > 0) initialScope = "all";
     }
   }
@@ -8520,6 +8694,8 @@ function openAARModal() {
   if (App.aarDraft) {
     if (App.aarDraft.session_date && DOM.aarInputDate && isValidIsoDate(App.aarDraft.session_date)) {
       DOM.aarInputDate.value = App.aarDraft.session_date;
+    } else if (DOM.aarInputDate && (!DOM.aarInputDate.value || !isValidIsoDate(DOM.aarInputDate.value))) {
+      DOM.aarInputDate.value = getTodayIsoLocal();
     }
     if (App.aarDraft.session_label && DOM.aarInputSessionLabel) {
       DOM.aarInputSessionLabel.value = App.aarDraft.session_label;
@@ -8543,12 +8719,22 @@ function openAARModal() {
     }
   }
 
+  if (DOM.aarInputDate && (!DOM.aarInputDate.value || !isValidIsoDate(DOM.aarInputDate.value))) {
+    DOM.aarInputDate.value = getTodayIsoLocal();
+  }
+
   syncAarTargetPills();
+  updateAARDateFilterOptions();
   refreshAARPerformanceUI(true);
 
   switchAARTab("form");
   if (DOM.modalAarReport) DOM.modalAarReport.classList.remove("hidden");
 }
+
+window.updateAARDateFilterOptions = updateAARDateFilterOptions;
+window.refreshAARPerformanceUI = refreshAARPerformanceUI;
+window.openAARModal = openAARModal;
+window.closeAARModal = closeAARModal;
 
 function collectAARFormEntry(requireCompleteFields = true) {
   const isEn = (App.currentLang === "en");
@@ -8584,7 +8770,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
     satModuleVal = customMod || (isEn ? "Other" : "Khác");
   }
 
-  const s = calculateAARSessionSummary(App.aarScope || "session");
+  const s = calculateAARSessionSummary(App.aarScope || "session", App.aarDateFilter || "today");
   const dateIso = (DOM.aarInputDate && DOM.aarInputDate.value) ? DOM.aarInputDate.value : getTodayIsoLocal();
 
   const rawGoal = (DOM.aarInputGoal && DOM.aarInputGoal.value.trim()) || "";
@@ -8603,6 +8789,8 @@ function collectAARFormEntry(requireCompleteFields = true) {
     test_id: s.isMixedSources ? "mix" : App.activeTestId,
     test_title: s.testShort,
     scope: s.scope,
+    date_filter: s.dateFilter,
+    date_label: s.dateLabel,
     correct_count: s.correctCount,
     practiced_count: s.practicedCount,
     accuracy_pct: s.accuracyPct,
@@ -8981,11 +9169,23 @@ function submitAARReport() {
   if (DOM.aarSubmitBtnText) DOM.aarSubmitBtnText.textContent = isEn ? "Opening Email client..." : "Đang mở Email AAR...";
 
   try {
-    // 1. Persist entry & reset cross-test session tracker for the next study session
+    // 1. Persist entry & reset cross-test session tracker for the reported timeframe
     App.aarLogs = [...(App.aarLogs || []), entry];
     App.lastAarReportAt = entry.created_at;
     if (App.sessionPracticedIds) App.sessionPracticedIds.clear();
-    App.globalSessionItems = {};
+    if (App.aarDateFilter === "all") {
+      App.globalSessionItems = {};
+    } else {
+      const targetDate = (App.aarDateFilter === "today") ? getTodayIsoLocal() : App.aarDateFilter;
+      if (App.globalSessionItems) {
+        Object.keys(App.globalSessionItems).forEach(k => {
+          const it = App.globalSessionItems[k];
+          if (it && getLocalDateIsoFromTimestamp(it.practiced_at) === targetDate) {
+            delete App.globalSessionItems[k];
+          }
+        });
+      }
+    }
     saveGlobalAARState();
     saveGlobalSessionTracker();
     incrementBadgeCounter("aar_completed_count");

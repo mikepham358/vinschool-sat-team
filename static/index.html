@@ -1764,6 +1764,27 @@
                 <button type="button" class="aar-scope-btn" data-scope="all">All Completed</button>
               </div>
             </div>
+
+            <!-- Date Classification & Timeframe Filter Bar -->
+            <div class="aar-date-filter-bar" id="aar-date-filter-bar">
+              <div class="aar-date-filter-title">
+                <span class="aar-filter-icon">📅</span>
+                <span class="aar-filter-label" data-i18n="aar_lbl_date_filter">📅 Report Timeframe / Date:</span>
+              </div>
+              <div class="aar-date-filter-controls">
+                <div class="aar-date-pills" id="aar-date-pills">
+                  <button type="button" class="aar-date-btn active" data-date-filter="today" data-i18n="aar_date_today">🌟 Today</button>
+                  <button type="button" class="aar-date-btn" data-date-filter="all" data-i18n="aar_date_all">🌐 All Dates</button>
+                </div>
+                <div class="aar-date-select-wrap">
+                  <select id="aar-select-date-filter" class="aar-date-select" title="Select specific practice date">
+                    <option value="today">🌟 Today</option>
+                    <option value="all">🌐 All Dates</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
             <div class="aar-perf-metrics">
               <div class="aar-metric-pill aar-m-weighted"><span>📊 Weighted Avg</span><strong id="aar-stat-weighted">0%</strong></div>
               <div class="aar-metric-pill aar-m-correct"><span>✅ Correct Answers</span><strong id="aar-stat-correct">0 / 0</strong></div>
