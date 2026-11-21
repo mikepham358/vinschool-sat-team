@@ -1104,7 +1104,7 @@ function renderModuleCards() {
         : "Luyện Tập Từng Chuyên Đề SAT Math (Nielson Phu)";
       if (DOM.modulesSectionDesc) DOM.modulesSectionDesc.textContent = isEn
         ? "Practice each math topic with Nielson Phu's proven techniques or master all 330 SAT Math questions with Desmos, formula reference, and error logging."
-        : "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Nielson Phu hoặc làm toàn bộ 330 câu hỏi SAT Math kèm máy tính Desmos, công thức chuẩn và Sổ thử sai.";
+        : "Em có thể chọn luyện tập từng chuyên đề riêng biệt theo phương pháp của Nielson Phu hoặc làm toàn bộ 330 câu hỏi SAT Math kèm máy tính Desmos, công thức chuẩn và Sổ thử & được.";
     }
     DOM.modulesGrid.classList.add("grid-chapters");
 
@@ -2488,7 +2488,7 @@ function renderAttemptSlots(q, qState) {
   } else if (status === "mastered_l3") {
     showAlert(true, isEn ? "✅ Correct on Attempt 3 (33.3% efficiency). Review hints to reinforce mastery." : "✅ Đúng ở Lần 3 (Hiệu suất 33.3%). Xem lại gợi ý để nắm chắc kiến thức.");
   } else if (status === "missed") {
-    showAlert(false, isEn ? `❌ Incorrect after 3 attempts. Correct answer is [${q.correct_answer}]. Logged to Error Notebook.` : `❌ Chưa chính xác sau 3 lần. Đáp án đúng là [${q.correct_answer}]. Hãy ghi lại vào Sổ thử sai.`);
+    showAlert(false, isEn ? `❌ Incorrect after 3 attempts. Correct answer is [${q.correct_answer}]. Logged to Error Notebook.` : `❌ Chưa chính xác sau 3 lần. Đáp án đúng là [${q.correct_answer}]. Hãy ghi lại vào Sổ thử & được.`);
   } else if (status.startsWith("retry")) {
     const left = 3 - attempts.length;
     showAlert(false, isEn ? `⚠️ Incorrect. You have ${left} attempts remaining. Hints unlocked below!` : `⚠️ Chưa chính xác. Em còn ${left} lần thử. Đã mở gợi ý bên dưới!`);
@@ -3758,7 +3758,7 @@ function renderErrorLogs() {
         <div style="font-size: 32px; margin-bottom: 8px;">📭</div>
         <div style="font-weight: 600; font-size: 14px; color: #202124;">${isEn ? "No records found" : "Không tìm thấy ghi chép nào"}</div>
         <div style="font-size: 12.5px; margin-top: 4px;">
-          ${qLower ? (isEn ? `No entries matching keyword "${escapeHtml(qLower)}".` : `Không có kết quả khớp với từ khóa "${escapeHtml(qLower)}".`) : (isEn ? "You don't have any error notes or vocabulary saved in this view yet." : "Em chưa có ghi chép thử sai hoặc từ vựng nào trong mục này.")}
+          ${qLower ? (isEn ? `No entries matching keyword "${escapeHtml(qLower)}".` : `Không có kết quả khớp với từ khóa "${escapeHtml(qLower)}".`) : (isEn ? "You don't have any error notes or vocabulary saved in this view yet." : "Em chưa có ghi chép thử & được hoặc từ vựng nào trong mục này.")}
         </div>
       </div>
     `;
@@ -3799,7 +3799,7 @@ function renderErrorLogs() {
             </select>
           </div>
           <div class="full-width">
-            <label>${isEn ? "Root-Cause Analysis & Socratic Takeaways:" : "Phân tích nguyên nhân thử sai & Bài học rút ra:"}</label>
+            <label>${isEn ? "Root-Cause Analysis & Socratic Takeaways:" : "Phân tích nguyên nhân thử & được & Bài học rút ra:"}</label>
             <textarea class="g-textarea edit-detail" rows="2">${escapeHtml(item.trap_detail || "")}</textarea>
           </div>
           <div class="full-width">
@@ -3825,7 +3825,7 @@ function renderErrorLogs() {
       editCard.querySelector(".btn-save-edit").addEventListener("click", () => {
         const newDetail = editCard.querySelector(".edit-detail").value.trim();
         if (!newDetail) {
-          alert(isEn ? "Please do not leave error reflection empty!" : "Vui lòng không để trống phần phân tích thử sai!");
+          alert(isEn ? "Please do not leave error reflection empty!" : "Vui lòng không để trống phần phân tích thử & được!");
           return;
         }
         item.status = editCard.querySelector(".edit-status").value;
@@ -3968,7 +3968,7 @@ function renderErrorLogs() {
     card.querySelector(".btn-del-card").addEventListener("click", () => {
       const confirmMsg = isEn
         ? `Are you sure you want to delete the error note for Question ${item.q_label || item.question_id}?`
-        : `Em có chắc chắn muốn xóa ghi chép thử sai câu ${item.q_label || item.question_id} này không?`;
+        : `Em có chắc chắn muốn xóa ghi chép thử & được câu ${item.q_label || item.question_id} này không?`;
       if (confirm(confirmMsg)) {
         if (item._isCurrentTest || !item._testId || item._testId === App.activeTestId) {
           App.studentState.error_logs = App.studentState.error_logs.filter(x => x.id !== item.id);
@@ -4214,7 +4214,7 @@ function checkCanNavigate() {
   const qState = App.studentState.attempts[currentQ.id];
   const isEn = (App.currentLang === "en");
   if (qState && qState.needs_error_log && !qState.error_logged) {
-    alert(isEn ? "⚠️ Please complete the error log for this question before moving to the next!" : "⚠️ Em cần hoàn thành ghi chép sổ thử sai cho câu này trước khi chuyển sang câu tiếp theo!");
+    alert(isEn ? "⚠️ Please complete the error log for this question before moving to the next!" : "⚠️ Em cần hoàn thành ghi chép sổ thử & được cho câu này trước khi chuyển sang câu tiếp theo!");
     openMandatoryReflectionModal(currentQ, qState);
     return false;
   }
@@ -4268,7 +4268,7 @@ function saveMandatoryReflection(advanceToNext = true) {
   }
 
   if (!detail || detail.length < 5) {
-    alert(isEn ? "Please enter root-cause analysis and key takeaways (min 5 characters)!" : "Vui lòng nhập phân tích nguyên nhân thử sai và bài học rút ra (tối thiểu 5 ký tự)!");
+    alert(isEn ? "Please enter root-cause analysis and key takeaways (min 5 characters)!" : "Vui lòng nhập phân tích nguyên nhân thử & được và bài học rút ra (tối thiểu 5 ký tự)!");
     DOM.inputReflDetail.focus();
     return;
   }
@@ -4633,7 +4633,7 @@ async function collectConsolidatedExportData(studentName) {
       const tiers = buildQuestionTierFeedbacks(q);
       const matchingErrs = errByQid[idStr] || [];
       const errSummary = matchingErrs.map(e => {
-        const head = e.root_cause ? `[${e.root_cause}]` : "[Sổ thử sai]";
+        const head = e.root_cause ? `[${e.root_cause}]` : "[Sổ thử & được]";
         const body = cleanTextForExcel(e.trap_detail || "");
         const note = e.student_notes ? ` | Ghi chú: ${cleanTextForExcel(e.student_notes)}` : "";
         return `${head} ${body}${note}`;
@@ -4795,7 +4795,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
   // ---- Sheet 1: Hieu_Suat_Lam_Bai ----
   const perfAoa = [
     ["BÁO CÁO TỔNG HỢP THỰC HÀNH DIGITAL SAT BLUEBOOK (SOCRATIC)"],
-    ["Thông tin học sinh & Hiệu suất làm bài • Phản hồi đa tầng • Sổ tay Thử sai & Từ vựng Socratic"],
+    ["Thông tin học sinh & Hiệu suất làm bài • Phản hồi đa tầng • Sổ tay Thử & Được & Từ vựng Socratic"],
     [],
     ["1. THÔNG TIN HỌC SINH & PHIÊN XUẤT BÁO CÁO"],
     ["Họ và tên học sinh", st.name || "Hoc_Sinh"],
@@ -4809,14 +4809,14 @@ function buildConsolidatedWorkbookAoa(exportData) {
     ["Chỉ số hiệu suất", "Giá trị", "Diễn giải / Ghi chú"],
     ["Tổng số câu đã thực hành", ov.total_practiced || 0, "Tổng số câu đã có ít nhất 1 lần chọn đáp án xuyên suốt các bộ đề"],
     ["Số câu hoàn thành đúng", ov.total_correct || 0, "Trả lời chính xác ở Lần 1, Lần 2 hoặc Lần 3"],
-    ["Chưa hoàn thành / Sai cả 3 lần", ov.total_unfinished_or_missed || 0, "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử sai"],
+    ["Chưa hoàn thành / Sai cả 3 lần", ov.total_unfinished_or_missed || 0, "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử & được"],
     ["Tỷ lệ chính xác (Đúng / Đã làm)", `${ov.accuracy_pct || 0}%`, "Tỷ lệ số câu hoàn thành đúng trên tổng số câu đã thực hành"],
     ["Hiệu suất Socratic (Tính trung bình)", formatWeightedPct(ov.weighted_pct), "Trọng số Socratic: Đúng Lần 1 = 100%, Lần 2 = 66,7%, Lần 3 = 33,3%, Chưa đúng = 0%"],
     ["Đúng ngay Lần 1 (L1 - 100%)", ov.l1_correct || 0, "Làm đúng độc lập không cần mở gợi ý"],
     ["Đúng ở Lần 2 (L2 - 66,7%)", ov.l2_correct || 0, "Điều chỉnh đúng sau Phản hồi Tầng 1"],
     ["Đúng ở Lần 3 (L3 - 33,3%)", ov.l3_correct || 0, "Hoàn thành sau Phản hồi Tầng 2"],
-    ["Chưa hoàn thành / Sai cả 3 lần (0%)", ov.total_unfinished_or_missed || 0, "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử sai"],
-    ["Tổng ghi chép Sổ tay Thử sai Socratic", ov.error_logs_count || 0, "Số thẻ phân tích bẫy SAT & bài học đã lưu"],
+    ["Chưa hoàn thành / Sai cả 3 lần (0%)", ov.total_unfinished_or_missed || 0, "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử & được"],
+    ["Tổng ghi chép Sổ tay Thử & Được Socratic", ov.error_logs_count || 0, "Số thẻ phân tích bẫy SAT & bài học đã lưu"],
     ["Số mục Từ vựng Socratic đã ghi", ov.vocab_terms_count || 0, `${ov.vocab_notes_count || 0} thẻ ghi chép có từ mới / thuật ngữ`],
     ["Phiên học hiện tại (Bộ đếm AAR)", `${ov.session_correct || 0}/${ov.session_practiced || 0} câu (${ov.session_accuracy_pct || 0}%)`, "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"]
   ];
@@ -4902,7 +4902,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
     "Phản hồi Tầng 2 (Manh mối cấu trúc & Loại trừ)",
     "Phản hồi Tầng 3 (Chốt phương pháp & Lời giải chi tiết)",
     "Phản hồi Tầng 4 (Chiến thuật & Công thức cốt lõi)",
-    "Ghi chú Sổ thử sai Socratic (nếu có)",
+    "Ghi chú Sổ thử & được Socratic (nếu có)",
     "Thời gian thực hành"
   ];
   const qAoa = [
@@ -4953,7 +4953,7 @@ function buildConsolidatedWorkbookAoa(exportData) {
     "Các lần chọn sai",
     "Đáp án đúng",
     "Nhóm bẫy SAT / Nguyên nhân gốc",
-    "Phân tích nguyên nhân thử sai & Bài học rút ra",
+    "Phân tích nguyên nhân thử & được & Bài học rút ra",
     "Ghi chú tư duy cá nhân",
     "Từ mới & Thuật ngữ Socratic đã ghi",
     "Gợi ý Socratic tham chiếu (Tầng 1)",
@@ -4961,14 +4961,14 @@ function buildConsolidatedWorkbookAoa(exportData) {
     "Ngày ghi chép"
   ];
   const errAoa = [
-    [`SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ - ${(st.name || "HỌC SINH").toUpperCase()}`],
+    [`SỔ TAY THỬ & ĐƯỢC SOCRATIC & BÀI HỌC PHẢN TƯ - ${(st.name || "HỌC SINH").toUpperCase()}`],
     errHeaders
   ];
   const eLogs = exportData.error_logs || [];
   if (eLogs.length === 0) {
     errAoa.push([
       1, "", "", "", "", "", "", "",
-      "Chưa có ghi chép nào trong Sổ tay Thử sai Socratic.",
+      "Chưa có ghi chép nào trong Sổ tay Thử & Được Socratic.",
       "", "", "", "", ""
     ]);
   } else {
@@ -7017,7 +7017,7 @@ function setupEventListeners() {
       const q = App.currentQuestion;
       const detail = DOM.inputNewDetail ? DOM.inputNewDetail.value.trim() : "";
       if (!detail) {
-        alert("Vui lòng nhập phân tích nguyên nhân thử sai hoặc bài học rút ra!");
+        alert("Vui lòng nhập phân tích nguyên nhân thử & được hoặc bài học rút ra!");
         if (DOM.inputNewDetail) DOM.inputNewDetail.focus();
         return;
       }
@@ -7705,7 +7705,7 @@ const ISTE_STANDARDS_LOOKUP = {
   "Innovative Designer": {
     concept: "Sử dụng quy trình thiết kế để giải quyết vấn đề và tinh chỉnh giải pháp cá nhân.",
     concept_en: "Apply deliberate design processes to solve problems and iteratively refine solutions.",
-    satApp: "Thử nghiệm chiến thuật làm bài và tự thiết kế hệ thống phân loại lỗi sai (Sổ thử sai / Error Log) hiệu quả.",
+    satApp: "Thử nghiệm chiến thuật làm bài và tự thiết kế hệ thống phân loại lỗi sai (Sổ thử & được / Error Log) hiệu quả.",
     satApp_en: "Experiment with pacing strategies and engineer a personalized Socratic Error Log taxonomy."
   },
   "Computational Thinker": {
@@ -8613,7 +8613,7 @@ function pullErrorsIntoAARGap() {
   const isEn = (App.currentLang === "en");
 
   if (!allErrors || allErrors.length === 0) {
-    alert(isEn ? "No errors recorded in the Error Notebook yet. You can type your learning gap reflections directly here." : "Chưa có lỗi sai nào được ghi trong Sổ thử sai. Em có thể tự nhập nhận xét khoảng cách học tập ở ô này.");
+    alert(isEn ? "No errors recorded in the Error Notebook yet. You can type your learning gap reflections directly here." : "Chưa có lỗi sai nào được ghi trong Sổ thử & được. Em có thể tự nhập nhận xét khoảng cách học tập ở ô này.");
     return;
   }
 
@@ -8825,7 +8825,7 @@ function collectAARFormEntry(requireCompleteFields = true) {
       { val: entry.challenge, el: DOM.aarInputChallenge, label: isEn ? "Anticipated Challenge" : "Thách thức dự kiến" },
       { val: entry.tools, el: DOM.aarInputTools, label: isEn ? "Tools & Methods" : "Công cụ & Kỹ thuật áp dụng" },
       { val: entry.mastery, el: DOM.aarSelectMastery, label: isEn ? "Mastery Level" : "Mức độ làm chủ" },
-      { val: entry.gap, el: DOM.aarInputGap, label: isEn ? "Gap & Trial-and-Error Analysis" : "Khoảng cách (Gap) & Nguyên nhân thử sai" },
+      { val: entry.gap, el: DOM.aarInputGap, label: isEn ? "Gap & Trial-and-Error Analysis" : "Khoảng cách (Gap) & Nguyên nhân thử & được" },
       { val: entry.feedforward, el: DOM.aarInputFeedforward, label: isEn ? "Feed-forward Next Steps" : "Bài học chuyển hóa cho buổi sau (Feed-forward)" }
     ];
     const missing = requiredChecks.find(c => !c.val);
@@ -8916,7 +8916,7 @@ async function generateConsolidatedReportBlob(logsArray, studentName, studentEma
         "Buổi #", "Ngày học", "Mô-đun SAT", "Tiêu chuẩn ISTE áp dụng",
         "Mục tiêu bài học & Điểm kỳ vọng", "Thách thức dự kiến", "Công cụ & Kỹ thuật áp dụng",
         "Kết quả Thực tế & Minh chứng", "Mức độ làm chủ",
-        "Khoảng cách (Gap) & Nguyên nhân thử sai", "Bài học chuyển hóa cho buổi sau (Feed-forward)",
+        "Khoảng cách (Gap) & Nguyên nhân thử & được", "Bài học chuyển hóa cho buổi sau (Feed-forward)",
         "Cảm xúc & Mức độ tập trung", "Trạng thái AAR"
       ];
       const aoa = [
@@ -9012,7 +9012,7 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 - ${entry.session_label} | Ngày học: ${entry.date_display} | Nguồn: ${entry.test_title}
 - Mô-đun SAT: ${entry.sat_module}
 - HIỆU SUẤT BUỔI HỌC (TÍNH TRUNG BÌNH): ${weightedStr} (Đúng ${entry.correct_count}/${entry.practiced_count} câu)
-- Chi tiết trọng số: Đúng Lần 1 (100%): ${entry.l1_correct} câu | Đúng Lần 2 (66,7%): ${entry.l2_correct} câu | Đúng Lần 3 (33,3%): ${entry.l3_correct} câu | Chưa đúng (0%): ${entry.missed_count} câu | Sổ thử sai: ${entry.error_log_count} thẻ
+- Chi tiết trọng số: Đúng Lần 1 (100%): ${entry.l1_correct} câu | Đúng Lần 2 (66,7%): ${entry.l2_correct} câu | Đúng Lần 3 (33,3%): ${entry.l3_correct} câu | Chưa đúng (0%): ${entry.missed_count} câu | Sổ thử & được: ${entry.error_log_count} thẻ
 
 [1. DỰ ĐOÁN (ANTICIPATION)]
 - Mục tiêu điểm số SAT: ${entry.student_target || formatTargetScoreLabel((App.studentState && App.studentState.student_target) || "1400+")}
@@ -9026,7 +9026,7 @@ Em xin gửi Báo cáo Phản tư Sau Buổi học (Chu trình AAR - OECD Learni
 - Mức độ làm chủ: ${entry.mastery || "(Chưa chọn)"}
 
 [3. PHẢN TƯ (REFLECTION) & ĐÁNH GIÁ]
-- Khoảng cách (Gap) & Nguyên nhân thử sai: ${entry.gap}
+- Khoảng cách (Gap) & Nguyên nhân thử & được: ${entry.gap}
 - Bài học chuyển hóa (Feed-forward): ${entry.feedforward}
 - Cảm xúc & Tập trung: ${entry.emotion || "(Chưa chọn)"} | Trạng thái AAR: ${entry.status || "(Chưa chọn)"}
 
@@ -9117,7 +9117,7 @@ Báo cáo Phản tư AAR Buổi học SAT (OECD 2030):
 • Học sinh: ${entry.student_name} (${entry.student_email})
 • ${entry.session_label} | Ngày: ${entry.date_display} | Đề: ${entry.test_title} | ${entry.sat_module}
 • HIỆU SUẤT TRUNG BÌNH: ${weightedStr} (Đúng ${entry.correct_count}/${entry.practiced_count} câu)
-• Chi tiết: L1 (100%): ${entry.l1_correct} | L2 (66,7%): ${entry.l2_correct} | L3 (33,3%): ${entry.l3_correct} | Chưa đúng: ${entry.missed_count} | Sổ thử sai: ${entry.error_log_count} thẻ
+• Chi tiết: L1 (100%): ${entry.l1_correct} | L2 (66,7%): ${entry.l2_correct} | L3 (33,3%): ${entry.l3_correct} | Chưa đúng: ${entry.missed_count} | Sổ thử & được: ${entry.error_log_count} thẻ
 
 [1. DỰ ĐOÁN] Mục tiêu: ${truncateField(entry.goal, 90)} | Thách thức: ${truncateField(entry.challenge, 90)}
 [2. HÀNH ĐỘNG] Minh chứng: ${truncateField(entry.evidence, 100)}

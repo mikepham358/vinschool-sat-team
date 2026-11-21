@@ -725,7 +725,7 @@ for ch in CHAPTER_CONFIGS:
             t1 = f"Đọc kỹ đề bài của bài tập thực hành Chương {ch_num}. Xác định từ khóa quan trọng và dạng bài để lựa chọn chiến thuật giải phù hợp."
             t2 = f"Quan sát cấu trúc câu hoặc biểu thức toán học. Áp dụng quy tắc loại trừ POE để loại bỏ các phương án nhiễu có bẫy phổ biến."
             t3 = f"Lời giải chuẩn mực từ sách The Princeton Review SAT Prep 2025: Đối chiếu chi tiết với bảng giải thích cuối chương."
-            t4 = f"{ch['strategy']} Ghi nhớ bài học này vào Sổ thử sai nếu em đã mất hơn 1 lần thử."
+            t4 = f"{ch['strategy']} Ghi nhớ bài học này vào Sổ thử & được nếu em đã mất hơn 1 lần thử."
             
             q_obj = {
                 "id": global_q_id,

@@ -323,7 +323,7 @@ def _build_export_data_from_legacy_payload(payload):
 
         tiers = _build_question_tier_feedbacks(q)
         err_summary = "\n".join(
-            f"[{e.get('root_cause') or 'Sổ thử sai'}] {_clean_text_for_excel(e.get('trap_detail') or '')}"
+            f"[{e.get('root_cause') or 'Sổ thử & được'}] {_clean_text_for_excel(e.get('trap_detail') or '')}"
             + (f" | Ghi chú: {_clean_text_for_excel(e.get('student_notes'))}" if e.get("student_notes") else "")
             for e in err_by_qid.get(qid_str, [])
         )
@@ -504,7 +504,7 @@ def generate_student_excel(payload):
     ws_perf.row_dimensions[1].height = 30
 
     ws_perf.merge_cells("A2:I2")
-    ws_perf["A2"] = "Thông tin học sinh & Hiệu suất làm bài • Phản hồi đa tầng • Sổ tay Thử sai & Từ vựng Socratic"
+    ws_perf["A2"] = "Thông tin học sinh & Hiệu suất làm bài • Phản hồi đa tầng • Sổ tay Thử & Được & Từ vựng Socratic"
     ws_perf["A2"].font = font_sub
     ws_perf["A2"].fill = sub_fill
     ws_perf["A2"].alignment = align_banner
@@ -563,13 +563,13 @@ def generate_student_excel(payload):
     kpi_rows = [
         ("Tổng số câu đã thực hành", ov.get("total_practiced", 0), "Tổng số câu đã có ít nhất 1 lần chọn đáp án xuyên suốt các bộ đề"),
         ("Số câu hoàn thành đúng", ov.get("total_correct", 0), "Trả lời chính xác ở Lần 1, Lần 2 hoặc Lần 3"),
-        ("Chưa hoàn thành / Sai cả 3 lần", ov.get("total_unfinished_or_missed", 0), "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử sai"),
+        ("Chưa hoàn thành / Sai cả 3 lần", ov.get("total_unfinished_or_missed", 0), "Cần ôn lại gợi ý đa tầng và ghi chú Sổ thử & được"),
         ("Tỷ lệ chính xác (Đúng / Đã làm)", f"{ov.get('accuracy_pct', 0)}%", "Tỷ lệ số câu hoàn thành đúng trên tổng số câu đã thực hành"),
         ("Hiệu suất Socratic (Có trọng số)", f"{ov.get('weighted_pct', 0)}%", "Trọng số Socratic: Đúng Lần 1 = 100%, Lần 2 = 66.7%, Lần 3 = 33.3%"),
         ("Đúng ngay Lần 1 (L1 - 100%)", ov.get("l1_correct", 0), "Làm đúng độc lập không cần mở gợi ý"),
         ("Đúng ở Lần 2 (L2 - 66.7%)", ov.get("l2_correct", 0), "Điều chỉnh đúng sau Phản hồi Tầng 1"),
         ("Đúng ở Lần 3 (L3 - 33.3%)", ov.get("l3_correct", 0), "Hoàn thành sau Phản hồi Tầng 2"),
-        ("Tổng ghi chép Sổ tay Thử sai Socratic", ov.get("error_logs_count", 0), "Số thẻ phân tích bẫy SAT & bài học đã lưu"),
+        ("Tổng ghi chép Sổ tay Thử & Được Socratic", ov.get("error_logs_count", 0), "Số thẻ phân tích bẫy SAT & bài học đã lưu"),
         ("Số mục Từ vựng Socratic đã ghi", ov.get("vocab_terms_count", 0), f"{ov.get('vocab_notes_count', 0)} thẻ ghi chép có từ mới / thuật ngữ"),
         ("Phiên học hiện tại (Bộ đếm AAR)", f"{ov.get('session_correct', 0)}/{ov.get('session_practiced', 0)} câu ({ov.get('session_accuracy_pct', 0)}%)", "Thống kê xuyên suốt phiên học hiện tại (khi chuyển đổi giữa các bộ đề)"),
     ]
@@ -767,7 +767,7 @@ def generate_student_excel(payload):
         "Phản hồi Tầng 2 (Manh mối cấu trúc & Loại trừ)",
         "Phản hồi Tầng 3 (Chốt phương pháp & Lời giải chi tiết)",
         "Phản hồi Tầng 4 (Chiến thuật & Công thức cốt lõi)",
-        "Ghi chú Sổ thử sai Socratic (nếu có)", "Thời gian thực hành",
+        "Ghi chú Sổ thử & được Socratic (nếu có)", "Thời gian thực hành",
     ]
     p_rows = export_data.get("practiced_questions") or []
     if not p_rows:
@@ -818,7 +818,7 @@ def generate_student_excel(payload):
         "STT", "Nguồn tài liệu / Bộ đề", "Mã câu", "Module / Chương",
         "Chủ đề / Kỹ năng", "Các lần chọn sai", "Đáp án đúng",
         "Nhóm bẫy SAT / Nguyên nhân gốc",
-        "Phân tích nguyên nhân thử sai & Bài học rút ra",
+        "Phân tích nguyên nhân thử & được & Bài học rút ra",
         "Ghi chú tư duy cá nhân", "Từ mới & Thuật ngữ Socratic đã ghi",
         "Gợi ý Socratic tham chiếu (Tầng 1)", "Tình trạng xử lý", "Ngày ghi chép",
     ]
@@ -826,7 +826,7 @@ def generate_student_excel(payload):
     if not e_rows:
         err_matrix = [[
             1, "", "", "", "", "", "", "",
-            "Chưa có ghi chép nào trong Sổ tay Thử sai Socratic.",
+            "Chưa có ghi chép nào trong Sổ tay Thử & Được Socratic.",
             "", "", "", "", "",
         ]]
     else:
@@ -851,7 +851,7 @@ def generate_student_excel(payload):
         ]
     _populate_table_sheet(
         ws_err,
-        f"SỔ TAY THỬ SAI SOCRATIC & BÀI HỌC PHẢN TƯ - {student_name.upper()}",
+        f"SỔ TAY THỬ & ĐƯỢC SOCRATIC & BÀI HỌC PHẢN TƯ - {student_name.upper()}",
         err_headers,
         err_matrix,
         [6, 24, 14, 28, 26, 16, 12, 32, 46, 36, 36, 40, 18, 14],
