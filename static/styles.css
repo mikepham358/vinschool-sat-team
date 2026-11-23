@@ -11734,17 +11734,231 @@ body.resizing-split iframe {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Modal Styling */
+/* Modal Styling & Split Screen Companion */
 .notebooklm-modal-card {
-  max-width: 640px !important;
-  width: 92% !important;
+  max-width: 1040px !important;
+  width: 95% !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .notebooklm-body {
-  padding: 20px !important;
+  padding: 20px 24px !important;
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.notebooklm-split-container {
+  display: flex;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.notebooklm-split-left {
+  flex: 1.15;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.notebooklm-split-right {
+  flex: 0.85;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .notebooklm-modal-card {
+    max-width: 640px !important;
+  }
+  .notebooklm-split-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* Companion Card on the Right Side */
+.notebooklm-companion-card {
+  background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  height: 100%;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.companion-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.companion-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.companion-header h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.companion-badge {
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+
+.companion-desc {
+  font-size: 12.5px;
+  color: #334155;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Split Screen Visual Diagram */
+.split-screen-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.diagram-window {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.diagram-bar {
+  background: #e2e8f0;
+  padding: 4px 6px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #475569;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.diagram-content {
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.diagram-right {
+  border-color: #a78bfa;
+}
+
+.diagram-right .diagram-bar {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.diagram-divider {
+  font-size: 16px;
+  font-weight: bold;
+  color: #6366f1;
+}
+
+/* Steps List */
+.companion-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.companion-step-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+.companion-step-item .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Technical Security Callout */
+.companion-tech-box {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-left: 3px solid #f59e0b;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.tech-box-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.tech-box-text {
+  font-size: 11px;
+  color: #78350f;
+  line-height: 1.4;
+}
+
+.btn-dock-right-action {
+  margin-top: auto;
+  width: 100%;
+  padding: 10px 14px;
+  background: #4f46e5;
+  color: #ffffff;
+  border: 1px solid #4338ca;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-dock-right-action:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
 }
 
 .notebooklm-status-banner {

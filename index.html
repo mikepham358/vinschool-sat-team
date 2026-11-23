@@ -1994,47 +1994,109 @@
       </div>
 
       <div class="modal-card-body notebooklm-body">
-        <div class="notebooklm-status-banner">
-          <span class="status-icon">📋</span>
-          <div class="status-text-wrap">
-            <strong data-i18n="notebooklm_status_copied">Đã tự động sao chép ngữ cảnh câu hỏi vào Clipboard!</strong>
-            <p data-i18n="notebooklm_instruction">Cửa sổ NotebookLM đã sẵn sàng. Em chỉ cần nhấn <strong>Ctrl + V</strong> (hoặc <strong>Cmd + V</strong>) vào ô chat và nhấn Enter để nhận phân tích neo nguồn từ sách của Thầy Mike.</p>
-          </div>
-        </div>
+        <div class="notebooklm-split-container">
+          <!-- Left Column: Context Packaging & Socratic Prompt -->
+          <div class="notebooklm-split-left">
+            <div class="notebooklm-status-banner">
+              <span class="status-icon">📋</span>
+              <div class="status-text-wrap">
+                <strong data-i18n="notebooklm_status_copied">Đã tự động sao chép ngữ cảnh câu hỏi vào Clipboard!</strong>
+                <p data-i18n="notebooklm_instruction">Cửa sổ NotebookLM đã sẵn sàng. Em chỉ cần nhấn <strong>Ctrl + V</strong> (hoặc <strong>Cmd + V</strong>) vào ô chat và nhấn Enter để nhận phân tích neo nguồn từ sách của Thầy Mike.</p>
+              </div>
+            </div>
 
-        <div class="notebooklm-actions-row">
-          <button type="button" class="btn-notebooklm-action primary" id="btn-notebooklm-launch">
-            <span>🚀</span>
-            <span data-i18n="notebooklm_btn_open_now">Mở Cửa Sổ NotebookLM</span>
-          </button>
-          <button type="button" class="btn-notebooklm-action secondary" id="btn-notebooklm-recopy">
-            <span>📋</span>
-            <span data-i18n="notebooklm_btn_copy_prompt">Sao Chép Lại</span>
-          </button>
-          <button type="button" class="btn-notebooklm-action tertiary" id="btn-notebooklm-toggle-config">
-            <span>⚙️</span>
-            <span data-i18n="notebooklm_btn_settings">Cài Đặt Link Notebook</span>
-          </button>
-        </div>
+            <div class="notebooklm-actions-row">
+              <button type="button" class="btn-notebooklm-action primary" id="btn-notebooklm-launch">
+                <span>🚀</span>
+                <span data-i18n="notebooklm_btn_open_now">Mở &amp; Neo Cửa Sổ Bên Phải ↗</span>
+              </button>
+              <button type="button" class="btn-notebooklm-action secondary" id="btn-notebooklm-recopy">
+                <span>📋</span>
+                <span data-i18n="notebooklm_btn_copy_prompt">Sao Chép Lại</span>
+              </button>
+              <button type="button" class="btn-notebooklm-action tertiary" id="btn-notebooklm-toggle-config">
+                <span>⚙️</span>
+                <span data-i18n="notebooklm_btn_settings">Cài Đặt Link Notebook</span>
+              </button>
+            </div>
 
-        <!-- Collapsible Configuration Section for Teacher / Class Link -->
-        <div class="notebooklm-config-panel hidden" id="notebooklm-config-panel">
-          <label for="input-notebooklm-url" data-i18n="notebooklm_settings_label">Đường link Google NotebookLM của Lớp / Đội tuyển:</label>
-          <div class="config-input-group">
-            <input type="url" id="input-notebooklm-url" placeholder="https://notebook.google.com/notebook/cd832ba7-4139-46d2-a974-72383855e806/preview" class="g-input">
-            <button type="button" id="btn-save-notebooklm-url" class="btn-save-config" data-i18n="notebooklm_btn_save_url">Lưu</button>
-            <button type="button" id="btn-reset-notebooklm-url" class="btn-reset-config" title="Reset về mặc định">↺ Mặc định</button>
-          </div>
-          <span class="config-note">💡 Thầy Mike Phạm có thể dán liên kết Notebook đã chia sẻ (quyền Viewer) tại đây để toàn bộ học sinh kết nối vào cùng 1 kho tài liệu chuẩn.</span>
-        </div>
+            <!-- Collapsible Configuration Section for Teacher / Class Link -->
+            <div class="notebooklm-config-panel hidden" id="notebooklm-config-panel">
+              <label for="input-notebooklm-url" data-i18n="notebooklm_settings_label">Đường link Google NotebookLM của Lớp / Đội tuyển:</label>
+              <div class="config-input-group">
+                <input type="url" id="input-notebooklm-url" placeholder="https://notebook.google.com/notebook/cd832ba7-4139-46d2-a974-72383855e806/preview" class="g-input">
+                <button type="button" id="btn-save-notebooklm-url" class="btn-save-config" data-i18n="notebooklm_btn_save_url">Lưu</button>
+                <button type="button" id="btn-reset-notebooklm-url" class="btn-reset-config" title="Reset về mặc định">↺ Mặc định</button>
+              </div>
+              <span class="config-note">💡 Thầy Mike Phạm có thể dán liên kết Notebook đã chia sẻ (quyền Viewer) tại đây để toàn bộ học sinh kết nối vào cùng 1 kho tài liệu chuẩn.</span>
+            </div>
 
-        <!-- Prompt Preview Box -->
-        <div class="notebooklm-preview-box">
-          <div class="preview-header">
-            <span data-i18n="notebooklm_prompt_preview_label">Xem trước nội dung đã đóng gói:</span>
-            <span class="preview-tag">Socratic Prompt</span>
+            <!-- Prompt Preview Box -->
+            <div class="notebooklm-preview-box">
+              <div class="preview-header">
+                <span data-i18n="notebooklm_prompt_preview_label">Xem trước nội dung đã đóng gói:</span>
+                <span class="preview-tag">Socratic Prompt (Thử &amp; Được)</span>
+              </div>
+              <textarea id="notebooklm-prompt-preview" readonly rows="8" class="preview-textarea"></textarea>
+            </div>
           </div>
-          <textarea id="notebooklm-prompt-preview" readonly rows="8" class="preview-textarea"></textarea>
+
+          <!-- Right Column: Split-Screen Companion & Technical Anchor -->
+          <div class="notebooklm-split-right">
+            <div class="notebooklm-companion-card">
+              <div class="companion-header">
+                <span class="companion-icon">🖥️</span>
+                <div>
+                  <h4 data-i18n="notebooklm_companion_title">Cửa Sổ Đồng Hành Bên Phải</h4>
+                  <span class="companion-badge" data-i18n="notebooklm_tech_badge">Bảo Mật Google (X-Frame-Options)</span>
+                </div>
+              </div>
+
+              <p class="companion-desc" data-i18n="notebooklm_companion_desc">
+                NotebookLM tự động mở và neo sát nửa bên phải màn hình để tạo không gian làm việc song song (Split-Screen) hoàn hảo.
+              </p>
+
+              <!-- Split Diagram Visual -->
+              <div class="split-screen-diagram">
+                <div class="diagram-window diagram-left">
+                  <div class="diagram-bar"><span>● ● ●</span> <span data-i18n="notebooklm_diag_left">Bluebook SAT (Trái)</span></div>
+                  <div class="diagram-content">Đề thi &amp; Gợi ý</div>
+                </div>
+                <div class="diagram-divider">⟷</div>
+                <div class="diagram-window diagram-right">
+                  <div class="diagram-bar"><span>● ● ●</span> <span data-i18n="notebooklm_diag_right">NotebookLM (Phải)</span></div>
+                  <div class="diagram-content">Gemini Socratic</div>
+                </div>
+              </div>
+
+              <div class="companion-steps">
+                <div class="companion-step-item">
+                  <span class="step-num">1</span>
+                  <span data-i18n="notebooklm_step1">Cửa sổ tự động mở và neo sát mép phải màn hình</span>
+                </div>
+                <div class="companion-step-item">
+                  <span class="step-num">2</span>
+                  <span data-i18n="notebooklm_step2">Nhấp chuột vào khung chat và nhấn <strong>Ctrl + V</strong> (hoặc <strong>Cmd + V</strong>)</span>
+                </div>
+                <div class="companion-step-item">
+                  <span class="step-num">3</span>
+                  <span data-i18n="notebooklm_step3">Nhận câu hỏi gợi mở đa tầng &amp; tự suy luận chọn đáp án</span>
+                </div>
+              </div>
+
+              <div class="companion-tech-box">
+                <span class="tech-box-icon">🔒</span>
+                <span class="tech-box-text" data-i18n="notebooklm_tech_note">
+                  Google cài đặt bảo mật X-Frame-Options: DENY trên NotebookLM để chống Clickjacking, chặn hoàn toàn nhúng iframe. Cơ chế Mở Neo Bên Phải mang lại trải nghiệm tối ưu và an toàn tuyệt đối.
+                </span>
+              </div>
+
+              <button type="button" class="btn-dock-right-action" id="btn-dock-right-companion">
+                <span>🚀</span>
+                <span data-i18n="notebooklm_btn_dock_action">Kích Hoạt Neo Cửa Sổ Bên Phải</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

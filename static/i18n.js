@@ -436,12 +436,22 @@ window.I18N_TRANSLATIONS = {
     notebooklm_modal_desc: "Auto-packaged Socratic context with authentic SAT citations & explanations",
     notebooklm_status_copied: "Question context copied to Clipboard!",
     notebooklm_instruction: "A dedicated NotebookLM window has been opened. Simply press Ctrl+V (or Cmd+V) into the chat box to get source citations from Teacher Mike's SAT library!",
-    notebooklm_btn_open_now: "Open NotebookLM Window",
+    notebooklm_btn_open_now: "Dock & Open on Right ↗",
     notebooklm_btn_copy_prompt: "Copy Prompt Again",
     notebooklm_btn_settings: "Configure Notebook URL",
     notebooklm_settings_label: "Teacher Mike's Shared NotebookLM URL:",
     notebooklm_btn_save_url: "Save URL",
-    notebooklm_prompt_preview_label: "Prompt Preview (Auto-Generated):"
+    notebooklm_prompt_preview_label: "Prompt Preview (Auto-Generated):",
+    notebooklm_companion_title: "Right-Docked Companion Window",
+    notebooklm_companion_desc: "NotebookLM opens snapped to the right half of your screen for a true side-by-side split-screen workflow.",
+    notebooklm_tech_badge: "Security Policy (X-Frame-Options)",
+    notebooklm_tech_note: "Google enforces X-Frame-Options: DENY on NotebookLM, which blocks direct iframe embedding. Our Right-Docked Split Window delivers the safest, native Google Workspace experience.",
+    notebooklm_step1: "1. Window docks to the right 50% of screen",
+    notebooklm_step2: "2. Press Ctrl+V (or Cmd+V) in the chat",
+    notebooklm_step3: "3. Explore multi-tier Socratic cues & deduce the answer",
+    notebooklm_btn_dock_action: "Activate Right-Docked Window",
+    notebooklm_diag_left: "Bluebook SAT (Left)",
+    notebooklm_diag_right: "NotebookLM (Right)"
   },
 
   vi: {
@@ -874,12 +884,22 @@ window.I18N_TRANSLATIONS = {
     notebooklm_modal_desc: "Tự động đóng gói ngữ cảnh Socratic & phân tích trích dẫn sách gốc",
     notebooklm_status_copied: "Đã tự động đóng gói & sao chép ngữ cảnh vào Clipboard!",
     notebooklm_instruction: "Cửa sổ NotebookLM đã sẵn sàng. Em chỉ cần nhấn Ctrl+V (hoặc Cmd+V) vào ô chat và nhấn Enter để nhận câu trả lời neo nguồn tài liệu từ Thầy Mike!",
-    notebooklm_btn_open_now: "Mở Cửa Sổ NotebookLM",
+    notebooklm_btn_open_now: "Mở & Neo Cửa Sổ Bên Phải ↗",
     notebooklm_btn_copy_prompt: "Sao Chép Lại Câu Hỏi",
     notebooklm_btn_settings: "Cài Đặt Link NotebookLM",
     notebooklm_settings_label: "Đường link Google NotebookLM của Lớp / Đội tuyển:",
     notebooklm_btn_save_url: "Lưu đường link",
-    notebooklm_prompt_preview_label: "Xem trước nội dung đã đóng gói:"
+    notebooklm_prompt_preview_label: "Xem trước nội dung đã đóng gói:",
+    notebooklm_companion_title: "Cửa Sổ Đồng Hành Bên Phải",
+    notebooklm_companion_desc: "NotebookLM tự động mở và neo sát nửa bên phải màn hình để tạo không gian làm việc song song (Split-Screen) hoàn hảo.",
+    notebooklm_tech_badge: "Bảo Mật Google (X-Frame-Options)",
+    notebooklm_tech_note: "Google cài đặt bảo mật X-Frame-Options: DENY trên NotebookLM để chống Clickjacking, chặn hoàn toàn nhúng iframe. Cơ chế Mở Neo Bên Phải mang lại trải nghiệm tối ưu và an toàn tuyệt đối.",
+    notebooklm_step1: "1. Cửa sổ tự động mở và neo sát mép phải màn hình",
+    notebooklm_step2: "2. Nhấp chuột vào khung chat và nhấn Ctrl + V (hoặc Cmd + V)",
+    notebooklm_step3: "3. Nhận câu hỏi gợi mở đa tầng & tự suy luận chọn đáp án",
+    notebooklm_btn_dock_action: "Kích Hoạt Neo Cửa Sổ Bên Phải",
+    notebooklm_diag_left: "Bluebook SAT (Trái)",
+    notebooklm_diag_right: "NotebookLM (Phải)"
   }
 };
 

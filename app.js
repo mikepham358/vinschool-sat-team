@@ -805,7 +805,8 @@ const DOM = {
   inputNotebookLMUrl: document.getElementById("input-notebooklm-url"),
   btnSaveNotebookLMUrl: document.getElementById("btn-save-notebooklm-url"),
   btnResetNotebookLMUrl: document.getElementById("btn-reset-notebooklm-url"),
-  notebookLMPromptPreview: document.getElementById("notebooklm-prompt-preview")
+  notebookLMPromptPreview: document.getElementById("notebooklm-prompt-preview"),
+  btnDockRightCompanion: document.getElementById("btn-dock-right-companion")
 };
 window.DOM = DOM;
 
@@ -6674,11 +6675,14 @@ function generateNotebookLMPrompt(q) {
     }
 
     prompt += `📊 Student Practice State: ${attemptStr}\n\n`;
-    prompt += `🧠 REQUEST FOR NOTEBOOKLM (GEMINI):\n`;
+    prompt += `🧠 REQUEST FOR NOTEBOOKLM (GEMINI) - SOCRATIC COMPANION & SOURCE ANCHORING:\n`;
     prompt += `Using the curated SAT source materials in this Notebook (Erica Meltzer Reading/Grammar, College Panda Math, Princeton Review, Answer Keys, and authentic tests):\n`;
-    prompt += `1. Cite the exact grammatical rule, math theorem, or strategy (including chapter title, page number, or direct quote from the book sources).\n`;
-    prompt += `2. Detail why the correct answer is unambiguously correct, and dissect the specific trap in each incorrect option.\n`;
-    prompt += `3. Provide one concise Socratic key takeaway for my "Trial & Triumph Notebook" (Sổ Thử & Được) so I avoid falling for this trap again.\n`;
+    prompt += `1. Anchor the Source: Cite the exact book, chapter title, page number, grammatical rule, math theorem, or strategy from Teacher Mike's SAT library.\n`;
+    prompt += `2. Multi-Tiered Socratic Inquiries (TRIAL & TRIUMPH - DO NOT REVEAL THE DIRECT ANSWER OUTRIGHT):\n`;
+    prompt += `   • Tier 1 (Spot Pivotal Clues): Pose 1-2 guiding questions directing me to the decisive clue, transition word, syntactic boundary, or mathematical given in the question stem or passage.\n`;
+    prompt += `   • Tier 2 (Dissect SAT Traps): Pose critical counter-questions challenging distractor choices so I actively expose the reasoning traps (too broad, unsupported leap, reversed cause-and-effect, sign error...).\n`;
+    prompt += `   • Tier 3 (Independent Deduction): Provide a final deductive logic prompt guiding me to eliminate errors and choose the correct answer myself (honoring the true spirit of "Trial & Triumph").\n`;
+    prompt += `3. Key Takeaway for "Trial & Triumph Notebook" (Sổ Thử & Được): Deliver one memorable Socratic reflection rule to convert this learning moment into permanent cognitive mastery.\n`;
   } else {
     prompt += `[YÊU CẦU PHÂN TÍCH NEO NGUỒN TÀI LIỆU - DIGITAL SAT SOCRATIC NOTEBOOK]\n`;
     prompt += `📚 Nguồn tài liệu & Bộ đề: ${testTitle}\n`;
@@ -6705,11 +6709,14 @@ function generateNotebookLMPrompt(q) {
     }
 
     prompt += `📊 Tiến trình thực hành của em: ${attemptStr}\n\n`;
-    prompt += `🧠 CÂU HỎI NHỜ NOTEBOOKLM (GEMINI) GIẢI ĐÁP & NEO NGUỒN TÀI LIỆU:\n`;
-    prompt += `Dựa trên các tài liệu nguồn SAT của Thầy Mike Pham đã nạp sẵn trong Notebook này (Erica Meltzer Reading/Grammar, College Panda Math, Princeton Review, Answer Keys và các bộ đề thi thật):\n`;
-    prompt += `1. Trích dẫn chính xác quy tắc ngữ pháp / công thức toán / chiến thuật tư duy liên quan (kèm tên chương, số trang hoặc trích dẫn nguyên văn từ sách nguồn).\n`;
-    prompt += `2. Phân tích tường tận tại sao phương án đúng là đáp án chuẩn xác nhất, đồng thời vạch rõ bẫy SAT (traps) của từng phương án sai.\n`;
-    prompt += `3. Đưa ra 1 bài học cô đọng then chốt (Key Takeaway) để em ghi nhớ vào "Sổ Thử & Được" nhằm nâng cao năng lực phản tư.\n`;
+    prompt += `🧠 CÂU HỎI NHỜ NOTEBOOKLM (GEMINI) ĐỒNG HÀNH & NEO NGUỒN TÀI LIỆU:\n`;
+    prompt += `Dựa trên kho tài liệu nguồn SAT tuyển chọn của Thầy Mike Pham trong Notebook này (Erica Meltzer Reading/Grammar, College Panda Math, Princeton Review, Answer Keys và các bộ đề thật):\n`;
+    prompt += `1. Neo nguồn tài liệu: Trích dẫn chính xác quy tắc ngữ pháp / công thức toán / chiến thuật tư duy liên quan (kèm tên chương, số trang hoặc trích dẫn từ sách nguồn của Thầy).\n`;
+    prompt += `2. Gợi mở đa tầng Socratic (TINH THẦN THỬ & ĐƯỢC - TUYỆT ĐỐI KHÔNG NÓI NGAY ĐÁP ÁN):\n`;
+    prompt += `   • Tầng 1 (Nhận diện manh mối then chốt): Đặt 1-2 câu hỏi gợi mở sâu về từ khóa, liên từ chuyển ý, cấu trúc ngữ pháp hoặc dữ kiện toán học quyết định trong ngữ cảnh bài đọc / câu hỏi.\n`;
+    prompt += `   • Tầng 2 (Lật tẩy bẫy SAT ngụy biện): Đặt câu hỏi phản biện dẫn dắt để em tự soi chiếu xem các phương án gây nhiễu đang gài bẫy tư duy gì (quá khái quát, suy diễn vô căn cứ, đảo ngược nguyên nhân - kết quả, nhầm dấu...).\n`;
+    prompt += `   • Tầng 3 (Tự suy luận & Về đích): Đặt câu hỏi định hướng logic cuối cùng để em tự loại trừ và tự tin đưa ra phương án chuẩn xác nhất (đúng tôn chỉ "Thử & Được").\n`;
+    prompt += `3. Bài học đắt giá cho "Sổ Thử & Được": Đúc kết 1 câu phản tư Socratic cô đọng (Key Takeaway) để em ghi nhớ chiến thuật và làm chủ hoàn toàn dạng bẫy này cho các lần thi tới.\n`;
   }
 
   return prompt;
@@ -6747,10 +6754,15 @@ async function copyTextToClipboard(text) {
 
 function openNotebookLMPopup(targetUrl) {
   const url = targetUrl || getNotebookLMUrl();
-  const w = 960;
-  const h = 820;
-  const left = Math.max(0, Math.floor((window.screen.width - w) / 2));
-  const top = Math.max(0, Math.floor((window.screen.height - h) / 2));
+  // Multi-monitor & Right-Docked Split Screen positioning
+  const screenW = (window.screen && window.screen.availWidth) || window.screen.width || 1440;
+  const screenH = (window.screen && window.screen.availHeight) || window.screen.height || 900;
+
+  // Dock neatly to the right ~48-50% width of the monitor
+  const w = Math.min(1080, Math.max(680, Math.floor(screenW * 0.48)));
+  const h = Math.max(650, screenH - 30);
+  const left = Math.max(0, screenW - w);
+  const top = 0;
   const winFeatures = `width=${w},height=${h},top=${top},left=${left},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=yes`;
 
   let win = null;
@@ -7228,6 +7240,11 @@ function setupEventListeners() {
   }
   if (DOM.btnNotebookLMLaunch) {
     DOM.btnNotebookLMLaunch.addEventListener("click", () => {
+      openNotebookLMPopup();
+    });
+  }
+  if (DOM.btnDockRightCompanion) {
+    DOM.btnDockRightCompanion.addEventListener("click", () => {
       openNotebookLMPopup();
     });
   }
