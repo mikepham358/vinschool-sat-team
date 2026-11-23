@@ -432,13 +432,13 @@ window.I18N_TRANSLATIONS = {
     aar_btn_copy_report: "📋 Copy Full Report",
 
     // Google NotebookLM Integration
-    notebooklm_modal_title: "🧠 Google NotebookLM • Source-Anchored Reference",
+    notebooklm_modal_title: "Google NotebookLM • Source-Anchored Reference",
     notebooklm_modal_desc: "Auto-packaged Socratic context with authentic SAT citations & explanations",
-    notebooklm_status_copied: "✅ Question context copied to Clipboard!",
+    notebooklm_status_copied: "Question context copied to Clipboard!",
     notebooklm_instruction: "A dedicated NotebookLM window has been opened. Simply press Ctrl+V (or Cmd+V) into the chat box to get source citations from Teacher Mike's SAT library!",
-    notebooklm_btn_open_now: "🚀 Open NotebookLM Window",
-    notebooklm_btn_copy_prompt: "📋 Copy Prompt Again",
-    notebooklm_btn_settings: "⚙️ Configure Notebook URL",
+    notebooklm_btn_open_now: "Open NotebookLM Window",
+    notebooklm_btn_copy_prompt: "Copy Prompt Again",
+    notebooklm_btn_settings: "Configure Notebook URL",
     notebooklm_settings_label: "Teacher Mike's Shared NotebookLM URL:",
     notebooklm_btn_save_url: "Save URL",
     notebooklm_prompt_preview_label: "Prompt Preview (Auto-Generated):"
@@ -870,13 +870,13 @@ window.I18N_TRANSLATIONS = {
     aar_btn_copy_report: "📋 Copy Báo Cáo AAR",
 
     // Google NotebookLM Integration
-    notebooklm_modal_title: "🧠 Google NotebookLM • Neo Nguồn Tài Liệu SAT",
+    notebooklm_modal_title: "Google NotebookLM • Neo Nguồn Tài Liệu SAT",
     notebooklm_modal_desc: "Tự động đóng gói ngữ cảnh Socratic & phân tích trích dẫn sách gốc",
-    notebooklm_status_copied: "✅ Đã tự động đóng gói & sao chép ngữ cảnh vào Clipboard!",
+    notebooklm_status_copied: "Đã tự động đóng gói & sao chép ngữ cảnh vào Clipboard!",
     notebooklm_instruction: "Cửa sổ NotebookLM đã sẵn sàng. Em chỉ cần nhấn Ctrl+V (hoặc Cmd+V) vào ô chat và nhấn Enter để nhận câu trả lời neo nguồn tài liệu từ Thầy Mike!",
-    notebooklm_btn_open_now: "🚀 Mở Cửa Sổ NotebookLM",
-    notebooklm_btn_copy_prompt: "📋 Sao Chép Lại Câu Hỏi",
-    notebooklm_btn_settings: "⚙️ Cài Đặt Link NotebookLM",
+    notebooklm_btn_open_now: "Mở Cửa Sổ NotebookLM",
+    notebooklm_btn_copy_prompt: "Sao Chép Lại Câu Hỏi",
+    notebooklm_btn_settings: "Cài Đặt Link NotebookLM",
     notebooklm_settings_label: "Đường link Google NotebookLM của Lớp / Đội tuyển:",
     notebooklm_btn_save_url: "Lưu đường link",
     notebooklm_prompt_preview_label: "Xem trước nội dung đã đóng gói:"

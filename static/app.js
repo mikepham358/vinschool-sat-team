@@ -6602,15 +6602,19 @@ Thank you Teacher!`
 }
 
 // ================= GOOGLE NOTEBOOKLM (GEMINI) INTEGRATION =================
-window.DEFAULT_NOTEBOOKLM_URL = "https://notebooklm.google.com/";
+window.DEFAULT_NOTEBOOKLM_URL = "https://notebook.google.com/notebook/cd832ba7-4139-46d2-a974-72383855e806/preview";
 const NOTEBOOKLM_STORAGE_KEY = "sat_notebooklm_url";
 
 function getNotebookLMUrl() {
-  return localStorage.getItem(NOTEBOOKLM_STORAGE_KEY) || window.DEFAULT_NOTEBOOKLM_URL;
+  const custom = localStorage.getItem(NOTEBOOKLM_STORAGE_KEY);
+  if (!custom || custom === "https://notebooklm.google.com/" || custom === "https://notebooklm.google.com" || custom.trim() === "") {
+    return window.DEFAULT_NOTEBOOKLM_URL;
+  }
+  return custom;
 }
 
 function saveNotebookLMUrl(url) {
-  if (!url || !url.trim()) {
+  if (!url || !url.trim() || url.trim() === window.DEFAULT_NOTEBOOKLM_URL) {
     localStorage.removeItem(NOTEBOOKLM_STORAGE_KEY);
     return;
   }
