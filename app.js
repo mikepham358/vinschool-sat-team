@@ -6791,20 +6791,26 @@ function openNotebookLMPopup(targetUrl) {
   return win;
 }
 
-async function triggerNotebookLM(questionObj) {
-  const q = questionObj || App.currentQuestion;
-  const prompt = generateNotebookLMPrompt(q);
+function openNotebookLMGuide(options = {}) {
+  const isEn = (App.currentLang === "en");
+  const autoOpenWindow = !!options.autoOpenWindow;
+  const isFromQuestion = !!options.isFromQuestion;
 
-  // 1. Copy prompt to clipboard
-  await copyTextToClipboard(prompt);
+  const q = options.questionObj || App.currentQuestion;
+  const prompt = q ? generateNotebookLMPrompt(q) : "";
 
-  // 2. Open NotebookLM Window immediately on click
-  openNotebookLMPopup();
+  // 1. If requested to auto-launch window (from question button), copy to clipboard & open popup
+  if (autoOpenWindow) {
+    if (prompt) {
+      copyTextToClipboard(prompt);
+    }
+    openNotebookLMPopup();
+  }
 
-  // 3. Show confirmation modal with prompt preview & config
+  // 2. Configure modal state and content
   if (DOM.modalNotebookLM) {
     if (DOM.notebookLMPromptPreview) {
-      DOM.notebookLMPromptPreview.value = prompt;
+      DOM.notebookLMPromptPreview.value = prompt || (isEn ? "No question selected. Practice a question to preview auto-packaged Socratic context." : "Chưa chọn câu hỏi. Hãy làm một câu hỏi để xem trước nội dung Socratic được đóng gói.");
     }
     if (DOM.inputNotebookLMUrl) {
       DOM.inputNotebookLMUrl.value = getNotebookLMUrl();
@@ -6812,8 +6818,35 @@ async function triggerNotebookLM(questionObj) {
     if (DOM.notebookLMConfigPanel) {
       DOM.notebookLMConfigPanel.classList.add("hidden");
     }
+
+    const statusBanner = document.getElementById("notebooklm-status-banner");
+    const statusIcon = document.getElementById("notebooklm-status-icon");
+    const statusTitle = document.getElementById("notebooklm-status-title");
+    const statusDesc = document.getElementById("notebooklm-status-p");
+
+    if (isFromQuestion && autoOpenWindow) {
+      if (statusBanner) statusBanner.className = "notebooklm-status-banner is-copied";
+      if (statusIcon) statusIcon.textContent = "📋";
+      if (statusTitle) statusTitle.textContent = isEn ? "Question context copied to Clipboard!" : "Đã tự động đóng gói & sao chép ngữ cảnh vào Clipboard!";
+      if (statusDesc) statusDesc.textContent = isEn ? "A dedicated NotebookLM window has been opened. Simply press Ctrl+V (or Cmd+V) into the chat box to get source citations from Teacher Mike's SAT library!" : "Cửa sổ NotebookLM đã sẵn sàng bên phải. Em chỉ cần nhấn Ctrl + V (hoặc Cmd + V) vào ô chat và nhấn Enter để nhận câu hỏi gợi mở từ sách của Thầy Mike!";
+    } else {
+      // Guide mode from TopBar
+      if (statusBanner) statusBanner.className = "notebooklm-status-banner is-guide";
+      if (statusIcon) statusIcon.textContent = "💡";
+      if (statusTitle) statusTitle.textContent = isEn ? "Smart Socratic Assistant • Authentic SAT Source Library" : "Trợ Lý AI Socratic • Kho Sách Gốc SAT Tuyển Chọn";
+      if (statusDesc) statusDesc.textContent = isEn ? "NotebookLM is preloaded with Teacher Mike's full SAT curriculum (Erica Meltzer, College Panda, Princeton Review). It guides you with multi-tier Socratic questions and exact page citations under the 'Trial & Error' spirit." : "NotebookLM được Thầy Mike Pham nạp sẵn toàn bộ giáo trình SAT chuẩn (Erica Meltzer, College Panda, Princeton Review). AI sẽ đồng hành giải đáp câu hỏi và dẫn chứng chính xác số trang sách gốc theo phương pháp Socratic 'Thử & Được'.";
+    }
+
     DOM.modalNotebookLM.classList.remove("hidden");
   }
+}
+
+async function triggerNotebookLM(questionObj) {
+  openNotebookLMGuide({
+    questionObj: questionObj || App.currentQuestion,
+    autoOpenWindow: true,
+    isFromQuestion: true
+  });
 }
 
 // ================= EVENT LISTENERS =================
@@ -7221,7 +7254,11 @@ function setupEventListeners() {
   // Google NotebookLM Integration Listeners
   if (DOM.btnOpenNotebookLM) {
     DOM.btnOpenNotebookLM.addEventListener("click", () => {
-      triggerNotebookLM(App.currentQuestion);
+      // Topbar icon click: do NOT auto open window, show Smart User Guide
+      openNotebookLMGuide({
+        autoOpenWindow: false,
+        isFromQuestion: false
+      });
     });
   }
   if (DOM.btnAskNotebookLM) {
@@ -7258,12 +7295,52 @@ function setupEventListeners() {
   }
   if (DOM.btnNotebookLMRecopy) {
     DOM.btnNotebookLMRecopy.addEventListener("click", async () => {
-      const prompt = DOM.notebookLMPromptPreview ? DOM.notebookLMPromptPreview.value : generateNotebookLMPrompt(App.currentQuestion);
-      const ok = await copyTextToClipboard(prompt);
-      const isEn = (App.currentLang === "en");
-      alert(ok ? (isEn ? "📋 Prompt copied to clipboard!" : "📋 Đã sao chép lại vào Clipboard!") : "Failed to copy");
+      const q = App.currentQuestion;
+      const prompt = q ? generateNotebookLMPrompt(q) : (DOM.notebookLMPromptPreview ? DOM.notebookLMPromptPreview.value : "");
+      if (prompt) {
+        await copyTextToClipboard(prompt);
+        const toast = document.getElementById("templates-toast");
+        const isEn = (App.currentLang === "en");
+        if (toast) {
+          toast.textContent = isEn ? "✅ Question context copied!" : "✅ Đã sao chép câu hỏi!";
+          toast.classList.remove("hidden");
+          setTimeout(() => toast.classList.add("hidden"), 2500);
+        }
+      }
     });
   }
+
+  // Smart Prompt Template Buttons in NotebookLM Modal
+  document.querySelectorAll(".btn-prompt-template").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const tplKey = btn.dataset.tpl;
+      const isEn = (App.currentLang === "en");
+      const templatePrompts = {
+        traps: isEn
+          ? "Based on Teacher Mike's SAT library, analyze the subtle SAT traps between the correct answer and the distractors in this question. Ask me Socratic questions to spot the trap myself."
+          : "Dựa vào kho sách của Thầy Mike, hãy phân tích tường tận các bẫy SAT (traps) giữa phương án đúng và từng phương án gây nhiễu trong câu hỏi này. Đặt cho tôi câu hỏi gợi mở để tôi tự nhận diện bẫy.",
+        rules: isEn
+          ? "Cite the exact book title, chapter, page number, and grammar/structural rule in Erica Meltzer explaining this question."
+          : "Hãy trích dẫn chính xác số trang, tên sách (Erica Meltzer Reading/Grammar hoặc College Panda) và quy tắc ngữ pháp/cấu trúc tương ứng dùng để giải quyết câu này.",
+        desmos: isEn
+          ? "What is the optimal College Panda math formula and fastest Desmos shortcut for this problem?"
+          : "Với câu hỏi này, công thức tối ưu trong giáo trình College Panda là gì? Hãy chỉ dẫn các bước bấm máy Desmos hoặc phím tắt nhanh nhất để giải trong 30 giây.",
+        socratic: isEn
+          ? "In the spirit of 'Trial & Error', please do not provide the direct answer. Give me 2 multi-tier Socratic counter-questions so I can deduce and verify the answer myself."
+          : "Theo tinh thần 'Thử & Được', xin đừng đọc đáp án trực diện. Hãy đặt cho tôi 2 câu hỏi phản biện Socratic đa tầng để tôi tự suy luận và chứng minh phương án của mình là đúng."
+      };
+      const textToCopy = templatePrompts[tplKey] || "";
+      if (textToCopy) {
+        await copyTextToClipboard(textToCopy);
+        const toast = document.getElementById("templates-toast");
+        if (toast) {
+          toast.textContent = isEn ? "✅ Template copied!" : "✅ Đã sao chép câu lệnh!";
+          toast.classList.remove("hidden");
+          setTimeout(() => toast.classList.add("hidden"), 2500);
+        }
+      }
+    });
+  });
   if (DOM.btnNotebookLMToggleConfig) {
     DOM.btnNotebookLMToggleConfig.addEventListener("click", () => {
       if (DOM.notebookLMConfigPanel) {

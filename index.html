@@ -1977,10 +1977,10 @@
         <div class="header-title-group">
           <div class="header-main-title">
             <span class="header-icon">🧠</span>
-            <h3 data-i18n="notebooklm_modal_title">Google NotebookLM • Neo Nguồn Tài Liệu SAT</h3>
+            <h3 id="notebooklm-modal-title" data-i18n="notebooklm_modal_title">Google NotebookLM • Hướng Dẫn Sử Dụng Thông Minh</h3>
             <span class="live-count-badge" id="badge-notebooklm-status">Gemini 1.5 Pro</span>
           </div>
-          <p class="header-sub-desc" data-i18n="notebooklm_modal_desc">Tự động đóng gói ngữ cảnh Socratic &amp; phân tích trích dẫn sách gốc</p>
+          <p class="header-sub-desc" id="notebooklm-modal-desc" data-i18n="notebooklm_modal_desc">Trợ lý AI Socratic neo nguồn giáo trình chuẩn SAT của Thầy Mike Phạm</p>
         </div>
         <button class="btn-close-modal" id="btn-close-notebooklm" title="Close" data-i18n-title="btn_close">✕</button>
       </div>
@@ -1989,11 +1989,11 @@
         <div class="notebooklm-split-container">
           <!-- Left Column: Context Packaging & Socratic Prompt -->
           <div class="notebooklm-split-left">
-            <div class="notebooklm-status-banner">
-              <span class="status-icon">📋</span>
+            <div class="notebooklm-status-banner is-guide" id="notebooklm-status-banner">
+              <span class="status-icon" id="notebooklm-status-icon">💡</span>
               <div class="status-text-wrap">
-                <strong data-i18n="notebooklm_status_copied">Đã tự động sao chép ngữ cảnh câu hỏi vào Clipboard!</strong>
-                <p data-i18n="notebooklm_instruction">Cửa sổ NotebookLM đã sẵn sàng. Em chỉ cần nhấn <strong>Ctrl + V</strong> (hoặc <strong>Cmd + V</strong>) vào ô chat và nhấn Enter để nhận phân tích neo nguồn từ sách của Thầy Mike.</p>
+                <strong id="notebooklm-status-title" data-i18n="notebooklm_guide_banner_title">Trợ Lý AI Socratic • Kho Sách Gốc SAT Tuyển Chọn</strong>
+                <p id="notebooklm-status-p" data-i18n="notebooklm_guide_banner_desc">NotebookLM được Thầy Mike Pham nạp sẵn toàn bộ giáo trình SAT chuẩn (Erica Meltzer, College Panda, Princeton Review). AI sẽ đồng hành giải đáp câu hỏi và dẫn chứng chính xác số trang sách gốc theo phương pháp Socratic 'Thử &amp; Được'.</p>
               </div>
             </div>
 
@@ -2004,7 +2004,7 @@
               </button>
               <button type="button" class="btn-notebooklm-action secondary" id="btn-notebooklm-recopy">
                 <span>📋</span>
-                <span data-i18n="notebooklm_btn_copy_prompt">Sao Chép Lại</span>
+                <span data-i18n="notebooklm_btn_copy_prompt">Sao Chép Câu Hỏi Hiện Tại</span>
               </button>
               <button type="button" class="btn-notebooklm-action tertiary" id="btn-notebooklm-toggle-config">
                 <span>⚙️</span>
@@ -2023,13 +2023,39 @@
               <span class="config-note">💡 Thầy Mike Phạm có thể dán liên kết Notebook đã chia sẻ (quyền Viewer) tại đây để toàn bộ học sinh kết nối vào cùng 1 kho tài liệu chuẩn.</span>
             </div>
 
+            <!-- Smart Prompt Templates Section (Click to Copy) -->
+            <div class="notebooklm-templates-box">
+              <div class="templates-header">
+                <span class="templates-title" data-i18n="notebooklm_template_title">💡 Câu Lệnh Gợi Ý Thông Minh (Bấm 1 chạm để sao chép):</span>
+                <span class="templates-toast hidden" id="templates-toast">✅ Đã sao chép!</span>
+              </div>
+              <div class="templates-grid">
+                <button type="button" class="btn-prompt-template" data-tpl="traps">
+                  <span class="tpl-icon">🎯</span>
+                  <span class="tpl-text" data-i18n="notebooklm_tpl_traps">Phân tích bẫy SAT tinh vi giữa các phương án</span>
+                </button>
+                <button type="button" class="btn-prompt-template" data-tpl="rules">
+                  <span class="tpl-icon">📖</span>
+                  <span class="tpl-text" data-i18n="notebooklm_tpl_rules">Trích dẫn số trang &amp; quy tắc trong sách Erica Meltzer</span>
+                </button>
+                <button type="button" class="btn-prompt-template" data-tpl="desmos">
+                  <span class="tpl-icon">📐</span>
+                  <span class="tpl-text" data-i18n="notebooklm_tpl_desmos">Công thức tối ưu trong College Panda &amp; mẹo Desmos</span>
+                </button>
+                <button type="button" class="btn-prompt-template" data-tpl="socratic">
+                  <span class="tpl-icon">💡</span>
+                  <span class="tpl-text" data-i18n="notebooklm_tpl_socratic">Đặt cho tôi 2 câu hỏi phản biện để tự suy luận đáp án</span>
+                </button>
+              </div>
+            </div>
+
             <!-- Prompt Preview Box -->
             <div class="notebooklm-preview-box">
               <div class="preview-header">
                 <span data-i18n="notebooklm_prompt_preview_label">Xem trước nội dung đã đóng gói:</span>
                 <span class="preview-tag">Socratic Prompt (Thử &amp; Được)</span>
               </div>
-              <textarea id="notebooklm-prompt-preview" readonly rows="8" class="preview-textarea"></textarea>
+              <textarea id="notebooklm-prompt-preview" readonly rows="5" class="preview-textarea"></textarea>
             </div>
           </div>
 
