@@ -6791,10 +6791,419 @@ function openNotebookLMPopup(targetUrl) {
   return win;
 }
 
+// ================= NOTEBOOKLM SOCRATIC PROMPT LIBRARY (GOOGLE UX DESIGN) =================
+const NOTEBOOKLM_PROMPT_LIBRARY = [
+  // 1. Reading & Writing
+  {
+    id: "rw-vocab",
+    category: "rw",
+    icon: "📖",
+    title: {
+      vi: "Sắc Thái Từ Vựng & Ngữ Cảnh (Erica Meltzer)",
+      en: "Vocabulary in Context & Nuance (Erica Meltzer)"
+    },
+    desc: {
+      vi: "Truy tìm manh mối ngữ cảnh (tone, polarity, contrast) và phân tích các sắc thái từ vựng tinh vi.",
+      en: "Identify context clues (tone, polarity, contrast) and dissect delicate word connotations."
+    },
+    prompt: {
+      vi: "Dựa vào kho sách của Thầy Mike (đặc biệt là Erica Meltzer Reading - Chương Vocabulary in Context), hãy phân tích sắc thái từ vựng trong câu hỏi này:\n1. Chỉ ra từ khóa đóng vai trò 'manh mối ngữ cảnh' (contrast, explanation hay cause-effect).\n2. Đặt 2 câu hỏi gợi mở để tôi tự phân biệt sắc thái nghĩa (connotation & tone) giữa các phương án.\n3. Trích dẫn số trang và quy tắc tương ứng trong sách Erica Meltzer.",
+      en: "Based on Teacher Mike's SAT library (specifically Erica Meltzer Reading - Vocabulary in Context chapter), analyze the vocabulary nuances in this question:\n1. Identify the key context clues (contrast, explanation, or cause-and-effect indicators).\n2. Provide 2 Socratic guiding questions so I can deduce the connotation and tone differences between options myself.\n3. Cite the exact chapter, page number, and rule from Erica Meltzer's guide."
+    }
+  },
+  {
+    id: "rw-boundary",
+    category: "rw",
+    icon: "✒️",
+    title: {
+      vi: "Ranh Giới Câu & Liên Từ Ngữ Pháp",
+      en: "Boundaries & Transition Logic"
+    },
+    desc: {
+      vi: "Kiểm tra cấu trúc mệnh đề độc lập, ranh giới dấu chấm phẩy, phẩy nối (comma splice) và liên từ nối.",
+      en: "Audit independent clauses, semicolons, comma splices, and logical discourse markers."
+    },
+    prompt: {
+      vi: "Dựa vào giáo trình Erica Meltzer Grammar của Thầy Mike:\n1. Hãy giúp tôi xác định ranh giới giữa các mệnh đề độc lập (Independent Clauses) và phụ thuộc (Dependent Clauses) trong câu.\n2. Phân tích mối quan hệ logic giữa 2 vế (tiếp nối, tương phản hay giải thích).\n3. Đặt câu hỏi phản biện để tôi tự chọn dấu câu hoặc liên từ chuyển ý (Transition Word) chính xác nhất.",
+      en: "Based on Teacher Mike's Erica Meltzer Grammar curriculum:\n1. Help me identify the boundaries between Independent and Dependent clauses in this sentence.\n2. Determine the exact logical relationship between the clauses (continuing, contrast, or cause/result).\n3. Ask me a Socratic question to select the proper punctuation mark or transition word on my own."
+    }
+  },
+  {
+    id: "rw-rhetoric",
+    category: "rw",
+    icon: "📜",
+    title: {
+      vi: "Tổng Hợp Hùng Biện & Luận Điểm Chính",
+      en: "Rhetorical Synthesis & Main Idea"
+    },
+    desc: {
+      vi: "Phân tích mục tiêu của học sinh (student goal) trong dạng câu Rhetorical Synthesis và cấu trúc lập luận.",
+      en: "Decode the student's specific goal in Rhetorical Synthesis questions and argument structure."
+    },
+    prompt: {
+      vi: "Hãy phân tích câu hỏi Rhetorical Synthesis / Main Idea theo phương pháp SAT chuẩn của Thầy Mike:\n1. Xác định chính xác 'mục tiêu cụ thể' (specific goal) được nêu trong câu lệnh (ví dụ: nhấn mạnh sự tương phản, giới thiệu một công trình, hay tóm tắt nghiên cứu).\n2. Đặt câu hỏi gợi ý để tôi tự loại trừ các phương án đưa thông tin đúng nhưng sai mục tiêu.\n3. Dẫn chứng quy tắc làm bài dạng này từ sách SAT tuyển chọn.",
+      en: "Analyze this Rhetorical Synthesis / Main Idea question using Teacher Mike's SAT protocol:\n1. Pinpoint the exact 'specific goal' stated in the question prompt (e.g., emphasize contrast, introduce a theory, or summarize findings).\n2. Ask guiding questions to help me eliminate options that contain true facts but fail the prompt's specific goal.\n3. Reference the strategic rule for this question type from the curated SAT textbook."
+    }
+  },
+
+  // 2. Math & Desmos
+  {
+    id: "math-desmos",
+    category: "math",
+    icon: "💻",
+    title: {
+      vi: "Phím Tắt Desmos 30 Giây",
+      en: "30-Second Desmos Shortcuts"
+    },
+    desc: {
+      vi: "Khai thác tối đa máy tính đồ thị Desmos: thanh trượt Slider, hàm hồi quy Regression (~), và bảng giá trị Table.",
+      en: "Harness Desmos Graphing Calculator power: sliders, linear/quadratic regression (~), and table lookup."
+    },
+    prompt: {
+      vi: "Dựa vào cẩm nang Desmos Mastery và giáo trình College Panda Math của Thầy Mike:\n1. Hãy chỉ ra cú pháp hoặc phím tắt nhanh nhất để nhập câu này vào Desmos (dùng Slider, hồi quy '~', hay tìm giao điểm đồ thị).\n2. Thời gian tối ưu để giải câu này bằng Desmos là bao nhiêu giây?\n3. Đặt 1 câu hỏi để tôi tự nhìn ra mối liên hệ giữa hàm số trên đồ thị và nghiệm bài toán.",
+      en: "Based on Teacher Mike's Desmos Mastery and College Panda Math guides:\n1. Provide the fastest Desmos syntax to solve this question (using Sliders, regression '~', or curve intersections).\n2. What is the benchmark solve time for this question using Desmos (target: under 30s)?\n3. Pose a guiding question so I can visualize how the graph's key features correspond to the algebraic solution."
+    }
+  },
+  {
+    id: "math-algebra",
+    category: "math",
+    icon: "📐",
+    title: {
+      vi: "Đại Số Nâng Cao & Hệ Phương Trình",
+      en: "Advanced Algebra & System of Equations"
+    },
+    desc: {
+      vi: "Bẻ khóa các câu hỏi số nghiệm (vô nghiệm, vô số nghiệm), phương trình bậc hai và định lý Viète.",
+      en: "Master no-solution/infinite-solution linear systems, discriminant analysis, and Vieta's formulas."
+    },
+    prompt: {
+      vi: "Theo giáo trình College Panda Math - Chương Systems of Equations & Quadratics của Thầy Mike:\n1. Điều kiện để hệ phương trình này có vô số nghiệm / vô nghiệm hoặc 1 nghiệm duy nhất là gì?\n2. Hãy đặt câu hỏi gợi mở về tỷ lệ hệ số (coefficients ratio) hoặc biệt thức Delta để tôi tự tính ra hằng số k.\n3. Trích dẫn số trang và bài học cốt lõi từ sách College Panda.",
+      en: "According to Teacher Mike's College Panda Math - Systems of Equations & Quadratics curriculum:\n1. What are the algebraic and geometric conditions for this system to have no solutions, infinitely many, or exactly one solution?\n2. Ask me a Socratic prompt about coefficient ratios or the discriminant (Delta) so I can solve for constant k myself.\n3. Cite the relevant chapter and core lesson from College Panda."
+    }
+  },
+  {
+    id: "math-geo",
+    category: "math",
+    icon: "🔵",
+    title: {
+      vi: "Hình Học Tọa Độ & Phương Trình Đường Tròn",
+      en: "Circle Equations & Coordinate Geometry"
+    },
+    desc: {
+      vi: "Phương pháp hoàn thành bình phương, radian, cung tròn, tam giác đồng dạng và lượng giác chuẩn SAT.",
+      en: "Completing the square for circles, arc lengths, radian conversions, and similar triangle shortcuts."
+    },
+    prompt: {
+      vi: "Dựa vào giáo trình College Panda Math của Thầy Mike Pham:\n1. Hướng dẫn tôi các bước hoàn thành bình phương (completing the square) để đưa phương trình về dạng chuẩn (x-h)^2 + (y-k)^2 = r^2.\n2. Bẫy phổ biến nhất về bán kính r so với r^2 hoặc đơn vị đo góc (Radian vs Degree) ở câu này là gì?\n3. Đặt câu hỏi Socratic để tôi tự kiểm tra bán kính hoặc tâm đường tròn.",
+      en: "Referencing Teacher Mike Pham's College Panda Math curriculum:\n1. Guide me through completing the square to convert this circle equation into standard form: (x-h)^2 + (y-k)^2 = r^2.\n2. What is the most deceptive trap regarding radius r vs r^2 or radian vs degree measures in this problem?\n3. Ask a Socratic question so I can compute the circle center and radius myself."
+    }
+  },
+
+  // 3. SAT Traps & POOE
+  {
+    id: "traps-4classic",
+    category: "traps",
+    icon: "🎯",
+    title: {
+      vi: "Vạch Mặt 4 Cạm Bẫy SAT Kinh Điển",
+      en: "Deconstruct 4 Classic SAT Distractor Traps"
+    },
+    desc: {
+      vi: "Nhận diện bẫy Quá phạm vi (Too Broad), Quá hẹp (Too Narrow), Đảo ngược nghĩa (Opposite), và Sai chi tiết (False Detail).",
+      en: "Identify Too Broad, Too Narrow, Opposite/Reversed Meaning, and Half-Right / False Detail traps."
+    },
+    prompt: {
+      vi: "Dựa trên chiến thuật phân tích bẫy đề của Thầy Mike (từ Princeton Review 2025 & Erica Meltzer):\n1. Hãy gọi tên cụ thể loại bẫy của từng phương án sai trong câu này (Too Extreme, Out of Scope, Opposite, hay False Association).\n2. Tại sao phương án gây nhiễu nguy hiểm nhất lại đánh lừa được nhiều học sinh đạt mức điểm 600-700?\n3. Đặt câu hỏi phản biện để tôi tự phát hiện lỗi sai trong phương án bẫy đó.",
+      en: "Based on Teacher Mike's SAT trap analysis framework (from Princeton Review 2025 & Erica Meltzer):\n1. Categorize the exact trap type for each distractor option (Too Extreme, Out of Scope, Opposite, or False Association).\n2. Why is the most tempting distractor so effective against 600-700 level students?\n3. Ask me a counter-question to expose the subtle fallacy in that tempting distractor myself."
+    }
+  },
+  {
+    id: "traps-pooe",
+    category: "traps",
+    icon: "⚡",
+    title: {
+      vi: "Tháo Gỡ Song Đề 50/50 Bằng POOE",
+      en: "Breakthrough 50/50 Dilemma via POOE"
+    },
+    desc: {
+      vi: "Quy trình loại trừ phương án sai (Process of Outright Elimination) khi bị phân vân giữa 2 đáp án cuối cùng.",
+      en: "Process of Outright Elimination (POOE) protocol to decisively break 50/50 ties between remaining options."
+    },
+    prompt: {
+      vi: "Tôi đang phân vân giữa 2 phương án cuối cùng trong câu này:\n1. Áp dụng nguyên lý POOE (Process of Outright Elimination): Tìm một từ hoặc chi tiết duy nhất khiến 1 trong 2 phương án sai hoàn toàn.\n2. Đừng chỉ ra trực tiếp đáp án đúng; hãy đặt cho tôi 1 câu hỏi 'sát thương' để tôi tự tay loại bỏ phương án sai còn lại.\n3. Trích dẫn nguyên văn câu văn trong bài đọc hoặc quy tắc chứng minh cho sự lựa chọn.",
+      en: "I am stuck in a 50/50 dilemma between two final choices in this question:\n1. Apply the POOE principle (Process of Outright Elimination): find the single word or detail that invalidates one of the two choices.\n2. Do NOT reveal the correct option directly; give me one laser-focused question to eliminate the flawed choice myself.\n3. Quote the exact passage sentence or rule that certifies the survivor as the only valid answer."
+    }
+  },
+  {
+    id: "traps-units",
+    category: "traps",
+    icon: "⚠️",
+    title: {
+      vi: "Bẫy Đảo Đơn Vị & Giả Định Ẩn Toán Học",
+      en: "Unit Conversions & Hidden Constraint Traps"
+    },
+    desc: {
+      vi: "Phát hiện bẫy đổi phút sang giờ, chu vi sang bán kính, điều kiện nguyên dương x > 0 và biến phụ x so với x + 3.",
+      en: "Unmask sneaky unit switches (minutes to hours), radius vs diameter, positive integers, and solving for (x+3) instead of x."
+    },
+    prompt: {
+      vi: "Theo phân tích đề thi Digital SAT của Thầy Mike Phạm:\n1. Câu toán này có chứa bẫy đổi đơn vị (ví dụ: mét/giây sang km/giờ, tháng sang năm) hoặc bẫy hỏi đại lượng x+3 thay vì x không?\n2. Các phương án sai đã đón đầu những bước tính sơ suất nào của học sinh?\n3. Đặt câu hỏi nhắc nhở công thái học để tôi kiểm tra lại câu lệnh trước khi chốt kết quả.",
+      en: "According to Teacher Mike Pham's Digital SAT test forensics:\n1. Does this math problem harbor a unit conversion trap (e.g., m/s to km/h, months to years) or ask for (x+3) rather than x?\n2. Which common student calculation blunders are anticipated by the distractor options?\n3. Ask an ergonomic check question so I can re-verify the question target before finalizing my response."
+    }
+  },
+
+  // 4. Socratic "Thử & Được"
+  {
+    id: "socratic-counter",
+    category: "socratic",
+    icon: "🧠",
+    title: {
+      vi: "Phản Biện Socratic 3 Tầng 'Thử & Được'",
+      en: "3-Tier Socratic Counter-Questioning"
+    },
+    desc: {
+      vi: "Dẫn dắt suy luận qua 3 cấp độ gợi mở: Manh mối gốc -> Bẫy đề -> Tự chứng minh luận điểm.",
+      en: "Guide reasoning via 3 progressive levels: Root clue -> Trap exposure -> Autonomous proof."
+    },
+    prompt: {
+      vi: "Xin chào Thầy AI! Đúng theo tinh thần 'Thử & Được' của Thầy Mike Pham, xin đừng đưa ra đáp án trực tiếp. Hãy đặt cho tôi 3 câu hỏi Socratic đa tầng:\n- Tầng 1 (Quan sát): Manh mối cốt lõi nằm ở dòng nào trong đề bài?\n- Tầng 2 (Phản biện): Nếu chọn phương án sai có vẻ hợp lý nhất, giả định nào sẽ bị đổ vỡ?\n- Tầng 3 (Quyết định): Bằng chứng nào chứng minh phương án còn lại là không thể chối cãi?",
+      en: "Hello AI Tutor! In the true 'Trial & Triumph' spirit of Teacher Mike Pham, please do not give away the answer. Prompt me with 3 progressive Socratic questions:\n- Tier 1 (Observation): Which exact line or phrase holds the pivotal clue?\n- Tier 2 (Counter-argument): If I choose the most plausible distractor, what underlying assumption breaks down?\n- Tier 3 (Resolution): What unassailable textual/mathematical evidence validates the correct choice?"
+    }
+  },
+  {
+    id: "socratic-twin",
+    category: "socratic",
+    icon: "🔄",
+    title: {
+      vi: "Luyện Tập Chuyển Giao - Tạo Câu Tương Đương",
+      en: "Transfer Learning: Twin Question Generation"
+    },
+    desc: {
+      vi: "Tạo ngay 1 câu hỏi 'sinh đôi' cùng mô hình tư duy và độ khó để học sinh tự làm lại kiểm chứng mức độ hiểu sâu.",
+      en: "Generate an isomorphic 'twin question' with identical cognitive structure to verify authentic mastery."
+    },
+    prompt: {
+      vi: "Sau khi tôi đã hiểu bản chất câu hỏi này dựa trên sách của Thầy Mike:\n1. Hãy tạo cho tôi 1 câu hỏi 'sinh đôi' (isomorphic question) có cùng cấu trúc logic, bẫy tương tự nhưng với ngữ cảnh/số liệu mới.\n2. Cung cấp 4 phương án A, B, C, D kèm theo 1 bẫy tương đương.\n3. Để tôi tự trả lời trước khi nhận xét và giải thích số trang trong sách tương ứng.",
+      en: "Now that I have reviewed the mechanics of this question against Teacher Mike's textbooks:\n1. Generate a twin (isomorphic) SAT question with the identical logical structure and trap pattern, but novel context/numbers.\n2. Provide 4 answer options (A, B, C, D) incorporating a parallel distractor trap.\n3. Let me answer first before evaluating and providing textbook citations."
+    }
+  },
+  {
+    id: "socratic-aar",
+    category: "socratic",
+    icon: "🛡️",
+    title: {
+      vi: "Nhật Ký Sai Sót AAR - Rút Ra Bài Học Bất Biến",
+      en: "AAR Root-Cause Extraction & Systematic Defense"
+    },
+    desc: {
+      vi: "Đúc kết nguyên nhân gốc rễ (Root Cause) và câu thần chú phòng thủ cá nhân hóa để lưu vào AAR Error Log.",
+      en: "Extract the psychological root-cause and formulate a personal defense mantra for the AAR Error Log."
+    },
+    prompt: {
+      vi: "Tôi vừa làm sai hoặc gặp khó khăn ở câu hỏi này. Hãy giúp tôi điền vào Nhật ký Sai sót Socratic (AAR):\n1. Phân loại nguyên nhân gốc rễ (Đọc lướt mất chi tiết, nhầm thuật ngữ, hay tính toán vội vàng)?\n2. Đúc kết một 'Quy tắc vàng 1 dòng' (Golden Rule) dựa trên giáo trình của Thầy Mike để tôi không bao giờ lặp lại lỗi này.\n3. Gợi ý số trang trong sách để tôi đọc thêm tối nay.",
+      en: "I struggled or made an error on this question. Assist me in drafting my Socratic After-Action Review (AAR):\n1. Diagnose the root cause (skimming past critical details, misinterpreting terminology, or algebraic haste)?\n2. Synthesize a concise 1-line 'Golden Rule' grounded in Teacher Mike's guides so I never repeat this mistake.\n3. Recommend the specific textbook pages to study tonight."
+    }
+  }
+];
+
+let currentPromptLibCategory = "all";
+let currentPromptLibSearch = "";
+
+function getCombinedPromptForCard(cardPromptText, q) {
+  const isEn = (App.currentLang === "en");
+  if (!q) return cardPromptText;
+
+  const testTitle = (App.db && App.db.title) ? App.db.title : (App.activeTestId || "Digital SAT Test");
+  const moduleName = App.activeModuleCode || (q.module ? `Module ${q.module}` : "SAT Module");
+  const qLabel = q.q_label || `Câu ${q.q_number || q.id}` || "SAT Question";
+  const skill = q.domain || q.skill || "";
+
+  let header = isEn
+    ? `[SOCRATIC SAT PROMPT - EXPERT STRATEGY]\n${cardPromptText}\n\n--------------------------------------------------\n[QUESTION CONTEXT]\n📚 Reference / Exam: ${testTitle}\n📌 Section & Question: ${moduleName} • ${qLabel}${skill ? ` (${skill})` : ""}\n`
+    : `[LỆNH HỎI SOCRATIC CHUYÊN SÂU - THẦY MIKE PHAM]\n${cardPromptText}\n\n--------------------------------------------------\n[NGỮ CẢNH CÂU HỎI THI SAT]\n📚 Nguồn tài liệu & Bộ đề: ${testTitle}\n📌 Mô-đun & Câu số: ${moduleName} • ${qLabel}${skill ? ` (${skill})` : ""}\n`;
+
+  if (q.passage && q.passage.trim()) {
+    header += isEn
+      ? `\n📖 READING PASSAGE / CONTEXT:\n"""\n${q.passage.trim()}\n"""\n`
+      : `\n📖 ĐOẠN VĂN / BÀI ĐỌC (PASSAGE):\n"""\n${q.passage.trim()}\n"""\n`;
+  }
+  if (q.prompt && q.prompt.trim()) {
+    header += isEn
+      ? `\n❓ QUESTION STEM:\n${q.prompt.trim()}\n`
+      : `\n❓ CÂU HỎI:\n${q.prompt.trim()}\n`;
+  }
+  if (q.is_grid_in) {
+    header += isEn
+      ? `\n📝 FORMAT: Student-Produced Response (Grid-in Math)\n`
+      : `\n📝 HÌNH THỨC: Tự luận điền đáp án (Student-Produced Response / Grid-in)\n`;
+  } else if (Array.isArray(q.options) && q.options.length > 0) {
+    header += isEn ? `\n🎯 ANSWER CHOICES:\n` : `\n🎯 CÁC PHƯƠNG ÁN LỰA CHỌN:\n`;
+    q.options.forEach(opt => {
+      const k = opt.key || opt.id || "";
+      const txt = opt.text || opt.value || "";
+      header += `  ${k}) ${txt}\n`;
+    });
+  }
+
+  return header;
+}
+
+function showLibraryToast(message) {
+  const toast = document.getElementById("library-toast");
+  const toastText = document.getElementById("library-toast-text");
+  if (toast && toastText) {
+    toastText.textContent = message;
+    toast.classList.remove("hidden");
+    if (window._libToastTimer) clearTimeout(window._libToastTimer);
+    window._libToastTimer = setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 2800);
+  }
+}
+
+function switchNotebookLMTab(tabName) {
+  const tabs = ["library", "guide", "context"];
+  if (!tabs.includes(tabName)) tabName = "library";
+
+  document.querySelectorAll(".notebooklm-tab-btn").forEach(btn => {
+    const isTarget = (btn.dataset.tab === tabName);
+    btn.classList.toggle("active", isTarget);
+    btn.setAttribute("aria-selected", isTarget ? "true" : "false");
+  });
+
+  tabs.forEach(t => {
+    const panel = document.getElementById(`tab-panel-${t}`);
+    if (panel) {
+      panel.classList.toggle("hidden", t !== tabName);
+    }
+  });
+}
+
+function renderNotebookLMPromptLibrary(category, searchQuery) {
+  if (category !== undefined) currentPromptLibCategory = category;
+  if (searchQuery !== undefined) currentPromptLibSearch = searchQuery;
+
+  const isEn = (App.currentLang === "en");
+  const grid = document.getElementById("library-prompts-grid");
+  if (!grid) return;
+
+  const qSearch = (currentPromptLibSearch || "").trim().toLowerCase();
+  const filterCat = currentPromptLibCategory || "all";
+
+  const categoryLabels = {
+    rw: isEn ? "Reading & Writing" : "Đọc hiểu & Ngôn ngữ",
+    math: isEn ? "Math & Desmos" : "Toán & Desmos",
+    traps: isEn ? "SAT Traps & POOE" : "Bẫy SAT & Loại trừ",
+    socratic: isEn ? "Socratic 'Trial & Triumph'" : "Socratic Thử & Được"
+  };
+
+  const filtered = NOTEBOOKLM_PROMPT_LIBRARY.filter(item => {
+    // 1. Category match
+    if (filterCat !== "all" && item.category !== filterCat) return false;
+
+    // 2. Search query match
+    if (qSearch) {
+      const titleVi = (item.title?.vi || "").toLowerCase();
+      const titleEn = (item.title?.en || "").toLowerCase();
+      const descVi = (item.desc?.vi || "").toLowerCase();
+      const descEn = (item.desc?.en || "").toLowerCase();
+      const promptVi = (item.prompt?.vi || "").toLowerCase();
+      const promptEn = (item.prompt?.en || "").toLowerCase();
+      const catKey = item.category.toLowerCase();
+
+      return titleVi.includes(qSearch) ||
+        titleEn.includes(qSearch) ||
+        descVi.includes(qSearch) ||
+        descEn.includes(qSearch) ||
+        promptVi.includes(qSearch) ||
+        promptEn.includes(qSearch) ||
+        catKey.includes(qSearch);
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="library-empty-state">
+        <div style="font-size: 32px; margin-bottom: 8px;">🔍</div>
+        <strong>${isEn ? "No matching prompts found" : "Không tìm thấy prompt phù hợp"}</strong>
+        <p style="margin: 4px 0 0 0; font-size: 13px;">${isEn ? "Try adjusting your search terms or clearing the topic filter." : "Hãy thử từ khóa khác hoặc bấm 'Tất cả chủ đề' để xem 12 prompt có sẵn."}</p>
+      </div>
+    `;
+    return;
+  }
+
+  const copyLabel = isEn ? "📋 Copy Prompt" : "📋 Sao Chép";
+  const combineLabel = isEn ? "🧩 Combine with Question" : "🧩 Ghép với câu hỏi";
+
+  grid.innerHTML = filtered.map(item => {
+    const title = (isEn ? item.title?.en : item.title?.vi) || item.title?.vi || "";
+    const desc = (isEn ? item.desc?.en : item.desc?.vi) || item.desc?.vi || "";
+    const promptText = (isEn ? item.prompt?.en : item.prompt?.vi) || item.prompt?.vi || "";
+    const catLabel = categoryLabels[item.category] || item.category;
+
+    return `
+      <div class="prompt-card" data-id="${item.id}" data-category="${item.category}">
+        <div class="prompt-card-top">
+          <span class="prompt-card-tag ${item.category}">${catLabel}</span>
+          <span class="prompt-card-icon">${item.icon}</span>
+        </div>
+        <h4 class="prompt-card-title">${title}</h4>
+        <p class="prompt-card-desc">${desc}</p>
+        <pre class="prompt-card-code">${escapeHtml(promptText)}</pre>
+        <div class="prompt-card-actions">
+          <button type="button" class="btn-card-copy" data-id="${item.id}" title="${copyLabel}">
+            <span>${copyLabel}</span>
+          </button>
+          <button type="button" class="btn-card-combine" data-id="${item.id}" title="${combineLabel}">
+            <span>${combineLabel}</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  // Attach card event listeners
+  grid.querySelectorAll(".btn-card-copy").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      const item = NOTEBOOKLM_PROMPT_LIBRARY.find(p => p.id === id);
+      if (!item) return;
+      const text = (isEn ? item.prompt?.en : item.prompt?.vi) || item.prompt?.vi || "";
+      await copyTextToClipboard(text);
+      showLibraryToast(isEn ? "Prompt copied to Clipboard!" : "Đã sao chép prompt vào Clipboard!");
+    });
+  });
+
+  grid.querySelectorAll(".btn-card-combine").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      const item = NOTEBOOKLM_PROMPT_LIBRARY.find(p => p.id === id);
+      if (!item) return;
+      const text = (isEn ? item.prompt?.en : item.prompt?.vi) || item.prompt?.vi || "";
+      const q = App.currentQuestion;
+      const combined = getCombinedPromptForCard(text, q);
+      await copyTextToClipboard(combined);
+      if (DOM.notebookLMPromptPreview) {
+        DOM.notebookLMPromptPreview.value = combined;
+      }
+      showLibraryToast(isEn
+        ? (q ? "Prompt combined with Question & copied to Clipboard!" : "Prompt copied to Clipboard!")
+        : (q ? "Đã ghép prompt với câu hỏi & sao chép vào Clipboard!" : "Đã sao chép prompt vào Clipboard!")
+      );
+    });
+  });
+}
+
+window.NOTEBOOKLM_PROMPT_LIBRARY = NOTEBOOKLM_PROMPT_LIBRARY;
+window.renderNotebookLMPromptLibrary = renderNotebookLMPromptLibrary;
+window.switchNotebookLMTab = switchNotebookLMTab;
+
 function openNotebookLMGuide(options = {}) {
   const isEn = (App.currentLang === "en");
   const autoOpenWindow = !!options.autoOpenWindow;
   const isFromQuestion = !!options.isFromQuestion;
+  const initialTab = options.activeTab || (isFromQuestion ? "context" : "library");
 
   const q = options.questionObj || App.currentQuestion;
   const prompt = q ? generateNotebookLMPrompt(q) : "";
@@ -6834,8 +7243,14 @@ function openNotebookLMGuide(options = {}) {
       if (statusBanner) statusBanner.className = "notebooklm-status-banner is-guide";
       if (statusIcon) statusIcon.textContent = "💡";
       if (statusTitle) statusTitle.textContent = isEn ? "Smart Socratic Assistant • Authentic SAT Source Library" : "Trợ Lý AI Socratic • Kho Sách Gốc SAT Tuyển Chọn";
-      if (statusDesc) statusDesc.textContent = isEn ? "NotebookLM is preloaded with Teacher Mike's full SAT curriculum (Erica Meltzer, College Panda, Princeton Review). It guides you with multi-tier Socratic questions and exact page citations under the 'Trial & Error' spirit." : "NotebookLM được Thầy Mike Pham nạp sẵn toàn bộ giáo trình SAT chuẩn (Erica Meltzer, College Panda, Princeton Review). AI sẽ đồng hành giải đáp câu hỏi và dẫn chứng chính xác số trang sách gốc theo phương pháp Socratic 'Thử & Được'.";
+      if (statusDesc) statusDesc.textContent = isEn ? "NotebookLM is preloaded with Teacher Mike's full SAT curriculum (Erica Meltzer, College Panda, Princeton Review). It guides you with multi-tier Socratic questions and exact page citations under the 'Trial & Triumph' spirit." : "NotebookLM được Thầy Mike Pham nạp sẵn toàn bộ giáo trình SAT chuẩn (Erica Meltzer, College Panda, Princeton Review). AI sẽ đồng hành giải đáp câu hỏi và dẫn chứng chính xác số trang sách gốc theo phương pháp Socratic 'Thử & Được'.";
     }
+
+    // Activate the requested tab
+    switchNotebookLMTab(initialTab);
+
+    // Render the dynamic prompt library
+    renderNotebookLMPromptLibrary();
 
     DOM.modalNotebookLM.classList.remove("hidden");
   }
@@ -7257,7 +7672,8 @@ function setupEventListeners() {
       // Topbar icon click: do NOT auto open window, show Smart User Guide
       openNotebookLMGuide({
         autoOpenWindow: false,
-        isFromQuestion: false
+        isFromQuestion: false,
+        activeTab: "library"
       });
     });
   }
@@ -7299,46 +7715,48 @@ function setupEventListeners() {
       const prompt = q ? generateNotebookLMPrompt(q) : (DOM.notebookLMPromptPreview ? DOM.notebookLMPromptPreview.value : "");
       if (prompt) {
         await copyTextToClipboard(prompt);
-        const toast = document.getElementById("templates-toast");
         const isEn = (App.currentLang === "en");
-        if (toast) {
-          toast.textContent = isEn ? "✅ Question context copied!" : "✅ Đã sao chép câu hỏi!";
-          toast.classList.remove("hidden");
-          setTimeout(() => toast.classList.add("hidden"), 2500);
-        }
+        showLibraryToast(isEn ? "Question context copied to Clipboard!" : "Đã sao chép câu hỏi vào Clipboard!");
       }
     });
   }
 
-  // Smart Prompt Template Buttons in NotebookLM Modal
-  document.querySelectorAll(".btn-prompt-template").forEach(btn => {
-    btn.addEventListener("click", async () => {
-      const tplKey = btn.dataset.tpl;
-      const isEn = (App.currentLang === "en");
-      const templatePrompts = {
-        traps: isEn
-          ? "Based on Teacher Mike's SAT library, analyze the subtle SAT traps between the correct answer and the distractors in this question. Ask me Socratic questions to spot the trap myself."
-          : "Dựa vào kho sách của Thầy Mike, hãy phân tích tường tận các bẫy SAT (traps) giữa phương án đúng và từng phương án gây nhiễu trong câu hỏi này. Đặt cho tôi câu hỏi gợi mở để tôi tự nhận diện bẫy.",
-        rules: isEn
-          ? "Cite the exact book title, chapter, page number, and grammar/structural rule in Erica Meltzer explaining this question."
-          : "Hãy trích dẫn chính xác số trang, tên sách (Erica Meltzer Reading/Grammar hoặc College Panda) và quy tắc ngữ pháp/cấu trúc tương ứng dùng để giải quyết câu này.",
-        desmos: isEn
-          ? "What is the optimal College Panda math formula and fastest Desmos shortcut for this problem?"
-          : "Với câu hỏi này, công thức tối ưu trong giáo trình College Panda là gì? Hãy chỉ dẫn các bước bấm máy Desmos hoặc phím tắt nhanh nhất để giải trong 30 giây.",
-        socratic: isEn
-          ? "In the spirit of 'Trial & Error', please do not provide the direct answer. Give me 2 multi-tier Socratic counter-questions so I can deduce and verify the answer myself."
-          : "Theo tinh thần 'Thử & Được', xin đừng đọc đáp án trực diện. Hãy đặt cho tôi 2 câu hỏi phản biện Socratic đa tầng để tôi tự suy luận và chứng minh phương án của mình là đúng."
-      };
-      const textToCopy = templatePrompts[tplKey] || "";
-      if (textToCopy) {
-        await copyTextToClipboard(textToCopy);
-        const toast = document.getElementById("templates-toast");
-        if (toast) {
-          toast.textContent = isEn ? "✅ Template copied!" : "✅ Đã sao chép câu lệnh!";
-          toast.classList.remove("hidden");
-          setTimeout(() => toast.classList.add("hidden"), 2500);
-        }
+  // Material 3 Tabs Navigation for NotebookLM Modal
+  document.querySelectorAll(".notebooklm-tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tab = btn.dataset.tab;
+      switchNotebookLMTab(tab);
+    });
+  });
+
+  // Prompt Library Search Input & Clear Button
+  const inputLibSearch = document.getElementById("input-lib-search");
+  const btnClearLibSearch = document.getElementById("btn-clear-lib-search");
+  if (inputLibSearch) {
+    inputLibSearch.addEventListener("input", (e) => {
+      const val = e.target.value;
+      if (btnClearLibSearch) {
+        btnClearLibSearch.classList.toggle("hidden", !val);
       }
+      renderNotebookLMPromptLibrary(undefined, val);
+    });
+  }
+  if (btnClearLibSearch) {
+    btnClearLibSearch.addEventListener("click", () => {
+      if (inputLibSearch) inputLibSearch.value = "";
+      btnClearLibSearch.classList.add("hidden");
+      renderNotebookLMPromptLibrary(undefined, "");
+    });
+  }
+
+  // Prompt Library Category Filter Pills
+  const libFilterPills = document.querySelectorAll("#library-filter-pills .filter-pill");
+  libFilterPills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      libFilterPills.forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      const cat = pill.dataset.cat || "all";
+      renderNotebookLMPromptLibrary(cat, undefined);
     });
   });
   if (DOM.btnNotebookLMToggleConfig) {

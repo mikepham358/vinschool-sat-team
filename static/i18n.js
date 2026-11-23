@@ -432,8 +432,22 @@ window.I18N_TRANSLATIONS = {
     aar_btn_copy_report: "📋 Copy Full Report",
 
     // Google NotebookLM Integration
-    notebooklm_modal_title: "Google NotebookLM • Smart User Guide",
-    notebooklm_modal_desc: "Socratic AI Assistant anchored in Teacher Mike's authentic SAT curriculum library",
+    notebooklm_modal_title: "Google NotebookLM • Socratic Prompt Library & Smart Guide",
+    notebooklm_modal_desc: "Material Design 3 Workspace • Teacher Mike's SAT Curriculum Library & Socratic Mentorship",
+    notebooklm_tab_library: "📚 Socratic Prompt Library",
+    notebooklm_tab_guide: "🚀 Smart Guide & Pro Tips",
+    notebooklm_tab_context: "📋 Current Question & Split-Dock",
+    notebooklm_strip_status: "🟢 Authentic Library: Erica Meltzer + College Panda + Princeton Review (Active)",
+    notebooklm_filter_all: "All Topics (12)",
+    notebooklm_filter_rw: "📖 Reading & Writing",
+    notebooklm_filter_math: "📐 Math & Desmos",
+    notebooklm_filter_traps: "🎯 SAT Traps & POOE",
+    notebooklm_filter_socratic: "🧠 Socratic 'Trial & Error'",
+    notebooklm_search_ph: "Search prompts (e.g. Desmos, Erica Meltzer, Traps, Vocab)...",
+    notebooklm_btn_copy_card: "📋 Copy Prompt",
+    notebooklm_btn_combine_card: "🧩 Combine with Question",
+    notebooklm_toast_copied: "✅ Prompt copied to Clipboard!",
+    notebooklm_toast_combined: "✅ Combined prompt & question copied to Clipboard!",
     notebooklm_guide_banner_title: "Smart Socratic Assistant • Authentic SAT Source Library",
     notebooklm_guide_banner_desc: "NotebookLM is preloaded with Teacher Mike's full SAT curriculum (Erica Meltzer, College Panda, Princeton Review). It guides you with multi-tier Socratic questions and exact page citations under the 'Trial & Error' spirit.",
     notebooklm_status_copied: "Question context copied to Clipboard!",
@@ -887,8 +901,22 @@ window.I18N_TRANSLATIONS = {
     aar_btn_copy_report: "📋 Copy Báo Cáo AAR",
 
     // Google NotebookLM Integration
-    notebooklm_modal_title: "Google NotebookLM • Hướng Dẫn Sử Dụng Thông Minh",
-    notebooklm_modal_desc: "Trợ lý AI Socratic neo nguồn giáo trình chuẩn SAT của Thầy Mike Phạm",
+    notebooklm_modal_title: "Google NotebookLM • Thư Viện Prompt & Hướng Dẫn Socratic",
+    notebooklm_modal_desc: "Không gian học tập chuẩn Google • Kho giáo trình SAT của Thầy Mike & Cố vấn Socratic",
+    notebooklm_tab_library: "📚 Thư Viện Prompt Socratic",
+    notebooklm_tab_guide: "🚀 Hướng Dẫn & Mẹo Dùng Thông Minh",
+    notebooklm_tab_context: "📋 Ngữ Cảnh Câu Hỏi & Cửa Sổ Neo",
+    notebooklm_strip_status: "🟢 Kho sách gốc: Erica Meltzer + College Panda + Princeton Review (Đang kết nối)",
+    notebooklm_filter_all: "Tất cả chủ đề (12)",
+    notebooklm_filter_rw: "📖 Đọc hiểu & Ngôn ngữ",
+    notebooklm_filter_math: "📐 Toán & Phím tắt Desmos",
+    notebooklm_filter_traps: "🎯 Bẫy SAT & Loại trừ POOE",
+    notebooklm_filter_socratic: "🧠 Socratic 'Thử & Được'",
+    notebooklm_search_ph: "Tìm kiếm prompt (vd: Desmos, Erica Meltzer, Bẫy đề, Từ vựng)...",
+    notebooklm_btn_copy_card: "📋 Sao chép prompt",
+    notebooklm_btn_combine_card: "🧩 Ghép với câu đang làm",
+    notebooklm_toast_copied: "✅ Đã sao chép prompt vào Clipboard!",
+    notebooklm_toast_combined: "✅ Đã ghép câu hỏi & sao chép vào Clipboard!",
     notebooklm_guide_banner_title: "Trợ Lý AI Socratic • Kho Sách Gốc SAT Tuyển Chọn",
     notebooklm_guide_banner_desc: "NotebookLM được Thầy Mike Pham nạp sẵn toàn bộ giáo trình SAT chuẩn (Erica Meltzer, College Panda, Princeton Review). AI sẽ đồng hành giải đáp câu hỏi và dẫn chứng chính xác số trang sách gốc theo phương pháp Socratic 'Thử & Được'.",
     notebooklm_status_copied: "Đã tự động đóng gói & sao chép ngữ cảnh vào Clipboard!",
@@ -1047,6 +1075,9 @@ window.toggleAppLanguage = function() {
     const modalAar = document.getElementById("modal-aar-report");
     const isAarOpen = modalAar && !modalAar.classList.contains("hidden");
     window.refreshAARPerformanceUI(isAarOpen);
+  }
+  if (typeof window.renderNotebookLMPromptLibrary === "function") {
+    window.renderNotebookLMPromptLibrary();
   }
 
   // Toast confirmation
