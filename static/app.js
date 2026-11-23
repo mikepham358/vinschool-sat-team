@@ -326,11 +326,13 @@ const App = {
     updated_at: null
   },
 
-  // Per-Question Telemetry Stopwatch
+  // Per-Question & Interaction Telemetry Stopwatch
   currentQuestionTimerId: null,
   currentQuestionStartTime: null,
   lastAttemptTime: null,
   reflectionStartTime: null,
+  vocabNoteStartTime: null,
+  aarModalOpenTime: null,
 
   // Badges & Micro-Credentials System
   badgesDefinitions: (window.BADGES_DEFINITIONS && window.BADGES_DEFINITIONS.length) ? window.BADGES_DEFINITIONS : [],
@@ -6221,6 +6223,9 @@ function showVocabNoteBox(word, pos, defaultMeaning = "") {
   if (!DOM.dictNoteBox) return;
   DOM.dictNoteBox.classList.remove("hidden");
 
+  // Track start time for vocabulary note taking stopwatch
+  App.vocabNoteStartTime = Date.now();
+
   const cleanWord = (word || "").trim();
   if (DOM.dictInputNoteWord) DOM.dictInputNoteWord.value = cleanWord;
   if (DOM.dictInputNotePos) DOM.dictInputNotePos.value = (pos || "").trim();
@@ -6272,6 +6277,25 @@ function saveCurrentVocabNote() {
 
   saveVocabNotesList(notes);
   renderSavedVocabNotesList();
+
+  // Real-Time Telemetry Tracking for Vocab Notebook
+  const vocabDuration = Math.max(1, Math.round((Date.now() - (App.vocabNoteStartTime || Date.now())) / 1000));
+  if (window.SATTracker) {
+    const currQ = App.currentQuestion;
+    window.SATTracker.track("VOCAB_SAVED", {
+      word: word,
+      pos: pos,
+      meaning: meaning,
+      total_saved_vocab: notes.length,
+      is_update: existingIndex >= 0,
+      source_question_id: currQ ? currQ.id : null,
+      source_question_label: currQ ? (currQ.q_label || `Câu ${currQ.q_number || currQ.id}`) : null
+    }, {
+      question: currQ || { q_label: "Sổ Từ Mới", module_title: "Cambridge Vocab" },
+      result: `LƯU TỪ MỚI: ${word}${pos ? ' (' + pos + ')' : ''}`,
+      duration: vocabDuration
+    });
+  }
 
   if (DOM.dictNoteToast) {
     DOM.dictNoteToast.classList.remove("hidden");
@@ -6342,6 +6366,15 @@ function exportSavedVocabNotesExcel() {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    }
+
+    if (window.SATTracker) {
+      window.SATTracker.track("EXPORT_EXCEL", {
+        type: "Vocab_Notebook",
+        total_words: notes.length
+      }, {
+        result: `XUẤT SỔ TỪ MỚI (${notes.length} từ)`
+      });
     }
   } catch (err) {
     console.error("Export vocab notes error:", err);
@@ -9672,6 +9705,9 @@ function closeAARModal() {
 }
 
 function openAARModal() {
+  // Start stopwatch for AAR session reflection completion
+  App.aarModalOpenTime = Date.now();
+
   loadGlobalAARState();
   loadGlobalSessionTracker();
 
@@ -10220,6 +10256,44 @@ function submitAARReport() {
 
     // 4. SYNCHRONOUSLY launch mail client right now (preserving user activation!)
     launchMailClient(safeMailtoUrl);
+
+    // 4b. Real-Time Telemetry Tracking for AAR Report Submission
+    const aarFillDuration = Math.max(1, Math.round((Date.now() - (App.aarModalOpenTime || Date.now())) / 1000));
+    if (window.SATTracker) {
+      window.SATTracker.track("AAR_REPORT_SUBMIT", {
+        session_label: entry.session_label,
+        session_date: entry.date_display,
+        sat_module: entry.sat_module,
+        iste_standard: entry.iste_standard,
+        target_score: entry.student_target,
+        performance: `${entry.correct_count}/${entry.practiced_count} (${entry.weighted_pct_display || entry.accuracy_pct + '%'})`,
+        correct_count: entry.correct_count,
+        practiced_count: entry.practiced_count,
+        accuracy_pct: entry.accuracy_pct,
+        weighted_pct_display: entry.weighted_pct_display,
+        l1_correct: entry.l1_correct,
+        l2_correct: entry.l2_correct,
+        l3_correct: entry.l3_correct,
+        missed_count: entry.missed_count,
+        error_log_count: entry.error_log_count,
+        goal: entry.goal,
+        challenge: entry.challenge,
+        tools: entry.tools,
+        evidence: entry.evidence,
+        mastery: entry.mastery,
+        gap: entry.gap,
+        feedforward: entry.feedforward,
+        emotion: entry.emotion,
+        fill_duration_seconds: aarFillDuration
+      }, {
+        question: {
+          q_label: entry.session_label,
+          module_title: entry.sat_module
+        },
+        result: `BÁO CÁO AAR (${entry.correct_count}/${entry.practiced_count} • ${entry.weighted_pct_display || entry.accuracy_pct + '%'})`,
+        duration: aarFillDuration
+      });
+    }
 
     // 5. Fire-and-forget server sync in background without blocking or awaiting
     try {

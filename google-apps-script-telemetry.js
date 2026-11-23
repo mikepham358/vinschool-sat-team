@@ -140,9 +140,17 @@ function doPost(e) {
 
     // Định dạng màu nhẹ cho cột Kết Quả để Thầy dễ nhìn
     if (resultStr.indexOf("ĐÚNG") !== -1 && resultStr.indexOf("CHƯA ĐÚNG") === -1) {
-      sheet.getRange(newRow, 10).setBackground("#e6f4ea").setFontColor("#137333").setFontWeight("bold");
+      sheet.getRange(newRow, 10).setBackground("#e6f4ea").setFontColor("#137333").setFontWeight("bold"); // Xanh lá
     } else if (resultStr.indexOf("CHƯA ĐÚNG") !== -1) {
-      sheet.getRange(newRow, 10).setBackground("#fce8e6").setFontColor("#c5221f").setFontWeight("bold");
+      sheet.getRange(newRow, 10).setBackground("#fce8e6").setFontColor("#c5221f").setFontWeight("bold"); // Đỏ
+    } else if (data.event_type === "AAR_REPORT_SUBMIT" || resultStr.indexOf("BÁO CÁO AAR") !== -1) {
+      sheet.getRange(newRow, 10).setBackground("#f3e8fd").setFontColor("#7b1fa2").setFontWeight("bold"); // Tím OECD / AAR Report
+      sheet.getRange(newRow, 9).setBackground("#f3e8fd").setFontColor("#7b1fa2").setFontWeight("bold");
+    } else if (data.event_type === "VOCAB_SAVED" || resultStr.indexOf("LƯU TỪ MỚI") !== -1) {
+      sheet.getRange(newRow, 10).setBackground("#e8f0fe").setFontColor("#1a73e8").setFontWeight("bold"); // Xanh dương Cambridge Vocab
+      sheet.getRange(newRow, 9).setBackground("#e8f0fe").setFontColor("#1a73e8").setFontWeight("bold");
+    } else if (data.event_type === "AAR_ERROR_LOGGED") {
+      sheet.getRange(newRow, 10).setBackground("#fef7e0").setFontColor("#b06000").setFontWeight("bold"); // Hổ phách Error Log
     }
 
     return ContentService.createTextOutput(JSON.stringify({
