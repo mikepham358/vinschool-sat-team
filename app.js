@@ -3058,8 +3058,16 @@ function renderMermaidDiagram(q, isFinished) {
     DOM.btnQMermaid.classList.toggle("hidden", !hasMermaid);
   }
 
+  if (DOM.btnOpenMermaidModal) {
+    DOM.btnOpenMermaidModal.classList.toggle("hidden", !hasMermaid);
+  }
+
+  if (DOM.btnHintNotebookLM) {
+    DOM.btnHintNotebookLM.classList.toggle("hidden", !isFinished);
+  }
+
   if (DOM.mermaidTriggerBanner) {
-    DOM.mermaidTriggerBanner.classList.toggle("hidden", !hasMermaid);
+    DOM.mermaidTriggerBanner.classList.toggle("hidden", !isFinished);
   }
 
   // If modal is currently open and user changed questions, sync or close

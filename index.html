@@ -656,11 +656,15 @@
             <div class="question-stem-text" id="question-stem-text"></div>
           </div>
 
-          <!-- Trigger Mermaid Mindmap Pop-up (Visible when question finished & has Mermaid - Ngay trên lựa chọn A) -->
+          <!-- Trigger Action Banner: Mindmap & NotebookLM (Visible when question finished - Ngay trên lựa chọn A) -->
           <div class="mermaid-trigger-banner hidden" id="mermaid-trigger-banner">
             <button type="button" class="btn-open-mermaid-modal" id="btn-open-mermaid-modal" title="Logic mindmap" data-i18n-title="mermaid_trigger_title">
               <span class="mm-icon">📊</span>
               <span class="mm-text" data-i18n="mermaid_trigger_btn">Logic mindmap</span>
+            </button>
+            <button type="button" class="btn-hint-notebooklm" id="btn-hint-notebooklm" title="Auto-copy question context & launch Google NotebookLM">
+              <span class="btn-icon">🧠</span>
+              <span class="btn-text" data-i18n="btn_hint_notebooklm">Hỏi Notebook => Ctrl + V</span>
             </button>
           </div>
 
@@ -756,14 +760,6 @@
             </div>
           </div>
 
-          <!-- NotebookLM Source Anchoring Card -->
-          <div class="hint-card hint-notebooklm" id="hint-card-notebooklm">
-            <button type="button" class="btn-hint-notebooklm" id="btn-hint-notebooklm" title="Auto-copy question context & launch Google NotebookLM">
-              <span class="btn-icon">🧠</span>
-              <span class="btn-text" data-i18n="btn_hint_notebooklm">Neo Nguồn Sách Gốc (Hỏi NotebookLM)</span>
-              <span class="hint-shortcut">Ctrl + V</span>
-            </button>
-          </div>
         </div>
 
       </div>
