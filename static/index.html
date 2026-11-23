@@ -90,10 +90,6 @@
             <span data-i18n="btn_vocab_1000">AceSAT: 1,000 Vocab</span>
             <span class="vocab-badge-count">100 Lists</span>
           </button>
-          <button type="button" class="btn-home-telemetry" id="btn-home-open-telemetry" title="Google Sheets Live Telemetry Status &amp; Webhook Config">
-            <span class="telemetry-live-dot"></span>
-            <span>📡 Live Sheet</span>
-          </button>
           <div class="exam-picker-wrap">
             <span class="exam-picker-label" data-i18n="exam_picker_label">🗓️ Active Exam:</span>
             <select id="select-active-exam" class="select-exam-dropdown" title="Select Exam">
@@ -576,12 +572,8 @@
           </button>
         </div>
 
-        <!-- 4. Cụm EN/VI, Telemetry & AAR -->
-        <div class="tools-cluster cluster-lang-aar" title="Language, Telemetry & After Action Review">
-          <button type="button" class="tool-btn btn-telemetry-tool" id="btn-open-telemetry" title="Google Sheets Live Telemetry Status &amp; Webhook Config">
-            <span class="tool-icon">📡</span>
-            <span class="tool-text">Live Sheet</span>
-          </button>
+        <!-- 4. Cụm EN/VI & AAR -->
+        <div class="tools-cluster cluster-lang-aar" title="Language &amp; After Action Review">
           <button type="button" class="tool-btn btn-lang-toggle btn-lang-practice" id="btn-lang-toggle-practice" title="Switch Language / Đổi ngôn ngữ (English / Tiếng Việt)">
             <span class="lang-globe">🌐</span>
             <span class="lang-cur font-bold">EN</span>
@@ -2787,66 +2779,6 @@
         <button type="button" class="btn-unlocked-continue" id="btn-unlocked-continue">
           <span>Continue Practicing 🚀</span>
         </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= MODAL: TELEMETRY & GOOGLE SHEETS LIVE CONFIG ================= -->
-  <div class="modal-overlay hidden" id="modal-telemetry-config">
-    <div class="modal-card telemetry-modal-card">
-      <div class="modal-card-header g-ux-modal-header">
-        <div class="header-title-group">
-          <div class="header-main-title">
-            <span class="header-icon">📡</span>
-            <h3 id="telemetry-modal-title" data-i18n="telemetry_modal_title">Vinschool SAT Team • Live Google Sheets Telemetry</h3>
-            <span class="live-count-badge" id="telemetry-live-badge">Real-Time Sync</span>
-          </div>
-          <p class="header-sub-desc" id="telemetry-modal-desc" data-i18n="telemetry_modal_desc">Tracking thời gian thực mọi tương tác của học sinh vào Google Sheet 'Vinschool SAT Team - Live Telemetry'</p>
-        </div>
-        <button class="btn-close-modal" id="btn-close-telemetry-modal" title="Close" data-i18n-title="btn_close">✕</button>
-      </div>
-
-      <div class="modal-card-body telemetry-modal-body">
-        <!-- Target Sheet Info Box -->
-        <div class="telemetry-info-card">
-          <div class="info-card-left">
-            <div class="sheet-icon">📊</div>
-            <div class="sheet-meta">
-              <strong>Vinschool SAT Team - Live Telemetry</strong>
-              <span>📁 Vị trí: <code>.../26-27 Grand Plan /Big Data/</code></span>
-              <span>🔑 Doc ID: <code>1ETvQI-xd8HUJlpI4xEO_SV8o2mjqkDckPFMKLhynquE</code></span>
-            </div>
-          </div>
-          <a href="https://docs.google.com/spreadsheets/d/1ETvQI-xd8HUJlpI4xEO_SV8o2mjqkDckPFMKLhynquE/edit" target="_blank" rel="noopener noreferrer" class="btn-open-sheet-link" id="btn-open-telemetry-sheet">
-            <span data-i18n="telemetry_open_sheet">📊 Mở Bảng Tính Google Sheets ↗</span>
-          </a>
-        </div>
-
-        <!-- Webhook Configuration Form -->
-        <div class="telemetry-form-group">
-          <label for="input-telemetry-webhook-url">
-            <strong>🔗 Google Apps Script Webhook URL (Endpoint):</strong>
-          </label>
-          <div class="telemetry-input-row">
-            <input type="url" id="input-telemetry-webhook-url" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="telemetry-input">
-            <button type="button" id="btn-save-telemetry-url" class="btn-telemetry-save" data-i18n="telemetry_btn_save">💾 Lưu Webhook</button>
-            <button type="button" id="btn-test-telemetry-ping" class="btn-telemetry-ping" data-i18n="telemetry_btn_ping">⚡ Gửi Test Ping</button>
-          </div>
-          <div class="telemetry-status-row">
-            <span class="status-indicator-dot" id="telemetry-status-dot"></span>
-            <span id="telemetry-status-text" class="telemetry-status-text">Chưa kết nối Webhook</span>
-          </div>
-        </div>
-
-        <!-- Step-by-Step Instructions -->
-        <div class="telemetry-guide-box">
-          <h4>🚀 3 Bước Kích Hoạt Tức Thì (Chỉ làm 1 lần):</h4>
-          <ol class="telemetry-steps">
-            <li>Mở file Google Sheet bằng nút bấm bên trên ➔ vào menu <strong>Tiện ích mở rộng (Extensions)</strong> ➔ <strong>Apps Script</strong>.</li>
-            <li>Dán toàn bộ mã nguồn từ tệp <code>GoogleAppsScript_Code.js</code> trong thư mục Big Data vào tệp <code>Code.gs</code> rồi bấm Lưu (💾).</li>
-            <li>Bấm <strong>Triển khai (Deploy)</strong> ➔ <strong>Quản lý bản triển khai mới</strong> ➔ Chọn <strong>Ứng dụng web (Web app)</strong> ➔ Phân quyền <strong>Ai có quyền truy cập: Bất kỳ ai (Anyone)</strong> ➔ Copy Webhook URL dán vào ô trên và bấm <strong>Lưu &amp; Gửi Test Ping</strong>!</li>
-          </ol>
-        </div>
       </div>
     </div>
   </div>

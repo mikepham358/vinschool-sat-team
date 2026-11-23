@@ -17,10 +17,11 @@
   }
 }(typeof self !== 'undefined' ? self : this, function () {
 
+  const DEFAULT_TELEMETRY_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbx9XhNqKw2Hf4qrtdQkBFB9hFlyyZoaySrSTPX_Y1DkN-Mr1EA_CvMPl7lXZw-tUkfr/exec";
   const STORAGE_KEY_WEBHOOK = "vinschool_sat_telemetry_webhook_url";
   const STORAGE_KEY_SESSION = "vinschool_sat_telemetry_session_id";
   const TARGET_SHEET_ID = "1ETvQI-xd8HUJlpI4xEO_SV8o2mjqkDckPFMKLhynquE";
-  const TARGET_SHEET_URL = "https://docs.google.com/spreadsheets/d/1ETvQI-xd8HUJlpI4xEO_SV8o2mjqkDckPFMKLhynquE/edit";
+  const TARGET_SHEET_URL = "https://docs.google.com/spreadsheets/d/1ETvQI-xd8HUJlpI4xEO_SV8o2mjqkDckPFMKLhynquE/edit?gid=473216962#gid=473216962";
 
   // Generate or retrieve persistent Session ID for this tab session
   function getSessionId() {
@@ -39,9 +40,9 @@
 
   function getWebhookUrl() {
     try {
-      return localStorage.getItem(STORAGE_KEY_WEBHOOK) || window.DEFAULT_TELEMETRY_WEBHOOK_URL || "";
+      return localStorage.getItem(STORAGE_KEY_WEBHOOK) || DEFAULT_TELEMETRY_WEBHOOK_URL;
     } catch (e) {
-      return window.DEFAULT_TELEMETRY_WEBHOOK_URL || "";
+      return DEFAULT_TELEMETRY_WEBHOOK_URL;
     }
   }
 
@@ -79,6 +80,7 @@
   /**
    * Main telemetry track function
    * Non-blocking, failsafe, sends via sendBeacon or fetch(no-cors)
+   * 100% silent background tracking for all users
    */
   function track(eventType, details = {}, extra = {}) {
     const webhookUrl = getWebhookUrl();
@@ -90,11 +92,11 @@
       sheet_id: TARGET_SHEET_ID,
       session_id: getSessionId(),
       timestamp: new Date().toISOString(),
-      student_name: studentState.student_name || (window.DOM && window.DOM.homeInputName ? window.DOM.homeInputName.value.trim() : "") || "Chưa nhập tên",
-      student_email: studentState.student_email || (window.DOM && window.DOM.homeInputEmail ? window.DOM.homeInputEmail.value.trim() : "") || "",
-      target_score: studentState.student_target || "",
+      student_name: studentState.student_name || (window.DOM && window.DOM.homeInputName ? window.DOM.homeInputName.value.trim() : "") || (window.App && window.App.studentState ? window.App.studentState.student_name : "") || "Khách (Chưa nhập tên)",
+      student_email: studentState.student_email || (window.DOM && window.DOM.homeInputEmail ? window.DOM.homeInputEmail.value.trim() : "") || (window.App && window.App.studentState ? window.App.studentState.student_email : "") || "Chưa có email",
+      target_score: studentState.student_target || (window.App && window.App.studentState ? window.App.studentState.student_target : "") || "",
       test_id: app.activeTestId || "oct-2026",
-      module: q.module || app.activeModuleCode || "",
+      module: q.module || q.module_code || app.activeModuleCode || "",
       question_number: q.q_label || (q.id ? `Câu ${q.q_number || q.id}` : ""),
       event_type: eventType,
       result: extra.result || "",
@@ -103,11 +105,7 @@
       device: getDeviceInfo()
     };
 
-    if (!webhookUrl) {
-      // If webhook is not configured yet, record locally in dev console
-      console.log(`[SAT Telemetry Local] [${eventType}]`, payload);
-      return false;
-    }
+    if (!webhookUrl) return false;
 
     try {
       const blob = new Blob([JSON.stringify(payload)], { type: "text/plain;charset=UTF-8" });
@@ -118,13 +116,10 @@
           method: "POST",
           mode: "no-cors",
           body: blob
-        }).catch(err => {
-          console.warn("[SAT Telemetry] Network send warning:", err);
-        });
+        }).catch(() => {});
         return true;
       }
     } catch (err) {
-      console.warn("[SAT Telemetry] Tracking skipped:", err);
       return false;
     }
   }
