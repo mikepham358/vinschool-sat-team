@@ -118,6 +118,10 @@ window.I18N_TRANSLATIONS = {
     btn_error_log: "Error Log",
     btn_badges: "Badges",
     btn_vocab_tool: "1,000 Vocab",
+    btn_notebooklm: "NotebookLM",
+    btn_ask_notebooklm_question: "Ask NotebookLM",
+    btn_hint_notebooklm: "Anchor Source in NotebookLM",
+    btn_ask_notebooklm_tooltip: "Auto-copy question context & launch Google NotebookLM",
     btn_scratchpad: "Scratchpad",
     btn_calc: "Desmos",
     btn_ref: "Math Formulas",
@@ -425,7 +429,19 @@ window.I18N_TRANSLATIONS = {
     aar_btn_relaunch_mail: "🚀 Open Default Email App",
     aar_btn_open_gmail: "📧 Open Gmail Web ↗",
     aar_btn_open_outlook: "🏢 Open Outlook Web ↗",
-    aar_btn_copy_report: "📋 Copy Full Report"
+    aar_btn_copy_report: "📋 Copy Full Report",
+
+    // Google NotebookLM Integration
+    notebooklm_modal_title: "🧠 Google NotebookLM • Source-Anchored Reference",
+    notebooklm_modal_desc: "Auto-packaged Socratic context with authentic SAT citations & explanations",
+    notebooklm_status_copied: "✅ Question context copied to Clipboard!",
+    notebooklm_instruction: "A dedicated NotebookLM window has been opened. Simply press Ctrl+V (or Cmd+V) into the chat box to get source citations from Teacher Mike's SAT library!",
+    notebooklm_btn_open_now: "🚀 Open NotebookLM Window",
+    notebooklm_btn_copy_prompt: "📋 Copy Prompt Again",
+    notebooklm_btn_settings: "⚙️ Configure Notebook URL",
+    notebooklm_settings_label: "Teacher Mike's Shared NotebookLM URL:",
+    notebooklm_btn_save_url: "Save URL",
+    notebooklm_prompt_preview_label: "Prompt Preview (Auto-Generated):"
   },
 
   vi: {
@@ -540,6 +556,10 @@ window.I18N_TRANSLATIONS = {
     btn_error_log: "Sổ thử & được",
     btn_badges: "Huy hiệu",
     btn_vocab_tool: "Kho 1,000 từ vựng",
+    btn_notebooklm: "NotebookLM",
+    btn_ask_notebooklm_question: "Hỏi NotebookLM",
+    btn_hint_notebooklm: "Neo Nguồn Sách Gốc (Hỏi NotebookLM)",
+    btn_ask_notebooklm_tooltip: "Tự động đóng gói câu hỏi & mở Google NotebookLM neo nguồn tài liệu",
     btn_scratchpad: "Bản nháp",
     btn_calc: "Desmos",
     btn_ref: "Công thức toán",
@@ -847,7 +867,19 @@ window.I18N_TRANSLATIONS = {
     aar_btn_relaunch_mail: "🚀 Mở Ứng Dụng Email Mặc Định",
     aar_btn_open_gmail: "📧 Mở Gmail Web ↗",
     aar_btn_open_outlook: "🏢 Mở Outlook Web ↗",
-    aar_btn_copy_report: "📋 Copy Báo Cáo AAR"
+    aar_btn_copy_report: "📋 Copy Báo Cáo AAR",
+
+    // Google NotebookLM Integration
+    notebooklm_modal_title: "🧠 Google NotebookLM • Neo Nguồn Tài Liệu SAT",
+    notebooklm_modal_desc: "Tự động đóng gói ngữ cảnh Socratic & phân tích trích dẫn sách gốc",
+    notebooklm_status_copied: "✅ Đã tự động đóng gói & sao chép ngữ cảnh vào Clipboard!",
+    notebooklm_instruction: "Cửa sổ NotebookLM đã sẵn sàng. Em chỉ cần nhấn Ctrl+V (hoặc Cmd+V) vào ô chat và nhấn Enter để nhận câu trả lời neo nguồn tài liệu từ Thầy Mike!",
+    notebooklm_btn_open_now: "🚀 Mở Cửa Sổ NotebookLM",
+    notebooklm_btn_copy_prompt: "📋 Sao Chép Lại Câu Hỏi",
+    notebooklm_btn_settings: "⚙️ Cài Đặt Link NotebookLM",
+    notebooklm_settings_label: "Đường link Google NotebookLM của Lớp / Đội tuyển:",
+    notebooklm_btn_save_url: "Lưu đường link",
+    notebooklm_prompt_preview_label: "Xem trước nội dung đã đóng gói:"
   }
 };
 

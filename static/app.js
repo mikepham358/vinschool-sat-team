@@ -438,6 +438,9 @@ const DOM = {
   btnOpenBadges: document.getElementById("btn-open-badges"),
   badgeBadgesCount: document.getElementById("badge-badges-count"),
   btnOpenVocab: document.getElementById("btn-open-vocab"),
+  btnOpenNotebookLM: document.getElementById("btn-open-notebooklm"),
+  btnAskNotebookLM: document.getElementById("btn-ask-notebooklm"),
+  btnHintNotebookLM: document.getElementById("btn-hint-notebooklm"),
   btnOpenStrategies: document.getElementById("btn-open-strategies"),
   btnExportExcel: document.getElementById("btn-aar-download-combined") || document.getElementById("btn-export-excel"),
   headerSessionCounter: document.getElementById("header-session-counter"),
@@ -790,7 +793,19 @@ const DOM = {
   fbSuccessBanner: document.getElementById("fb-success-banner"),
   fbSuccessMsg: document.getElementById("fb-success-msg"),
   btnSendAnotherFb: document.getElementById("btn-send-another-fb"),
-  fbHistoryList: document.getElementById("fb-history-list")
+  fbHistoryList: document.getElementById("fb-history-list"),
+
+  // Google NotebookLM Integration
+  modalNotebookLM: document.getElementById("modal-notebooklm"),
+  btnCloseNotebookLM: document.getElementById("btn-close-notebooklm"),
+  btnNotebookLMLaunch: document.getElementById("btn-notebooklm-launch"),
+  btnNotebookLMRecopy: document.getElementById("btn-notebooklm-recopy"),
+  btnNotebookLMToggleConfig: document.getElementById("btn-notebooklm-toggle-config"),
+  notebookLMConfigPanel: document.getElementById("notebooklm-config-panel"),
+  inputNotebookLMUrl: document.getElementById("input-notebooklm-url"),
+  btnSaveNotebookLMUrl: document.getElementById("btn-save-notebooklm-url"),
+  btnResetNotebookLMUrl: document.getElementById("btn-reset-notebooklm-url"),
+  notebookLMPromptPreview: document.getElementById("notebooklm-prompt-preview")
 };
 window.DOM = DOM;
 
@@ -6586,6 +6601,197 @@ Thank you Teacher!`
   }
 }
 
+// ================= GOOGLE NOTEBOOKLM (GEMINI) INTEGRATION =================
+window.DEFAULT_NOTEBOOKLM_URL = "https://notebooklm.google.com/";
+const NOTEBOOKLM_STORAGE_KEY = "sat_notebooklm_url";
+
+function getNotebookLMUrl() {
+  return localStorage.getItem(NOTEBOOKLM_STORAGE_KEY) || window.DEFAULT_NOTEBOOKLM_URL;
+}
+
+function saveNotebookLMUrl(url) {
+  if (!url || !url.trim()) {
+    localStorage.removeItem(NOTEBOOKLM_STORAGE_KEY);
+    return;
+  }
+  let cleanUrl = url.trim();
+  if (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+    cleanUrl = "https://" + cleanUrl;
+  }
+  localStorage.setItem(NOTEBOOKLM_STORAGE_KEY, cleanUrl);
+}
+
+function generateNotebookLMPrompt(q) {
+  if (!q) q = App.currentQuestion;
+  const isEn = (App.currentLang === "en");
+
+  const testTitle = (App.db && App.db.title) ? App.db.title : (App.activeTestId || "Digital SAT Test");
+  const moduleName = App.activeModuleCode || (q && q.module ? `Module ${q.module}` : "SAT Module");
+  const qLabel = (q && (q.q_label || `Câu ${q.q_number || q.id}`)) || "SAT Question";
+  const skill = (q && (q.domain || q.skill)) || "";
+
+  let attemptStr = isEn ? "Not attempted yet" : "Chưa làm lần nào";
+  if (q && App.studentState && App.studentState.attempts && App.studentState.attempts[q.id]) {
+    const qState = App.studentState.attempts[q.id];
+    const attempts = qState.attempts || [];
+    if (attempts.length > 0) {
+      attemptStr = attempts.map((a, i) => {
+        const c = a.choice || a.val || "-";
+        const res = a.correct ? (isEn ? "CORRECT" : "ĐÚNG") : (isEn ? "INCORRECT" : "CHƯA ĐÚNG");
+        return isEn ? `Attempt ${i + 1}: selected [${c}] (${res})` : `Lần ${i + 1}: chọn [${c}] (${res})`;
+      }).join(" | ");
+    }
+  }
+
+  let prompt = "";
+  if (isEn) {
+    prompt += `[SOURCE-ANCHORED SAT QUERY - DIGITAL SAT SOCRATIC NOTEBOOK]\n`;
+    prompt += `📚 Reference / Exam: ${testTitle}\n`;
+    prompt += `📌 Section & Question: ${moduleName} • ${qLabel}${skill ? ` (${skill})` : ""}\n\n`;
+
+    if (q && q.passage && q.passage.trim()) {
+      prompt += `📖 READING PASSAGE / CONTEXT:\n"""\n${q.passage.trim()}\n"""\n\n`;
+    }
+
+    if (q && q.prompt && q.prompt.trim()) {
+      prompt += `❓ QUESTION STEM:\n${q.prompt.trim()}\n\n`;
+    }
+
+    if (q && q.is_grid_in) {
+      prompt += `📝 FORMAT: Student-Produced Response (Grid-in Math)\n\n`;
+    } else if (q && Array.isArray(q.options) && q.options.length > 0) {
+      prompt += `🎯 ANSWER CHOICES:\n`;
+      q.options.forEach(opt => {
+        const k = opt.key || opt.id || "";
+        const txt = opt.text || opt.value || "";
+        prompt += `  ${k}) ${txt}\n`;
+      });
+      prompt += `\n`;
+    }
+
+    prompt += `📊 Student Practice State: ${attemptStr}\n\n`;
+    prompt += `🧠 REQUEST FOR NOTEBOOKLM (GEMINI):\n`;
+    prompt += `Using the curated SAT source materials in this Notebook (Erica Meltzer Reading/Grammar, College Panda Math, Princeton Review, Answer Keys, and authentic tests):\n`;
+    prompt += `1. Cite the exact grammatical rule, math theorem, or strategy (including chapter title, page number, or direct quote from the book sources).\n`;
+    prompt += `2. Detail why the correct answer is unambiguously correct, and dissect the specific trap in each incorrect option.\n`;
+    prompt += `3. Provide one concise Socratic key takeaway for my "Trial & Triumph Notebook" (Sổ Thử & Được) so I avoid falling for this trap again.\n`;
+  } else {
+    prompt += `[YÊU CẦU PHÂN TÍCH NEO NGUỒN TÀI LIỆU - DIGITAL SAT SOCRATIC NOTEBOOK]\n`;
+    prompt += `📚 Nguồn tài liệu & Bộ đề: ${testTitle}\n`;
+    prompt += `📌 Mô-đun & Câu số: ${moduleName} • ${qLabel}${skill ? ` (${skill})` : ""}\n\n`;
+
+    if (q && q.passage && q.passage.trim()) {
+      prompt += `📖 ĐOẠN VĂN / BÀI ĐỌC (PASSAGE):\n"""\n${q.passage.trim()}\n"""\n\n`;
+    }
+
+    if (q && q.prompt && q.prompt.trim()) {
+      prompt += `❓ CÂU HỎI:\n${q.prompt.trim()}\n\n`;
+    }
+
+    if (q && q.is_grid_in) {
+      prompt += `📝 HÌNH THỨC: Tự luận điền đáp án (Student-Produced Response / Grid-in)\n\n`;
+    } else if (q && Array.isArray(q.options) && q.options.length > 0) {
+      prompt += `🎯 CÁC PHƯƠNG ÁN LỰA CHỌN:\n`;
+      q.options.forEach(opt => {
+        const k = opt.key || opt.id || "";
+        const txt = opt.text || opt.value || "";
+        prompt += `  ${k}) ${txt}\n`;
+      });
+      prompt += `\n`;
+    }
+
+    prompt += `📊 Tiến trình thực hành của em: ${attemptStr}\n\n`;
+    prompt += `🧠 CÂU HỎI NHỜ NOTEBOOKLM (GEMINI) GIẢI ĐÁP & NEO NGUỒN TÀI LIỆU:\n`;
+    prompt += `Dựa trên các tài liệu nguồn SAT của Thầy Mike Pham đã nạp sẵn trong Notebook này (Erica Meltzer Reading/Grammar, College Panda Math, Princeton Review, Answer Keys và các bộ đề thi thật):\n`;
+    prompt += `1. Trích dẫn chính xác quy tắc ngữ pháp / công thức toán / chiến thuật tư duy liên quan (kèm tên chương, số trang hoặc trích dẫn nguyên văn từ sách nguồn).\n`;
+    prompt += `2. Phân tích tường tận tại sao phương án đúng là đáp án chuẩn xác nhất, đồng thời vạch rõ bẫy SAT (traps) của từng phương án sai.\n`;
+    prompt += `3. Đưa ra 1 bài học cô đọng then chốt (Key Takeaway) để em ghi nhớ vào "Sổ Thử & Được" nhằm nâng cao năng lực phản tư.\n`;
+  }
+
+  return prompt;
+}
+
+async function copyTextToClipboard(text) {
+  if (!text) return false;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (err) {
+    console.warn("navigator.clipboard.writeText failed, using textarea fallback", err);
+  }
+
+  // Fallback for older browsers or restricted iframe contexts
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    ta.style.top = "-9999px";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const successful = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return successful;
+  } catch (e) {
+    console.error("ExecCommand copy fallback failed", e);
+    return false;
+  }
+}
+
+function openNotebookLMPopup(targetUrl) {
+  const url = targetUrl || getNotebookLMUrl();
+  const w = 960;
+  const h = 820;
+  const left = Math.max(0, Math.floor((window.screen.width - w) / 2));
+  const top = Math.max(0, Math.floor((window.screen.height - h) / 2));
+  const winFeatures = `width=${w},height=${h},top=${top},left=${left},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=yes`;
+
+  let win = null;
+  try {
+    win = window.open(url, "SAT_NotebookLM_Window", winFeatures);
+  } catch (e) {
+    console.warn("window.open with features blocked, trying _blank", e);
+  }
+
+  if (!win || win.closed || typeof win.closed === "undefined") {
+    // Fallback if popup blocked
+    win = window.open(url, "_blank");
+  } else {
+    try {
+      win.focus();
+    } catch (e) {}
+  }
+  return win;
+}
+
+async function triggerNotebookLM(questionObj) {
+  const q = questionObj || App.currentQuestion;
+  const prompt = generateNotebookLMPrompt(q);
+
+  // 1. Copy prompt to clipboard
+  await copyTextToClipboard(prompt);
+
+  // 2. Open NotebookLM Window immediately on click
+  openNotebookLMPopup();
+
+  // 3. Show confirmation modal with prompt preview & config
+  if (DOM.modalNotebookLM) {
+    if (DOM.notebookLMPromptPreview) {
+      DOM.notebookLMPromptPreview.value = prompt;
+    }
+    if (DOM.inputNotebookLMUrl) {
+      DOM.inputNotebookLMUrl.value = getNotebookLMUrl();
+    }
+    if (DOM.notebookLMConfigPanel) {
+      DOM.notebookLMConfigPanel.classList.add("hidden");
+    }
+    DOM.modalNotebookLM.classList.remove("hidden");
+  }
+}
+
 // ================= EVENT LISTENERS =================
 function setupEventListeners() {
   // Bilingual Language Switchers (Google & Lego UX)
@@ -6985,6 +7191,72 @@ function setupEventListeners() {
         const modal = document.getElementById("modal-acesat-vocab");
         if (modal) modal.classList.remove("hidden");
       }
+    });
+  }
+
+  // Google NotebookLM Integration Listeners
+  if (DOM.btnOpenNotebookLM) {
+    DOM.btnOpenNotebookLM.addEventListener("click", () => {
+      triggerNotebookLM(App.currentQuestion);
+    });
+  }
+  if (DOM.btnAskNotebookLM) {
+    DOM.btnAskNotebookLM.addEventListener("click", () => {
+      triggerNotebookLM(App.currentQuestion);
+    });
+  }
+  if (DOM.btnHintNotebookLM) {
+    DOM.btnHintNotebookLM.addEventListener("click", () => {
+      triggerNotebookLM(App.currentQuestion);
+    });
+  }
+  if (DOM.btnCloseNotebookLM) {
+    DOM.btnCloseNotebookLM.addEventListener("click", () => {
+      if (DOM.modalNotebookLM) DOM.modalNotebookLM.classList.add("hidden");
+    });
+  }
+  if (DOM.modalNotebookLM) {
+    DOM.modalNotebookLM.addEventListener("click", (e) => {
+      if (e.target === DOM.modalNotebookLM) {
+        DOM.modalNotebookLM.classList.add("hidden");
+      }
+    });
+  }
+  if (DOM.btnNotebookLMLaunch) {
+    DOM.btnNotebookLMLaunch.addEventListener("click", () => {
+      openNotebookLMPopup();
+    });
+  }
+  if (DOM.btnNotebookLMRecopy) {
+    DOM.btnNotebookLMRecopy.addEventListener("click", async () => {
+      const prompt = DOM.notebookLMPromptPreview ? DOM.notebookLMPromptPreview.value : generateNotebookLMPrompt(App.currentQuestion);
+      const ok = await copyTextToClipboard(prompt);
+      const isEn = (App.currentLang === "en");
+      alert(ok ? (isEn ? "📋 Prompt copied to clipboard!" : "📋 Đã sao chép lại vào Clipboard!") : "Failed to copy");
+    });
+  }
+  if (DOM.btnNotebookLMToggleConfig) {
+    DOM.btnNotebookLMToggleConfig.addEventListener("click", () => {
+      if (DOM.notebookLMConfigPanel) {
+        DOM.notebookLMConfigPanel.classList.toggle("hidden");
+      }
+    });
+  }
+  if (DOM.btnSaveNotebookLMUrl) {
+    DOM.btnSaveNotebookLMUrl.addEventListener("click", () => {
+      if (DOM.inputNotebookLMUrl) {
+        saveNotebookLMUrl(DOM.inputNotebookLMUrl.value);
+        const isEn = (App.currentLang === "en");
+        alert(isEn ? "✅ Saved NotebookLM URL!" : "✅ Đã lưu đường link NotebookLM!");
+      }
+    });
+  }
+  if (DOM.btnResetNotebookLMUrl) {
+    DOM.btnResetNotebookLMUrl.addEventListener("click", () => {
+      saveNotebookLMUrl(window.DEFAULT_NOTEBOOKLM_URL);
+      if (DOM.inputNotebookLMUrl) DOM.inputNotebookLMUrl.value = window.DEFAULT_NOTEBOOKLM_URL;
+      const isEn = (App.currentLang === "en");
+      alert(isEn ? "Reset to default NotebookLM URL!" : "Đã chuyển về đường link mặc định!");
     });
   }
 
@@ -7489,6 +7761,11 @@ function setupEventListeners() {
 
   // Keyboard Shortcuts
   window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && DOM.modalNotebookLM && !DOM.modalNotebookLM.classList.contains("hidden")) {
+      DOM.modalNotebookLM.classList.add("hidden");
+      e.preventDefault();
+      return;
+    }
     if (e.key === "Escape" && DOM.modalDictionary && !DOM.modalDictionary.classList.contains("hidden")) {
       closeDictionary();
       e.preventDefault();

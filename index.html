@@ -550,6 +550,10 @@
             <span class="tool-icon">📚</span>
             <span class="tool-text" data-i18n="btn_vocab_tool">1,000 Vocab</span>
           </button>
+          <button class="tool-btn btn-notebooklm-tool" id="btn-open-notebooklm" title="Google NotebookLM (Gemini) • Socratic Source Anchoring">
+            <span class="tool-icon">🧠</span>
+            <span class="tool-text" data-i18n="btn_notebooklm">NotebookLM</span>
+          </button>
         </div>
 
         <!-- 3. Cụm Scratchpad, Desmos, và Formula Sheet tiếp đó -->
@@ -696,6 +700,10 @@
           </div>
           <div class="submit-wrap">
             <button class="btn-submit" id="btn-check-answer" disabled data-i18n="btn_check_answer">Check Answer (Enter)</button>
+            <button type="button" class="btn-ask-notebooklm" id="btn-ask-notebooklm" title="Auto-copy question context & launch Google NotebookLM">
+              <span class="btn-icon">🧠</span>
+              <span class="btn-text" data-i18n="btn_ask_notebooklm_question">Hỏi NotebookLM</span>
+            </button>
           </div>
         </div>
 
@@ -750,6 +758,15 @@
             <div class="hint-content collapsed" id="hint-content-4">
               <div id="hint-text-4" data-i18n="tier4_locked">Answer correctly to unlock strategic tips.</div>
             </div>
+          </div>
+
+          <!-- NotebookLM Source Anchoring Card -->
+          <div class="hint-card hint-notebooklm" id="hint-card-notebooklm">
+            <button type="button" class="btn-hint-notebooklm" id="btn-hint-notebooklm" title="Auto-copy question context & launch Google NotebookLM">
+              <span class="btn-icon">🧠</span>
+              <span class="btn-text" data-i18n="btn_hint_notebooklm">Neo Nguồn Sách Gốc (Hỏi NotebookLM)</span>
+              <span class="hint-shortcut">Ctrl + V</span>
+            </button>
           </div>
         </div>
 
@@ -1956,6 +1973,68 @@
             <button type="button" class="btn-action-sub" id="btn-aar-export-all-history">📥 Export AAR Tracker (.xlsx)</button>
           </div>
           <div class="aar-history-list" id="aar-history-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: GOOGLE NOTEBOOKLM INTEGRATION ================= -->
+  <div class="modal-overlay hidden" id="modal-notebooklm">
+    <div class="modal-card notebooklm-modal-card">
+      <div class="modal-card-header g-ux-modal-header">
+        <div class="header-title-group">
+          <div class="header-main-title">
+            <span class="header-icon">🧠</span>
+            <h3 data-i18n="notebooklm_modal_title">Google NotebookLM • Neo Nguồn Tài Liệu SAT</h3>
+            <span class="live-count-badge" id="badge-notebooklm-status">Gemini 1.5 Pro</span>
+          </div>
+          <p class="header-sub-desc" data-i18n="notebooklm_modal_desc">Tự động đóng gói ngữ cảnh Socratic &amp; phân tích trích dẫn sách gốc</p>
+        </div>
+        <button class="btn-close-modal" id="btn-close-notebooklm" title="Close" data-i18n-title="btn_close">✕</button>
+      </div>
+
+      <div class="modal-card-body notebooklm-body">
+        <div class="notebooklm-status-banner">
+          <span class="status-icon">📋</span>
+          <div class="status-text-wrap">
+            <strong data-i18n="notebooklm_status_copied">Đã tự động sao chép ngữ cảnh câu hỏi vào Clipboard!</strong>
+            <p data-i18n="notebooklm_instruction">Cửa sổ NotebookLM đã sẵn sàng. Em chỉ cần nhấn <strong>Ctrl + V</strong> (hoặc <strong>Cmd + V</strong>) vào ô chat và nhấn Enter để nhận phân tích neo nguồn từ sách của Thầy Mike.</p>
+          </div>
+        </div>
+
+        <div class="notebooklm-actions-row">
+          <button type="button" class="btn-notebooklm-action primary" id="btn-notebooklm-launch">
+            <span>🚀</span>
+            <span data-i18n="notebooklm_btn_open_now">Mở Cửa Sổ NotebookLM</span>
+          </button>
+          <button type="button" class="btn-notebooklm-action secondary" id="btn-notebooklm-recopy">
+            <span>📋</span>
+            <span data-i18n="notebooklm_btn_copy_prompt">Sao Chép Lại</span>
+          </button>
+          <button type="button" class="btn-notebooklm-action tertiary" id="btn-notebooklm-toggle-config">
+            <span>⚙️</span>
+            <span data-i18n="notebooklm_btn_settings">Cài Đặt Link Notebook</span>
+          </button>
+        </div>
+
+        <!-- Collapsible Configuration Section for Teacher / Class Link -->
+        <div class="notebooklm-config-panel hidden" id="notebooklm-config-panel">
+          <label for="input-notebooklm-url" data-i18n="notebooklm_settings_label">Đường link Google NotebookLM của Lớp / Đội tuyển:</label>
+          <div class="config-input-group">
+            <input type="url" id="input-notebooklm-url" placeholder="https://notebooklm.google.com/notebook/..." class="g-input">
+            <button type="button" id="btn-save-notebooklm-url" class="btn-save-config" data-i18n="notebooklm_btn_save_url">Lưu</button>
+            <button type="button" id="btn-reset-notebooklm-url" class="btn-reset-config" title="Reset về mặc định">↺ Mặc định</button>
+          </div>
+          <span class="config-note">💡 Thầy Mike Phạm có thể dán liên kết Notebook đã chia sẻ (quyền Viewer) tại đây để toàn bộ học sinh kết nối vào cùng 1 kho tài liệu chuẩn.</span>
+        </div>
+
+        <!-- Prompt Preview Box -->
+        <div class="notebooklm-preview-box">
+          <div class="preview-header">
+            <span data-i18n="notebooklm_prompt_preview_label">Xem trước nội dung đã đóng gói:</span>
+            <span class="preview-tag">Socratic Prompt</span>
+          </div>
+          <textarea id="notebooklm-prompt-preview" readonly rows="8" class="preview-textarea"></textarea>
         </div>
       </div>
     </div>
