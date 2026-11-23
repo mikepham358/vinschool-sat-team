@@ -472,7 +472,19 @@ window.I18N_TRANSLATIONS = {
     notebooklm_step3: "3. Explore multi-tier Socratic cues & deduce the answer",
     notebooklm_btn_dock_action: "Activate Right-Docked Window",
     notebooklm_diag_left: "Bluebook SAT (Left)",
-    notebooklm_diag_right: "NotebookLM (Right)"
+    notebooklm_diag_right: "NotebookLM (Right)",
+
+    // Google Sheets Live Telemetry
+    telemetry_modal_title: "Vinschool SAT Team • Live Google Sheets Telemetry",
+    telemetry_modal_desc: "Real-time interaction tracking into Google Sheet 'Vinschool SAT Team - Live Telemetry'",
+    telemetry_open_sheet: "📊 Open Google Sheets Spreadsheet ↗",
+    telemetry_btn_save: "💾 Save Webhook",
+    telemetry_btn_ping: "⚡ Send Test Ping",
+    telemetry_status_unconnected: "Webhook Not Connected",
+    telemetry_status_connected: "Connected & Real-Time Syncing",
+    telemetry_status_testing: "Sending Test Ping...",
+    telemetry_toast_saved: "✅ Saved Telemetry Webhook URL!",
+    telemetry_toast_empty: "⚠️ Please enter a valid Google Apps Script Webhook URL"
   },
 
   vi: {
@@ -941,7 +953,19 @@ window.I18N_TRANSLATIONS = {
     notebooklm_step3: "3. Nhận câu hỏi gợi mở đa tầng & tự suy luận chọn đáp án",
     notebooklm_btn_dock_action: "Kích Hoạt Neo Cửa Sổ Bên Phải",
     notebooklm_diag_left: "Bluebook SAT (Trái)",
-    notebooklm_diag_right: "NotebookLM (Phải)"
+    notebooklm_diag_right: "NotebookLM (Phải)",
+
+    // Google Sheets Live Telemetry
+    telemetry_modal_title: "Vinschool SAT Team • Live Google Sheets Telemetry",
+    telemetry_modal_desc: "Tracking thời gian thực mọi tương tác của học sinh vào Google Sheet 'Vinschool SAT Team - Live Telemetry'",
+    telemetry_open_sheet: "📊 Mở Bảng Tính Google Sheets ↗",
+    telemetry_btn_save: "💾 Lưu Webhook",
+    telemetry_btn_ping: "⚡ Gửi Test Ping",
+    telemetry_status_unconnected: "Chưa kết nối Webhook",
+    telemetry_status_connected: "Đã kết nối & Đồng bộ thời gian thực",
+    telemetry_status_testing: "Đang gửi tín hiệu kiểm tra...",
+    telemetry_toast_saved: "✅ Đã lưu đường link Webhook Telemetry!",
+    telemetry_toast_empty: "⚠️ Vui lòng nhập đường link Google Apps Script Webhook hợp lệ"
   }
 };
 

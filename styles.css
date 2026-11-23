@@ -12735,3 +12735,287 @@ body.resizing-split iframe {
     padding: 6px 12px;
   }
 }
+
+/* =========================================================================
+   TELEMETRY & GOOGLE SHEETS LIVE CONFIG MODAL & BUTTONS
+   ========================================================================= */
+.btn-home-telemetry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-home-telemetry:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.12);
+}
+
+.telemetry-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+  animation: telemetryPulse 2s infinite ease-in-out;
+}
+
+@keyframes telemetryPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.btn-telemetry-tool {
+  background: #f0fdf4 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.btn-telemetry-tool:hover {
+  background: #dcfce7 !important;
+  border-color: #86efac !important;
+}
+
+/* Modal Card */
+.telemetry-modal-card {
+  max-width: 680px !important;
+  width: 92% !important;
+  background: #ffffff !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.24), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  overflow: hidden !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.telemetry-modal-body {
+  padding: 24px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #ffffff;
+}
+
+.telemetry-info-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  flex-wrap: wrap;
+}
+
+.info-card-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.sheet-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.sheet-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.sheet-meta strong {
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.sheet-meta span {
+  font-size: 12px;
+  color: #64748b;
+  word-break: break-word;
+}
+
+.sheet-meta code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #1e40af;
+  word-break: break-all;
+}
+
+.btn-open-sheet-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: #15803d;
+  color: #ffffff !important;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.btn-open-sheet-link:hover {
+  background: #14532d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 101, 52, 0.2);
+}
+
+.telemetry-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.telemetry-form-group label {
+  font-size: 13px;
+  color: #334155;
+}
+
+.telemetry-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.telemetry-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.telemetry-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.btn-telemetry-save {
+  padding: 10px 16px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-telemetry-save:hover {
+  background: #1d4ed8;
+}
+
+.btn-telemetry-ping {
+  padding: 10px 16px;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-telemetry-ping:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.telemetry-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.status-indicator-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #94a3b8;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-indicator-dot.active {
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+.status-indicator-dot.testing {
+  background: #eab308;
+  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.2);
+  animation: telemetryPulse 1s infinite ease-in-out;
+}
+
+.status-indicator-dot.error {
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.telemetry-guide-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+.telemetry-guide-box h4 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.telemetry-steps {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.telemetry-steps li {
+  margin-bottom: 6px;
+}
+
+.telemetry-steps code {
+  background: #f1f5f9;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #dc2626;
+}

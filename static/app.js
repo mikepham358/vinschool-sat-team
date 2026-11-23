@@ -806,7 +806,19 @@ const DOM = {
   btnSaveNotebookLMUrl: document.getElementById("btn-save-notebooklm-url"),
   btnResetNotebookLMUrl: document.getElementById("btn-reset-notebooklm-url"),
   notebookLMPromptPreview: document.getElementById("notebooklm-prompt-preview"),
-  btnDockRightCompanion: document.getElementById("btn-dock-right-companion")
+  btnDockRightCompanion: document.getElementById("btn-dock-right-companion"),
+
+  // Telemetry & Google Sheets Live Sync
+  modalTelemetryConfig: document.getElementById("modal-telemetry-config"),
+  btnOpenTelemetry: document.getElementById("btn-open-telemetry"),
+  btnHomeOpenTelemetry: document.getElementById("btn-home-open-telemetry"),
+  btnCloseTelemetryModal: document.getElementById("btn-close-telemetry-modal"),
+  inputTelemetryWebhookUrl: document.getElementById("input-telemetry-webhook-url"),
+  btnSaveTelemetryUrl: document.getElementById("btn-save-telemetry-url"),
+  btnTestTelemetryPing: document.getElementById("btn-test-telemetry-ping"),
+  telemetryStatusDot: document.getElementById("telemetry-status-dot"),
+  telemetryStatusText: document.getElementById("telemetry-status-text"),
+  btnOpenTelemetrySheet: document.getElementById("btn-open-telemetry-sheet")
 };
 window.DOM = DOM;
 
@@ -1460,6 +1472,20 @@ function startPracticeFromHome(targetModule) {
   setupModuleQuestions();
   startModuleTimer();
 
+  if (window.SATTracker) {
+    window.SATTracker.track("PRACTICE_START", {
+      student_name: name,
+      student_email: email,
+      target_score: chosenTarget,
+      planned_module: draftMod,
+      session_date: dateVal,
+      goal: draftGoal,
+      challenge: draftChallenge
+    }, {
+      result: "PRACTICE_START"
+    });
+  }
+
   showView("practice");
 }
 
@@ -1502,6 +1528,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initOnboarding();
   initHomeAarSelects();
   setupEventListeners();
+  initTelemetryUI();
   renderReferenceSheetMath();
   window.addEventListener("load", renderReferenceSheetMath, { once: true });
 
@@ -3167,6 +3194,22 @@ function checkAnswer() {
   saveLocalState();
   recordQuestionInGlobalSession(q, qState);
 
+  // Real-Time Telemetry Tracking to Google Sheet
+  if (window.SATTracker) {
+    window.SATTracker.track("ANSWER_CHECK", {
+      choice: choice,
+      attempt_number: attemptCount,
+      correct: isCorrect,
+      status: qState.status,
+      efficiency: qState.efficiency,
+      is_grid_in: !!q.is_grid_in,
+      correct_answer: q.correct_answer
+    }, {
+      question: q,
+      result: isCorrect ? "ĐÚNG" : "CHƯA ĐÚNG"
+    });
+  }
+
   // Re-render UI (timer remains running by default)
   renderCurrentQuestion();
 
@@ -3633,6 +3676,9 @@ function showBadgeUnlockedModal(badge, tier) {
 }
 
 function renderBadgesShowcase() {
+  if (window.SATTracker) {
+    window.SATTracker.track("TOOL_USAGE", { tool: "Badges_Showcase", unlocked_count: Object.keys(App.badgesState?.unlocked || {}).length }, { result: "BADGES" });
+  }
   if (!App.badgesDefinitions || !App.badgesDefinitions.length) {
     App.badgesDefinitions = (window.BADGES_DEFINITIONS && window.BADGES_DEFINITIONS.length) ? window.BADGES_DEFINITIONS : [];
   }
@@ -4325,6 +4371,20 @@ function saveMandatoryReflection(advanceToNext = true) {
   saveLocalState();
   updateErrorBadge();
   renderErrorLogs();
+
+  if (window.SATTracker) {
+    window.SATTracker.track("AAR_ERROR_LOGGED", {
+      trap: trap,
+      detail: detail,
+      notes: notes,
+      vocab: vocab,
+      wrong_attempts: newLog.wrong_attempts,
+      correct_answer: newLog.correct_answer
+    }, {
+      question: q,
+      result: `LỖI: ${trap}`
+    });
+  }
 
   DOM.modalMandatoryReflection.classList.add("hidden");
 
@@ -5454,6 +5514,9 @@ function initScratchpad() {
       drawer.classList.toggle("hidden");
       if (!drawer.classList.contains("hidden")) {
         incrementBadgeCounter("scratchpad_count");
+        if (window.SATTracker) {
+          window.SATTracker.track("TOOL_USAGE", { tool: "Scratchpad" }, { result: "SCRATCHPAD" });
+        }
         drawer.style.zIndex = "1002";
         setTimeout(resizeCanvas, 50);
       }
@@ -5865,6 +5928,9 @@ function openDictionary(word) {
   DOM.modalDictionary.classList.remove("hidden");
   DOM.modalDictionary.style.zIndex = "1002";
   incrementBadgeCounter("dict_count");
+  if (window.SATTracker) {
+    window.SATTracker.track("TOOL_USAGE", { tool: "Cambridge_Dictionary", word: word || "" }, { result: "DICTIONARY" });
+  }
 
   // Ensure within viewport
   const rect = DOM.modalDictionary.getBoundingClientRect();
@@ -7171,6 +7237,14 @@ function renderNotebookLMPromptLibrary(category, searchQuery) {
       if (!item) return;
       const text = (isEn ? item.prompt?.en : item.prompt?.vi) || item.prompt?.vi || "";
       await copyTextToClipboard(text);
+      if (window.SATTracker) {
+        window.SATTracker.track("NOTEBOOKLM_PROMPT_COPY", {
+          prompt_id: id,
+          prompt_title: item.title?.en || item.title?.vi || id
+        }, {
+          result: "PROMPT_COPY"
+        });
+      }
       showLibraryToast(isEn ? "Prompt copied to Clipboard!" : "Đã sao chép prompt vào Clipboard!");
     });
   });
@@ -7186,6 +7260,15 @@ function renderNotebookLMPromptLibrary(category, searchQuery) {
       await copyTextToClipboard(combined);
       if (DOM.notebookLMPromptPreview) {
         DOM.notebookLMPromptPreview.value = combined;
+      }
+      if (window.SATTracker) {
+        window.SATTracker.track("NOTEBOOKLM_PROMPT_COMBINE", {
+          prompt_id: id,
+          prompt_title: item.title?.en || item.title?.vi || id
+        }, {
+          question: q,
+          result: "PROMPT_COMBINE"
+        });
       }
       showLibraryToast(isEn
         ? (q ? "Prompt combined with Question & copied to Clipboard!" : "Prompt copied to Clipboard!")
@@ -7214,6 +7297,17 @@ function openNotebookLMGuide(options = {}) {
       copyTextToClipboard(prompt);
     }
     openNotebookLMPopup();
+  }
+
+  if (window.SATTracker) {
+    window.SATTracker.track("NOTEBOOKLM_INTERACTION", {
+      action: isFromQuestion ? "QUESTION_DOCK_POPUP" : "GUIDE_VIEW",
+      auto_open: autoOpenWindow,
+      tab: initialTab
+    }, {
+      question: q,
+      result: "NOTEBOOKLM"
+    });
   }
 
   // 2. Configure modal state and content
@@ -7263,6 +7357,28 @@ async function triggerNotebookLM(questionObj) {
     isFromQuestion: true
   });
 }
+
+// ================= TELEMETRY & GOOGLE SHEETS LIVE TRACKER UI =================
+function initTelemetryUI() {
+  if (!window.SATTracker) return;
+  const currentUrl = window.SATTracker.getWebhookUrl();
+  const isEn = (App.currentLang === "en");
+
+  if (DOM.inputTelemetryWebhookUrl) {
+    DOM.inputTelemetryWebhookUrl.value = currentUrl;
+  }
+
+  if (DOM.telemetryStatusDot && DOM.telemetryStatusText) {
+    if (currentUrl) {
+      DOM.telemetryStatusDot.className = "status-indicator-dot active";
+      DOM.telemetryStatusText.textContent = isEn ? "Connected & Real-Time Syncing" : "Đã kết nối & Đồng bộ thời gian thực";
+    } else {
+      DOM.telemetryStatusDot.className = "status-indicator-dot";
+      DOM.telemetryStatusText.textContent = isEn ? "Webhook Not Connected (Tracking stored in local session)" : "Chưa kết nối Webhook (Dữ liệu ghi nhận cục bộ)";
+    }
+  }
+}
+window.initTelemetryUI = initTelemetryUI;
 
 // ================= EVENT LISTENERS =================
 function setupEventListeners() {
@@ -7397,6 +7513,9 @@ function setupEventListeners() {
     DOM.modalCalculator.classList.toggle("hidden");
     if (isHidden) {
       incrementBadgeCounter("desmos_count");
+      if (window.SATTracker) {
+        window.SATTracker.track("TOOL_USAGE", { tool: "Desmos_Calculator" }, { result: "DESMOS" });
+      }
       DOM.modalCalculator.style.zIndex = "1000";
       // Ensure calculator is positioned nicely within viewport
       const rect = DOM.modalCalculator.getBoundingClientRect();
@@ -7650,6 +7769,7 @@ function setupEventListeners() {
 
   if (DOM.btnOpenVocab) {
     DOM.btnOpenVocab.addEventListener("click", () => {
+      if (window.SATTracker) window.SATTracker.track("TOOL_USAGE", { tool: "1000_Vocab_AceSAT" }, { result: "VOCAB" });
       if (window.openAceSATVocabModal) window.openAceSATVocabModal("practice");
     });
   }
@@ -7657,6 +7777,7 @@ function setupEventListeners() {
   const btnHomeOpenVocab = document.getElementById("btn-home-open-vocab");
   if (btnHomeOpenVocab) {
     btnHomeOpenVocab.addEventListener("click", () => {
+      if (window.SATTracker) window.SATTracker.track("TOOL_USAGE", { tool: "1000_Vocab_AceSAT" }, { result: "VOCAB" });
       if (window.openAceSATVocabModal) {
         window.openAceSATVocabModal("practice");
       } else {
@@ -7781,6 +7902,66 @@ function setupEventListeners() {
       if (DOM.inputNotebookLMUrl) DOM.inputNotebookLMUrl.value = window.DEFAULT_NOTEBOOKLM_URL;
       const isEn = (App.currentLang === "en");
       alert(isEn ? "Reset to default NotebookLM URL!" : "Đã chuyển về đường link mặc định!");
+    });
+  }
+
+  // Telemetry & Google Sheets Live Sync Listeners
+  if (DOM.btnHomeOpenTelemetry) {
+    DOM.btnHomeOpenTelemetry.addEventListener("click", () => {
+      initTelemetryUI();
+      if (DOM.modalTelemetryConfig) DOM.modalTelemetryConfig.classList.remove("hidden");
+    });
+  }
+  if (DOM.btnOpenTelemetry) {
+    DOM.btnOpenTelemetry.addEventListener("click", () => {
+      initTelemetryUI();
+      if (DOM.modalTelemetryConfig) DOM.modalTelemetryConfig.classList.remove("hidden");
+    });
+  }
+  if (DOM.btnCloseTelemetryModal) {
+    DOM.btnCloseTelemetryModal.addEventListener("click", () => {
+      if (DOM.modalTelemetryConfig) DOM.modalTelemetryConfig.classList.add("hidden");
+    });
+  }
+  if (DOM.modalTelemetryConfig) {
+    DOM.modalTelemetryConfig.addEventListener("click", (e) => {
+      if (e.target === DOM.modalTelemetryConfig) {
+        DOM.modalTelemetryConfig.classList.add("hidden");
+      }
+    });
+  }
+  if (DOM.btnSaveTelemetryUrl) {
+    DOM.btnSaveTelemetryUrl.addEventListener("click", () => {
+      const url = DOM.inputTelemetryWebhookUrl ? DOM.inputTelemetryWebhookUrl.value.trim() : "";
+      const isEn = (App.currentLang === "en");
+      if (window.SATTracker) {
+        window.SATTracker.setWebhookUrl(url);
+        initTelemetryUI();
+        if (url) {
+          alert(isEn ? "✅ Saved Google Apps Script Webhook URL!" : "✅ Đã lưu đường link Webhook Google Apps Script thành công!");
+        } else {
+          alert(isEn ? "ℹ️ Webhook cleared. Tracking will be local only." : "ℹ️ Đã xóa Webhook. Tín hiệu tracking chỉ lưu cục bộ.");
+        }
+      }
+    });
+  }
+  if (DOM.btnTestTelemetryPing) {
+    DOM.btnTestTelemetryPing.addEventListener("click", async () => {
+      const url = DOM.inputTelemetryWebhookUrl ? DOM.inputTelemetryWebhookUrl.value.trim() : "";
+      const isEn = (App.currentLang === "en");
+      if (!url) {
+        alert(isEn ? "Please enter a valid Webhook URL before testing!" : "Vui lòng nhập đường link Webhook trước khi kiểm tra!");
+        return;
+      }
+      if (DOM.telemetryStatusDot) DOM.telemetryStatusDot.className = "status-indicator-dot testing";
+      if (DOM.telemetryStatusText) DOM.telemetryStatusText.textContent = isEn ? "Sending test ping..." : "Đang gửi tín hiệu test...";
+
+      if (window.SATTracker) {
+        window.SATTracker.setWebhookUrl(url);
+        const result = await window.SATTracker.testPing(url);
+        initTelemetryUI();
+        alert(result.message);
+      }
     });
   }
 
@@ -10099,6 +10280,16 @@ async function downloadConsolidatedCombinedExcel() {
       const url = window.URL.createObjectURL(blob);
       triggerBlobDownload(url, downloadFilename);
       setTimeout(() => window.URL.revokeObjectURL(url), 1500);
+
+      if (window.SATTracker) {
+        window.SATTracker.track("EXPORT_EXCEL", {
+          student_name: safeName,
+          student_email: safeEmail,
+          session_count: (App.aarLogs || []).length
+        }, {
+          result: "EXCEL_DOWNLOAD"
+        });
+      }
     } else {
       alert(isEn ? "Unable to generate consolidated report. Please try again." : "Không thể tạo file báo cáo tổng hợp. Vui lòng thử lại.");
     }
