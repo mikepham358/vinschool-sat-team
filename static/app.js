@@ -326,6 +326,12 @@ const App = {
     updated_at: null
   },
 
+  // Per-Question Telemetry Stopwatch
+  currentQuestionTimerId: null,
+  currentQuestionStartTime: null,
+  lastAttemptTime: null,
+  reflectionStartTime: null,
+
   // Badges & Micro-Credentials System
   badgesDefinitions: (window.BADGES_DEFINITIONS && window.BADGES_DEFINITIONS.length) ? window.BADGES_DEFINITIONS : [],
   badgesState: {
@@ -2120,6 +2126,16 @@ function renderCurrentQuestion() {
   App.currentQuestion = q;
   App.selectedChoice = null;
 
+  // Initialize or reset per-question stopwatch for accurate telemetry tracking
+  if (App.currentQuestionTimerId !== q.id) {
+    App.currentQuestionStartTime = Date.now();
+    App.lastAttemptTime = Date.now();
+    App.currentQuestionTimerId = q.id;
+    if (window.SATTracker && window.SATTracker.startQuestionTimer) {
+      window.SATTracker.startQuestionTimer(q.id);
+    }
+  }
+
   // Retrieve student's personal state for this question from localStorage
   const qState = App.studentState.attempts[q.id] || {
     attempts: [],
@@ -3194,7 +3210,12 @@ function checkAnswer() {
   saveLocalState();
   recordQuestionInGlobalSession(q, qState);
 
-  // Real-Time Telemetry Tracking to Google Sheet
+  // Real-Time Telemetry Tracking to Google Sheet (with exact per-attempt duration in seconds)
+  const now = Date.now();
+  const attemptDuration = Math.max(1, Math.round((now - (App.lastAttemptTime || App.currentQuestionStartTime || now)) / 1000));
+  const totalQuestionDuration = Math.max(1, Math.round((now - (App.currentQuestionStartTime || now)) / 1000));
+  App.lastAttemptTime = now;
+
   if (window.SATTracker) {
     window.SATTracker.track("ANSWER_CHECK", {
       choice: choice,
@@ -3203,10 +3224,13 @@ function checkAnswer() {
       status: qState.status,
       efficiency: qState.efficiency,
       is_grid_in: !!q.is_grid_in,
-      correct_answer: q.correct_answer
+      correct_answer: q.correct_answer,
+      attempt_duration_seconds: attemptDuration,
+      total_question_seconds: totalQuestionDuration
     }, {
       question: q,
-      result: isCorrect ? "ĐÚNG" : "CHƯA ĐÚNG"
+      result: isCorrect ? "ĐÚNG" : "CHƯA ĐÚNG",
+      duration: attemptDuration
     });
   }
 
@@ -4316,6 +4340,9 @@ function openMandatoryReflectionModal(q, qState) {
   if (DOM.inputReflNotes) DOM.inputReflNotes.value = "";
   if (DOM.inputReflVocab) DOM.inputReflVocab.value = "";
 
+  // Start stopwatch for reflection duration
+  App.reflectionStartTime = Date.now();
+
   DOM.modalMandatoryReflection.classList.remove("hidden");
 }
 
@@ -4372,6 +4399,8 @@ function saveMandatoryReflection(advanceToNext = true) {
   updateErrorBadge();
   renderErrorLogs();
 
+  const reflDuration = Math.max(1, Math.round((Date.now() - (App.reflectionStartTime || Date.now())) / 1000));
+
   if (window.SATTracker) {
     window.SATTracker.track("AAR_ERROR_LOGGED", {
       trap: trap,
@@ -4379,10 +4408,12 @@ function saveMandatoryReflection(advanceToNext = true) {
       notes: notes,
       vocab: vocab,
       wrong_attempts: newLog.wrong_attempts,
-      correct_answer: newLog.correct_answer
+      correct_answer: newLog.correct_answer,
+      reflection_duration_seconds: reflDuration
     }, {
       question: q,
-      result: `LỖI: ${trap}`
+      result: `LỖI: ${trap}`,
+      duration: reflDuration
     });
   }
 

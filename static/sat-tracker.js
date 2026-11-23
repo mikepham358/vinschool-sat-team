@@ -77,6 +77,32 @@
     }
   }
 
+  // Per-Question Stopwatch Engine
+  const questionTimers = {};
+  let currentActiveQuestionId = null;
+
+  function startQuestionTimer(qid) {
+    if (!qid) return;
+    currentActiveQuestionId = String(qid);
+    if (!questionTimers[currentActiveQuestionId]) {
+      questionTimers[currentActiveQuestionId] = {
+        start: Date.now(),
+        lastAttempt: Date.now()
+      };
+    } else {
+      questionTimers[currentActiveQuestionId].lastAttempt = Date.now();
+    }
+  }
+
+  function getQuestionDuration(qid) {
+    const id = String(qid || currentActiveQuestionId || "");
+    if (!id || !questionTimers[id]) return 0;
+    const now = Date.now();
+    const elapsed = Math.max(1, Math.round((now - (questionTimers[id].lastAttempt || questionTimers[id].start)) / 1000));
+    questionTimers[id].lastAttempt = now;
+    return elapsed;
+  }
+
   /**
    * Main telemetry track function
    * Non-blocking, failsafe, sends via sendBeacon or fetch(no-cors)
@@ -87,6 +113,16 @@
     const app = window.App || {};
     const studentState = app.studentState || {};
     const q = extra.question || app.currentQuestion || {};
+
+    let durationSeconds = 0;
+    if (typeof extra.duration === "number" && extra.duration > 0) {
+      durationSeconds = Math.round(extra.duration);
+    } else if (eventType === "ANSWER_CHECK") {
+      durationSeconds = getQuestionDuration(q.id);
+      if (!durationSeconds && app.currentQuestionStartTime) {
+        durationSeconds = Math.max(1, Math.round((Date.now() - app.currentQuestionStartTime) / 1000));
+      }
+    }
 
     const payload = {
       sheet_id: TARGET_SHEET_ID,
@@ -101,7 +137,7 @@
       event_type: eventType,
       result: extra.result || "",
       details: typeof details === "object" ? JSON.stringify(details) : String(details),
-      duration_seconds: extra.duration || 0,
+      duration_seconds: durationSeconds,
       device: getDeviceInfo()
     };
 
@@ -193,6 +229,8 @@
     getWebhookUrl: getWebhookUrl,
     setWebhookUrl: setWebhookUrl,
     getSessionId: getSessionId,
+    startQuestionTimer: startQuestionTimer,
+    getQuestionDuration: getQuestionDuration,
     TARGET_SHEET_ID: TARGET_SHEET_ID,
     TARGET_SHEET_URL: TARGET_SHEET_URL
   };
